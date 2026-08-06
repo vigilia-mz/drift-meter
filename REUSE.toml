@@ -1,0 +1,72 @@
+# Machine-readable licensing, per the REUSE specification.
+#
+# This repository holds two kinds of thing and licenses them differently.
+#
+# Apache-2.0 covers the code. CC BY 4.0 covers the prose: the three essay pages,
+# every word of screen copy, the system prompts, and the two documents that are
+# part of the artifact rather than notes about it (CHANGELOG.md, SOURCES.md).
+#
+# Applying a software licence to six thousand words of essay is semantically
+# incoherent — the patent grant, the Source/Object distinction and the NOTICE
+# mechanics have no referent in prose — and it signals "this is software" to
+# exactly the readers the essays are written for.
+#
+# CC BY rather than BY-SA or BY-NC, deliberately: share-alike would discourage
+# quotation in differently-licensed publications, and "non-commercial" would
+# block academic and commercial republication alike. Plain BY asks for
+# attribution and nothing else, which is the right ask from an author who takes
+# sole responsibility for every claim.
+
+version = 1
+SPDX-PackageName = "The Drift Meter"
+SPDX-PackageSupplier = "Megi Pishtari <https://github.com/vigilia-mz>"
+SPDX-PackageDownloadLocation = "https://github.com/vigilia-mz/drift-meter"
+
+# --- Prose: the artifact -----------------------------------------------------
+
+[[annotations]]
+path = [
+  "index.html",
+  "essay.html",
+  "atrophy.html",
+  "src/content/**",
+  "src/prompts/**",
+  "CHANGELOG.md",
+  "SOURCES.md",
+  "README.md",
+]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Megi Pishtari"
+SPDX-License-Identifier = "CC-BY-4.0"
+
+# --- Code --------------------------------------------------------------------
+
+[[annotations]]
+path = [
+  "src/**",
+  "shared/**",
+  "api/**",
+  "scripts/**",
+  "tests/**",
+  "*.json",
+  "*.ts",
+  "*.js",
+  "*.yml",
+  ".github/**",
+]
+precedence = "closest"
+SPDX-FileCopyrightText = "2026 Megi Pishtari"
+SPDX-License-Identifier = "Apache-2.0"
+
+# --- Third-party fonts -------------------------------------------------------
+#
+# Newsreader and IBM Plex ship under the SIL Open Font License. They are
+# self-hosted rather than loaded from a third party, because the consent screen
+# promises that nothing leaves the browser and a CDN font request would make that
+# false on every page load.
+
+[[annotations]]
+path = ["public/fonts/**"]
+precedence = "override"
+SPDX-FileCopyrightText = "Google LLC; IBM Corporation"
+SPDX-License-Identifier = "OFL-1.1"

@@ -1,0 +1,160 @@
+/*
+ * Design tokens.
+ *
+ * This is the only file in the repository where a colour literal may appear.
+ * Everything above this layer refers to a role, never a hex — see CLAUDE.md.
+ *
+ * Two palettes, deliberately. The prose pages sit on #F0EEE6; the instrument
+ * sits on #ECE8DE, a half-step warmer. They read as the same paper and they are
+ * not the same paper. Unifying them would be a design change wearing a
+ * refactor's clothes, so they are namespaced --prose-* and --dm-* and share only
+ * the semantic accents below.
+ */
+
+:root {
+  /* ---------------------------------------------------------------------------
+   * Shared: the accent family. These carry meaning in both surfaces.
+   * ------------------------------------------------------------------------- */
+
+  /* Green — the primary accent. Assisted condition, calls to action, selection. */
+  --green: #2e5e4f;
+  --green-deep: #234b3e; /* hover, italic key columns */
+  --green-pale: #7fa694; /* eyebrows on dark panels */
+  --green-border: #b7c5bc; /* ghost-button border */
+  --green-rule: #c2d6cb; /* underline beneath inline links */
+
+  /* Blue — the unassisted control condition, and "caught the planted error". */
+  --blue: #3c5a74;
+  --blue-bar: #6e93a6; /* the control series in the paired-bar readout */
+
+  /* Orange — Round 3, the transfer check, the encoded screen, flags. */
+  --orange: #7a4e2d;
+  --orange-panel: #f4eae3; /* warm panel behind a supplied estimate */
+  --orange-rule: #dfcfc2;
+
+  /* Status. */
+  --red: #8c3a2b; /* flagged sources, cut items */
+  --red-on-dark: #c97b62;
+  --pass: #7fa694;
+  --fail: #c97b62;
+
+  /* ---------------------------------------------------------------------------
+   * Prose pages: index.html, essay.html, atrophy.html
+   * ------------------------------------------------------------------------- */
+
+  --prose-bg: #f0eee6;
+  --prose-ink: #1a1916; /* essay body default */
+  --prose-ink-index: #141413; /* the landing page runs a shade darker */
+  --prose-ink-article: #221f1b; /* long-form paragraphs */
+  --prose-ink-essay: #25241f; /* p.essay on the landing page */
+  --prose-ink-body: #2e2d27; /* sans body copy */
+  --prose-ink-strong: #1a1916;
+
+  --prose-muted: #6b6358; /* muted TEXT — see the contrast note below */
+  --prose-muted-soft: #8c8472; /* eyebrows, back links, spec labels */
+  --prose-decor: #a39a88; /* NON-TEXT only: dots, hairlines, decoration */
+  --prose-legend: #6b675e;
+  --prose-desc: #6b6358;
+  --prose-closer: #4a4640;
+
+  --prose-rule: #dcd7c9; /* section and footer hairlines */
+  --prose-rule-soft: #e2ddd0; /* specimen border, index row rules */
+  --prose-card: #f7f5ee; /* the specimen card */
+  --prose-track: #e6e1d4; /* bar track */
+  --prose-sep: #b9b2a1; /* the · · · section break */
+  --prose-on-accent: #fbfaf7; /* text on a green button */
+  --prose-series-ink: #2e2e2b; /* "without assistance" series */
+
+  /* ---------------------------------------------------------------------------
+   * The instrument: drift-meter.html
+   * ------------------------------------------------------------------------- */
+
+  --dm-bg: #ece8de;
+  --dm-ink: #1f1b16; /* ink, and the dark panel's background */
+  --dm-ink-serif: #2a251f;
+  --dm-ink-body: #3a352d;
+  --dm-ink-tertiary: #4a443b;
+
+  --dm-card: #fbfaf6;
+  --dm-card-rule: #ddd7c9;
+  --dm-rule: #d8d2c4; /* rules, slider track, control borders */
+  --dm-rule-dashed: #cfc8b9;
+  --dm-track: #e4dfd3;
+  --dm-track-alt: #dad4c6; /* second stripe of the hatched "undefined" bar */
+
+  --dm-muted: #6b6358; /* muted TEXT — see the contrast note below */
+  --dm-muted-soft: #8a8173;
+  --dm-decor: #a39a8b; /* NON-TEXT only */
+  --dm-decor-alt: #9a9081; /* NON-TEXT only */
+
+  --dm-on-dark: #f6f4ee;
+  --dm-on-dark-soft: #c7bfb0;
+  --dm-on-dark-rule: #3a352d;
+  --dm-on-dark-eyebrow: var(--green-pale);
+  --dm-dark-hover: #34302a;
+
+  /* The assisted card's accent is the one value exposed as a run parameter.
+   * Only that card reads it; the round kicker and the live-readout bars stay
+   * fixed. That partial recolour is reproduced from the original on purpose. */
+  --dm-accent-assisted: var(--green);
+
+  /* ---------------------------------------------------------------------------
+   * Type
+   * ------------------------------------------------------------------------- */
+
+  /* Newsreader ships as a variable font whose registered family name carries the
+   * "Variable" suffix. The static name is kept as a fallback so a hand-installed
+   * copy still resolves. */
+  --font-serif: 'Newsreader Variable', 'Newsreader', Georgia, serif;
+  --font-sans: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', ui-monospace, monospace;
+
+  /* Measure caps. The original set these per element; they are named here so a
+   * new screen inherits the same rhythm instead of inventing one. */
+  --measure-spine: 22ch;
+  --measure-essay: 40ch;
+  --measure-body: 54ch;
+  --measure-desc: 58ch;
+  --measure-instrument: 62ch;
+}
+
+/*
+ * Accent roles.
+ *
+ * Domain code returns one of these names and never a colour, which is what lets
+ * the accent logic be unit-tested with no DOM. Everything beneath a marked
+ * element reads var(--accent).
+ */
+[data-accent='assisted'] {
+  --accent: var(--dm-accent-assisted);
+}
+[data-accent='unassisted'] {
+  --accent: var(--blue);
+}
+[data-accent='round3'] {
+  --accent: var(--orange);
+}
+[data-accent='caught'] {
+  --accent: var(--blue);
+}
+[data-accent='declined'] {
+  --accent: var(--orange);
+}
+[data-accent='neutral'] {
+  --accent: var(--green);
+}
+
+/*
+ * Contrast.
+ *
+ * The original used #A39A8B and #9A9081 for 11–12px captions, kickers, footers
+ * and the "Supplied value" notes. Measured against their own backgrounds those
+ * are 2.27:1 and 2.57:1 — well under the 4.5:1 needed for body text, and this is
+ * real text rather than decoration.
+ *
+ * The fix stays inside the author's own palette: #6B6358, already in use for
+ * muted body copy, measures 4.76:1 on #ECE8DE. It is promoted to the muted-text
+ * role above, and the original values are kept for non-text use only. This is a
+ * visible change to caption colour, recorded in CHANGELOG.md, and it is a
+ * one-token revert if the author disagrees.
+ */
