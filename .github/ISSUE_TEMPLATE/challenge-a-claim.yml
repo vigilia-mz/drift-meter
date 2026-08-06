@@ -1,6 +1,6 @@
 name: Challenge a claim
 description: Something on the site is wrong, overclaimed, or unsupported. This is the most useful thing you can file here.
-labels: ["claim"]
+labels: ['claim']
 body:
   - type: markdown
     attributes:

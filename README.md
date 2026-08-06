@@ -5,7 +5,7 @@ Program, by Megi Pishtari.
 
 The Drift Meter asks what AI assistance changes in the person responsible for judging the answer:
 their attention, confidence, assumptions, tolerance for ambiguity, and willingness to revise. The
-underlying concept is *agential drift* — the gradual weakening of evaluative independence through
+underlying concept is _agential drift_ — the gradual weakening of evaluative independence through
 small, reasonable acts of delegation.
 
 **Status: prototype. n = 0.** No data has been collected from anyone. This is an instrument and a
@@ -16,11 +16,11 @@ version by version. Until that lands, the published copy is not yet served from 
 
 ## What will be here
 
-| Page | What it is |
-|---|---|
-| `index.html` | Landing page — what the instrument measures and why. |
-| `essay.html` | *Evaluating the Evaluator* — the short companion essay. |
-| `atrophy.html` | *The Atrophy of Judgment* — the long essay. |
+| Page               | What it is                                                                                                                                                                      |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `index.html`       | Landing page — what the instrument measures and why.                                                                                                                            |
+| `essay.html`       | _Evaluating the Evaluator_ — the short companion essay.                                                                                                                         |
+| `atrophy.html`     | _The Atrophy of Judgment_ — the long essay.                                                                                                                                     |
 | `drift-meter.html` | The instrument. Two slates of charity cost-effectiveness cases, completed with and without a supplied estimate, then a debrief on what changed in the texture of your judgment. |
 
 Two documents will be part of the artifact rather than notes about it: `CHANGELOG.md`, recording what

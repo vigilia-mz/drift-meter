@@ -1,0 +1,15 @@
+dist/
+coverage/
+node_modules/
+package-lock.json
+public/fonts/
+*.snap
+
+# The prose pages are finished documents and the writing is the artifact.
+# Prettier reflows text nodes inside elements, which would rewrite the author's
+# line breaks on every save. Rendering is unaffected by that, but "the prose is
+# carried over verbatim" should be literally true and checkable in a diff, so
+# these files are formatted by hand.
+index.html
+essay.html
+atrophy.html

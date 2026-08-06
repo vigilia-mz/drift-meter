@@ -19,18 +19,18 @@ are nine. This repository exists to make that class of error hard rather than ea
 
 ## Files
 
-| Path | What it is |
-|---|---|
-| `index.html`, `essay.html`, `atrophy.html` | The three prose pages. Hand-authored, no JavaScript. |
-| `drift-meter.html` | The instrument's entry point. Mounts the app; carries no content of its own. |
-| `src/content/` | Every word of screen copy and every case table, as typed modules. |
-| `src/domain/` | The pure functions. No DOM, no framework, fully unit-tested. |
-| `src/state/` | The reducer and the screen/run unions. |
-| `src/prompts/` | The three system prompts, as Markdown. Licensed CC BY 4.0. |
-| `api/reflect.ts` | The endpoint that holds the Anthropic API key. Never reaches the browser. |
-| `shared/` | Types and constants imported by both the endpoint and the front end. |
-| `CHANGELOG.md` | Versioned record of what changed and why. Retractions stay in. |
-| `SOURCES.md` | Every external claim, its source, and its clearance status. |
+| Path                                       | What it is                                                                   |
+| ------------------------------------------ | ---------------------------------------------------------------------------- |
+| `index.html`, `essay.html`, `atrophy.html` | The three prose pages. Hand-authored, no JavaScript.                         |
+| `drift-meter.html`                         | The instrument's entry point. Mounts the app; carries no content of its own. |
+| `src/content/`                             | Every word of screen copy and every case table, as typed modules.            |
+| `src/domain/`                              | The pure functions. No DOM, no framework, fully unit-tested.                 |
+| `src/state/`                               | The reducer and the screen/run unions.                                       |
+| `src/prompts/`                             | The three system prompts, as Markdown. Licensed CC BY 4.0.                   |
+| `api/reflect.ts`                           | The endpoint that holds the Anthropic API key. Never reaches the browser.    |
+| `shared/`                                  | Types and constants imported by both the endpoint and the front end.         |
+| `CHANGELOG.md`                             | Versioned record of what changed and why. Retractions stay in.               |
+| `SOURCES.md`                               | Every external claim, its source, and its clearance status.                  |
 
 ## Hard rules
 
@@ -51,7 +51,7 @@ The instrument contains a model, so results are comparable only within a pinned 
 carry that guarantee, and both matter:
 
 - `PINNED_MODEL` in `shared/model.ts` holds one exact model ID. Current-generation Claude IDs carry
-  no date suffix — `claude-opus-5` *is* the exact ID, and appending a date produces a 404. So the
+  no date suffix — `claude-opus-5` _is_ the exact ID, and appending a date produces a 404. So the
   discipline is no longer "use a dated ID"; it is "change this constant deliberately and never
   incidentally."
 - The ID the API returns is printed in the UI alongside every response. That printed value is the
