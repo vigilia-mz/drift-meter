@@ -23,3 +23,14 @@ updates:
     groups:
       dev-dependencies:
         dependency-type: development
+    ignore:
+      # typescript-eslint declares a peer range of >=4.8.4 <6.1.0. Taking
+      # TypeScript 7 would mean linting without type information, which would
+      # disable the four rules that encode CLAUDE.md: the model-pin confinement,
+      # the Math.random ban, the API-key ban, and no-magic-numbers on the derived
+      # measures. Those are worth more than a newer compiler.
+      #
+      # Remove this entry when typescript-eslint widens its peer range, and take
+      # both packages up together.
+      - dependency-name: typescript
+        update-types: ['version-update:semver-major']
