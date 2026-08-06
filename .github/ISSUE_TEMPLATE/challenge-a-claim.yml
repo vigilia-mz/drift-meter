@@ -1,0 +1,53 @@
+name: Challenge a claim
+description: Something on the site is wrong, overclaimed, or unsupported. This is the most useful thing you can file here.
+labels: ["claim"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The single most valuable input this project has received was an outside reader pointing out
+        that v0.2 could not distinguish "AI degrades judgment" from "handed answers degrade
+        judgment." That was fatal to the claim and not hard to fix, which was the uncomfortable part.
+
+        Corrections are logged in `CHANGELOG.md` whether or not they are flattering.
+
+  - type: input
+    id: where
+    attributes:
+      label: Which claim or screen
+      description: The specific sentence, figure, measure, or screen. Quote it if you can.
+      placeholder: 'Reveal screen — "Confidence ran ahead of engagement."'
+    validations:
+      required: true
+
+  - type: textarea
+    id: what
+    attributes:
+      label: What you think is wrong
+      description: The reasoning, not just the verdict. If the claim is defensible but stated too strongly, say that — overclaiming is the failure mode this project is most exposed to.
+    validations:
+      required: true
+
+  - type: textarea
+    id: falsifier
+    attributes:
+      label: What would change your mind, or mine
+      description: The measurement, evidence, or argument that would settle it. This is the part that makes a disagreement resolvable rather than a standoff.
+    validations:
+      required: true
+
+  - type: textarea
+    id: source
+    attributes:
+      label: Source, if you have one
+      description: Primary if possible. If you have none, say so — a flagged uncertainty is still useful, and `SOURCES.md` has a grade for exactly that.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: acknowledgement
+    attributes:
+      label: Attribution
+      options:
+        - label: I am happy to be named in the changelog if this leads to a correction.
+          required: false

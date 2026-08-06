@@ -1,0 +1,163 @@
+# CLAUDE.md
+
+Guidance for Claude Code when working in this repository.
+
+## What this is
+
+The Drift Meter — Experiment 01 of the Agential Drift Research Program. A published research
+artifact: three hand-written essay pages, one interactive instrument, and one serverless endpoint
+that calls Claude. Sole author: Megi Pishtari.
+
+This is a rebuild. Versions v0.1 through v0.5 lived in a separate repository that has since been
+deleted; `CHANGELOG.md` carries that record forward and is the only surviving account of it. The
+rebuild is v0.6.
+
+The previous build shipped the instrument as a single 894 KB bundler output with no editable source
+on disk, and had no tests, no CI, no types, and no linting. It also shipped, and later fixed, an
+arithmetic error in a published derived measure: evaluative range divided by six sliders when there
+are nine. This repository exists to make that class of error hard rather than easy.
+
+## Files
+
+| Path | What it is |
+|---|---|
+| `index.html`, `essay.html`, `atrophy.html` | The three prose pages. Hand-authored, no JavaScript. |
+| `drift-meter.html` | The instrument's entry point. Mounts the app; carries no content of its own. |
+| `src/content/` | Every word of screen copy and every case table, as typed modules. |
+| `src/domain/` | The pure functions. No DOM, no framework, fully unit-tested. |
+| `src/state/` | The reducer and the screen/run unions. |
+| `src/prompts/` | The three system prompts, as Markdown. Licensed CC BY 4.0. |
+| `api/reflect.ts` | The endpoint that holds the Anthropic API key. Never reaches the browser. |
+| `shared/` | Types and constants imported by both the endpoint and the front end. |
+| `CHANGELOG.md` | Versioned record of what changed and why. Retractions stay in. |
+| `SOURCES.md` | Every external claim, its source, and its clearance status. |
+
+## Hard rules
+
+**1. There is no generated artifact. Every file here is hand-written source.**
+Do not commit build output, and do not introduce a step that produces a file which is then edited by
+hand. `dist/` is gitignored and is rebuilt from source on every deploy. The previous build's central
+defect was a committed bundle whose source did not exist anywhere; if you find yourself editing
+something a tool produced, stop and fix the tool's input instead.
+
+**2. The API key never touches the browser.**
+`api/reflect.ts` reads the key from its host's environment, server-side. Do not introduce a code path
+that puts a key, or anything derived from one, into an HTML file, a client bundle, or `import.meta.env`.
+`VITE_*` variables are compiled into the client and are therefore public by construction — the
+endpoint URL belongs there, the key never does.
+
+**3. The model is pinned, and a model change is a re-baseline rather than maintenance.**
+The instrument contains a model, so results are comparable only within a pinned version. Two things
+carry that guarantee, and both matter:
+
+- `PINNED_MODEL` in `shared/model.ts` holds one exact model ID. Current-generation Claude IDs carry
+  no date suffix — `claude-opus-5` *is* the exact ID, and appending a date produces a 404. So the
+  discipline is no longer "use a dated ID"; it is "change this constant deliberately and never
+  incidentally."
+- The ID the API returns is printed in the UI alongside every response. That printed value is the
+  actual provenance record — it is the one row in `SOURCES.md` graded `PRIMARY`, on the grounds that
+  it is the only claim on the page that verifies itself. Keep it.
+
+Do not upgrade the model as routine maintenance or as part of an unrelated change. An upgrade is a
+re-baseline: it makes rubric pass rates and any future cohort figures incomparable to earlier runs,
+and it belongs in `CHANGELOG.md` said in those words.
+
+**4. The endpoint answers from a fixed question list, and the one free-text channel is signed.**
+`TEACH_QUESTIONS` is the complete set of questions the endpoint will answer; the client sends
+`questionId`, never text. `sanitizeReflect` rebuilds the reflect payload from a known key list,
+coercing every value to a bounded number or a fixed label. Both exist so the function is not an open
+proxy to the API key — the origin check alone does not stop a forged header.
+
+`repair` mode is the exception and must stay the only one: it takes back an answer the endpoint
+itself produced. It is therefore authenticated rather than trusted — `teach` returns an HMAC of the
+answer it generated, and `repair` recomputes and compares in constant time before spending a call.
+Preserve that shape, along with the rate limits, `MAX_BODY_BYTES`, and `ALLOWED_ORIGINS`.
+
+Never add a released or unowned domain to `ALLOWED_ORIGINS`. A previous version allowlisted a GitHub
+username the author no longer held, which anyone could have re-registered and pointed at this
+endpoint.
+
+**5. Factual changes carry paperwork.**
+This project's argument is about unearned confidence, so its own claims are tracked. If a change
+touches an external claim, a figure, or a source, update `SOURCES.md` in the same pass (rows are
+`FLAGGED` / `SECONDARY` / `PRIMARY AVAILABLE` / `PRIMARY` / `CORRECTED`). If it changes what the site
+asserts, or removes something previously published, add a `CHANGELOG.md` entry with **What changed**
+and **Why**. Errors get recorded, not deleted.
+
+**6. Do not invent numbers.**
+No illustrative-but-unlabelled figures, no cohort data, no placeholder statistics. A prior version
+shipped an invented cohort dashboard and it was retracted (v0.2). Anything illustrative must say so
+on the page.
+
+**7. Derived measures require a test.**
+Any function that produces a number appearing on screen, or in the reflect payload, has a Vitest case.
+Any denominator is derived from the same source as the thing being counted — never written as a
+literal. `src/domain/metrics.ts` computes its slider count from the slate rather than hard-coding
+nine, and the suite runs the same assertions against synthetic slates of other shapes so a
+re-introduced literal fails immediately. This rule exists because of the ÷6-versus-÷9 bug: it was
+caught by a reader, not by the code, and it should not have been possible to ship.
+
+**8. The prompts are the artifact, not implementation detail.**
+`src/prompts/teach-system.md` is displayed in full on the page and is the thing the encoded screen
+puts under test. Do not re-tune it to suit a new model or to improve its rubric score — that is
+editing the experiment to flatter the result. If a prompt genuinely needs to change, that is a
+content change under rule 5.
+
+## Conventions
+
+**The three prose pages carry no JavaScript.** They are finished documents. `vite.config.ts` lists
+them as entries with no script tag, so the build emits no JS chunk for them, and an end-to-end test
+asserts they issue zero `.js` requests. Keep that property — it is the reason a reader can have the
+essays with scripting disabled.
+
+**Two palettes, deliberately.** The prose pages are `#F0EEE6` on `#1A1916`; the instrument is
+`#ECE8DE` on `#1F1B16`. They read as the same paper and are not the same hex. Tokens are namespaced
+`--prose-*` and `--dm-*` in `src/styles/tokens.css`, sharing only the semantic accent roles. Do not
+unify them.
+
+**Colours are roles, not hexes, above the token layer.** The assisted, unassisted and Round 3 accents
+(`#2E5E4F`, `#3C5A74`, `#7A4E2D`) are selected by a `data-accent` attribute that rebinds one custom
+property. Domain code returns a role name; it never returns a colour. Hex literals live only in
+`tokens.css`.
+
+**Fonts are self-hosted.** Newsreader, IBM Plex Sans and IBM Plex Mono ship from `public/fonts/`. This
+is not a performance preference: the consent screen tells the reader "no cookie, no analytics, no
+fingerprint" and "Leaves the browser: nothing," and a third-party font request would make both false.
+
+**Content lives in typed modules, and its wording is snapshot-tested.** `src/content/` holds the prose
+as `as const` records so the compiler can check exhaustiveness. A snapshot test makes any edit to the
+author's words appear as a reviewable diff, and an invariants test asserts structural facts including
+that no prose field contains a straight quote — the writing uses typographic quotes throughout.
+
+**Randomisation is injected, and disclosed.** `Math.random` is banned outside `src/platform/rng.ts`.
+Assignment takes an `Rng`, so it is deterministic under test and drivable from URL parameters for
+demonstrations. When a parameter forces an assignment, the debrief says so on the page instead of
+claiming the run was counterbalanced. An instrument about unearned confidence cannot misreport its
+own randomisation.
+
+## Voice
+
+Plain, unhurried, understated. No hype, no flattery, no exclamation points, no marketing register.
+The writing states its own limits rather than hiding them ("It is a trace, not a finding"). Match this
+in any prose added to the site — including microcopy, error messages, and commit subjects.
+
+## Running and deploying
+
+- **Locally:** `npm install`, then `npm run dev`. `npm test` runs the unit suite; `npm run build`
+  produces `dist/`.
+- **Publishing:** GitHub Actions builds `dist/` and deploys it to GitHub Pages on every push to
+  `main`. `https://vigilia-mz.github.io/drift-meter/` is the canonical URL and the only live copy.
+  Two live copies of a research artifact is a citation problem; do not create a second one.
+- **Actions must be SHA-pinned.** The repository requires it. Dependabot is configured for the
+  `github-actions` ecosystem because pinning without automated bumps rots into old actions with known
+  vulnerabilities.
+- **`main` is protected.** There is no push to `main`, for anyone, including the owner. All work lands
+  through a pull request, merged with a merge commit — squash and rebase are both disallowed, so PR
+  titles become the permanent history. Write them as changelog lines.
+- **The live-Claude endpoint is off by default.** `VITE_REFLECT_ENDPOINT` is empty in the committed
+  `.env`, and the instrument degrades to its "available on request" copy. Every clone and fork is
+  therefore dark and cannot spend the author's API credit. Turning it on is a one-line change with its
+  own commit; treat that commit as going live.
+- **Cost:** the endpoint's in-process rate limiters are best-effort — instances are short-lived and
+  parallel. The real guarantees are the Anthropic console spend limit and the per-workspace rate
+  limits on the key the endpoint uses. Both live outside this repository.

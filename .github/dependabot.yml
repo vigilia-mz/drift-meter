@@ -1,0 +1,25 @@
+version: 2
+
+updates:
+  # The repository requires actions to be pinned to a full commit SHA. Pinning
+  # without automated bumps rots into old actions with known vulnerabilities, so
+  # this ecosystem is load-bearing rather than optional: Dependabot understands
+  # SHA pins and updates them, keeping the readable version in a trailing comment.
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+    commit-message:
+      prefix: "ci"
+
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "deps"
+      prefix-development: "deps-dev"
+    groups:
+      dev-dependencies:
+        dependency-type: development
