@@ -89,6 +89,9 @@ export default tseslint.config(
         {
           ignore: [0, 1, 100],
           ignoreArrayIndexes: true,
+          // The Confidence union is `0 | 1 | 2 | 3 | 4 | 5`. Numbers in a type
+          // position are documentation, not arithmetic.
+          ignoreNumericLiteralTypes: true,
           enforceConst: true,
           detectObjects: false,
         },
