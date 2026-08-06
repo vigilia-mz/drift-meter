@@ -5,6 +5,14 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
   plugins: [preact()],
+  // The site is published at https://vigilia-mz.github.io/drift-meter/, so every
+  // asset URL is rewritten under this prefix. It is set here rather than injected
+  // by actions/configure-pages at build time, so the base path is visible in the
+  // repository instead of being a property of the CI environment.
+  //
+  // A custom domain would remove the prefix — see the open issue. If one is
+  // added, this becomes '/'.
+  base: '/drift-meter/',
   build: {
     target: 'es2022',
     // The prose pages ship no JavaScript, so there is nothing to preload for
