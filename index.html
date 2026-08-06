@@ -1,75 +1,114 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>The Drift Meter — Megi Pishtari</title>
-    <meta
-      name="description"
-      content="An experiment in evaluating the evaluator under AI assistance. Part of a research and editorial project on AI, oversight, and the fate of human judgment."
-    />
-    <style>
-      /* Placeholder. The design system and the real landing page land in the
-         next PR but one; this exists so the build and the deploy can be proved
-         on something real before there is any content to lose. */
-      * {
-        box-sizing: border-box;
-      }
-      html,
-      body {
-        margin: 0;
-        padding: 0;
-      }
-      body {
-        background: #f0eee6;
-        color: #141413;
-        font-family: system-ui, sans-serif;
-        line-height: 1.5;
-      }
-      .wrap {
-        max-width: 720px;
-        margin: 0 auto;
-        padding: 96px 32px 88px;
-      }
-      .kicker {
-        font-family: ui-monospace, monospace;
-        font-size: 12px;
-        letter-spacing: 0.14em;
-        text-transform: uppercase;
-        color: #a39a88;
-        margin-bottom: 32px;
-      }
-      h1 {
-        font-weight: 500;
-        font-size: 44px;
-        line-height: 1.05;
-        letter-spacing: -0.02em;
-        margin: 0 0 18px;
-      }
-      p {
-        max-width: 54ch;
-        color: #2e2d27;
-      }
-      .note {
-        font-family: ui-monospace, monospace;
-        font-size: 12px;
-        line-height: 1.7;
-        color: #8c8472;
-        margin-top: 48px;
-        padding-top: 24px;
-        border-top: 1px solid #dcd7c9;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="wrap">
-      <div class="kicker">Agential Drift Research Program &nbsp;·&nbsp; Experiment 01</div>
-      <h1>The Drift Meter</h1>
-      <p>Evaluating the evaluator under AI assistance.</p>
-      <p class="note">
-        This site is being rebuilt. Working prototype. n&nbsp;=&nbsp;0: no data has been collected. It is an instrument
-        and a design argument, not a finding.
-      </p>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Drift Meter — Megi Pishtari</title>
+<meta name="description" content="An experiment in evaluating the evaluator under AI assistance. Part of a research and editorial project on AI, oversight, and the fate of human judgment.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://vigilia-mz.github.io/drift-meter/">
+<meta property="og:site_name" content="Agential Drift Research Program">
+<meta property="og:title" content="The Drift Meter — Evaluating the Evaluator under AI assistance">
+<meta property="og:description" content="An interactive instrument and two essays on agential drift: what AI assistance changes in the person responsible for judging the answer.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="The Drift Meter — Evaluating the Evaluator under AI assistance">
+<meta name="twitter:description" content="An interactive instrument and two essays on agential drift and the fate of human judgment.">
+<link rel="stylesheet" href="/src/styles/prose.css">
+</head>
+<body class="page-index">
+  <div class="wrap">
+    <div class="kicker">Agential Drift Research Program &nbsp;&middot;&nbsp; Experiment 01</div>
+    <h1>The Drift Meter</h1>
+    <p class="spine">Evaluating the evaluator under AI assistance</p>
+
+    <p class="hero">The Drift Meter is an experiment in evaluating the evaluator. It does not ask only whether AI improves an answer. It asks what AI assistance changes in the person responsible for judging the answer: their attention, confidence, assumptions, tolerance for ambiguity, and willingness to revise.</p>
+    <p class="hero">The underlying concept is <span class="term">agential drift</span>: the gradual weakening of evaluative independence through small, reasonable acts of delegation.</p>
+
+    <div class="launch-row">
+      <a class="cta" href="drift-meter.html">Launch the Drift Meter &rarr;</a>
+      <div class="meta">3-minute interactive prototype<br>runs entirely in your browser · nothing is sent or stored</div>
     </div>
-  </body>
+    <p class="note-line">Or read the companion essay: <a class="essaylink" href="essay.html">Evaluating the Evaluator &rarr;</a></p>
+
+    <!-- a glimpse of the readout -->
+    <div class="specimen">
+      <div class="spec-head">
+        <div class="spec-label">A glimpse of the readout</div>
+        <div class="legend">
+          <span><i class="dot ink"></i> Without assistance</span>
+          <span><i class="dot coral"></i> With assistance</span>
+        </div>
+      </div>
+
+      <div class="dim">
+        <div class="dim-name">Assumptions interrogated</div>
+        <div class="bar-track"><div class="bar ink" style="width:84%"></div></div>
+        <div class="bar-track"><div class="bar coral" style="width:43%"></div></div>
+      </div>
+      <div class="dim">
+        <div class="dim-name">Evidence opened and read</div>
+        <div class="bar-track"><div class="bar ink" style="width:71%"></div></div>
+        <div class="bar-track"><div class="bar coral" style="width:39%"></div></div>
+      </div>
+      <div class="dim">
+        <div class="dim-name">Framing accepted as given</div>
+        <div class="bar-track"><div class="bar ink" style="width:31%"></div></div>
+        <div class="bar-track"><div class="bar coral" style="width:72%"></div></div>
+      </div>
+
+      <p class="spec-caption">Illustrative. Your own readout is generated from how you actually work through the review &mdash; not from whether your answer was &ldquo;right.&rdquo;</p>
+    </div>
+
+    <!-- what it measures -->
+    <section>
+      <div class="eyebrow">What it measures</div>
+      <p class="measure"><strong>Framing autonomy, ambiguity tolerance, evidence engagement, revision behavior, and confidence calibration</strong> &mdash; the same review completed in two conditions, once with AI assistance and once without it.</p>
+    </section>
+
+    <!-- why it matters — the essay -->
+    <section>
+      <div class="eyebrow">Why it matters</div>
+      <p class="essay">As AI systems become more capable, the human role often moves upstream: from execution to framing, monitoring, approval, and responsibility. That makes human judgment more important, not less. But it also makes judgment harder to evaluate.</p>
+      <p class="essay">A person may receive a better output while becoming less able to explain, challenge, or independently reconstruct the reasoning behind it. They may feel more confident while their evaluative range narrows. They may approve work without seeing what has changed.</p>
+      <p class="essay">The Drift Meter begins from that tension. It treats oversight as a human capacity, not only a governance process.</p>
+    </section>
+
+    <!-- larger project -->
+    <section>
+      <div class="eyebrow">The larger project</div>
+      <p class="body">At the institutional level, the question becomes one of <strong>evaluator integrity</strong> &mdash; structural, not moral: the intact capacity to frame, question, reject, revise, and take responsibility for AI-assisted work. The goal is not to discourage AI use. It is to help people and institutions adopt AI without quietly outsourcing the capacities they still need most.</p>
+    </section>
+
+    <!-- a note on method -->
+    <section>
+      <div class="eyebrow">A note on method</div>
+      <p class="body">This is a prototype, and it is built to claim only what it can observe. It does not score whether your decisions were right. It has not been run at scale, so it reports no cohort findings &mdash; an earlier version showed an invented cohort dashboard, and I removed it, because a piece about the costs of unearned confidence should not manufacture its own. What remains is a trace of one person&rsquo;s judgment across one short task, and the questions that trace raises.</p>
+    </section>
+
+    <!-- in this project -->
+    <section>
+      <div class="eyebrow">In this project</div>
+      <div class="index">
+        <a class="idx-item" href="drift-meter.html">
+          <div class="idx-title">The Drift Meter &rarr;</div>
+          <div class="idx-desc">An interactive instrument. Complete the same charity cost-effectiveness review with and without AI assistance, and see what changed in the texture of your judgment.</div>
+        </a>
+        <a class="idx-item" href="essay.html">
+          <div class="idx-title">Evaluating the Evaluator &rarr;</div>
+          <div class="idx-desc">A short companion essay on agential drift and what the prototype is built to make visible.</div>
+        </a>
+        <a class="idx-item" href="atrophy.html">
+          <div class="idx-title">The Atrophy of Judgment &rarr;</div>
+          <div class="idx-desc">The full essay on AI assistance, oversight, and the human capacities responsible use depends on.</div>
+        </a>
+      </div>
+      <p class="series-note">Experiment 01 of the Agential Drift Research Program &mdash; a planned series of instruments and essays on how AI reshapes human judgment.</p>
+    </section>
+
+    <div class="foot">
+      Built by Megi Pishtari as part of a larger research and editorial project on AI, oversight, and the fate of human judgment. Built with Claude; the assistant's contributions are scripted in this shared version for portability, and a live-Claude version can be demonstrated on request.<br>
+      <a href="https://github.com/vigilia-mz">github.com/vigilia-mz</a>
+    </div>
+  </div>
+</body>
 </html>

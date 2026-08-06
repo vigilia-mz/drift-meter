@@ -1,0 +1,682 @@
+/*
+ * The three prose pages: index.html, essay.html, atrophy.html.
+ *
+ * Previously each page carried its own inline <style> block and the old guidance
+ * said not to factor out a shared stylesheet. That rule existed because there was
+ * no build step, and it is now the opposite of correct: three copies of the same
+ * tokens drifted apart, and one of them is how the contrast problem went unnoticed.
+ *
+ * Values are ported literally. Where the three pages genuinely differed — measure,
+ * heading size, leading, footer spacing — the difference is preserved under a
+ * body.page-* class rather than averaged away.
+ *
+ * These pages ship no JavaScript. Fonts are self-hosted: the consent screen
+ * promises that nothing leaves the browser, and a third-party font request would
+ * make that false on every page load.
+ */
+
+@import './fonts.css';
+@import './tokens.css';
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--prose-bg);
+  color: var(--prose-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+}
+
+body.page-index {
+  color: var(--prose-ink-index);
+}
+
+::selection {
+  background: var(--green);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------------
+ * Shell
+ * ------------------------------------------------------------------------- */
+
+.wrap {
+  margin: 0 auto;
+}
+
+body.page-index .wrap {
+  max-width: 720px;
+  padding: 96px 32px 88px;
+}
+
+body.page-essay .wrap {
+  max-width: 660px;
+  padding: 88px 32px 96px;
+}
+
+body.page-atrophy .wrap {
+  max-width: 668px;
+  padding: 88px 32px 96px;
+}
+
+.topline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 56px;
+}
+
+.kicker {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--prose-muted);
+}
+
+body.page-index .kicker {
+  margin-bottom: 32px;
+}
+
+.back {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--prose-muted-soft);
+  text-decoration: none;
+}
+
+.back:hover {
+  color: var(--green);
+}
+
+/* ---------------------------------------------------------------------------
+ * Headings and standfirsts
+ * ------------------------------------------------------------------------- */
+
+h1 {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+body.page-index h1 {
+  font-size: 56px;
+  line-height: 1.02;
+  margin: 0 0 18px;
+}
+
+body.page-essay h1 {
+  font-size: 50px;
+  line-height: 1.05;
+  margin: 0 0 24px;
+}
+
+body.page-atrophy h1 {
+  font-size: 52px;
+  line-height: 1.04;
+  margin: 0 0 18px;
+}
+
+/* The landing page's one-line thesis. */
+.spine {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-style: italic;
+  font-size: 30px;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  color: var(--green);
+  margin: 0 0 32px;
+  max-width: var(--measure-spine);
+}
+
+.standfirst {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 25px;
+  line-height: 1.4;
+  color: var(--green);
+  margin: 0 0 28px;
+}
+
+.byline {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--prose-muted-soft);
+  border-bottom: 1px solid var(--prose-rule);
+}
+
+body.page-essay .byline {
+  margin: 0 0 8px;
+  padding-bottom: 36px;
+}
+
+body.page-atrophy .byline {
+  margin: 0;
+  padding-bottom: 40px;
+}
+
+/* ---------------------------------------------------------------------------
+ * Long-form article body
+ * ------------------------------------------------------------------------- */
+
+body.page-essay article {
+  margin-top: 40px;
+}
+
+body.page-atrophy article {
+  margin-top: 46px;
+}
+
+article p {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  color: var(--prose-ink-article);
+  margin: 0 0 26px;
+  text-align: justify;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+body.page-essay article p {
+  line-height: 1.62;
+}
+
+body.page-atrophy article p {
+  line-height: 1.66;
+}
+
+/* The long essay opens on a drop cap; the short one does not. */
+body.page-atrophy article p:first-of-type::first-letter {
+  font-size: 64px;
+  line-height: 0.82;
+  float: left;
+  font-weight: 500;
+  padding: 6px 12px 0 0;
+  color: var(--green);
+}
+
+article p .term {
+  font-style: italic;
+  color: var(--green-deep);
+}
+
+article p strong {
+  font-weight: 500;
+}
+
+.pull {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: 27px;
+  line-height: 1.32;
+  letter-spacing: -0.01em;
+  color: var(--prose-ink-strong);
+  margin: 40px 0;
+  padding-left: 26px;
+  border-left: 3px solid var(--green);
+}
+
+/* The · · · section break in the long essay. */
+.sep {
+  text-align: center;
+  letter-spacing: 0.5em;
+  color: var(--prose-sep);
+  margin: 14px 0 34px;
+  font-size: 14px;
+}
+
+/* ---------------------------------------------------------------------------
+ * Landing-page prose
+ * ------------------------------------------------------------------------- */
+
+.hero {
+  font-size: 18px;
+  line-height: 1.62;
+  color: var(--prose-ink-body);
+  margin: 0 0 18px;
+  max-width: var(--measure-body);
+  text-align: justify;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+.hero:last-of-type {
+  margin-bottom: 36px;
+}
+
+.term {
+  color: var(--green-deep);
+  font-style: italic;
+}
+
+p.essay {
+  font-family: var(--font-serif);
+  font-size: 20px;
+  line-height: 1.56;
+  color: var(--prose-ink-essay);
+  margin: 0 0 22px;
+  max-width: var(--measure-essay);
+  text-align: justify;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+p.essay:last-child {
+  margin-bottom: 0;
+}
+
+p.body {
+  font-size: 16.5px;
+  line-height: 1.64;
+  color: var(--prose-ink-body);
+  margin: 0 0 18px;
+  max-width: var(--measure-body);
+  text-align: justify;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+p.body strong {
+  font-weight: 500;
+  color: var(--prose-ink-strong);
+}
+
+.measure {
+  font-family: var(--font-serif);
+  font-size: 22px;
+  line-height: 1.5;
+  color: var(--prose-ink-body);
+  margin: 0;
+  max-width: var(--measure-essay);
+}
+
+.measure strong {
+  font-weight: 500;
+  color: var(--prose-ink-index);
+}
+
+section {
+  margin-top: 64px;
+  padding-top: 38px;
+  border-top: 1px solid var(--prose-rule);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--prose-muted-soft);
+  font-weight: 500;
+  margin: 0 0 22px;
+}
+
+/* ---------------------------------------------------------------------------
+ * Buttons and links
+ * ------------------------------------------------------------------------- */
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-sans);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--prose-on-accent);
+  background: var(--green);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+body.page-index .cta {
+  padding: 16px 30px;
+}
+
+body.page-essay .cta {
+  padding: 15px 28px;
+  margin-top: 8px;
+}
+
+.cta:hover {
+  background: var(--green-deep);
+}
+
+.launch-row {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.meta {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  line-height: 1.6;
+  color: var(--prose-muted);
+}
+
+/* The long essay closes on a pair of buttons rather than a single call. */
+.endnav {
+  border-top: 1px solid var(--prose-rule);
+  margin-top: 50px;
+  padding-top: 30px;
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  padding: 14px 26px;
+  cursor: pointer;
+}
+
+.btn.solid {
+  color: var(--prose-on-accent);
+  background: var(--green);
+  border: 1px solid var(--green);
+}
+
+.btn.solid:hover {
+  background: var(--green-deep);
+}
+
+.btn.ghost {
+  color: var(--green);
+  background: none;
+  border: 1px solid var(--green-border);
+}
+
+.btn.ghost:hover {
+  border-color: var(--green);
+}
+
+.essaylink {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--green-deep);
+  text-decoration: none;
+  border-bottom: 1px solid var(--green-rule);
+  padding-bottom: 1px;
+}
+
+.essaylink:hover {
+  color: var(--green);
+  border-color: var(--green);
+}
+
+.closer {
+  border-top: 1px solid var(--prose-rule);
+  margin-top: 44px;
+  padding-top: 30px;
+}
+
+.closer p {
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--prose-closer);
+  margin: 0 0 22px;
+}
+
+.work {
+  font-style: italic;
+}
+
+/* ---------------------------------------------------------------------------
+ * The readout specimen on the landing page
+ * ------------------------------------------------------------------------- */
+
+.specimen {
+  margin: 48px 0 0;
+  background: var(--prose-card);
+  border: 1px solid var(--prose-rule-soft);
+  padding: 26px 28px 28px;
+}
+
+.spec-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+
+.spec-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--prose-muted-soft);
+}
+
+.legend {
+  display: flex;
+  gap: 18px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--prose-legend);
+}
+
+.legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot.ink {
+  background: var(--prose-series-ink);
+}
+
+.dot.coral {
+  background: var(--green);
+}
+
+.dim {
+  margin-bottom: 18px;
+}
+
+.dim:last-of-type {
+  margin-bottom: 0;
+}
+
+.dim-name {
+  font-size: 13.5px;
+  color: #36352f;
+  margin-bottom: 8px;
+}
+
+.bar-track {
+  height: 7px;
+  background: var(--prose-track);
+  margin-bottom: 6px;
+  overflow: hidden;
+}
+
+.bar-track:last-child {
+  margin-bottom: 0;
+}
+
+.bar {
+  height: 100%;
+}
+
+.bar.ink {
+  background: var(--prose-series-ink);
+}
+
+.bar.coral {
+  background: var(--green);
+}
+
+.spec-caption {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  line-height: 1.6;
+  color: var(--prose-muted);
+  margin: 22px 0 0;
+}
+
+/* ---------------------------------------------------------------------------
+ * The project index on the landing page
+ * ------------------------------------------------------------------------- */
+
+.index {
+  display: flex;
+  flex-direction: column;
+}
+
+.idx-item {
+  display: block;
+  text-decoration: none;
+  padding: 19px 0;
+  border-top: 1px solid var(--prose-rule-soft);
+}
+
+.idx-item:first-child {
+  border-top: none;
+  padding-top: 2px;
+}
+
+.idx-title {
+  font-family: var(--font-serif);
+  font-size: 23px;
+  font-weight: 500;
+  color: var(--prose-ink-strong);
+  margin-bottom: 6px;
+  transition: color 0.15s ease;
+}
+
+.idx-item:hover .idx-title {
+  color: var(--green);
+}
+
+.idx-desc {
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--prose-desc);
+  max-width: var(--measure-desc);
+}
+
+.note-line {
+  margin: 20px 0 0;
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  color: var(--prose-muted-soft);
+}
+
+.series-note {
+  margin: 28px 0 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--prose-muted);
+}
+
+/* ---------------------------------------------------------------------------
+ * Footer
+ * ------------------------------------------------------------------------- */
+
+.foot {
+  padding-top: 24px;
+  border-top: 1px solid var(--prose-rule);
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  line-height: 1.85;
+  color: var(--prose-muted);
+  letter-spacing: 0.02em;
+}
+
+body.page-index .foot,
+body.page-essay .foot {
+  margin-top: 60px;
+}
+
+body.page-atrophy .foot {
+  margin-top: 56px;
+}
+
+.foot a {
+  color: var(--prose-legend);
+}
+
+/* ---------------------------------------------------------------------------
+ * Narrow screens
+ * ------------------------------------------------------------------------- */
+
+@media (max-width: 560px) {
+  body.page-index .wrap {
+    padding: 64px 22px 64px;
+  }
+
+  body.page-essay .wrap,
+  body.page-atrophy .wrap {
+    padding: 60px 22px 64px;
+  }
+
+  body.page-index h1 {
+    font-size: 42px;
+  }
+
+  body.page-essay h1,
+  body.page-atrophy h1 {
+    font-size: 38px;
+  }
+
+  .spine {
+    font-size: 24px;
+  }
+
+  .standfirst {
+    font-size: 21px;
+  }
+
+  p.essay,
+  .measure {
+    font-size: 19px;
+  }
+
+  article p {
+    font-size: 19px;
+  }
+
+  .pull {
+    font-size: 23px;
+  }
+}
