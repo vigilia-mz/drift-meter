@@ -3,8 +3,11 @@
 Every external claim, its source, whether that source is primary or secondary, and the date last
 checked. Rows marked FLAGGED are not cleared for publication: each must be pinned to a primary
 source or restated as explicitly hypothetical before this leaves prototype status. PRIMARY AVAILABLE
-means a specific primary source is known to exist and has simply not been pinned here yet; FLAGGED
-means no particular source has been identified.
+means a specific primary source is known to exist and has simply not been pinned here yet, which also
+means nobody has read it against the claim; FLAGGED means no particular source has been identified.
+PRIMARY means the source is pinned here and was read on a stated date. The model row is the one
+exception, and it is exempt from both halves — it pins no address, and nothing in this build verifies
+it — because the claim it describes is the one here that would verify itself once it runs.
 
 ILLUSTRATIVE was added at the v0.6 close of #7, for a figure that is constructed for the exercise and
 says so on the page. It is the second of the two exits FLAGGED offers, and it is not a weaker version
@@ -13,10 +16,10 @@ and the table was previously unable to say which one it held. A row earns it onl
 disclosure is live, which is what `invariants.test.ts` holds in place. It is not CORRECTED — nothing
 here was wrong. It was undisclosed, which is a different failure with a different fix.
 
-Last location-and-state pass: 7 Aug 2026 (v0.6). Last source pass: 30 Jul 2026 (v0.3). No row's
-source was re-verified in the v0.6 pass, and #7 did not verify one either — every `Primary link:
-TODO` below is as open as it was. Restating a figure as illustrative closes the publication
-obligation and closes nothing else.
+Last location-and-state pass: 7 Aug 2026 (v0.6). Last source pass: 30 Jul 2026 (v0.3). First source
+pinned: 7 Aug 2026 (#8). No row's source was re-verified in the v0.6 pass, and #7 did not verify one
+either; #8 verified one, and the ten `Primary link: TODO` lines that remain below are as open as they
+were. Restating a figure as illustrative closes the publication obligation and closes nothing else.
 
 The v0.6 pass was run against the rebuild rather than against the deleted build these rows were
 written for, which changed two things. Several rows locate a claim on a screen the rebuild has not
@@ -45,6 +48,15 @@ The three FLAGGED rows that remain are a different object and are untouched by t
 are the essay pages' empirical claims about students, endoscopists and developers: assertions about
 the world, stated as findings, with no citation. A disclosure cannot clear those, because they are
 not illustrative — they are either true and uncited or they are not true. They stay FLAGGED.
+
+Then #8, which asked for the Clio reference to be pinned or for the claim to stop being made. Both
+have happened, in that order. The rebuild stopped making it — the consent screen dropped the
+comparison and protocol section 1 declined to add it back — and this pass pins the publication.
+Reading the paper against this table's heading found the heading overstating it: Anthropic describes
+a system for privacy-preserving analysis of real-world usage and says it builds on the privacy
+literature, not a standard for the field. The superlative is withdrawn and the row claims what the
+pinned pages support. That row carries the first link in this table, and it is the only claim here
+checked against a source since 30 Jul 2026.
 
 What no pass has covered: the essays' attributions of position to Beauvoir and Murdoch, and their
 generalisations about how experienced users behave. Those are the next tranche, and naming them here
@@ -201,22 +213,47 @@ that the disclosure the reader met names no case and no slider.
 - **Action before release:** required only if a version quotes a magnitude. This row had no stated
   release condition until the v0.6 pass; it now carries the deworming row's.
 
-### PRIMARY AVAILABLE — Clio as the reference standard for privacy-preserving measurement over real usage
+### PRIMARY — Clio as Anthropic's published system for privacy-preserving analysis of real-world usage
 
 - **Where:** Consent screen; protocol section 1.
-- **Status:** Anthropic has published on this directly.
-- **State in this build:** withdrawn. Both screens this row locates the claim on have now been
-  rebuilt, and neither makes it. The consent screen dropped it first; protocol section 1 was written
-  later in the same version and does not add it back, because a citation from memory is worst placed
-  on the screen where a reader is deciding whether to trust the page about data handling. The word
-  appears nowhere in the repository except in this heading, and `invariants.test.ts` now asserts that
-  neither screen's copy contains it. That is one of the two resolutions the open issue offers, and it
-  is the weaker one: it discharges the obligation by not making the claim.
-- **Primary link:** TODO — pin the canonical Anthropic page or paper. Do not paraphrase from memory.
-- **Action before release:** pin it before anything reinstates the comparison. The condition this row
-  carried at the v0.6 pass — pin it before the consent screen is written — was overtaken in the same
-  version and met by omission rather than by pinning, which is not the same thing. This row had no
-  stated release condition until that pass either.
+- **Status:** Anthropic has published on this directly, and the publication is now pinned below.
+- **State in this build:** withdrawn as an assertion. Both screens this row locates the claim on
+  have now been rebuilt, and neither makes it. The consent screen dropped it first; protocol section
+  1 was written later in the same version and does not add it back, because a citation from memory
+  is worst placed on the screen where a reader is deciding whether to trust the page about data
+  handling. `invariants.test.ts` asserts that neither screen's copy contains it. What the
+  publication-process screen does carry is this row, in the mirrored table, so the claim is
+  published as something tracked rather than as something the site says. That was one of the two
+  resolutions the open issue offered, and the weaker one: it discharges the obligation by not making
+  the claim.
+- **Pinned and narrowed, 7 Aug 2026 (#8).** The stronger resolution, taken after the weaker one, and
+  between them the issue is answered both ways it asked for. The paper does not support the sentence
+  this row was written for. The heading called Clio the reference standard for privacy-preserving
+  measurement over real usage. The paper says the core technologies underlying Clio are not
+  fundamentally new (§6.1), places itself as building on differential privacy, k-anonymity and
+  federated learning (§7.2), and says formal guarantees of that kind are difficult to apply to it,
+  so its own approach to privacy is statistical and empirical rather than formal (§2.3). What it
+  does claim is priority and scale for the analysis — the first in-depth analysis of direct traffic
+  on a major AI assistant (§7.1) — and a platform it validates, not a standard for the field.
+  Neither the paper nor the research page calls Clio a standard. So the link is pinned for what it
+  establishes and the superlative is withdrawn, on this row and in the mirrored table with it.
+- **Primary link:** the paper is the version to cite: “Clio: Privacy-Preserving Insights into
+  Real-World AI Use”, Tamkin, McCain et al., arXiv:2412.13678v1, 18 Dec 2024 —
+  https://arxiv.org/abs/2412.13678v1. The versioned address cannot move, and the abs page listed v1
+  as the only version when it was read. Anthropic's plain-language account of the same system is the
+  research page, “Clio: A system for privacy-preserving insights into real-world AI use”,
+  12 Dec 2024 — https://www.anthropic.com/research/clio, which carries a note dated 14 January 2025
+  saying its own links to the paper now point at the arXiv version. The PDF on `assets.anthropic.com`
+  is deliberately not pinned: the path is an opaque asset ID.
+- **Checked:** 7 Aug 2026 — both pages opened and read against the claim this row makes rather than
+  recalled, which is how the claim came to be narrowed. Nothing else in this table has been checked
+  against a source since 30 Jul 2026.
+- **Action before release:** none outstanding for the source. What remains is a wording condition
+  rather than a paperwork one: anything reinstating the comparison has to say what the pinned pages
+  say, which is that Clio is Anthropic's system for this and not the standard for it. The condition
+  this row carried at the v0.6 pass — pin it before the consent screen is written — was overtaken in
+  the same version and met by omission rather than by pinning, which is not the same thing. This row
+  had no stated release condition until that pass either.
 - **The row is kept rather than deleted.** A claim the site used to make and no longer makes is part
   of the record.
 

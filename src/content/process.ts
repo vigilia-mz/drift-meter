@@ -120,7 +120,7 @@ export const PROCESS = {
   /** Prefixed to a row's `checked` value. Screen copy, so it lives here. */
   sourcesCheckedLabel: 'Checked: ',
   sourcesFullNote:
-    'The full table, with the primary source each row still needs and what each pass did not cover, is SOURCES.md in the repository. No source below was re-verified when the figures were restated as illustrative; every primary link that was open is still open.',
+    'The full table, with the primary source each row still needs and what each pass did not cover, is SOURCES.md in the repository. One row is pinned to its source and was read on the date beside it: the Clio row, whose wording that reading narrowed. No source was re-verified when the figures were restated as illustrative, and every other primary link that was open is still open.',
   sourcesOrigin:
     'The table exists because of the last row in it. Correct figures with a missing qualifier is the class of error a source table catches and a careful read does not, because nothing in the sentence looks wrong.',
 
@@ -269,7 +269,9 @@ export const PROVENANCE_ROWS = [
  *
  * The Clio row is a claim the rebuild stopped making: it was cited on the consent
  * screen and in protocol section 1 from memory, and neither screen carries it now.
- * The row stays, because a claim withdrawn is part of the record.
+ * The row stays, because a claim withdrawn is part of the record. The publication
+ * has since been pinned in the file as well, and reading it narrowed the claim —
+ * the wording here is the narrowed one, and the grade moved with it.
  */
 export const SOURCE_ROWS = [
   {
@@ -340,11 +342,12 @@ export const SOURCE_ROWS = [
     note: 'Directionally well established and quantitatively illustrative. The case turns on the distinction rather than the magnitude, and its Round 3 text quotes none — though its supplied deaths-averted figure is a magnitude, and now reads as one on a page rather than in a data file.',
   },
   {
-    claim: 'Clio as the reference standard for privacy-preserving measurement over real usage.',
+    claim:
+      'Clio as Anthropic’s published system for privacy-preserving analysis of real-world usage.',
     where: 'Nowhere in this build. It was on the consent screen and in protocol section 1.',
-    grade: 'Primary available',
-    checked: '30 Jul 2026',
-    note: 'Anthropic has published on this directly and the row was never pinned to it. Rather than cite from memory on the screen where a reader is deciding whether to trust the page about data handling, the rebuild does not make the claim. That discharges the obligation by dropping it, which is the weaker of the two exits and is recorded as such.',
+    grade: 'Primary',
+    checked: '7 Aug 2026',
+    note: 'Anthropic has published on this directly and the row went unpinned for three versions. Rather than cite from memory on the screen where a reader is deciding whether to trust the page about data handling, the rebuild stopped making the claim; the paper is now pinned as well, so both of the exits the issue offered are taken. Reading it narrowed the claim. The row used to say reference standard, and the paper says the technologies underneath Clio are not fundamentally new and that it builds on differential privacy and k-anonymity. Neither the paper nor the research page calls Clio a standard: that word was this site’s, not the source’s.',
   },
   {
     claim:

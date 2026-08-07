@@ -130,7 +130,6 @@ This file is the surviving record of them.
   the module itself, and whether a snapshot test earns its keep on top of that is left open. The
   invariants test named in the same sentence is real, and the convention now describes what it
   actually asserts.
-
 - The protocol and the publication-process screens are back. Twelve of the thirteen screens now
   render; only the live-Claude screen is outstanding, and it arrives with the endpoint. The protocol
   screen states the design, the four arms, the five measures with their formulas and their threats,
@@ -165,6 +164,28 @@ This file is the surviving record of them.
   question, and the URL — including the run parameters — is untouched by either. A history entry
   names a screen and not a run, so a Back press arriving after a reload, when the run it described
   is gone, goes to the start rather than to a screen with nothing behind it.
+- **The Clio reference is pinned as well, and the claim it was pinned for is narrower than the row
+  said. That closes #8.** The bullet above withdrew the claim, which was the weaker of the two exits
+  the issue offered; this is the other one, and it is the first link `SOURCES.md` has held in this
+  repository. The other ten rows still read `Primary link: TODO`. The row called Clio the reference
+  standard for privacy-preserving measurement over real usage. Anthropic's paper says the core
+  technologies underlying Clio are not fundamentally new, says it builds on differential privacy,
+  k-anonymity and federated learning, and says formal guarantees of that kind are difficult to apply
+  to it; neither the paper nor the research page calls Clio a standard. So the superlative is
+  withdrawn, the row claims what the pinned pages support, and it moves from PRIMARY AVAILABLE to
+  PRIMARY. The mirrored table on the process screen moves with it, which is the one page change here:
+  the published row now carries the narrowed wording, the new grade and the date the source was read.
+  Two consequences in the paperwork. The source table's header now defines PRIMARY, which it had left
+  to a single self-explaining row, and says of PRIMARY AVAILABLE that an unpinned source is also an
+  unread one. And `CLAUDE.md` said the printed model ID is the one row graded `PRIMARY`; it now says
+  the row is graded `PRIMARY` on the same grounds, without the count.
+- Corrected: the Clio row in `SOURCES.md` said the word appeared nowhere in the repository except in
+  its own heading. The header of the same file used it too, in the sentence recording that the
+  rebuilt consent screen declines to make the claim — added by the merge that rewrote the row's
+  sentence, so the sentence was false as soon as it was written, and it survived the rewrite the
+  bullet above gave that row. The mirrored table and the test that holds it there put the word in the
+  repository again. The row makes no claim about where the word appears now: counting occurrences was
+  never what it was for, and the count is what kept going stale.
 
 **Why**
 
@@ -208,13 +229,28 @@ midpoint and the assisted round's start at an authoritative figure, which inflat
 in the control round. The process screen's most important section is the empty one — nobody has read
 this yet — and it says so above the table rather than below it.
 
-Six of the bullets above are corrections. Five are claims this project made about its own work: a
-contrast ratio, and four claims about its own tests, three of which describe tests that do not exist.
-The sixth is a scale qualifier on a published figure, which the source table already existed to
-prevent. That they survived until someone checked the paperwork against the code is the uncomfortable
-part.
+Pinning the Clio reference was the mildest obligation in the source table, and it turned into a
+withdrawal. The publication existed, so the row had been graded since v0.3 as though the pin were
+clerical; what nobody did in that time was read the publication against the sentence it was supposed
+to support. It does not support it. A source that exists is not a source that agrees, and PRIMARY
+AVAILABLE made the difference easy to miss, because the grade is defined by whether a link has been
+typed here rather than by whether anyone has read one. Withdrawing the claim from the two screens,
+earlier in this version, was the cheaper half: it stopped the site saying the thing without settling
+whether the thing was true. Reading the paper settled it. The claim was published on the consent
+screen of the build that has since been deleted, which is the screen where a reader is deciding
+whether to trust the page about data handling. Nothing in this repository records the sentence
+itself, only that it was made.
 
-Two of the six are in `CLAUDE.md`, which this pass first skipped on the grounds that it is the
+Seven of the bullets above are corrections. Six are claims this project made about its own work: a
+contrast ratio, four claims about its own tests, three of which described tests that did not exist,
+and a claim about where a word appears in the repository. The seventh is a scale qualifier on a
+published figure, which the source table already existed to prevent. That they survived until
+someone checked the paperwork against the code is the uncomfortable part. The withdrawal of
+“reference standard” in the Clio bullet is a correction too, and the largest of the pass; it is
+filed as a change rather than counted here because what it corrects is a claim about the world, not
+a claim about this project's own work.
+
+Two of the seven are in `CLAUDE.md`, which this pass first skipped on the grounds that it is the
 working agreement rather than site content. The exemption does not survive the argument. A document
 that tells every future contributor which properties are guaranteed, while naming two guarantees the
 repository does not provide, is the failure this experiment is about: a claimed test is worse than a
