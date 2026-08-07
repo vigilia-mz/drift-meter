@@ -56,6 +56,20 @@ This file is the surviving record of them.
   The behaviour is unchanged and still deliberate; the comment justifying it was wrong.
 - Corrected: a comment in `metrics.ts` said a test cross-checks the 0.25 autonomy saturation
   constant against the page's prose. There is no such test, and no such prose yet.
+- Corrected: `CLAUDE.md` said an end-to-end test asserts the three prose pages issue zero `.js`
+  requests, and the same claim sat in a `vite.config.ts` comment. There is no end-to-end test and no
+  Playwright in the toolchain; the assertion is scheduled in #19, where the browser dependency was
+  deliberately deferred until there are screens to drive. Both now say what holds the property
+  today: the pages carry no script tag, so the build emits no chunk for them, and review is the only
+  thing enforcing it. The convention also no longer leaves `scripts/check-size.mjs` to imply a
+  per-page check — it reports a JavaScript total for the whole build, which would stay quiet if one
+  essay gained a script tag and the total still fit the budget.
+- Corrected: `CLAUDE.md` said the wording in `src/content/` is snapshot-tested. There are no
+  snapshot files. The claim is withdrawn rather than rescheduled: the content modules are the prose
+  rather than a rendering of it, so an edit to the author's words is already a reviewable diff in
+  the module itself, and whether a snapshot test earns its keep on top of that is left open. The
+  invariants test named in the same sentence is real, and the convention now describes what it
+  actually asserts.
 
 **Why**
 
@@ -64,10 +78,17 @@ was no source to correct, and nothing in the process that would have caught an a
 published figure — the ÷6-versus-÷9 bug was found by a reader. Rebuilding from source is the only
 version of this project that makes that class of error hard rather than easy.
 
-Four of the bullets above are corrections, and three of them are claims this project made about its
-own work: a contrast ratio, a test comment, and a scale qualifier the source table already existed to
+Six of the bullets above are corrections. Five are claims this project made about its own work: a
+contrast ratio, and four claims about its own tests, three of which describe tests that do not exist.
+The sixth is a scale qualifier on a published figure, which the source table already existed to
 prevent. That they survived until someone checked the paperwork against the code is the uncomfortable
 part.
+
+Two of the six are in `CLAUDE.md`, which this pass first skipped on the grounds that it is the
+working agreement rather than site content. The exemption does not survive the argument. A document
+that tells every future contributor which properties are guaranteed, while naming two guarantees the
+repository does not provide, is the failure this experiment is about: a claimed test is worse than a
+missing one, because it stops anyone from looking for the gap.
 
 The re-baseline is recorded on its own because it costs something. A pinned model is what makes two
 runs comparable, so moving the pin discards the comparison: the v0.4 and v0.5 rubric pass rates
