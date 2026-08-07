@@ -165,6 +165,16 @@ This file is the surviving record of them.
   question, and the URL — including the run parameters — is untouched by either. A history entry
   names a screen and not a run, so a Back press arriving after a reload, when the run it described
   is gone, goes to the start rather than to a screen with nothing behind it.
+- **The first screen says what one sitting cannot show, which closes #38.** The programme is named
+  for a longitudinal claim — a capacity weakening across repeated delegation — and a run is one
+  sitting. The sixty-second version on the intro did not say so, and it is what a reader who goes no
+  further leaves with. It now names the relationship and states the deflation with it: what a
+  sitting records is short-run behaviour under two conditions, which is at most the trace such a
+  weakening would leave and is equally consistent with there being no weakening at all. Section 6 of
+  the protocol screen gains the same limit stated plainly, in place of implying it through the note
+  about stakes and deadlines, which was a claim about how large an effect would be rather than about
+  what kind of thing a sitting can observe. `invariants.test.ts` asserts the two screens do not come
+  apart on it.
 
 **Why**
 

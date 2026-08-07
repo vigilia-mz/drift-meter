@@ -90,6 +90,13 @@ export const KICKER = 'Agential Drift Research Program · Experiment 01';
  * wrong. Naming the slider would tell the reader where to look, and the thing
  * being observed is whether they look unprompted. Disclosing the provenance of
  * the cases and disclosing the answer are not the same act.
+ *
+ * The third paragraph of `short` is #38, and it is the one scope limit that has
+ * to be here rather than only on the protocol screen. The programme is named for
+ * a longitudinal claim; a run is one sitting. Section 6 of the protocol states
+ * that under what this build cannot do, but a reader who takes the sixty-second
+ * path never reaches section 6, and the name of the programme is on every screen.
+ * `invariants.test.ts` asserts the two screens do not come apart on it.
  */
 export const INTRO = {
   heading: 'The Drift Meter',
@@ -105,6 +112,7 @@ export const INTRO = {
   short: [
     'AI assistance can improve the surface of an answer while changing the person responsible for judging it. The concern is not that people stop deciding. It is that deciding thins into approving.',
     'This instrument tries to make that visible in one reader, on one short task. It is a trace, not a finding: n is zero, and one person on six cases cannot support a claim about anyone else.',
+    'Drift, the thing this programme is named for, is longitudinal: a capacity weakening across repeated delegation. That is the hypothesis, and it is not what a run here observes. What one sitting records is short-run behaviour under two conditions — at most the trace such a weakening would leave on its way through, and equally consistent with there being no weakening at all. Only returning to the same readers over time could tell those apart.',
   ],
   begin: 'Begin',
   methodLink: 'Read the method first',

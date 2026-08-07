@@ -169,6 +169,7 @@ export const METHOD = {
     'The list below is not a disclaimer attached to a result. There is no result. It is the set of things that would have to be different before anything measured here could be reported as a finding about anyone.',
   limits: [
     'n is zero. Nothing has been collected from anyone, and no figure on this site is a measurement of a population.',
+    'Drift is longitudinal — a capacity weakening across repeated delegation — and a run is one sitting. What a run records is short-run behaviour under two conditions, which is at most the trace such a weakening would leave on its way through, and is equally consistent with there being no weakening at all. No arrangement of a single sitting distinguishes those two; a design that returns to the same readers over time is the only thing that would.',
     'Six cases in one sitting, with no stakes and no clock, is the condition under which a reader is at their most careful. Whatever drift exists in real work under real deadlines, this is the setting least likely to show it.',
     'Readers arrive from an essay that states the expected result. That is a demand characteristic sitting directly upstream of the measurement, and the instrument has no version of itself that does not have it.',
     'The measures are process traces. A reader who opens every panel out of habit scores full marks on evidence engagement without having read anything, and nothing here can tell the two apart.',
