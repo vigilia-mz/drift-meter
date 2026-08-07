@@ -8,17 +8,17 @@
  * walk is that one failure stops the rest, so every violation is reported with the
  * screen it was found on and the whole set is printed before the test fails.
  *
- * TWELVE, NOT THIRTEEN. `process` is in the `Screen` union, has copy in
- * `shell.ts` and a title in `SCREENS`, and nothing in the application navigates to
- * it: `app.tsx` wires `onMethod` from the intro and the debrief, and there is no
- * equivalent for `process`. So it cannot be swept, and the count is recorded here
- * rather than being quietly absorbed into a passing run.
+ * ALL THIRTEEN. The protocol and process screens arrived while this suite was being
+ * written and both are reachable, so the walk covers every screen in the `Screen`
+ * union. Twelve of the thirteen render; `encoded` is the one stub, and it arrives
+ * with the endpoint in #18.
  *
- * ONE RULE IS OFF, AND ONLY FOR THE STUBS. See `STUB_EXEMPT` below.
+ * ONE RULE IS OFF, AND ONLY FOR THE STUB. See `STUB_EXEMPT` below.
  */
 import AxeBuilder from '@axe-core/playwright';
 import type { Page } from '@playwright/test';
 import { expect, test } from '@playwright/test';
+import { SCREENS } from '../src/content/shell.js';
 import { COPY, SLATE_A, walkWholeFlow } from './flow.js';
 
 /**
@@ -34,17 +34,45 @@ import { COPY, SLATE_A, walkWholeFlow } from './flow.js';
 const TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'best-practice'];
 
 /**
- * `region` is disabled on the three stub screens and nowhere else.
+ * `region` is disabled on the one stub screen and nowhere else.
  *
  * A stub is a heading, one paragraph and a button inside `<main>`. The rule wants
  * every piece of content inside a landmark, and it is satisfied on every built
  * screen; on a stub it fires because the paragraph is a direct child of `main`
  * rather than of a `section` within it. Adding a wrapper to satisfy a rule on a
- * page whose only content is "this is not finished yet" would be markup written
- * for the checker. The exemption goes away with the screens, in #18.
+ * page whose only content is "this is not finished yet" would be markup written for
+ * the checker. `encoded` is the last one, and the exemption goes with it in #18 —
+ * which is a date, not an intention: when `STUBS` is empty this constant has no
+ * effect and should be deleted rather than left standing.
  */
 const STUB_EXEMPT = ['region'];
-const STUBS = new Set(['method', 'encoded']);
+const STUBS = new Set(['encoded']);
+
+/**
+ * Every stop the walk makes, in order: seventeen of them over thirteen screens.
+ *
+ * A module constant rather than an inline literal, because two tests read it — the
+ * sweep asserts the walk hit exactly these, and the test below asserts these cover
+ * every screen the union declares.
+ */
+const SWEPT_STOPS = [
+  'intro',
+  'method',
+  'process',
+  'consent',
+  'round:1',
+  'round:1:panels-open',
+  'rate:1',
+  'round:2',
+  'rate:2',
+  'debrief',
+  'transfer',
+  'transfer:answered',
+  'round3',
+  'round3:revealed',
+  'spec',
+  'encoded',
+] as const;
 
 interface Violation {
   readonly screen: string;
@@ -114,42 +142,35 @@ test('every reachable screen of the instrument is free of axe violations', async
 
   expect(found).toEqual([]);
 
-  // Sixteen stops over twelve screens. Written down so that a walk which silently
-  // stopped short — a button renamed, a gate that no longer opens — fails here
-  // instead of reporting a clean sweep of four screens.
-  expect(swept).toEqual([
-    'intro',
-    'method',
-    'consent',
-    'round:1',
-    'round:1:panels-open',
-    'rate:1',
-    'round:2',
-    'rate:2',
-    'debrief',
-    'transfer',
-    'transfer:answered',
-    'round3',
-    'round3:revealed',
-    'spec',
-    'encoded',
-  ]);
+  // Written down so that a walk which silently stopped short — a button renamed, a
+  // gate that no longer opens — fails here instead of reporting a clean sweep of
+  // four screens.
+  expect(swept).toEqual([...SWEPT_STOPS]);
 });
 
 /**
- * The thirteenth screen.
+ * And the walk really did cover every screen there is.
  *
- * Skipped with its reason rather than left out of the list, because a sweep that
- * covers twelve of thirteen and says "thirteen" is the kind of claim this
- * repository exists to not make.
+ * `SWEPT_STOPS` is a list, and a list can fall behind the union it was written
+ * against: a fourteenth screen would not fail anything above. `SCREENS` is keyed by
+ * `ScreenName` and the compiler holds it exhaustive, so its keys are the whole set —
+ * and a screen added to the union has to appear there before it can render a title.
+ *
+ * This is the one place the suite reads from `src/`, and it reads structure rather
+ * than prose. The rule `tests/flow.ts` states is about copy: a test that imports the
+ * label it asserts has checked that a constant equals itself. Importing the set of
+ * screens is the opposite — it is how a new screen becomes a failure here instead of
+ * an unswept page. This suite covered twelve of thirteen and said twelve until the
+ * protocol and process screens arrived from main; that is the gap this closes.
  */
-test('the process screen is swept', () => {
-  test.skip(
-    true,
-    'No navigation reaches `process` in this build. It is in the Screen union and in ' +
-      'SCREENS, and nothing links to it — see src/app.tsx, which wires `method` from the ' +
-      'intro and the debrief and has no equivalent. Unskip this when a link exists.',
-  );
+test('the sweep covers every screen in the union', () => {
+  // Eleven names cover thirteen screens: `round` and `rate` each render twice and
+  // carry an ordinal instead of existing as four separate members.
+  const names = Object.keys(SCREENS);
+  expect(names.length).toBe(11);
+
+  const stops = new Set(SWEPT_STOPS.map((stop) => stop.split(':')[0]));
+  expect([...stops].sort()).toEqual([...names].sort());
 });
 
 /**

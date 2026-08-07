@@ -178,8 +178,41 @@ export interface PredictionRow {
   readonly test: string;
 }
 
-/** How well a source is pinned. Drives the colour the row is printed in. */
-export type SourceGrade = 'Flagged' | 'Secondary' | 'Primary available' | 'Primary' | 'Corrected';
+/**
+ * One of the five operationalised measures, as the protocol screen states it.
+ *
+ * `key` is a field of `Metrics`, so the screen cannot name a measure the
+ * instrument does not compute. `formula` is written out in full rather than
+ * interpolated from the constants: it is a sentence a reader checks by eye, and
+ * interpolation would make the test that guards it vacuous. The test instead
+ * asserts that each printed constant equals the one the code uses.
+ */
+export interface MeasureSpec {
+  readonly key: 'engagement' | 'range' | 'amb' | 'auto' | 'gap';
+  readonly label: string;
+  readonly definition: string;
+  readonly formula: string;
+  /** What would make the number wrong, or right about the wrong thing. */
+  readonly threat: string;
+}
+
+/** One row of the protocol screen's arm table. Three are derived from `ARMS`. */
+export interface ArmRow {
+  readonly arm: string;
+  readonly supplied: string;
+  readonly isolates: string;
+}
+
+/**
+ * How well a source is pinned. Drives the colour the row is printed in.
+ *
+ * `Illustrative` is not a weaker `Primary`. It is the other exit from `Flagged`,
+ * added at the v0.6 close of #7: a figure built for the exercise, and disclosed as
+ * such on the page, is a different object from a figure taken from somewhere. The
+ * grade exists because the table could not previously say which one it held.
+ */
+export type SourceGrade =
+  'Flagged' | 'Illustrative' | 'Secondary' | 'Primary available' | 'Primary' | 'Corrected';
 
 export interface SourceRow {
   readonly claim: string;

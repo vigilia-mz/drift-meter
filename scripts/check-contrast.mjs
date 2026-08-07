@@ -30,8 +30,8 @@
  *
  * `tests/axe.spec.ts` runs the same rule the other way round, against the real
  * rendered DOM in a browser. This script covers what that cannot: tokens no
- * screen has consumed yet. Three of the thirteen screens are still stubs, so
- * that is not a hypothetical.
+ * screen has consumed yet. One of the thirteen screens is still a stub and several
+ * tokens have no consumer at all, so that is not a hypothetical.
  */
 import { readFileSync } from 'node:fs';
 
@@ -264,15 +264,19 @@ const ALIASES = [
 ];
 
 /**
- * The accent indirection.
+ * The role indirections.
  *
- * `--accent` has no value of its own. Six `[data-accent=…]` blocks bind it, and
- * this is what lets domain code return a role name and never a colour. It is not
- * a palette entry, so it is not paired — instead every value it is bound to has
- * to be a token that already appears as a foreground above, which is the property
- * that actually matters: an accent can only ever be a colour this table measured.
+ * Neither has a value of its own. `[data-accent=…]` binds `--accent` six times and
+ * `[data-tone=…]` binds `--tone` five, and that is what lets domain code return a
+ * role name and never a colour. They are not palette entries, so they are not
+ * paired — instead every value either is bound to has to be a token that already
+ * appears as a foreground above, which is the property that actually matters: a
+ * role can only ever resolve to a colour this table measured.
+ *
+ * `--tone` arrived with the process screen and this check found it, unclassified,
+ * on the merge. That is the census doing its job rather than a gap in it.
  */
-const INDIRECTION = '--accent';
+const INDIRECTIONS = ['--accent', '--tone'];
 
 /** Tokens that are not colours and so have no ratio. */
 const NOT_A_COLOUR = /^--(font|measure)-/;
@@ -406,15 +410,24 @@ for (const { name, sameAs } of ALIASES) {
   }
 }
 
-// Every accent an element can take must be a colour this table has measured.
+// Every value a role can take must be a colour this table has measured.
 const measuredForegrounds = new Set(TEXT.map((p) => resolve(tokens, p.fg)));
-for (const binding of tokens.get(INDIRECTION) ?? []) {
-  const hex = resolveValue(tokens, binding, new Set());
-  if (hex === null || !measuredForegrounds.has(hex)) {
+for (const role of INDIRECTIONS) {
+  const bindings = tokens.get(role) ?? [];
+  if (bindings.length === 0) {
     failures.push(
-      `${INDIRECTION} is bound to ${binding} (${String(hex)}), which is not a foreground ` +
-        `measured above. An accent may only be a colour this table has checked.`,
+      `${role} is classified as a role indirection and is bound nowhere in ${TOKENS}. ` +
+        `Either it has gone, in which case drop it from INDIRECTIONS, or its bindings have.`,
     );
+  }
+  for (const binding of bindings) {
+    const hex = resolveValue(tokens, binding, new Set());
+    if (hex === null || !measuredForegrounds.has(hex)) {
+      failures.push(
+        `${role} is bound to ${binding} (${String(hex)}), which is not a foreground ` +
+          `measured above. A role may only resolve to a colour this table has checked.`,
+      );
+    }
   }
 }
 
@@ -426,7 +439,7 @@ const classified = new Set([
   ...NON_TEXT_PAIRS.flatMap((p) => [p.fg, p.bg]),
   ...SURFACES,
   ...ALIASES.map((a) => a.name),
-  INDIRECTION,
+  ...INDIRECTIONS,
 ]);
 const unclassified = [...tokens.keys()].filter(
   (name) => !NOT_A_COLOUR.test(name) && !classified.has(name),

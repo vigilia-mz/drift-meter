@@ -168,6 +168,7 @@ export const DEBRIEF = {
 
   nextLabel: 'Continue',
   methodLabel: 'Read the method',
+  processLabel: 'How this was made',
 } as const satisfies {
   readonly headline: Readonly<Record<HeadlineKey, string>>;
   readonly gap: Readonly<Record<GapBand, string>>;

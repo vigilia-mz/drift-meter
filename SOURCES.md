@@ -3,8 +3,11 @@
 Every external claim, its source, whether that source is primary or secondary, and the date last
 checked. Rows marked FLAGGED are not cleared for publication: each must be pinned to a primary
 source or restated as explicitly hypothetical before this leaves prototype status. PRIMARY AVAILABLE
-means a specific primary source is known to exist and has simply not been pinned here yet; FLAGGED
-means no particular source has been identified.
+means a specific primary source is known to exist and has simply not been pinned here yet, which also
+means nobody has read it against the claim; FLAGGED means no particular source has been identified.
+PRIMARY means the source is pinned here and was read on a stated date. The model row is the one
+exception, and it is exempt from both halves — it pins no address, and nothing in this build verifies
+it — because the claim it describes is the one here that would verify itself once it runs.
 
 ILLUSTRATIVE was added at the v0.6 close of #7, for a figure that is constructed for the exercise and
 says so on the page. It is the second of the two exits FLAGGED offers, and it is not a weaker version
@@ -13,10 +16,10 @@ and the table was previously unable to say which one it held. A row earns it onl
 disclosure is live, which is what `invariants.test.ts` holds in place. It is not CORRECTED — nothing
 here was wrong. It was undisclosed, which is a different failure with a different fix.
 
-Last location-and-state pass: 7 Aug 2026 (v0.6). Last source pass: 30 Jul 2026 (v0.3). No row's
-source was re-verified in the v0.6 pass, and #7 did not verify one either — every `Primary link:
-TODO` below is as open as it was. Restating a figure as illustrative closes the publication
-obligation and closes nothing else.
+Last location-and-state pass: 7 Aug 2026 (v0.6). Last source pass: 30 Jul 2026 (v0.3). First source
+pinned: 7 Aug 2026 (#8). No row's source was re-verified in the v0.6 pass, and #7 did not verify one
+either; #8 verified one, and the ten `Primary link: TODO` lines that remain below are as open as they
+were. Restating a figure as illustrative closes the publication obligation and closes nothing else.
 
 The v0.6 pass was run against the rebuild rather than against the deleted build these rows were
 written for, which changed two things. Several rows locate a claim on a screen the rebuild has not
@@ -41,23 +44,45 @@ out to publish constructed figures and to be tracked by nothing at all. It has a
 did not do is verify anything. Every `Primary link: TODO` in those rows is still a TODO; they are
 simply no longer blocking, because the page no longer presents the figures as findings.
 
-Three of the four FLAGGED rows are a different object and are untouched by that reasoning. They are
-the essay pages' empirical claims about students, endoscopists and developers: assertions about the
-world, stated as findings, with no citation. A disclosure cannot clear those, because they are not
+The three FLAGGED rows that remain are a different object and are untouched by that reasoning. They
+are the essay pages' empirical claims about students, endoscopists and developers: assertions about
+the world, stated as findings, with no citation. A disclosure cannot clear those, because they are not
 illustrative — they are either true and uncited or they are not true. They stay FLAGGED.
 
-The fourth arrived with the accessibility sweep and is a different object again. It is not a claim
-about the world at all: it is a property of this build's own palette, measured, failing a threshold,
-and left standing on an argument. It is FLAGGED because the argument is doing work rather than
-confirming a pass, and the fix is a design decision that belongs to the author rather than to the
-sweep that found it. Three new rows in this pass are PRIMARY, and two of them are about how this
-repository holds itself to an outside standard — the first rows here to cite one.
+The accessibility sweep then added two PRIMARY rows, the first here to cite an outside standard rather
+than a study. It also found one thing this build does not meet, and that is deliberately not a row of
+its own: a failing contrast pair is a defect in this build, not a claim taken from somewhere else, and
+this table is for claims. Grading it FLAGGED would have made that grade mean two different things — an
+unpinned assertion about the world, and a hex that needs changing — and the fix for it is not a
+citation. It is stated inside the row that pins the standard, so that row cannot be read as claiming
+conformance, and it is in `CHANGELOG.md` and in the check's own output on every run.
+
+Then #8, which asked for the Clio reference to be pinned or for the claim to stop being made. Both
+have happened, in that order. The rebuild stopped making it — the consent screen dropped the
+comparison and protocol section 1 declined to add it back — and this pass pins the publication.
+Reading the paper against this table's heading found the heading overstating it: Anthropic describes
+a system for privacy-preserving analysis of real-world usage and says it builds on the privacy
+literature, not a standard for the field. The superlative is withdrawn and the row claims what the
+pinned pages support. That row carries the first link in this table, and it is the only claim here
+checked against a source since 30 Jul 2026.
 
 What no pass has covered: the essays' attributions of position to Beauvoir and Murdoch, and their
 generalisations about how experienced users behave. Those are the next tranche, and naming them here
 is cheaper than implying the sweep was exhaustive. The accessibility sweep is not exhaustive either,
-and says where it stops: twelve of thirteen screens, because the thirteenth has no path to it, and two
-axe rules off on one selector each with the clause they stand on.
+and says where it stops: two axe rules off on one selector each with the clause they stand on, and one
+non-text pair under its threshold and left to the author.
+
+**This table is now mirrored on the publication-process screen**, one row per entry, each printed
+with its grade and with the note that explains it. The file stays the record: the screen carries the
+short form and says so, and `invariants.test.ts` asserts that the two hold the same claims at the
+same grades, so a row added here and forgotten there fails rather than quietly shortening the
+published table. What the screen does not reproduce is the per-row history above — the state lines,
+the superseded conditions, the account of which pass found what. That is the part a reader who wants
+to argue with the grading needs, and it is the reason the screen links here rather than replacing it.
+
+The protocol screen states the same thing from the other side, in its stimulus provenance section:
+that the case figures are built for the exercise, that four rows here carry the grade saying so, and
+that the disclosure the reader met names no case and no slider.
 
 ---
 
@@ -198,19 +223,49 @@ axe rules off on one selector each with the clause they stand on.
 - **Action before release:** required only if a version quotes a magnitude. This row had no stated
   release condition until the v0.6 pass; it now carries the deworming row's.
 
-### PRIMARY AVAILABLE — Clio as the reference standard for privacy-preserving measurement over real usage
+### PRIMARY — Clio as Anthropic's published system for privacy-preserving analysis of real-world usage
 
 - **Where:** Consent screen; protocol section 1.
-- **Status:** Anthropic has published on this directly.
-- **State in this build:** the consent screen has since been rebuilt and does not make this claim;
-  the protocol screen does not exist. The word appears nowhere in the repository except in this
-  heading. That the rewritten consent copy leaves the comparison out is a reprieve rather than a
-  clearance — the claim returns the moment anything reinstates it.
-- **Primary link:** TODO — pin the canonical Anthropic page or paper. Do not paraphrase from memory.
-- **Action before release:** pin it before anything reinstates the comparison. The condition this row
-  carried at the v0.6 pass — pin it before the consent screen is written — was overtaken in the same
-  version and met by omission rather than by pinning, which is not the same thing. This row had no
-  stated release condition until that pass either.
+- **Status:** Anthropic has published on this directly, and the publication is now pinned below.
+- **State in this build:** withdrawn as an assertion. Both screens this row locates the claim on
+  have now been rebuilt, and neither makes it. The consent screen dropped it first; protocol section
+  1 was written later in the same version and does not add it back, because a citation from memory
+  is worst placed on the screen where a reader is deciding whether to trust the page about data
+  handling. `invariants.test.ts` asserts that neither screen's copy contains it. What the
+  publication-process screen does carry is this row, in the mirrored table, so the claim is
+  published as something tracked rather than as something the site says. That was one of the two
+  resolutions the open issue offered, and the weaker one: it discharges the obligation by not making
+  the claim.
+- **Pinned and narrowed, 7 Aug 2026 (#8).** The stronger resolution, taken after the weaker one, and
+  between them the issue is answered both ways it asked for. The paper does not support the sentence
+  this row was written for. The heading called Clio the reference standard for privacy-preserving
+  measurement over real usage. The paper says the core technologies underlying Clio are not
+  fundamentally new (§6.1), places itself as building on differential privacy, k-anonymity and
+  federated learning (§7.2), and says formal guarantees of that kind are difficult to apply to it,
+  so its own approach to privacy is statistical and empirical rather than formal (§2.3). What it
+  does claim is priority and scale for the analysis — the first in-depth analysis of direct traffic
+  on a major AI assistant (§7.1) — and a platform it validates, not a standard for the field.
+  Neither the paper nor the research page calls Clio a standard. So the link is pinned for what it
+  establishes and the superlative is withdrawn, on this row and in the mirrored table with it.
+- **Primary link:** the paper is the version to cite: “Clio: Privacy-Preserving Insights into
+  Real-World AI Use”, Tamkin, McCain et al., arXiv:2412.13678v1, 18 Dec 2024 —
+  https://arxiv.org/abs/2412.13678v1. The versioned address cannot move, and the abs page listed v1
+  as the only version when it was read. Anthropic's plain-language account of the same system is the
+  research page, “Clio: A system for privacy-preserving insights into real-world AI use”,
+  12 Dec 2024 — https://www.anthropic.com/research/clio, which carries a note dated 14 January 2025
+  saying its own links to the paper now point at the arXiv version. The PDF on `assets.anthropic.com`
+  is deliberately not pinned: the path is an opaque asset ID.
+- **Checked:** 7 Aug 2026 — both pages opened and read against the claim this row makes rather than
+  recalled, which is how the claim came to be narrowed. Nothing else in this table has been checked
+  against a source since 30 Jul 2026.
+- **Action before release:** none outstanding for the source. What remains is a wording condition
+  rather than a paperwork one: anything reinstating the comparison has to say what the pinned pages
+  say, which is that Clio is Anthropic's system for this and not the standard for it. The condition
+  this row carried at the v0.6 pass — pin it before the consent screen is written — was overtaken in
+  the same version and met by omission rather than by pinning, which is not the same thing. This row
+  had no stated release condition until that pass either.
+- **The row is kept rather than deleted.** A claim the site used to make and no longer makes is part
+  of the record.
 
 ### PRIMARY AVAILABLE — Project Deal: 186 transactions worth just over $4,000, and fairness rated 4.05 against 4.06 on a seven-point scale
 
@@ -226,21 +281,22 @@ axe rules off on one selector each with the clause they stand on.
 
 ### PRIMARY — The reflection was served by the pinned model, and the served ID is printed
 
-- **Where:** Result screen; protocol section 5.
+- **Where:** Result screen and the encoded screen; protocol section 5, which names both call sites.
 - **Status:** Verified per request, in the builds that had an endpoint. The model ID is returned by
   the API in the response body and printed verbatim on the page.
 - **Checked:** every request, in v0.3 through v0.5. Nothing has been checked in this build.
-- **State in this build:** dormant. Nothing in this repository can check it. There is no
-  `shared/model.ts`, no `PINNED_MODEL`, no `api/reflect.ts`, and no code anywhere that prints a
-  served model ID. The debrief — the screen this row calls the result screen — has since been
-  rebuilt, and prints no model ID, because there is nothing yet to print one from. The consent screen
-  says the reflection is off in this build, which is the only place the mechanism is mentioned at
-  all. The grade is kept because the mechanism it describes is the one claim here that verifies
-  itself once it runs, not because anything currently verifies it.
+- **State in this build:** half of it now exists. `shared/model.ts` and `PINNED_MODEL` arrived with
+  the protocol screen, which prints the pin and says in the same breath that the pin is not the
+  provenance record — the ID the API returns is. What still does not exist is anything that returns
+  one: no `api/reflect.ts`, no client, and no screen that prints a served ID. The debrief prints
+  none, and the consent screen says the reflection is off in this build. The grade is kept because
+  the mechanism it describes is the one claim here that verifies itself once it runs, not because
+  anything currently verifies it.
 - **Note:** the re-baseline to `claude-opus-5` is recorded in `CHANGELOG.md` under v0.6 as a
   re-baseline rather than as maintenance — rubric pass rates from v0.4 and v0.5 are not comparable
-  to runs after it. The pin will live in `shared/model.ts`. Until that file exists, the changelog
-  entry is the whole of the record, and this row cannot be used to check it.
+  to runs after it. The pin now lives in `shared/model.ts` and a test asserts the ID appears nowhere
+  in the protocol screen's prose, so a later re-baseline cannot leave a second, stale copy of it in a
+  sentence.
 
 ### PRIMARY — The contrast and target-size thresholds this build is held to are WCAG 2.2's
 
@@ -264,6 +320,15 @@ axe rules off on one selector each with the clause they stand on.
   claim about what a standard says, which is exactly the kind of claim this table is for. Both are
   named at the point of use as well — beside the pair in `check-contrast.mjs` and beside the filter in
   `tests/axe.spec.ts` — so neither is a number in a comment.
+- **What this build does not meet, said here so the row cannot be read as claiming conformance:**
+  `--blue-bar`, the control series on the debrief's chart, measures 2.47:1 against its own track where
+  SC 1.4.11 asks 3:1 of a graphic that carries information. Every bar prints its value beside it and
+  repeats it in an `aria-label`, so no quantity on that screen is available only from the fill — but
+  that is an argument doing work rather than a pass, and it is the only place in either palette where
+  it is. Darkening the chart is the author's call and not the sweep's. It has no row of its own because
+  it is a defect in this build rather than a claim taken from somewhere else, and this table is for
+  claims; `check-contrast.mjs` prints the ratio and the argument on every run, and `CHANGELOG.md`
+  records it under v0.6 as found and not fixed.
 
 ### PRIMARY — Every contrast ratio in this repository is computed from the palette on every run
 
@@ -281,22 +346,6 @@ axe rules off on one selector each with the clause they stand on.
 - **What it does not do:** it enforces text and reports non-text, because SC 1.4.11's threshold applies
   only where a graphic carries information and no script can decide that. One non-text pair is under
   3:1 and left to the author — see the row below.
-
-### FLAGGED — `--blue-bar` is under the non-text threshold on the debrief's chart
-
-- **Where:** `src/styles/tokens.css`, `--blue-bar: #6E93A6`; rendered by `.dm-bar-unassisted` in
-  `src/ui/PairedBar.tsx`, the control series in the debrief's paired readout.
-- **Status:** 2.47:1 against `--dm-track`, the bar's own track. SC 1.4.11 asks 3:1 of a graphical
-  object required to understand the content. The assisted series is 5.58:1 and passes.
-- **The argument for leaving it:** every bar prints its value in `.dm-bar-value` beside it and repeats
-  it in the bar's `aria-label`, so no quantity on that screen is available only from the fill. The bars
-  are a redundant rendering of numbers that are already text.
-- **Why it is FLAGGED anyway:** that is reasoning doing work rather than confirming a pass, and it is
-  the only pair in either palette where it does. A reader who takes the chart at a glance is reading the
-  fill, whatever the table beside it says.
-- **Action:** the author's. Darkening the control series is a change to the debrief's chart, not
-  something an accessibility sweep gets to decide on its way past. `check-contrast.mjs` prints the ratio
-  and this argument on every run, so the decision does not go quiet.
 
 ### CORRECTED — Project Deal: figures right, 1-to-7 scale omitted
 

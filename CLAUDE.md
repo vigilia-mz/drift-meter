@@ -57,8 +57,8 @@ carry that guarantee, and both matter:
   discipline is no longer "use a dated ID"; it is "change this constant deliberately and never
   incidentally."
 - The ID the API returns is printed in the UI alongside every response. That printed value is the
-  actual provenance record — it is the one row in `SOURCES.md` graded `PRIMARY`, on the grounds that
-  it is the only claim on the page that verifies itself. Keep it.
+  actual provenance record — it is graded `PRIMARY` in `SOURCES.md`, on the grounds that it is the
+  only claim on the page that verifies itself. Keep it.
 
 Do not upgrade the model as routine maintenance or as part of an unrelated change. An upgrade is a
 re-baseline: it makes rubric pass rates and any future cohort figures incomparable to earlier runs,
@@ -174,8 +174,9 @@ labels it asserts rather than importing them from `src/content/`, because a test
 string it checks has checked that a constant equals itself.
 
 **End-to-end exemptions are one rule on one selector, with the clause.** Two are live. `region` is off
-for the stub screens, because a page whose only content is "this is not finished yet" should not grow a
-wrapper to satisfy a checker; it goes with the screens in #18. `color-contrast` is off for `.sep` — the
+for the one stub screen, because a page whose only content is "this is not finished yet" should not grow
+a wrapper to satisfy a checker; it goes with `encoded` in #18, and when nothing is a stub the constant
+should be deleted rather than left standing. `color-contrast` is off for `.sep` — the
 `· · ·` between sections of the long essay — on the exemption SC 1.4.3 writes for pure decoration, and
 a test asserts the exemption still matches five nodes so that it cannot become dead code that makes the
 sweep look stricter than it is. Neither is a blanket `disableRules` and neither is silent. Do not add a

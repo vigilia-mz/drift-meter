@@ -46,5 +46,14 @@ export default defineConfig({
     // first `page` fixture, which is a confusing way to find out.
     include: ['src/**/*.test.ts', 'shared/**/*.test.ts'],
     restoreMocks: true,
+    // Vitest replaces CSS with an empty string by default, which is right for
+    // every stylesheet here except one. `tokens.css` is the only file allowed to
+    // name a colour, and `tone.test.ts` reads it as text to assert that every
+    // semantic role the domain layer can return is actually bound to one — an
+    // unbound role renders an unstyled row rather than failing. That test needs
+    // the real file, so the stub is narrowed to everything else rather than
+    // turned off. It is also why the test can read the stylesheet without
+    // `node:fs`, which the application deliberately has no types for.
+    css: { include: [/tokens\.css/] },
   },
 });

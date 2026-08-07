@@ -40,6 +40,7 @@ export const COPY = {
     heading: 'The Drift Meter',
     begin: 'Begin',
     method: 'Read the method first',
+    process: 'How this was made',
   },
   consent: {
     heading: 'Before you begin',
@@ -122,13 +123,28 @@ export const COPY = {
     continue: 'Continue',
     restart: 'Start again',
   },
+  /**
+   * The two reference screens.
+   *
+   * Documents rather than steps, reachable from the intro and from the debrief, and
+   * the only two that get a history entry — so their Back is `history.back()`
+   * rather than a dispatch, and the walk below uses it as one.
+   */
+  method: {
+    heading: 'Method',
+    back: 'Back',
+    process: 'How this was made',
+  },
+  process: {
+    heading: 'Process',
+    back: 'Back',
+    method: 'Read the method',
+  },
   stub: {
-    /** The standfirst every unbuilt screen carries. */
+    /** The standfirst the one unbuilt screen carries. */
     heading: 'Not rebuilt yet',
     back: 'Back to the start',
     encoded: 'The rules, encoded',
-    method: 'Method',
-    process: 'Process',
   },
 } as const;
 
@@ -249,12 +265,16 @@ export async function reachSpec(page: Page): Promise<void> {
 /**
  * Every state a reader can reach, handed to a callback as it arrives.
  *
- * Sixteen stops for twelve screens. Four of the screens have a second state
- * carrying DOM the first does not — an opened estimate panel, a transfer verdict,
- * a revealed Round 3 case — and a sweep that only saw the first would have missed
- * the markup those states introduce. The thirteenth screen, `process`, has no
- * navigation into it at all in this build; `tests/axe.spec.ts` records that rather
- * than quietly counting to twelve.
+ * All thirteen screens, at seventeen stops. Four of them have a second state
+ * carrying DOM the first does not — an opened estimate panel, a transfer verdict, a
+ * revealed Round 3 case — and a sweep that only saw the first would have missed the
+ * markup those states introduce.
+ *
+ * The two reference screens are entered through each other rather than one at a
+ * time, and left by their own Back, which is `history.back()`. That is the shape a
+ * reader gets and it exercises the history scheme on the way past: the intro pushes
+ * an entry to reach the protocol screen, the protocol screen pushes another to
+ * reach the process screen, and two Back presses come all the way home.
  */
 export async function walkWholeFlow(
   page: Page,
@@ -266,9 +286,16 @@ export async function walkWholeFlow(
   await onScreen('intro');
 
   await page.getByRole('button', { name: COPY.intro.method, exact: true }).click();
-  await expect(page.getByRole('heading', { level: 1, name: COPY.stub.method })).toBeVisible();
+  await expect(page.getByRole('heading', { level: 1, name: COPY.method.heading })).toBeVisible();
   await onScreen('method');
-  await page.getByRole('button', { name: COPY.stub.back }).click();
+
+  await page.getByRole('button', { name: COPY.method.process, exact: true }).click();
+  await expect(page.getByRole('heading', { level: 1, name: COPY.process.heading })).toBeVisible();
+  await onScreen('process');
+
+  await page.getByRole('button', { name: COPY.process.back, exact: true }).click();
+  await expect(page.getByRole('heading', { level: 1, name: COPY.method.heading })).toBeVisible();
+  await page.getByRole('button', { name: COPY.method.back, exact: true }).click();
   await expect(page.getByRole('heading', { level: 1, name: COPY.intro.heading })).toBeVisible();
 
   await page.getByRole('button', { name: COPY.intro.begin, exact: true }).click();
