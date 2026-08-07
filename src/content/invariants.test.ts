@@ -1,6 +1,10 @@
 import { describe, expect, it } from 'vitest';
 import { ARM_NOTES, ARMS, REC_LABELS } from './arms.js';
+import { DEBRIEF, MEASURES } from './debrief.js';
+import { ROUND3 } from './round3.js';
 import { CONSENT, INTRO, RATE, ROUND, SCREENS, STUB } from './shell.js';
+import { SPEC_INTRO, SPEC_RULES } from './spec.js';
+import { TRANSFER } from './transfer.js';
 import { otherSlate, SLATES } from './slates.js';
 import { TRAP, TRAP_HEADINGS } from './trap.js';
 import type { Slate, TrapBranch } from './types.js';
@@ -173,6 +177,16 @@ describe('typography', () => {
   proseOf(ROUND, 'ROUND', fields);
   proseOf(RATE, 'RATE', fields);
   proseOf(STUB, 'STUB', fields);
+  proseOf(DEBRIEF, 'DEBRIEF', fields);
+  proseOf(MEASURES, 'MEASURES', fields);
+  proseOf(TRANSFER, 'TRANSFER', fields);
+  proseOf(ROUND3, 'ROUND3', fields);
+  proseOf(SPEC_INTRO, 'SPEC_INTRO', fields);
+  proseOf(SPEC_RULES, 'SPEC_RULES', fields);
+  // Two on-screen records that were imported and asserted elsewhere but never
+  // walked for typography. Closed here rather than left for someone to notice.
+  proseOf(REC_LABELS, 'REC_LABELS', fields);
+  proseOf(TRAP_HEADINGS, 'TRAP_HEADINGS', fields);
 
   it('has prose to check', () => {
     expect(fields.length).toBeGreaterThan(50);

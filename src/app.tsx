@@ -16,10 +16,14 @@ import { condFor, randomAssignment } from './domain/assignment.js';
 import type { Confidence } from './domain/metrics.js';
 import { parseRunConfig, rngFor, runConfigFromLocation } from './platform/runConfig.js';
 import { Consent } from './screens/Consent.js';
+import { Debrief } from './screens/Debrief.js';
 import { Intro } from './screens/Intro.js';
 import { Rate } from './screens/Rate.js';
 import { Round } from './screens/Round.js';
+import { Round3 } from './screens/Round3.js';
+import { Spec } from './screens/Spec.js';
 import { Stub } from './screens/Stub.js';
+import { Transfer } from './screens/Transfer.js';
 import { INITIAL_STATE, reducer } from './state/reducer.js';
 import { slateFor } from './state/run.js';
 import { ordinalOf, screenKey } from './state/screen.js';
@@ -152,6 +156,76 @@ export function App() {
           }}
         />
       );
+    }
+
+    // The four screens after the run. Each needs the complete variant, in which
+    // both rounds are present by construction — reaching one without a finished
+    // run falls through to the stub rather than asserting a round exists.
+    if (state.run.status === 'complete') {
+      const run = state.run;
+
+      if (screen.name === 'debrief') {
+        return (
+          <Debrief
+            containerRef={containerRef}
+            run={run}
+            onContinue={() => {
+              dispatch({ type: 'goto', screen: { name: 'transfer' } });
+            }}
+            onMethod={() => {
+              dispatch({ type: 'goto', screen: { name: 'method' } });
+            }}
+          />
+        );
+      }
+
+      if (screen.name === 'transfer') {
+        return (
+          <Transfer
+            containerRef={containerRef}
+            pick={run.transfer}
+            onPick={(option) => {
+              dispatch({ type: 'pickTransfer', option });
+            }}
+            onContinue={() => {
+              dispatch({ type: 'goto', screen: { name: 'round3' } });
+            }}
+          />
+        );
+      }
+
+      if (screen.name === 'round3') {
+        return (
+          <Round3
+            containerRef={containerRef}
+            assign={run.assign}
+            r3={run.r3}
+            onSetValue={(slot, sliderIndex, value) => {
+              dispatch({ type: 'setR3Value', slot, sliderIndex, value });
+            }}
+            onCommit={(slot, read, driver) => {
+              dispatch({ type: 'commitR3', slot, read, driver });
+            }}
+            onContinue={() => {
+              dispatch({ type: 'goto', screen: { name: 'spec' } });
+            }}
+          />
+        );
+      }
+
+      if (screen.name === 'spec') {
+        return (
+          <Spec
+            containerRef={containerRef}
+            onContinue={() => {
+              dispatch({ type: 'goto', screen: { name: 'encoded' } });
+            }}
+            onRestart={() => {
+              dispatch({ type: 'restart' });
+            }}
+          />
+        );
+      }
     }
 
     // Everything else, plus the two round screens reached without a run — which

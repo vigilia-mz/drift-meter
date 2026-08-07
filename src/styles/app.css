@@ -359,6 +359,10 @@ body {
   margin-bottom: 20px;
 }
 
+.dm-slider {
+  max-width: var(--measure-instrument);
+}
+
 .dm-slider-head {
   display: flex;
   align-items: baseline;
@@ -466,6 +470,10 @@ body {
   gap: 2px;
 }
 
+.dm-radio-label {
+  line-height: 1.4;
+}
+
 .dm-radio-hint {
   font-size: 11.5px;
   color: var(--dm-muted);
@@ -496,6 +504,178 @@ body {
 }
 
 /* ---------------------------------------------------------------------------
+ * The debrief's paired readout
+ * ------------------------------------------------------------------------- */
+
+.dm-section-heading {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dm-muted);
+  margin: 44px 0 14px;
+}
+
+.dm-measure {
+  border-top: 1px solid var(--dm-rule);
+  padding: 18px 0;
+}
+
+.dm-measure-label {
+  font-size: 15px;
+  font-weight: 500;
+  margin: 0 0 2px;
+}
+
+.dm-measure-what {
+  font-size: 12.5px;
+  color: var(--dm-muted);
+  margin: 0 0 12px;
+  max-width: var(--measure-desc);
+}
+
+.dm-measure-caption {
+  font-size: 12px;
+  color: var(--dm-muted);
+  margin: 8px 0 0;
+}
+
+.dm-bar-row {
+  display: grid;
+  grid-template-columns: 150px 1fr 38px;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.dm-bar-series {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--dm-muted);
+}
+
+.dm-bar-track {
+  background: var(--dm-track);
+  height: 7px;
+}
+
+.dm-bar {
+  height: 7px;
+}
+
+.dm-bar-assisted {
+  background: var(--green);
+}
+
+.dm-bar-unassisted {
+  background: var(--blue-bar);
+}
+
+/* The undefined bar. Hatched across the full width rather than drawn to zero:
+ * a zero-width bar is a claim about the reader, and there is no measure here to
+ * make one from. */
+.dm-bar-undefined {
+  width: 100%;
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--dm-track),
+    var(--dm-track) 4px,
+    var(--dm-track-alt) 4px,
+    var(--dm-track-alt) 8px
+  );
+}
+
+.dm-bar-value {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--dm-ink-body);
+  text-align: right;
+}
+
+.dm-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  margin-bottom: 8px;
+}
+
+.dm-table th,
+.dm-table td {
+  text-align: left;
+  padding: 9px 12px 9px 0;
+  border-bottom: 1px solid var(--dm-rule);
+}
+
+.dm-table thead th {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--dm-muted);
+  font-weight: 400;
+}
+
+.dm-table tbody th {
+  font-weight: 400;
+  color: var(--dm-ink-body);
+}
+
+.dm-table td {
+  font-family: var(--font-mono);
+}
+
+.dm-trap-heading {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: 20px;
+  color: var(--accent, var(--green));
+  margin: 4px 0 10px;
+}
+
+/* ---------------------------------------------------------------------------
+ * Round 3 and the specification
+ * ------------------------------------------------------------------------- */
+
+.dm-commit,
+.dm-revealed {
+  border-left: 2px solid var(--accent, var(--orange));
+  padding-left: 16px;
+  margin-top: 18px;
+}
+
+.dm-interval {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  margin: 0 0 4px;
+}
+
+.dm-rules {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.dm-rule {
+  border-top: 1px solid var(--dm-rule);
+  padding: 28px 0 8px;
+}
+
+.dm-rule-number {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--orange);
+  margin: 0 0 6px;
+}
+
+.dm-rule-title {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: 21px;
+  margin: 0 0 10px;
+}
+
+/* ---------------------------------------------------------------------------
  * Narrow
  * ------------------------------------------------------------------------- */
 
@@ -516,10 +696,20 @@ body {
   .dm-radiogroup-horizontal {
     flex-direction: column;
   }
+
+  .dm-bar-row {
+    grid-template-columns: 1fr 38px;
+  }
+
+  .dm-bar-series {
+    grid-column: 1 / -1;
+  }
 }
 
-/* Entrance animations are the only motion here, and both are fill-mode: both, so
- * collapsing them leaves the design at its end state rather than mid-way. */
+/* There are no entrance animations yet — the two the original had were not
+ * rebuilt. This block collapses transitions, and stands ready for the
+ * animations when they land, both of which are fill-mode: both and so end at
+ * the design rather than part-way to it. */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

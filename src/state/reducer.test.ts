@@ -315,3 +315,105 @@ describe('navigation and restart', () => {
     expect(reducer(finished, { type: 'restart' })).toEqual(INITIAL_STATE);
   });
 });
+
+describe('what happens after the debrief cannot change the debrief', () => {
+  /** A finished run, with some work done in each round so the measures are not all zero. */
+  function finished(): AppState {
+    let s = run(
+      begin(),
+      { type: 'togglePanel', caseIndex: 0, panel: 'model' },
+      { type: 'setValue', caseIndex: 0, sliderIndex: 0, value: 3 },
+      { type: 'chooseRec', caseIndex: 1, rec: 'investigate' },
+      { type: 'toggleFlag', caseIndex: 2 },
+    );
+    s = rate(s, 4);
+    s = run(s, { type: 'setValue', caseIndex: 1, sliderIndex: 2, value: 0.001 });
+    return rate(s, 2);
+  }
+
+  function scores(state: AppState) {
+    if (state.run.status !== 'complete') throw new Error('expected a complete run');
+    return (['assisted', 'unassisted'] as const).map((condition) =>
+      metrics({
+        data: state.run.status === 'complete' ? state.run.rounds[condition].data : [],
+        slate: slateFor(ASSIGN, condition),
+        condition,
+        confidence: state.run.status === 'complete' ? state.run.rounds[condition].confidence : 0,
+      }),
+    );
+  }
+
+  it('the transfer pick feeds no measure', () => {
+    const before = finished();
+    const after = reducer(before, { type: 'pickTransfer', option: 'proxy' });
+    if (after.run.status !== 'complete') throw new Error('expected a complete run');
+    expect(after.run.transfer).toBe('proxy');
+    expect(scores(after)).toEqual(scores(before));
+  });
+
+  it('moving a Round 3 slider does not raise evaluative range after the fact', () => {
+    // The whole reason R3CaseState is a separate type. If Round 3 wrote into the
+    // records the debrief already reported on, this would move.
+    const before = finished();
+    const after = run(
+      before,
+      { type: 'commitR3', slot: 0, read: 'pass', driver: 0 },
+      { type: 'setR3Value', slot: 0, sliderIndex: 0, value: 999 },
+      { type: 'setR3Value', slot: 1, sliderIndex: 2, value: 0.002 },
+    );
+    expect(scores(after)).toEqual(scores(before));
+    if (after.run.status !== 'complete') throw new Error('expected a complete run');
+    expect(after.run.r3[0]?.vals[0]).toBe(999);
+  });
+
+  it('commitR3 records the read and the driver, and reveals', () => {
+    const after = reducer(finished(), {
+      type: 'commitR3',
+      slot: 1,
+      read: 'fund',
+      driver: 2,
+    });
+    if (after.run.status !== 'complete') throw new Error('expected a complete run');
+    expect(after.run.r3[1]).toMatchObject({ read: 'fund', driver: 2, revealed: true });
+    // The other slot is untouched.
+    expect(after.run.r3[0]?.revealed).toBe(false);
+  });
+
+  it('revealing is monotonic, so there is no way back to not having seen it', () => {
+    const after = run(
+      finished(),
+      { type: 'commitR3', slot: 0, read: 'fund', driver: 0 },
+      { type: 'commitR3', slot: 0, read: 'pass', driver: 1 },
+    );
+    if (after.run.status !== 'complete') throw new Error('expected a complete run');
+    expect(after.run.r3[0]?.revealed).toBe(true);
+  });
+
+  it('ignores a slot or slider the run does not have', () => {
+    const before = finished();
+    expect(reducer(before, { type: 'commitR3', slot: 9, read: 'fund', driver: 0 })).toBe(before);
+    expect(reducer(before, { type: 'setR3Value', slot: 0, sliderIndex: 9, value: 1 })).toBe(before);
+    expect(reducer(before, { type: 'setR3Value', slot: 9, sliderIndex: 0, value: 1 })).toBe(before);
+  });
+
+  it('refuses all three before the run is complete', () => {
+    const midRun = begin();
+    for (const action of [
+      { type: 'pickTransfer', option: 'proxy' },
+      { type: 'commitR3', slot: 0, read: 'fund', driver: 0 },
+      { type: 'setR3Value', slot: 0, sliderIndex: 0, value: 1 },
+    ] as const) {
+      expect(reducer(midRun, action)).toBe(midRun);
+    }
+  });
+
+  it('restart clears the transfer pick and all of Round 3', () => {
+    const after = run(
+      finished(),
+      { type: 'pickTransfer', option: 'proxy' },
+      { type: 'commitR3', slot: 0, read: 'fund', driver: 0 },
+      { type: 'restart' },
+    );
+    expect(after).toEqual(INITIAL_STATE);
+  });
+});
