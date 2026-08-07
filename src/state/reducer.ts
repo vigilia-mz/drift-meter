@@ -43,6 +43,18 @@ export interface BeginPayload {
 
 export type Action =
   | { readonly type: 'goto'; readonly screen: Screen }
+  /**
+   * A Back or Forward press, which is not the same thing as a `goto`.
+   *
+   * A history entry names a screen, not a run. After a reload the entries beneath
+   * the current one still describe a session that no longer exists, so a Back
+   * press can arrive naming the debrief when there is no run to draw one from.
+   * `goto` would take it, and the shell would fall through to the not-rebuilt
+   * stub — a false statement about a screen that is built. This action goes to
+   * the intro instead. Nothing else may use it: within a session every entry is
+   * reachable and this behaves exactly like `goto`.
+   */
+  | { readonly type: 'popTo'; readonly screen: Screen }
   | { readonly type: 'begin'; readonly payload: BeginPayload }
   | {
       readonly type: 'togglePanel';
@@ -78,6 +90,34 @@ export type Action =
     }
   | { readonly type: 'restart' };
 
+/**
+ * Whether a screen has the run behind it that it needs in order to say anything.
+ *
+ * Mirrors the shell's own render: the intro, the consent step and the two
+ * reference screens read nothing from the run; the round and rating screens need
+ * one in progress; everything after the debrief needs a finished one. Only
+ * `popTo` consults this, because only a history entry can name a screen the
+ * current session cannot produce.
+ */
+function canShow(screen: Screen, run: Run): boolean {
+  switch (screen.name) {
+    case 'intro':
+    case 'consent':
+    case 'method':
+    case 'process':
+      return true;
+    case 'round':
+    case 'rate':
+      return run.status === 'active';
+    case 'debrief':
+    case 'transfer':
+    case 'round3':
+    case 'spec':
+    case 'encoded':
+      return run.status === 'complete';
+  }
+}
+
 /** Which condition the screen's ordinal is currently writing into. */
 function activeCondition(state: AppState): Condition | null {
   if (state.run.status !== 'active') return null;
@@ -106,6 +146,12 @@ export function reducer(state: AppState, action: Action): AppState {
   switch (action.type) {
     case 'goto':
       return { ...state, screen: action.screen };
+
+    case 'popTo':
+      return {
+        ...state,
+        screen: canShow(action.screen, state.run) ? action.screen : INTRO_SCREEN,
+      };
 
     case 'begin': {
       // Eight fields, written together. A run that is half-begun — an assignment

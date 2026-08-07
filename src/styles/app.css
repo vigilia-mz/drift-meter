@@ -676,6 +676,142 @@ body {
 }
 
 /* ---------------------------------------------------------------------------
+ * The two reference screens
+ *
+ * The protocol and process screens are documents rather than steps, and they
+ * carry the most prose in the project. What they need beyond the shell is a way
+ * to print a numbered specification, a formula, a list, and three tables whose
+ * rows mean different things — the last of which is what --tone is for.
+ * ------------------------------------------------------------------------- */
+
+.dm-specs {
+  list-style: none;
+  margin: 0 0 16px;
+  padding: 0;
+}
+
+.dm-spec {
+  border-top: 1px solid var(--dm-rule);
+  padding: 24px 0 4px;
+}
+
+.dm-spec-kicker {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 12px;
+  margin: 0 0 6px;
+}
+
+.dm-spec-date {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--dm-muted);
+}
+
+.dm-spec-title {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: 19px;
+  margin: 0 0 12px;
+}
+
+.dm-rows-tight {
+  margin-bottom: 4px;
+}
+
+/* Formulas and identifiers are quoted values: they are read character by
+ * character, so they are set in the mono face and allowed to wrap rather than
+ * pushing the page sideways. */
+.dm-formula {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--dm-ink);
+  overflow-wrap: anywhere;
+}
+
+.dm-mono {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--dm-ink-body);
+}
+
+.dm-list {
+  margin: 0 0 8px;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--dm-rule);
+  max-width: var(--measure-instrument);
+}
+
+.dm-list-item {
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--dm-ink-body);
+  border-bottom: 1px solid var(--dm-rule);
+  padding: 12px 0;
+}
+
+/* A wide table on a narrow screen scrolls inside its own box rather than making
+ * the whole page scroll sideways. */
+.dm-scroll {
+  overflow-x: auto;
+  margin-bottom: 8px;
+}
+
+/* The debrief's tables hold counts, so .dm-table sets its cells in mono. These
+ * hold sentences. */
+.dm-table-prose td {
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  line-height: 1.55;
+  vertical-align: top;
+}
+
+.dm-table-prose th[scope='row'] {
+  vertical-align: top;
+  padding-right: 20px;
+  min-width: 12ch;
+}
+
+.dm-table-prose thead th {
+  white-space: nowrap;
+}
+
+/* A second line inside a cell: the note under a source's claim, the date it was
+ * checked, what a reader is being asked for beyond the one-line brief. */
+.dm-cell-note {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--dm-muted);
+}
+
+/* Tone. The colour is bound by data-tone in tokens.css; nothing here names one. */
+.dm-tone {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--tone, var(--dm-muted));
+  border-left: 2px solid var(--tone, var(--dm-rule));
+  padding-left: 8px;
+  white-space: nowrap;
+}
+
+.dm-toned {
+  color: var(--tone, var(--dm-muted));
+}
+
+/* ---------------------------------------------------------------------------
  * Narrow
  * ------------------------------------------------------------------------- */
 
@@ -703,6 +839,15 @@ body {
 
   .dm-bar-series {
     grid-column: 1 / -1;
+  }
+
+  /* The three-column tables do not collapse to one column, because a row whose
+   * cells stack loses which cell answered which heading. They scroll instead,
+   * inside .dm-scroll, with a floor on the prose columns so the text does not
+   * become a vertical ribbon. */
+  .dm-table-prose td,
+  .dm-table-prose th {
+    min-width: 22ch;
   }
 }
 

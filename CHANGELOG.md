@@ -15,11 +15,12 @@ This file is the surviving record of them.
 - The instrument is being rebuilt from source, in this repository, and it runs again. v0.1 through
   v0.5 shipped it as a single generated file with no editable source on disk, no tests, no types, no
   linting and no continuous integration; the last of them weighed 894 KB. Rebuilt and under test so
-  far: the case data, the cost model, the derived measures, and ten of the instrument's thirteen
+  far: the case data, the cost model, the derived measures, and twelve of the instrument's thirteen
   screens — the intro, the consent step, both rounds with their confidence gates, the debrief, the
-  transfer check, Round 3 and the four design rules. The remaining three render a page saying they
-  are not finished rather than an empty frame. Not rebuilt: the endpoint and the model pin. The
-  remaining steps are tracked in the open rather than described as finished.
+  transfer check, Round 3, the four design rules, and the protocol and publication-process screens.
+  The remaining one renders a page saying it is not finished rather than an empty frame. Not
+  rebuilt: the endpoint, and the live-Claude screen that needs it. The remaining steps are tracked
+  in the open rather than described as finished.
 - One reducer holds the whole flow, and it is pure: no DOM, no clock, no entropy. The assignment is
   drawn outside it and handed in, which is what lets the thirteen-screen flow be exercised in tests
   with no browser. The previous build kept the two rounds in loose arrays and read them through
@@ -47,10 +48,11 @@ This file is the surviving record of them.
   reconstructed from what Round 3 collects. The mapping of each rule to its learning-science
   mechanism is an authorial judgement rather than a recovery, and `spec.ts` says so.
 - **The model for the rebuilt instrument will be pinned to `claude-opus-5`, and that is a
-  re-baseline rather than maintenance.** No constant holds it yet — `shared/model.ts` ships with the
-  endpoint — so this entry records the decision rather than the change. The consequence is the same
-  either way: rubric pass rates on the encoded screen are not comparable to the v0.4 and v0.5 runs,
-  and neither is any figure derived from them. The series restarts here.
+  re-baseline rather than maintenance.** `shared/model.ts` now holds that one exact ID, and the
+  protocol screen prints it; the endpoint that will call it does not exist yet, so nothing has been
+  served by the new pin and the screen says so. The consequence does not wait for the endpoint:
+  rubric pass rates on the encoded screen are not comparable to the v0.4 and v0.5 runs, and neither
+  is any figure derived from them. The series restarts here.
 - `drift-meter.html` served a page saying the instrument is being rebuilt, in place of the 404 that
   four links on the site were reaching. It carried `noindex`, since it was temporary. Within this
   same version the rebuilt instrument has taken the URL back, which is what the placeholder was
@@ -100,21 +102,6 @@ This file is the surviving record of them.
   without being told which one it is. `invariants.test.ts` asserts both halves — that the three
   screens carry the disclosure, and that neither pre-run screen contains the trap case's name or its
   slider's label.
-- **The Clio reference is pinned, and the claim it was pinned for is narrower than the row said,
-  which closes #8.** It is the first link this table has held in this repository; the other ten rows
-  still read `Primary link: TODO`. #8 asked for the reference to be pinned or for the claim to stop
-  being made. The reference is pinned, and the row's own characterisation is narrowed rather than
-  dropped. The row called Clio the reference standard for privacy-preserving measurement over real
-  usage. Anthropic's paper says the core technologies underlying Clio are not fundamentally new, says
-  it builds on differential privacy, k-anonymity and federated learning, and says formal guarantees
-  of that kind are difficult to apply to it; neither the paper nor the research page calls Clio a
-  standard. So the superlative is withdrawn, the row claims what the pinned pages support, and it
-  moves from PRIMARY AVAILABLE to PRIMARY. No page changes: the rebuilt consent screen already
-  declined the comparison, and the protocol screen that also carried it is still a route to the
-  not-rebuilt stub. Two consequences elsewhere. The table's header now defines PRIMARY, which it had
-  left to a single self-explaining row, and says of PRIMARY AVAILABLE that an unpinned source is also
-  an unread one. And `CLAUDE.md` said the printed model ID is the one row graded `PRIMARY`; it now
-  says the row is graded `PRIMARY` on the same grounds, without the count.
 - Corrected: the contrast note in `tokens.css` gave `#6B6358` as 4.76:1 on `#ECE8DE`. It measures
   4.83:1. The two failing ratios in the same note were right; the passing one — the number carrying
   the claim that the fix clears 4.5:1 — was not.
@@ -126,7 +113,9 @@ This file is the surviving record of them.
   from the six real cases. Four on-step slider combinations on Slate B's vitamin A case reach it.
   The behaviour is unchanged and still deliberate; the comment justifying it was wrong.
 - Corrected: a comment in `metrics.ts` said a test cross-checks the 0.25 autonomy saturation
-  constant against the page's prose. There is no such test, and no such prose yet.
+  constant against the page's prose. Neither existed when it said so. Both arrived later in this
+  same version, with the protocol screen, and the comment now describes what the test actually
+  asserts.
 - Corrected: `CLAUDE.md` said an end-to-end test asserts the three prose pages issue zero `.js`
   requests, and the same claim sat in a `vite.config.ts` comment. There is no end-to-end test and no
   Playwright in the toolchain; the assertion is scheduled in #19, where the browser dependency was
@@ -141,13 +130,61 @@ This file is the surviving record of them.
   the module itself, and whether a snapshot test earns its keep on top of that is left open. The
   invariants test named in the same sentence is real, and the convention now describes what it
   actually asserts.
+- The protocol and the publication-process screens are back. Twelve of the thirteen screens now
+  render; only the live-Claude screen is outstanding, and it arrives with the endpoint. The protocol
+  screen states the design, the four arms, the five measures with their formulas and their threats,
+  the six registered predictions, the stimulus and model provenance, and what this build cannot do.
+  The process screen carries the masthead, the changelog, the readers, the caveats, the production
+  provenance and the source table.
+- **The five formulas are published, and a test holds each of them to the code.** Every constant
+  printed on the protocol screen — the slider count, the cases, the points per case, the two
+  autonomy weights, the confidence scale, and the 0.25 saturation point — is asserted against the
+  constant `src/domain/` actually uses, which is also what closes the `metrics.ts` correction above.
+  The ÷6-versus-÷9 bug is why: correcting the code and leaving the page describing the old
+  arithmetic is the same error wearing better clothes. The prose assertions anchor whole phrases
+  rather than bare digits, so tuning a constant to a value whose string is a prefix of the old one
+  cannot slip through.
+- **The Clio reference is withdrawn rather than carried forward.** `SOURCES.md` locates it on the
+  consent screen and in protocol section 1. The consent screen dropped it earlier in this version;
+  protocol section 1 was written now and does not add it back, because a citation from memory is
+  worst placed on the screen where a reader is deciding whether to trust the page about data
+  handling. That discharges the obligation by dropping the claim, which is the weaker of the two
+  exits and is recorded as such. The row stays in the table, and a test asserts the word appears on
+  neither screen.
+- **The pinned model ID reaches a page.** `shared/model.ts` now exists and holds one exact ID, which
+  closes the gap the re-baseline bullet above described. The protocol screen prints it beside the
+  statement that the pin is not the provenance record — the ID the API returns is. Nothing returns
+  one yet, and the screen says that rather than implying a verification that has not happened. A
+  test asserts the ID appears nowhere in the screen's prose, so a later re-baseline cannot leave a
+  second, stale copy of it in a sentence.
+- **Browser Back works, for the protocol and process screens only.** Entering either pushes a
+  history entry; every other screen change replaces the current one. A reader who took the intro's
+  side door into the protocol screen used to press Back and leave the site. The linear run stays
+  state-only, so Back part-way through a round still leaves rather than un-answering the previous
+  question, and the URL — including the run parameters — is untouched by either. A history entry
+  names a screen and not a run, so a Back press arriving after a reload, when the run it described
+  is gone, goes to the start rather than to a screen with nothing behind it.
+- **The Clio reference is pinned as well, and the claim it was pinned for is narrower than the row
+  said. That closes #8.** The bullet above withdrew the claim, which was the weaker of the two exits
+  the issue offered; this is the other one, and it is the first link `SOURCES.md` has held in this
+  repository. The other ten rows still read `Primary link: TODO`. The row called Clio the reference
+  standard for privacy-preserving measurement over real usage. Anthropic's paper says the core
+  technologies underlying Clio are not fundamentally new, says it builds on differential privacy,
+  k-anonymity and federated learning, and says formal guarantees of that kind are difficult to apply
+  to it; neither the paper nor the research page calls Clio a standard. So the superlative is
+  withdrawn, the row claims what the pinned pages support, and it moves from PRIMARY AVAILABLE to
+  PRIMARY. The mirrored table on the process screen moves with it, which is the one page change here:
+  the published row now carries the narrowed wording, the new grade and the date the source was read.
+  Two consequences in the paperwork. The source table's header now defines PRIMARY, which it had left
+  to a single self-explaining row, and says of PRIMARY AVAILABLE that an unpinned source is also an
+  unread one. And `CLAUDE.md` said the printed model ID is the one row graded `PRIMARY`; it now says
+  the row is graded `PRIMARY` on the same grounds, without the count.
 - Corrected: the Clio row in `SOURCES.md` said the word appeared nowhere in the repository except in
-  its own heading, and that the protocol screen does not exist. The header of the same file uses the
-  word too, in the sentence recording that the rebuilt consent screen declines to make the claim —
-  added by the merge that rewrote the row's sentence, so the sentence was false as soon as it was
-  written. The protocol screen is a route that is reachable from the intro and the debrief and lands
-  on the not-rebuilt stub. The row now names the file rather than counting the places, and says what
-  the route does.
+  its own heading. The header of the same file used it too, in the sentence recording that the
+  rebuilt consent screen declines to make the claim — added by the merge that rewrote the row's
+  sentence, so the sentence was false as soon as it was written, and it survived the rewrite the
+  bullet above gave that row. The mirrored table and the test that holds it there put the word in the
+  repository again. The row now names the file rather than counting the places.
 
 **Why**
 
@@ -184,24 +221,33 @@ weakness beside its verdict, and why Round 3 states that it is excluded from the
 leaving the reader to assume it. A test now asserts that nothing done after the debrief can change
 the debrief — the transfer pick and every Round 3 slider are outside anything the measures read.
 
+The two reference screens are where the project is checked rather than argued, so both are written
+to be used against it. The protocol screen states a threat beside every measure, including the one
+that runs in the same direction as the prediction: the control round's sliders start at an arbitrary
+midpoint and the assisted round's start at an authoritative figure, which inflates evaluative range
+in the control round. The process screen's most important section is the empty one — nobody has read
+this yet — and it says so above the table rather than below it.
+
 Pinning the Clio reference was the mildest obligation in the source table, and it turned into a
 withdrawal. The publication existed, so the row had been graded since v0.3 as though the pin were
 clerical; what nobody did in that time was read the publication against the sentence it was supposed
-to support. It does not support it. A source that exists is not a source
-that agrees, and PRIMARY AVAILABLE made the difference easy to miss, because the grade is defined by
-whether a link has been typed here rather than by whether anyone has read one. The claim was
-published on the consent screen of the build that has since been deleted, which is the screen where a
-reader is deciding whether to trust the page about data handling. Nothing in this repository records
-the sentence itself, only that it was made.
+to support. It does not support it. A source that exists is not a source that agrees, and PRIMARY
+AVAILABLE made the difference easy to miss, because the grade is defined by whether a link has been
+typed here rather than by whether anyone has read one. Withdrawing the claim from the two screens,
+earlier in this version, was the cheaper half: it stopped the site saying the thing without settling
+whether the thing was true. Reading the paper settled it. The claim was published on the consent
+screen of the build that has since been deleted, which is the screen where a reader is deciding
+whether to trust the page about data handling. Nothing in this repository records the sentence
+itself, only that it was made.
 
 Seven of the bullets above are corrections. Six are claims this project made about its own work: a
-contrast ratio, four claims about its own tests, three of which describe tests that do not exist, and
-a claim about where a word appears in the repository. The seventh is a scale qualifier on a published
-figure, which the source table already existed to prevent. That they survived until someone checked
-the paperwork against the code is the uncomfortable part. The withdrawal of “reference standard” in
-the Clio bullet is a correction too, and the largest of the pass; it is filed as a change rather than
-counted here because what it corrects is a claim about the world, not a claim about this project's
-own work.
+contrast ratio, four claims about its own tests, three of which described tests that did not exist,
+and a claim about where a word appears in the repository. The seventh is a scale qualifier on a
+published figure, which the source table already existed to prevent. That they survived until
+someone checked the paperwork against the code is the uncomfortable part. The withdrawal of
+“reference standard” in the Clio bullet is a correction too, and the largest of the pass; it is
+filed as a change rather than counted here because what it corrects is a claim about the world, not
+a claim about this project's own work.
 
 Two of the seven are in `CLAUDE.md`, which this pass first skipped on the grounds that it is the
 working agreement rather than site content. The exemption does not survive the argument. A document

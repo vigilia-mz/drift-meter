@@ -1,16 +1,26 @@
 import { describe, expect, it } from 'vitest';
+// The two paperwork files as text, through the bundler rather than through
+// `node:fs`. They are part of the artifact, and the two tables on the process
+// screen mirror them, so the mirror is checked against the record rather than
+// against a memory of it.
+import changelogFile from '../../CHANGELOG.md?raw';
+import sourcesFile from '../../SOURCES.md?raw';
 import * as armsModule from './arms.js';
 import * as debriefModule from './debrief.js';
+import * as methodModule from './method.js';
+import * as processModule from './process.js';
 import * as round3Module from './round3.js';
 import * as shellModule from './shell.js';
 import * as slatesModule from './slates.js';
 import * as specModule from './spec.js';
 import * as transferModule from './transfer.js';
 import * as trapModule from './trap.js';
-import type { Slate, TrapBranch } from './types.js';
+import type { PredictionRow, Slate, SourceGrade, TrapBranch } from './types.js';
 
 const { ARM_NOTES, ARMS, recSentencePrefix, REC_LABELS } = armsModule;
 const { DEBRIEF } = debriefModule;
+const { METHOD, PRED_ROWS } = methodModule;
+const { CHANGELOG_ROWS, PROCESS, PROVENANCE_ROWS, REVIEWER_ROWS, SOURCE_ROWS } = processModule;
 const { CONSENT, INTRO } = shellModule;
 const { otherSlate, SLATES } = slatesModule;
 const { TRAP, TRAP_HEADINGS } = trapModule;
@@ -197,6 +207,152 @@ describe('recommendation prefix', () => {
   });
 });
 
+describe('the registered predictions', () => {
+  /**
+   * The order is P1, P2, P3, P4, P6, P5.
+   *
+   * P6 sits before P5 on the published page and is preserved here. It is not a
+   * sorting mistake and must not be quietly corrected into numerical sequence:
+   * P1 to P4 are contrasts inside one reader's own two rounds, and P6 sits with
+   * the trap prediction it follows from rather than at the end. The screen says
+   * so; this asserts it.
+   */
+  const PRINTED_ORDER: readonly PredictionRow['id'][] = ['P1', 'P2', 'P3', 'P4', 'P6', 'P5'];
+
+  it('prints P6 before P5, as the original did', () => {
+    expect(PRED_ROWS.map((p) => p.id)).toEqual(PRINTED_ORDER);
+  });
+
+  it('registers six, each exactly once', () => {
+    expect(new Set(PRED_ROWS.map((p) => p.id)).size).toBe(PRED_ROWS.length);
+    expect(PRED_ROWS).toHaveLength(6);
+  });
+
+  it('gives every prediction a condition that would defeat it', () => {
+    // A prediction with no falsification condition is a hope. The page claims
+    // these were registered with one each, and this is that claim.
+    for (const row of PRED_ROWS) {
+      expect(row.test.length, row.id).toBeGreaterThan(40);
+      expect(row.claim.length, row.id).toBeGreaterThan(40);
+    }
+  });
+
+  it('says on the page why the order is what it is', () => {
+    expect(METHOD.predictionsOrderNote).toContain('P6');
+    expect(METHOD.predictionsOrderNote).toContain('P5');
+  });
+});
+
+describe('the protocol screen', () => {
+  it('numbers its sections the way SOURCES.md refers to them', () => {
+    // `SOURCES.md` sites two claims by section number. Renumbering the screen
+    // without updating the file would leave the source table pointing at the
+    // wrong part of the page.
+    expect(METHOD.designHeading).toMatch(/^1 · /);
+    expect(METHOD.provenanceHeading).toMatch(/^5 · /);
+  });
+
+  it('does not carry the claim the rebuild withdrew', () => {
+    // The Clio row is unpinned and the rebuilt consent screen dropped it. Section
+    // 1 is the other place it was cited; citing it from memory here would put the
+    // debt back without pinning it.
+    expect(JSON.stringify(METHOD)).not.toContain('Clio');
+    expect(JSON.stringify(CONSENT)).not.toContain('Clio');
+  });
+
+  it('states what the build cannot do before anyone asks', () => {
+    expect(METHOD.limits.length).toBeGreaterThanOrEqual(5);
+    expect(METHOD.limits.join(' ')).toContain('n is zero');
+  });
+
+  it('counts the graded rows the way the source table counts them', () => {
+    // Both reference screens state a count in words: how many case figures carry
+    // the grade that means built for the exercise, and how many rows are still not
+    // cleared for publication. A reader who follows a stale number miscounts the
+    // project's own outstanding debt — the exact failure the source table exists
+    // to prevent, committed by the pages describing it. The words are written out
+    // rather than interpolated, so this can fail.
+    const WORDS = ['none', 'one', 'two', 'three', 'four', 'five', 'six'] as const;
+    const countOf = (grade: SourceGrade) => {
+      const n = SOURCE_ROWS.filter((r) => r.grade === grade).length;
+      const word = WORDS[n];
+      expect(word, `no number word for ${String(n)} ${grade} rows`).toBeDefined();
+      return String(word);
+    };
+
+    const figures = METHOD.stimulusRows.find((r) => r.label === 'The figures');
+    expect(figures?.value.toLowerCase()).toContain(`${countOf('Illustrative')} rows`);
+    expect(PROCESS.sourcesLead.toLowerCase()).toContain(
+      `${countOf('Flagged')} rows still carry it`,
+    );
+  });
+
+  it('says what the rows still graded flagged actually are', () => {
+    // They are no longer case figures. Restating those as illustrative cleared
+    // them; what is left are the essays' empirical claims, which a disclosure
+    // cannot clear because they are either true and uncited or they are not true.
+    for (const row of SOURCE_ROWS.filter((r) => r.grade === 'Flagged')) {
+      expect(row.where, row.claim).toContain('essay');
+    }
+    expect(PROCESS.sourcesLead).toContain('no disclosure can clear them');
+  });
+});
+
+describe('the process screen', () => {
+  it('keeps the retraction in the list', () => {
+    // A changelog that quietly loses the version where something was withdrawn is
+    // worth less than no changelog, because it looks like one.
+    const retraction = CHANGELOG_ROWS.find((e) => e.version === 'v0.2');
+    expect(retraction?.title).toContain('removed');
+    expect(retraction?.why).toContain('invented numbers');
+  });
+
+  it('lists every version the changelog file records, newest first', () => {
+    for (const entry of CHANGELOG_ROWS) {
+      expect(changelogFile, entry.version).toContain(`## ${entry.version} —`);
+    }
+    const fileOrder = [...changelogFile.matchAll(/^## (v\d+\.\d+) —/gm)].map((m) => m[1]);
+    expect(CHANGELOG_ROWS.map((e) => e.version)).toEqual(fileOrder);
+  });
+
+  it('grades the same claims the source file grades', () => {
+    // The screen is a mirror of `SOURCES.md` at the length a screen can carry. If
+    // a row is added to the file and not to the screen, the page is quietly
+    // publishing a shorter table than the one it says it is showing.
+    const fileGrades = [...sourcesFile.matchAll(/^### ([A-Z ]+) — /gm)].map((m) =>
+      (m[1] ?? '').trim(),
+    );
+    const screenGrades = SOURCE_ROWS.map((r) => r.grade.toUpperCase());
+    expect(screenGrades.length).toBe(fileGrades.length);
+    expect([...screenGrades].sort()).toEqual([...fileGrades].sort());
+  });
+
+  it('names three readers and says none of them has read it', () => {
+    const readers = REVIEWER_ROWS.filter((r) => r.status !== 'Planned before collection');
+    expect(readers).toHaveLength(3);
+    for (const row of REVIEWER_ROWS) {
+      expect(row.status, row.role).not.toBe('Read');
+      expect(row.brief.length, row.role).toBeGreaterThan(40);
+    }
+    expect(PROCESS.reviewersLead).toContain('Nobody, yet');
+  });
+
+  it('keeps the row saying what Claude drafted that was cut', () => {
+    // All three were produced fluently on request and all three are the thing this
+    // project argues against. Retractions stay in.
+    const cut = PROVENANCE_ROWS.find((r) => r.tone === 'cut');
+    expect(cut?.value).toContain('cohort dashboard');
+    expect(cut?.value).toContain('personality verdict');
+    expect(cut?.value).toContain('imputed');
+  });
+
+  it('says there is one published copy and where it is', () => {
+    const where = PROCESS.mastheadRows.find((r) => r.label === 'Where it lives');
+    expect(where?.value).toContain('vigilia-mz.github.io/drift-meter');
+    expect(where?.value).toContain('One published copy');
+  });
+});
+
 describe('typography', () => {
   /**
    * The writing uses typographic quotes and dashes throughout. A straight
@@ -225,6 +381,8 @@ describe('typography', () => {
   const MODULES = {
     arms: armsModule,
     debrief: debriefModule,
+    method: methodModule,
+    process: processModule,
     round3: round3Module,
     shell: shellModule,
     slates: slatesModule,

@@ -2,7 +2,16 @@ import { describe, expect, it } from 'vitest';
 import { SCREENS, announceFor, titleFor } from '../content/shell.js';
 import type { ScreenName } from '../content/types.js';
 import type { Screen } from './screen.js';
-import { LINEAR_PATH, isBuilt, isLinear, isReference, ordinalOf, screenKey } from './screen.js';
+import {
+  ALL_SCREENS,
+  LINEAR_PATH,
+  REFERENCE_PATH,
+  isBuilt,
+  isLinear,
+  isReference,
+  ordinalOf,
+  screenKey,
+} from './screen.js';
 
 const ALL_NAMES = Object.keys(SCREENS) as readonly ScreenName[];
 
@@ -14,9 +23,8 @@ describe('the screen union', () => {
     expect(LINEAR_PATH).toHaveLength(11);
     expect(LINEAR_PATH.filter((s) => s.name === 'round')).toHaveLength(2);
     expect(LINEAR_PATH.filter((s) => s.name === 'rate')).toHaveLength(2);
-    const rendered =
-      LINEAR_PATH.length + ALL_NAMES.filter((n) => n === 'method' || n === 'process').length;
-    expect(rendered).toBe(13);
+    expect(REFERENCE_PATH).toHaveLength(2);
+    expect(ALL_SCREENS).toHaveLength(13);
   });
 
   it('gives every name copy, and every copy a name', () => {
@@ -31,18 +39,21 @@ describe('the screen union', () => {
       expect(isLinear(screen), screen.name).toBe(true);
       expect(isReference(screen), screen.name).toBe(false);
     }
-    for (const screen of [{ name: 'method' }, { name: 'process' }] as const) {
-      expect(isLinear(screen)).toBe(false);
-      expect(isReference(screen)).toBe(true);
+    for (const screen of REFERENCE_PATH) {
+      expect(isLinear(screen), screen.name).toBe(false);
+      expect(isReference(screen), screen.name).toBe(true);
     }
   });
 
-  it('starts the flow at the intro and ends the built part at the four rules', () => {
+  it('starts the flow at the intro and ends it at the live-Claude screen', () => {
     expect(LINEAR_PATH[0]).toEqual({ name: 'intro' });
-    const built = LINEAR_PATH.filter(isBuilt);
-    // Ten of the thirteen rendered screens: six from #15, four more from #16.
-    expect(built).toHaveLength(10);
-    expect(built[built.length - 1]).toEqual({ name: 'spec' });
+    expect(LINEAR_PATH[LINEAR_PATH.length - 1]).toEqual({ name: 'encoded' });
+  });
+
+  it('has one screen left to rebuild, and it is the one that needs the endpoint', () => {
+    // Twelve of thirteen. `encoded` arrives with the endpoint in #18; until then it
+    // renders a stub that says so rather than an empty frame.
+    expect(ALL_SCREENS.filter((s) => !isBuilt(s))).toEqual([{ name: 'encoded' }]);
   });
 });
 
@@ -72,7 +83,9 @@ describe('screenKey', () => {
   });
 
   it('is unique across every screen the instrument can show', () => {
-    const screens: readonly Screen[] = [...LINEAR_PATH, { name: 'method' }, { name: 'process' }];
+    // The history codec identifies an entry by this key, so a collision would send
+    // a reader pressing Back to the wrong screen.
+    const screens: readonly Screen[] = ALL_SCREENS;
     expect(new Set(screens.map(screenKey)).size).toBe(screens.length);
     expect(screens).toHaveLength(13);
   });

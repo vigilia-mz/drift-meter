@@ -94,13 +94,18 @@ export const AUTONOMY_DEVIATION_WEIGHT = 50;
  *
  * An arbitrary constant chosen by eye. It needs calibrating against expert
  * behaviour on the same slates before it means anything, and the protocol screen
- * is to say so in those words.
+ * says so in those words.
  *
- * Until v0.6 this comment said a test cross-checked the page's prose about "the
- * 0.25 saturation point" against this constant. No such test exists, and no such
- * prose does either — the protocol screen has not been rebuilt. When it is, the
- * cross-check goes in with it, so that quoting the constant in prose and changing
- * it here cannot come apart silently.
+ * The prose and the cross-check both arrived with that screen. `method.test.ts`
+ * asserts that the page's sentence about "the 0.25 saturation point", and the
+ * formula printed beside it, both name this constant — anchored on the whole
+ * phrase rather than on the digits, so that tuning this to a value whose string
+ * is a prefix of the old one cannot leave the published arithmetic describing
+ * something the code no longer does.
+ *
+ * Until v0.6 this comment claimed that cross-check while neither the test nor the
+ * prose existed. That is recorded in `CHANGELOG.md` as a correction rather than
+ * quietly made true.
  */
 export const AUTONOMY_SATURATION = 0.25;
 

@@ -31,13 +31,14 @@ interface Props {
   readonly run: Extract<Run, { status: 'complete' }>;
   readonly onContinue: () => void;
   readonly onMethod: () => void;
+  readonly onProcess: () => void;
 }
 
 function valueOf(m: Metrics, key: (typeof MEASURES)[number]['key']) {
   return m[key];
 }
 
-export function Debrief({ containerRef, run, onContinue, onMethod }: Props) {
+export function Debrief({ containerRef, run, onContinue, onMethod, onProcess }: Props) {
   const assistedSlate = slateFor(run.assign, 'assisted');
   const unassistedSlate = slateFor(run.assign, 'unassisted');
 
@@ -208,6 +209,9 @@ export function Debrief({ containerRef, run, onContinue, onMethod }: Props) {
         </button>
         <button type="button" class="dm-button dm-button-ghost" onClick={onMethod}>
           {DEBRIEF.methodLabel}
+        </button>
+        <button type="button" class="dm-button dm-button-ghost" onClick={onProcess}>
+          {DEBRIEF.processLabel}
         </button>
       </div>
     </ScreenFrame>

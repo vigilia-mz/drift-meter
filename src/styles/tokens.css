@@ -145,6 +145,35 @@
 }
 
 /*
+ * Tones.
+ *
+ * The protocol and process screens print rows that mean different things: a source
+ * that is not cleared for publication, a reader who has not been asked, a
+ * paragraph Claude drafted that was cut. `src/domain/tone.ts` returns one of these
+ * five names and never a colour, and a test asserts that every name it can return
+ * has a binding here — an unbound tone would render an unstyled row rather than
+ * fail.
+ *
+ * `open` and `cut` share a colour and are still two names, because an unmet
+ * obligation and a retraction are two different things going wrong.
+ */
+[data-tone='kept'] {
+  --tone: var(--green);
+}
+[data-tone='cut'] {
+  --tone: var(--red);
+}
+[data-tone='rule'] {
+  --tone: var(--blue);
+}
+[data-tone='open'] {
+  --tone: var(--red);
+}
+[data-tone='partial'] {
+  --tone: var(--orange);
+}
+
+/*
  * Contrast.
  *
  * The original used #A39A8B and #9A9081 on the instrument, and #A39A88 on the
