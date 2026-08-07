@@ -43,6 +43,13 @@ export function Consent({ containerRef, onBegin, onBack }: Props) {
         <p class="dm-body">{CONSENT.reflection}</p>
       </section>
 
+      <section aria-labelledby="dm-constructed">
+        <h2 class="dm-section-heading" id="dm-constructed">
+          {CONSENT.constructedLabel}
+        </h2>
+        <p class="dm-body">{CONSENT.constructed}</p>
+      </section>
+
       <div class="dm-actions">
         <button
           type="button"

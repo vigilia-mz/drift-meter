@@ -83,6 +83,13 @@ export const KICKER = 'Agential Drift Research Program · Experiment 01';
  * the later screens. It states the argument without requiring the instrument to
  * be completed, because a reader who leaves at screen two should still have been
  * told something true.
+ *
+ * `constructed` is the on-page disclosure required by #7. It is deliberately
+ * general: it says that every figure in every case is illustrative, and it does
+ * not say which figure carries the planted error or in which direction it is
+ * wrong. Naming the slider would tell the reader where to look, and the thing
+ * being observed is whether they look unprompted. Disclosing the provenance of
+ * the cases and disclosing the answer are not the same act.
  */
 export const INTRO = {
   heading: 'The Drift Meter',
@@ -91,6 +98,9 @@ export const INTRO = {
     'You will review the same kind of charity cost-effectiveness case twice: once with an estimate supplied to you, and once with no estimate at all. Three cases each time, about three minutes in total.',
     'Nothing here scores whether your decisions were right. What it records is the texture of the work — which numbers you moved, which evidence you opened, where you declined to decide, and how confident you felt afterwards.',
   ],
+  constructedLabel: 'About the cases',
+  constructed:
+    'Every case here is written for this exercise. The programmes are generic rather than real organisations, and every figure attached to them is illustrative: built to carry the shape of a disagreement that does occur in this field, not traced to a named study. Nothing on these screens is a finding about a real programme, and none of it should be quoted as one.',
   shortLabel: 'The sixty-second version',
   short: [
     'AI assistance can improve the surface of an answer while changing the person responsible for judging it. The concern is not that people stop deciding. It is that deciding thins into approving.',
@@ -134,6 +144,16 @@ export const CONSENT = {
   reflectionHeading: 'One optional part',
   reflection:
     'A later screen can send a short, anonymous summary of your run to Claude and print what it says back, along with the model ID that served it. It is off in this build. You can also turn it off for yourself now, and the rest of the instrument works unchanged.',
+  /**
+   * The second half of #7, on the last screen before the work starts.
+   *
+   * The intro states this too, and a reader who arrives from a direct link, or
+   * who skimmed the first screen, would otherwise meet the supplied estimate
+   * without having been told what it is. Saying it twice costs two sentences.
+   */
+  constructedLabel: 'About the cases',
+  constructed:
+    'They are written for this exercise, and every figure in them is illustrative — including the estimate you will be shown. None of it is traced to a named study, and none of it should be quoted as a finding.',
   begin: 'Begin',
   beginLocal: 'Begin, but keep everything local',
   back: 'Back',

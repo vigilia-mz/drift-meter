@@ -26,6 +26,13 @@ export function Intro({ containerRef, onBegin, onMethod }: Props) {
         </p>
       ))}
 
+      <section aria-labelledby="dm-constructed">
+        <h2 class="dm-section-heading" id="dm-constructed">
+          {INTRO.constructedLabel}
+        </h2>
+        <p class="dm-body">{INTRO.constructed}</p>
+      </section>
+
       <section class="dm-panel" aria-labelledby="dm-short">
         <h2 class="dm-panel-heading" id="dm-short">
           {INTRO.shortLabel}
