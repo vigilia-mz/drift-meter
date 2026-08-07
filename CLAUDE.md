@@ -106,9 +106,12 @@ content change under rule 5.
 ## Conventions
 
 **The three prose pages carry no JavaScript.** They are finished documents. `vite.config.ts` lists
-them as entries with no script tag, so the build emits no JS chunk for them, and an end-to-end test
-asserts they issue zero `.js` requests. Keep that property — it is the reason a reader can have the
-essays with scripting disabled.
+them as entries with no script tag, so the build emits no JS chunk for them. Nothing asserts that per
+page yet. `scripts/check-size.mjs` reports the JavaScript total for the whole build, which would stay
+quiet if a script tag appeared on one essay and the total still fit the budget; the per-page
+assertion — that each prose page issues zero `.js` requests — is scheduled with the end-to-end tests
+in issue #19. Until it lands, review is the only thing holding the property. Keep it — it is the
+reason a reader can have the essays with scripting disabled.
 
 **Two palettes, deliberately.** The prose pages are `#F0EEE6` on `#1A1916`; the instrument is
 `#ECE8DE` on `#1F1B16`. They read as the same paper and are not the same hex. Tokens are namespaced
@@ -124,10 +127,14 @@ property. Domain code returns a role name; it never returns a colour. Hex litera
 is not a performance preference: the consent screen tells the reader "no cookie, no analytics, no
 fingerprint" and "Leaves the browser: nothing," and a third-party font request would make both false.
 
-**Content lives in typed modules, and its wording is snapshot-tested.** `src/content/` holds the prose
-as `as const` records so the compiler can check exhaustiveness. A snapshot test makes any edit to the
-author's words appear as a reviewable diff, and an invariants test asserts structural facts including
-that no prose field contains a straight quote — the writing uses typographic quotes throughout.
+**Content lives in typed modules, and its structure is asserted.** `src/content/` holds the prose as
+`as const` records so the compiler can check exhaustiveness. Because the modules are the prose rather
+than a rendering of it, an edit to the author's words is already a reviewable diff in the module
+itself; there is no snapshot test over the wording, and adding one is an open call rather than a
+convention this repository currently keeps. What is asserted is structure.
+`src/content/invariants.test.ts` checks that trap indices point at cases that exist, that every
+supplied value sits inside its own slider range, and that no prose field contains a straight quote —
+the writing uses typographic quotes throughout.
 
 **Randomisation is injected, and disclosed.** `Math.random` is banned outside `src/platform/rng.ts`.
 Assignment takes an `Rng`, so it is deterministic under test and drivable from URL parameters for

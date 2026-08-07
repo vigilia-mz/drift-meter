@@ -147,14 +147,29 @@
 /*
  * Contrast.
  *
- * The original used #A39A8B and #9A9081 for 11–12px captions, kickers, footers
- * and the "Supplied value" notes. Measured against their own backgrounds those
- * are 2.27:1 and 2.57:1 — well under the 4.5:1 needed for body text, and this is
- * real text rather than decoration.
+ * The original used #A39A8B and #9A9081 on the instrument, and #A39A88 on the
+ * essays, for 10.5–12px captions, kickers, footers and the "Supplied value"
+ * notes. Measured against their own backgrounds those are 2.27:1, 2.57:1 and
+ * 2.40:1 — well under the 4.5:1 needed for body text, and this is real text
+ * rather than decoration.
  *
  * The fix stays inside the author's own palette: #6B6358, already in use for
- * muted body copy, measures 4.76:1 on #ECE8DE. It is promoted to the muted-text
- * role above, and the original values are kept for non-text use only. This is a
- * visible change to caption colour, recorded in CHANGELOG.md, and it is a
- * one-token revert if the author disagrees.
+ * muted body copy, measures 4.83:1 on #ECE8DE and 5.09:1 on #F0EEE6. It is
+ * promoted to the muted-text role in both palettes, and the original values are
+ * kept for non-text use only. This is a visible change to caption colour,
+ * recorded in CHANGELOG.md under v0.6, and it is a two-token revert — --dm-muted
+ * and --prose-muted — if the author disagrees.
+ *
+ * This note gave 4.76:1 until v0.6. The figure was wrong; the two failing ratios
+ * beside it were right. It was also the only number here that the fix depended
+ * on.
+ *
+ * The fix is partial, and stops at the muted-text role. --prose-muted-soft
+ * (#8C8472, 3.19:1) still colours real text at 11–12.5px and still fails.
+ * --dm-muted-soft (#8A8173, 3.14:1) is declared at the same grade and has no
+ * consumer: app.css reads --dm-muted throughout and the soft grade nowhere.
+ * Nine of the --dm-* tokens below are still unrendered, the rebuild having
+ * reached ten of the thirteen screens. All of them are left for the
+ * accessibility sweep, which will lock them with a contrast check rather than a
+ * comment.
  */

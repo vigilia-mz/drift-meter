@@ -11,21 +11,27 @@ small, reasonable acts of delegation.
 **Status: prototype. n = 0.** No data has been collected from anyone. This is an instrument and a
 design argument, not a finding, and every screen that could be mistaken for a result says so.
 
-**This repository is mid-rebuild.** The three prose pages are ported and the design system is in
-place. The instrument itself is still being rebuilt.
+**This repository is mid-rebuild.** In place and under test: the three prose pages, the design
+system, the case data, the cost model and the derived measures. Not yet rebuilt: the instrument's
+screens, its endpoint, and its pinned model. `drift-meter.html` says so at the instrument's own URL
+rather than linking to something that is not there, and the rebuild is recorded as v0.6 in
+[`CHANGELOG.md`](CHANGELOG.md).
 
 ## What is here
 
-| Page               | What it is                                                                                                                                                                      |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `index.html`       | Landing page — what the instrument measures and why.                                                                                                                            |
-| `essay.html`       | _Evaluating the Evaluator_ — the short companion essay.                                                                                                                         |
-| `atrophy.html`     | _The Atrophy of Judgment_ — the long essay.                                                                                                                                     |
-| `drift-meter.html` | The instrument. Two slates of charity cost-effectiveness cases, completed with and without a supplied estimate, then a debrief on what changed in the texture of your judgment. |
+| Page               | What it is                                                                                                                                                                                                                                |
+| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `index.html`       | Landing page — what the instrument measures and why.                                                                                                                                                                                      |
+| `essay.html`       | _Evaluating the Evaluator_ — the short companion essay.                                                                                                                                                                                   |
+| `atrophy.html`     | _The Atrophy of Judgment_ — the long essay.                                                                                                                                                                                               |
+| `drift-meter.html` | The instrument — two slates of charity cost-effectiveness cases, completed with and without a supplied estimate, then a debrief on what changed in the texture of your judgment. Serving a placeholder page until the rebuild reaches it. |
 
 Two documents are part of the artifact rather than notes about it: [`CHANGELOG.md`](CHANGELOG.md), recording what
 changed in each version and why with retractions kept in; and [`SOURCES.md`](SOURCES.md), recording every external
 claim, its source, whether that source is primary or secondary, and the date last checked.
+
+A third is a note to whoever edits next: [`docs/deliberate-quirks.md`](docs/deliberate-quirks.md), listing the
+behaviours that look like defects and are not, each against the test that holds it in place.
 
 ## Running it locally
 
@@ -46,9 +52,10 @@ API credit.
 ## History
 
 This is a rebuild. Versions v0.1 through v0.5 lived in a separate repository, now deleted, where the
-instrument shipped as a single 894 KB generated bundle with no editable source on disk and no tests.
-The prose, the case data, the protocol and the changelog are carried over; none of the code is.
-`CHANGELOG.md` is the surviving record of those versions.
+instrument shipped as a single generated bundle with no editable source on disk and no tests; the
+last of them weighed 894 KB. The prose, the case data and the changelog are carried over; none of the
+code is. The protocol comes back with the screen that states it. `CHANGELOG.md` is the surviving
+record of those versions.
 
 The rebuild's own rationale is in [`CLAUDE.md`](CLAUDE.md), which is the working agreement for anyone
 — human or model — editing this repository.
