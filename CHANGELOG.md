@@ -12,38 +12,80 @@ This file is the surviving record of them.
 
 **What changed**
 
-- The instrument is being rebuilt from source, in this repository. v0.1 through v0.5 shipped it as a
-  single generated file with no editable source on disk, no tests, no types, no linting and no
-  continuous integration; the last of them weighed 894 KB. Rebuilt and under test so far: the case
-  data, the cost model and the derived measures. Not rebuilt: the screens, the endpoint and the
-  model pin. The remaining steps are tracked in the open rather than described as finished.
+- The instrument is being rebuilt from source, in this repository, and it runs again. v0.1 through
+  v0.5 shipped it as a single generated file with no editable source on disk, no tests, no types, no
+  linting and no continuous integration; the last of them weighed 894 KB. Rebuilt and under test so
+  far: the case data, the cost model, the derived measures, and ten of the instrument's thirteen
+  screens — the intro, the consent step, both rounds with their confidence gates, the debrief, the
+  transfer check, Round 3 and the four design rules. The remaining three render a page saying they
+  are not finished rather than an empty frame. Not rebuilt: the endpoint and the model pin. The
+  remaining steps are tracked in the open rather than described as finished.
+- One reducer holds the whole flow, and it is pure: no DOM, no clock, no entropy. The assignment is
+  drawn outside it and handed in, which is what lets the thirteen-screen flow be exercised in tests
+  with no browser. The previous build kept the two rounds in loose arrays and read them through
+  non-null assertions; a completed run is now a type in which both rounds are present.
+- The run parameters are back — `?seed=`, `?order=`, `?slate=` and `?arm=` — and a pinned run is
+  recorded as pinned, so the debrief can decline to call it counterbalanced. A parameter that fails
+  to parse produces an ordinary randomised run and does not claim otherwise. Where a URL parameter
+  fixed the order, the slate or the arm, the debrief's assignment rows read “Fixed by URL parameter
+  on this run, not randomised” in place of the counterbalancing sentence.
+- Screen changes move focus to the new screen's heading, retitle the document and announce politely.
+  There is no router, so without this a keyboard reader gets no signal that the page changed at all.
+  The two rounds announce their number, because they are otherwise the same screen twice.
+- Framing autonomy is drawn as a hatched bar reading `n/a` in the round where no estimate was
+  supplied — never as a zero. A zero-width bar would be a claim about the reader; there is no
+  measure there to make one from. The v0.2 retraction is the reason this is a rendering rule and
+  not a detail.
+- Round 3 withholds every figure until the reader has committed a read and a guess at which
+  assumption the answer rests on, and the reveal is one-way. Where two assumptions tie, the screen
+  names the tie rather than breaking it.
+- The transfer check asks one question about one unseen case and scores nothing. It says on the page
+  that it is the weakest measurement here, because one item asked ninety seconds after the same
+  error was explained tests recognition rather than transfer.
+- **The four design rules are published, and two of the four are newly written.** Rule 2 survives
+  verbatim from the previous build and Rule 4 survives in substance. Rules 1 and 3 are
+  reconstructed from what Round 3 collects. The mapping of each rule to its learning-science
+  mechanism is an authorial judgement rather than a recovery, and `spec.ts` says so.
 - **The model for the rebuilt instrument will be pinned to `claude-opus-5`, and that is a
   re-baseline rather than maintenance.** No constant holds it yet — `shared/model.ts` ships with the
   endpoint — so this entry records the decision rather than the change. The consequence is the same
   either way: rubric pass rates on the encoded screen are not comparable to the v0.4 and v0.5 runs,
   and neither is any figure derived from them. The series restarts here.
-- `drift-meter.html` serves a page saying the instrument is being rebuilt, in place of the 404 that
-  four links on the site were reaching. It carries `noindex`, since it is temporary.
+- `drift-meter.html` served a page saying the instrument is being rebuilt, in place of the 404 that
+  four links on the site were reaching. It carried `noindex`, since it was temporary. Within this
+  same version the rebuilt instrument has taken the URL back, which is what the placeholder was
+  holding it for.
 - The footer contact on all four pages is the GitHub profile rather than an email address. The
   address it replaced lived in the deleted repository, and nothing here records it.
 - Muted text moved to `#6B6358` in both palettes. It replaces `#A39A8B` (2.27:1) on the instrument
   and `#A39A88` (2.40:1) on the essays, both of which are retained as decoration tokens. On the
   essays' `#F0EEE6` it measures 5.09:1 and is a visible change to caption colour on text down to
-  10.5px; on the instrument's `#ECE8DE` it measures 4.83:1, where nothing renders it yet, because no
-  stylesheet consumes a `--dm-*` token until the instrument is rebuilt. A two-token revert. It is
-  not an accessibility pass either: `--prose-muted-soft` is still 3.19:1 on real text at 11–12.5px,
-  `--dm-muted-soft` is 3.14:1 and unrendered, and both are left for the sweep that will lock every
-  one of these with a contrast check instead of a comment.
+  10.5px; on the instrument's `#ECE8DE` it measures 4.83:1, and the rebuilt screens render it, since
+  the instrument's stylesheet consumes `--dm-muted` throughout. A two-token revert. It is not an
+  accessibility pass either: `--prose-muted-soft` is still 3.19:1 on real text at 11–12.5px,
+  `--dm-muted-soft` is 3.14:1 and still has no consumer, and both are left for the sweep that will
+  lock every one of these with a contrast check instead of a comment.
 - The case data carries typographic single quotes throughout — two possessive apostrophes and one
   quoted phrase. Typography, not wording. A straight apostrophe in the landing page's footer was
   brought into line in the same pass.
 - `docs/deliberate-quirks.md` collects the behaviours that look like defects and are not, each named
   against the test that holds it in place, so that a later reader does not tidy one away.
-- `SOURCES.md` re-verified row by row against the rebuild. Four rows locate a claim on a screen this
-  build has not reproduced yet, and now say so instead of implying the claim is live. Four external
-  claims published on the essay pages had no row locating them there — three untracked entirely, and
-  the Project Deal figures tracked only by a row that placed them in a separate document. They have
-  rows now. The pass also states what it did not cover, rather than implying it was exhaustive.
+- `SOURCES.md` re-verified row by row against the rebuild. Rows that locate a claim on a screen this
+  build has not reproduced yet say so, instead of implying the claim is live — and where the rebuilt
+  screens have since reached the claim, the row records that instead. Four external claims published
+  on the essay pages had no row locating them there — three untracked entirely, and the Project Deal
+  figures tracked only by a row that placed them in a separate document. They have rows now. The
+  pass also states what it did not cover, rather than implying it was exhaustive.
+- **Figures flagged as not cleared for publication are now published.** The bednet case's supplied
+  `$2.00` and the chlorination case's `80%` coverage reach a page for the first time in this rebuild,
+  along with the evidence text that undoes each. The debrief's trap paragraphs add the consequence of
+  each planted error — that correcting it “roughly doubles the cost per death averted” — which is a
+  magnitude neither evidence panel states, and Round 3 adds the thresholds that would change the
+  assistant's view on the same two cases. The cash transfers case, which had no row in `SOURCES.md`
+  at all, publishes a multiplier; it has one now. Pinning these, or restating them on the page as
+  hypothetical, is overdue rather than pending. The deworming case's lifetime income gain factor of
+  3.0 and the vitamin A case's 0.0015 deaths averted per child-year render alongside them, as the
+  assisted round's opening position rather than as quoted results; their two rows say so.
 - Corrected: the contrast note in `tokens.css` gave `#6B6358` as 4.76:1 on `#ECE8DE`. It measures
   4.83:1. The two failing ratios in the same note were right; the passing one — the number carrying
   the claim that the fix clears 4.5:1 — was not.
@@ -77,6 +119,19 @@ The previous build's central defect was that it could not be corrected with any 
 was no source to correct, and nothing in the process that would have caught an arithmetic error in a
 published figure — the ÷6-versus-÷9 bug was found by a reader. Rebuilding from source is the only
 version of this project that makes that class of error hard rather than easy.
+
+Three behaviours in the rebuilt reducer look like defects and are not: a case stays read once a panel
+has been opened, a slider counts as touched even if it is put back, and a supplied recommendation
+left standing records nothing. All three were already documented and already tested at the domain
+layer, but those tests set the fields by hand and would have stayed green if the reducer wrote them
+wrongly. They are now tested where they are actually implemented.
+
+The debrief is the screen where overclaiming would cost most, so what it says is bounded by what one
+person on six cases can support: every branch names the confounds it cannot separate, and nothing on
+it compares the reader to anyone else. The same discipline is why the transfer check prints its own
+weakness beside its verdict, and why Round 3 states that it is excluded from the measures rather than
+leaving the reader to assume it. A test now asserts that nothing done after the debrief can change
+the debrief — the transfer pick and every Round 3 slider are outside anything the measures read.
 
 Six of the bullets above are corrections. Five are claims this project made about its own work: a
 contrast ratio, and four claims about its own tests, three of which describe tests that do not exist.

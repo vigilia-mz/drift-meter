@@ -1,0 +1,721 @@
+/*
+ * The instrument: drift-meter.html.
+ *
+ * Its own stylesheet, not an extension of prose.css. The two surfaces are the
+ * same paper at a half-step apart — #F0EEE6 against #ECE8DE — and unifying them
+ * would be a design change wearing a refactor's clothes. Nothing here reads a
+ * --prose-* token.
+ *
+ * No colour literal appears below this line. Accents are chosen by a data-accent
+ * attribute that rebinds one custom property, so domain code can return a role
+ * name and never a hex.
+ */
+
+@import './fonts.css';
+@import './tokens.css';
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--dm-bg);
+  color: var(--dm-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+}
+
+::selection {
+  background: var(--green);
+  color: var(--dm-on-dark);
+}
+
+:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 2px;
+}
+
+/* ---------------------------------------------------------------------------
+ * Shell
+ * ------------------------------------------------------------------------- */
+
+.dm-screen {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 72px 32px 96px;
+}
+
+/* The container is focused on every screen change. It is not a control, so it
+ * does not advertise a focus ring of its own — the heading it contains is what
+ * the reader is being sent to. */
+.dm-screen:focus {
+  outline: none;
+}
+
+.dm-masthead {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--dm-muted);
+  margin-bottom: 40px;
+}
+
+.dm-kicker {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent, var(--green));
+  margin: 0 0 12px;
+}
+
+.dm-heading {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: 34px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin: 0 0 16px;
+}
+
+.dm-standfirst {
+  font-family: var(--font-serif);
+  font-size: 19px;
+  line-height: 1.5;
+  color: var(--dm-ink-serif);
+  max-width: var(--measure-body);
+  margin: 0 0 32px;
+}
+
+.dm-body {
+  font-size: 15px;
+  line-height: 1.65;
+  color: var(--dm-ink-body);
+  max-width: var(--measure-instrument);
+  margin: 0 0 16px;
+}
+
+.dm-note {
+  font-size: 12.5px;
+  line-height: 1.55;
+  color: var(--dm-muted);
+  max-width: var(--measure-desc);
+  margin: 8px 0 0;
+}
+
+.dm-question {
+  font-family: var(--font-serif);
+  font-size: 21px;
+  line-height: 1.4;
+  margin: 0 0 24px;
+  max-width: var(--measure-body);
+}
+
+/* The polite live region. Visually hidden, never display:none — a hidden region
+ * is not announced at all. */
+.dm-live {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ---------------------------------------------------------------------------
+ * Panels and rows
+ * ------------------------------------------------------------------------- */
+
+.dm-panel {
+  border: 1px solid var(--dm-card-rule);
+  background: var(--dm-card);
+  padding: 20px 22px 8px;
+  margin: 28px 0;
+}
+
+.dm-panel-heading {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dm-muted);
+  margin: 0 0 12px;
+}
+
+.dm-rows {
+  margin: 0 0 28px;
+  border-top: 1px solid var(--dm-rule);
+}
+
+.dm-row {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 20px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--dm-rule);
+}
+
+.dm-row-label {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--dm-muted);
+}
+
+.dm-row-value {
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--dm-ink-body);
+}
+
+/* ---------------------------------------------------------------------------
+ * Buttons
+ * ------------------------------------------------------------------------- */
+
+.dm-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  margin-top: 36px;
+}
+
+.dm-button {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 11px 20px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.dm-button-solid {
+  background: var(--green);
+  color: var(--dm-on-dark);
+}
+
+.dm-button-solid:hover:not(:disabled) {
+  background: var(--green-deep);
+}
+
+.dm-button-ghost {
+  background: none;
+  border-color: var(--green-border);
+  color: var(--green);
+}
+
+.dm-button-ghost:hover {
+  border-color: var(--green);
+}
+
+.dm-button:disabled {
+  cursor: not-allowed;
+  background: var(--dm-track);
+  color: var(--dm-muted);
+}
+
+.dm-gate {
+  margin: 0;
+}
+
+.dm-back {
+  display: inline-block;
+  margin-top: 32px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--dm-muted);
+  cursor: pointer;
+}
+
+.dm-back:hover {
+  color: var(--green);
+}
+
+.dm-disclosure {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--green);
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--green-rule);
+  padding: 0 0 2px;
+  cursor: pointer;
+}
+
+.dm-disclosure:hover {
+  border-bottom-color: var(--green);
+}
+
+/* ---------------------------------------------------------------------------
+ * Cases
+ * ------------------------------------------------------------------------- */
+
+.dm-cases {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.dm-case {
+  border-top: 1px solid var(--dm-rule);
+  padding: 32px 0;
+}
+
+.dm-case-org {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: 22px;
+  margin: 0 0 4px;
+}
+
+.dm-case-cause {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  color: var(--dm-muted);
+  margin: 0 0 20px;
+}
+
+/* The supplied read is the one element that takes the run-parameter accent. The
+ * round kicker and the readout stay fixed, which is a partial recolour
+ * reproduced from the original on purpose. */
+.dm-supplied {
+  border-left: 2px solid var(--accent, var(--green));
+  background: var(--orange-panel);
+  padding: 16px 18px;
+  margin-bottom: 20px;
+}
+
+.dm-supplied-body {
+  margin-top: 12px;
+}
+
+.dm-supplied-heading {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dm-muted);
+  margin: 0 0 8px;
+}
+
+.dm-supplied-rec {
+  font-size: 14px;
+  font-weight: 500;
+  margin: 12px 0 0;
+}
+
+.dm-readout {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  border-top: 1px solid var(--dm-rule);
+  border-bottom: 1px solid var(--dm-rule);
+  padding: 12px 0;
+  margin-bottom: 20px;
+}
+
+.dm-readout-label {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--dm-muted);
+}
+
+.dm-readout-figure {
+  font-family: var(--font-mono);
+  font-size: 22px;
+  color: var(--dm-ink);
+}
+
+/* ---------------------------------------------------------------------------
+ * Sliders
+ * ------------------------------------------------------------------------- */
+
+.dm-sliders {
+  display: grid;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.dm-slider {
+  max-width: var(--measure-instrument);
+}
+
+.dm-slider-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.dm-slider-label {
+  font-size: 13.5px;
+  color: var(--dm-ink-body);
+}
+
+.dm-slider-value {
+  font-family: var(--font-mono);
+  font-size: 13.5px;
+  color: var(--dm-ink);
+}
+
+.dm-slider-input {
+  width: 100%;
+  accent-color: var(--green);
+}
+
+.dm-slider-note {
+  font-size: 11.5px;
+  color: var(--dm-muted);
+  margin: 6px 0 0;
+}
+
+/* ---------------------------------------------------------------------------
+ * Evidence and decision
+ * ------------------------------------------------------------------------- */
+
+.dm-evidence {
+  margin-bottom: 20px;
+}
+
+.dm-evidence-body {
+  margin-top: 12px;
+  padding-left: 14px;
+  border-left: 1px solid var(--dm-rule-dashed);
+  font-size: 14px;
+}
+
+.dm-decision-heading {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dm-muted);
+  margin: 0 0 10px;
+}
+
+/* ---------------------------------------------------------------------------
+ * Radio group — one tab stop, arrows move and select
+ * ------------------------------------------------------------------------- */
+
+.dm-radiogroup {
+  display: flex;
+  gap: 8px;
+}
+
+.dm-radiogroup-vertical {
+  flex-direction: column;
+  max-width: var(--measure-body);
+}
+
+.dm-radiogroup-horizontal {
+  flex-wrap: wrap;
+}
+
+.dm-radio {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  text-align: left;
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  color: var(--dm-ink-body);
+  background: var(--dm-card);
+  border: 1px solid var(--dm-rule);
+  padding: 10px 14px;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.dm-radio:hover {
+  border-color: var(--green-border);
+}
+
+.dm-radio[aria-checked='true'] {
+  border-color: var(--green);
+  color: var(--dm-ink);
+}
+
+.dm-radio-mark {
+  color: var(--green);
+  line-height: 1.4;
+}
+
+.dm-radio-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.dm-radio-label {
+  line-height: 1.4;
+}
+
+.dm-radio-hint {
+  font-size: 11.5px;
+  color: var(--dm-muted);
+}
+
+.dm-flag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--dm-muted);
+  background: none;
+  border: 1px solid var(--dm-rule);
+  padding: 8px 14px;
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+
+.dm-flag[aria-pressed='true'] {
+  border-color: var(--orange);
+  color: var(--orange);
+}
+
+.dm-flag-mark {
+  line-height: 1;
+}
+
+/* ---------------------------------------------------------------------------
+ * The debrief's paired readout
+ * ------------------------------------------------------------------------- */
+
+.dm-section-heading {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--dm-muted);
+  margin: 44px 0 14px;
+}
+
+.dm-measure {
+  border-top: 1px solid var(--dm-rule);
+  padding: 18px 0;
+}
+
+.dm-measure-label {
+  font-size: 15px;
+  font-weight: 500;
+  margin: 0 0 2px;
+}
+
+.dm-measure-what {
+  font-size: 12.5px;
+  color: var(--dm-muted);
+  margin: 0 0 12px;
+  max-width: var(--measure-desc);
+}
+
+.dm-measure-caption {
+  font-size: 12px;
+  color: var(--dm-muted);
+  margin: 8px 0 0;
+}
+
+.dm-bar-row {
+  display: grid;
+  grid-template-columns: 150px 1fr 38px;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.dm-bar-series {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--dm-muted);
+}
+
+.dm-bar-track {
+  background: var(--dm-track);
+  height: 7px;
+}
+
+.dm-bar {
+  height: 7px;
+}
+
+.dm-bar-assisted {
+  background: var(--green);
+}
+
+.dm-bar-unassisted {
+  background: var(--blue-bar);
+}
+
+/* The undefined bar. Hatched across the full width rather than drawn to zero:
+ * a zero-width bar is a claim about the reader, and there is no measure here to
+ * make one from. */
+.dm-bar-undefined {
+  width: 100%;
+  background: repeating-linear-gradient(
+    -45deg,
+    var(--dm-track),
+    var(--dm-track) 4px,
+    var(--dm-track-alt) 4px,
+    var(--dm-track-alt) 8px
+  );
+}
+
+.dm-bar-value {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--dm-ink-body);
+  text-align: right;
+}
+
+.dm-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13.5px;
+  margin-bottom: 8px;
+}
+
+.dm-table th,
+.dm-table td {
+  text-align: left;
+  padding: 9px 12px 9px 0;
+  border-bottom: 1px solid var(--dm-rule);
+}
+
+.dm-table thead th {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--dm-muted);
+  font-weight: 400;
+}
+
+.dm-table tbody th {
+  font-weight: 400;
+  color: var(--dm-ink-body);
+}
+
+.dm-table td {
+  font-family: var(--font-mono);
+}
+
+.dm-trap-heading {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: 20px;
+  color: var(--accent, var(--green));
+  margin: 4px 0 10px;
+}
+
+/* ---------------------------------------------------------------------------
+ * Round 3 and the specification
+ * ------------------------------------------------------------------------- */
+
+.dm-commit,
+.dm-revealed {
+  border-left: 2px solid var(--accent, var(--orange));
+  padding-left: 16px;
+  margin-top: 18px;
+}
+
+.dm-interval {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  margin: 0 0 4px;
+}
+
+.dm-rules {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.dm-rule {
+  border-top: 1px solid var(--dm-rule);
+  padding: 28px 0 8px;
+}
+
+.dm-rule-number {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--orange);
+  margin: 0 0 6px;
+}
+
+.dm-rule-title {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-size: 21px;
+  margin: 0 0 10px;
+}
+
+/* ---------------------------------------------------------------------------
+ * Narrow
+ * ------------------------------------------------------------------------- */
+
+@media (max-width: 560px) {
+  .dm-screen {
+    padding: 48px 20px 72px;
+  }
+
+  .dm-heading {
+    font-size: 28px;
+  }
+
+  .dm-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .dm-radiogroup-horizontal {
+    flex-direction: column;
+  }
+
+  .dm-bar-row {
+    grid-template-columns: 1fr 38px;
+  }
+
+  .dm-bar-series {
+    grid-column: 1 / -1;
+  }
+}
+
+/* There are no entrance animations yet — the two the original had were not
+ * rebuilt. This block collapses transitions, and stands ready for the
+ * animations when they land, both of which are fill-mode: both and so end at
+ * the design rather than part-way to it. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

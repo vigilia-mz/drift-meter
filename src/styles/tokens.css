@@ -167,7 +167,9 @@
  * The fix is partial, and stops at the muted-text role. --prose-muted-soft
  * (#8C8472, 3.19:1) still colours real text at 11–12.5px and still fails.
  * --dm-muted-soft (#8A8173, 3.14:1) is declared at the same grade and has no
- * consumer yet, since the instrument's stylesheet has not been rebuilt — as is
- * true of every --dm-* token below. All of them are left for the accessibility
- * sweep, which will lock them with a contrast check rather than a comment.
+ * consumer: app.css reads --dm-muted throughout and the soft grade nowhere.
+ * Nine of the --dm-* tokens below are still unrendered, the rebuild having
+ * reached ten of the thirteen screens. All of them are left for the
+ * accessibility sweep, which will lock them with a contrast check rather than a
+ * comment.
  */

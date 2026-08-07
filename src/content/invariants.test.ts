@@ -1,6 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import * as armsModule from './arms.js';
+import * as debriefModule from './debrief.js';
+import * as round3Module from './round3.js';
+import * as shellModule from './shell.js';
 import * as slatesModule from './slates.js';
+import * as specModule from './spec.js';
+import * as transferModule from './transfer.js';
 import * as trapModule from './trap.js';
 import type { Slate, TrapBranch } from './types.js';
 
@@ -211,9 +216,20 @@ describe('typography', () => {
    * records typed out here. An earlier version named four records by hand and so
    * checked neither REC_LABELS nor TRAP_HEADINGS — seven on-screen strings that
    * nothing was reading. Anything a content module exports is now checked by the
-   * act of exporting it.
+   * act of exporting it, which is what carried the screen copy in here: the five
+   * modules the rebuilt screens brought with them are covered because they are
+   * content modules, not because anyone remembered to list them.
    */
-  const MODULES = { arms: armsModule, slates: slatesModule, trap: trapModule };
+  const MODULES = {
+    arms: armsModule,
+    debrief: debriefModule,
+    round3: round3Module,
+    shell: shellModule,
+    slates: slatesModule,
+    spec: specModule,
+    transfer: transferModule,
+    trap: trapModule,
+  };
 
   const fields: Array<[string, string]> = [];
   for (const [name, mod] of Object.entries(MODULES)) proseOf(mod, name, fields);
