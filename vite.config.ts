@@ -27,6 +27,7 @@ export default defineConfig({
         index: resolve(import.meta.dirname, 'index.html'),
         essay: resolve(import.meta.dirname, 'essay.html'),
         atrophy: resolve(import.meta.dirname, 'atrophy.html'),
+        driftMeter: resolve(import.meta.dirname, 'drift-meter.html'),
       },
     },
   },
