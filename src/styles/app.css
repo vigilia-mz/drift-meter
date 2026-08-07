@@ -119,9 +119,16 @@ body {
   max-width: var(--measure-body);
 }
 
-/* The polite live region. Visually hidden, never display:none — a hidden region
- * is not announced at all. */
-.dm-live {
+/* Text for a screen reader and not for the page.
+ *
+ * `.dm-live` is the polite live region and `.dm-sr-only` is everything else that
+ * has to be read and not seen — today the counts table's corner cell, which is
+ * empty by design and announces as "blank" without this. Neither may use
+ * display:none or visibility:hidden: both remove the element from the
+ * accessibility tree, which for a live region means it is never announced at all
+ * and for a header cell means the row labels go back to belonging to nothing. */
+.dm-live,
+.dm-sr-only {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -183,6 +190,19 @@ body {
 
 /* ---------------------------------------------------------------------------
  * Buttons
+ *
+ * Every control below is at least 44 × 44, which is the target size WCAG 2.2
+ * asks for at AAA (2.5.5) rather than the 24 × 24 it requires at AA (2.5.8).
+ * Two of them were under 24 before the sweep: the disclosure rendered 18px tall
+ * and the sliders 16px.
+ *
+ * Where the visual box was already close, the fix is a `min-height` and the
+ * control grows. Where it was not — the disclosure and the back link, which are
+ * text with a rule under it and would become buttons if padded — the fix is a
+ * transparent `::before`, so the hit area grows and the design does not. Each of
+ * those is measured against the room it has: both sit at least 12px clear of the
+ * next thing on the page, so the overlay reaches at most a pixel into it.
+ * `tests/targets.spec.ts` measures all of them in a browser.
  * ------------------------------------------------------------------------- */
 
 .dm-actions {
@@ -194,6 +214,10 @@ body {
 }
 
 .dm-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
   font-family: var(--font-sans);
   font-size: 14px;
   font-weight: 500;
@@ -233,6 +257,7 @@ body {
 }
 
 .dm-back {
+  position: relative;
   display: inline-block;
   margin-top: 32px;
   padding: 0;
@@ -249,6 +274,7 @@ body {
 }
 
 .dm-disclosure {
+  position: relative;
   font-family: var(--font-mono);
   font-size: 11.5px;
   letter-spacing: 0.06em;
@@ -263,6 +289,34 @@ body {
 
 .dm-disclosure:hover {
   border-bottom-color: var(--green);
+}
+
+/*
+ * The two text-shaped controls, given a 44px hit area they do not show.
+ *
+ * Padding would have been simpler and would have dropped the rule under the
+ * label by 13px with it, because a border sits at the edge of the padding box.
+ * An absolutely positioned pseudo-element is outside the layout altogether, so
+ * the ink stays where the design put it. It is a descendant of the button, so a
+ * press anywhere inside it is a press on the button.
+ *
+ * The size is written as 44px rather than as an inset from the host, because an
+ * inset is arithmetic against a box height nobody declared: the disclosure's
+ * padding box is 17px, so the −13px insets this started as came out at 43.
+ * `min-width: 100%` is what keeps the overlay from being narrower than the label
+ * it covers — "Back" is about 30px wide, and 44 is the floor rather than the
+ * width.
+ */
+.dm-disclosure::before,
+.dm-back::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 44px;
+  min-width: 100%;
+  height: 44px;
+  transform: translate(-50%, -50%);
 }
 
 /* ---------------------------------------------------------------------------
@@ -382,8 +436,29 @@ body {
   color: var(--dm-ink);
 }
 
+/*
+ * The track keeps its own thickness; the element around it is what grows.
+ *
+ * A pseudo-element cannot do this job here — `<input>` is a replaced element and
+ * renders neither `::before` nor `::after` — and thickening the track would be a
+ * design change. Giving the input a 44px box leaves the native track drawn at
+ * its own size, centred, with the whole box live; the negative margin hands the
+ * 20px back to the layout, so nothing below moves.
+ *
+ * `position: relative` is the part that makes the extra height reachable rather
+ * than decorative. Without it the box is there and the supplied-value note below
+ * paints over its lower 4px, because a later sibling wins the hit test — a 44px
+ * control that answers on 40. The cost is that those 4px of the note cannot be
+ * selected with a pointer; the note is `aria-describedby` on the input, so
+ * nothing about reading it depends on that.
+ */
 .dm-slider-input {
+  position: relative;
+  display: block;
   width: 100%;
+  height: 44px;
+  /* The row occupied a 24px line box before, so the 44px box gives back 20. */
+  margin: -10px 0;
   accent-color: var(--green);
 }
 
@@ -438,6 +513,7 @@ body {
 .dm-radio {
   display: flex;
   align-items: flex-start;
+  min-height: 44px;
   gap: 8px;
   text-align: left;
   font-family: var(--font-sans);
@@ -482,6 +558,7 @@ body {
 .dm-flag {
   display: inline-flex;
   align-items: center;
+  min-height: 44px;
   gap: 8px;
   margin-top: 14px;
   font-family: var(--font-sans);

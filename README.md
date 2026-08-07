@@ -43,7 +43,13 @@ npm run dev
 ```
 
 Other scripts: `npm test` (unit suite), `npm run build` (produces `dist/`), `npm run typecheck`,
-`npm run lint`, `npm run check:size`.
+`npm run lint`, `npm run check:size`, `npm run check:contrast` (every colour token against the
+surface it sits on).
+
+`npm run test:e2e` is the browser suite: Playwright drives the built site, sweeps every screen a
+reader can reach with axe, measures the touch targets, and counts what the three essay pages request.
+It needs a browser — `npx playwright install chromium`, roughly 100 MB, once — which is why it is
+separate from `npm test` and runs as its own job in CI.
 
 The live-Claude features are **off by default** — `VITE_REFLECT_ENDPOINT` is empty in the committed
 `.env`, so the instrument degrades to its "available on request" state and no clone can spend anyone's

@@ -235,7 +235,19 @@ article p strong {
   border-left: 3px solid var(--green);
 }
 
-/* The · · · section break in the long essay. */
+/* The · · · section break in the long essay.
+ *
+ * The one place on the site where visible text does not clear 4.5:1, and it stands
+ * on the exemption WCAG 2.2 SC 1.4.3 writes for pure decoration: the paragraph gap
+ * is what marks the section, and the middots carry nothing. Darkening them to pass
+ * would make an ornament louder than the prose it separates.
+ *
+ * The markup also carries aria-hidden, which is a different point and not the
+ * justification for this colour: it stops a screen reader announcing five sets of
+ * middots. axe still reports these five nodes, correctly, because they are text a
+ * sighted reader can see; `tests/axe.spec.ts` drops that one rule on that one
+ * selector, and `scripts/check-contrast.mjs` carries the same reasoning next to
+ * --prose-sep. */
 .sep {
   text-align: center;
   letter-spacing: 0.5em;

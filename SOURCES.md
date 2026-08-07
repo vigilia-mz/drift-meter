@@ -41,14 +41,23 @@ out to publish constructed figures and to be tracked by nothing at all. It has a
 did not do is verify anything. Every `Primary link: TODO` in those rows is still a TODO; they are
 simply no longer blocking, because the page no longer presents the figures as findings.
 
-The three FLAGGED rows that remain are a different object and are untouched by that reasoning. They
-are the essay pages' empirical claims about students, endoscopists and developers: assertions about
-the world, stated as findings, with no citation. A disclosure cannot clear those, because they are
-not illustrative — they are either true and uncited or they are not true. They stay FLAGGED.
+Three of the four FLAGGED rows are a different object and are untouched by that reasoning. They are
+the essay pages' empirical claims about students, endoscopists and developers: assertions about the
+world, stated as findings, with no citation. A disclosure cannot clear those, because they are not
+illustrative — they are either true and uncited or they are not true. They stay FLAGGED.
+
+The fourth arrived with the accessibility sweep and is a different object again. It is not a claim
+about the world at all: it is a property of this build's own palette, measured, failing a threshold,
+and left standing on an argument. It is FLAGGED because the argument is doing work rather than
+confirming a pass, and the fix is a design decision that belongs to the author rather than to the
+sweep that found it. Three new rows in this pass are PRIMARY, and two of them are about how this
+repository holds itself to an outside standard — the first rows here to cite one.
 
 What no pass has covered: the essays' attributions of position to Beauvoir and Murdoch, and their
 generalisations about how experienced users behave. Those are the next tranche, and naming them here
-is cheaper than implying the sweep was exhaustive.
+is cheaper than implying the sweep was exhaustive. The accessibility sweep is not exhaustive either,
+and says where it stops: twelve of thirteen screens, because the thirteenth has no path to it, and two
+axe rules off on one selector each with the clause they stand on.
 
 ---
 
@@ -232,6 +241,62 @@ is cheaper than implying the sweep was exhaustive.
   re-baseline rather than as maintenance — rubric pass rates from v0.4 and v0.5 are not comparable
   to runs after it. The pin will live in `shared/model.ts`. Until that file exists, the changelog
   entry is the whole of the record, and this row cannot be used to check it.
+
+### PRIMARY — The contrast and target-size thresholds this build is held to are WCAG 2.2's
+
+- **Where:** `src/styles/tokens.css`, `src/styles/app.css` and `src/styles/prose.css` are written
+  against them; `scripts/check-contrast.mjs` and `tests/targets.spec.ts` enforce them; the v0.6
+  changelog entries cite them by number.
+- **The claims:** that body text needs 4.5:1 and large text 3:1 (SC 1.4.3 Contrast (Minimum), AA);
+  that non-text carrying information needs 3:1 (SC 1.4.11 Non-text Contrast, AA); that a target must
+  be at least 24 × 24 CSS pixels (SC 2.5.8 Target Size (Minimum), AA) and 44 × 44 for the enhanced
+  criterion (SC 2.5.5 Target Size (Enhanced), AAA). Also the two exemptions this build stands on: that
+  SC 1.4.3 exempts text that is pure decoration, and that it exempts text forming part of an inactive
+  user interface component.
+- **Status:** Primary, and the primary source is the specification itself rather than a summary of it.
+  W3C Recommendation, 12 December 2024: <https://www.w3.org/TR/WCAG22/>. The individual criteria are
+  at `#contrast-minimum`, `#non-text-contrast`, `#target-size-minimum` and `#target-size-enhanced`; the
+  relative-luminance and contrast-ratio formulae `check-contrast.mjs` implements are in the same
+  document's definitions.
+- **Checked:** 7 Aug 2026 (v0.6), against the Recommendation.
+- **Note:** this row exists because the sweep is the first change here to make a design decision by
+  citing an outside standard, and because two of those decisions are exemptions. An exemption is a
+  claim about what a standard says, which is exactly the kind of claim this table is for. Both are
+  named at the point of use as well — beside the pair in `check-contrast.mjs` and beside the filter in
+  `tests/axe.spec.ts` — so neither is a number in a comment.
+
+### PRIMARY — Every contrast ratio in this repository is computed from the palette on every run
+
+- **Where:** `scripts/check-contrast.mjs`, run by `npm run check` and by the first CI job.
+- **Status:** Verified per run, and the second row here graded PRIMARY on the grounds that it verifies
+  itself. The hexes are read out of `src/styles/tokens.css` and no colour is restated in the script, so
+  the ratios cannot describe a palette the repository does not have. Every token must appear in the
+  table as text, non-text, surface or alias, so a new colour cannot arrive unmeasured.
+- **Checked:** every run.
+- **Corrected, and this is why the row exists.** Until v0.6 the ratios lived in a comment in
+  `tokens.css`, and one of them was wrong for three versions: the note gave `#6B6358` as 4.76:1 on
+  `#ECE8DE` where it measures 4.83:1. The two failing ratios beside it were right; the passing one —
+  the number carrying the claim that the fix cleared 4.5:1 — was not. The comment states no ratios now
+  and points at the script.
+- **What it does not do:** it enforces text and reports non-text, because SC 1.4.11's threshold applies
+  only where a graphic carries information and no script can decide that. One non-text pair is under
+  3:1 and left to the author — see the row below.
+
+### FLAGGED — `--blue-bar` is under the non-text threshold on the debrief's chart
+
+- **Where:** `src/styles/tokens.css`, `--blue-bar: #6E93A6`; rendered by `.dm-bar-unassisted` in
+  `src/ui/PairedBar.tsx`, the control series in the debrief's paired readout.
+- **Status:** 2.47:1 against `--dm-track`, the bar's own track. SC 1.4.11 asks 3:1 of a graphical
+  object required to understand the content. The assisted series is 5.58:1 and passes.
+- **The argument for leaving it:** every bar prints its value in `.dm-bar-value` beside it and repeats
+  it in the bar's `aria-label`, so no quantity on that screen is available only from the fill. The bars
+  are a redundant rendering of numbers that are already text.
+- **Why it is FLAGGED anyway:** that is reasoning doing work rather than confirming a pass, and it is
+  the only pair in either palette where it does. A reader who takes the chart at a glance is reading the
+  fill, whatever the table beside it says.
+- **Action:** the author's. Darkening the control series is a change to the debrief's chart, not
+  something an accessibility sweep gets to decide on its way past. `check-contrast.mjs` prints the ratio
+  and this argument on every run, so the decision does not go quiet.
 
 ### CORRECTED — Project Deal: figures right, 1-to-7 scale omitted
 

@@ -12,6 +12,13 @@
  *
  * Raising either is allowed. Raising either silently is not: the number lives
  * here, in the diff, next to the reason it exists.
+ *
+ * And one property that is not a budget: the three prose pages ship no
+ * JavaScript. A total for the whole build would stay quiet if one essay gained a
+ * script tag and the total still fit, so the pages are checked one at a time.
+ * `tests/prose.spec.ts` asserts the same thing from the other side, by counting
+ * what a browser actually requests; this half runs without one, and is what the
+ * deploy job has.
  */
 import { gzipSync } from 'node:zlib';
 import { readFileSync, readdirSync, statSync } from 'node:fs';
@@ -23,6 +30,16 @@ const BUDGETS = {
   jsGzipBytes: 60 * 1024,
   totalBytes: 400 * 1024,
 };
+
+/**
+ * The pages that carry no script, and the one that does.
+ *
+ * The instrument is listed too, and expected to carry exactly one: a check that
+ * only ever looks for absence would pass just as happily on a build that emitted
+ * no JavaScript at all, which is a different bug wearing the same green tick.
+ */
+const SCRIPTLESS_PAGES = ['index.html', 'essay.html', 'atrophy.html'];
+const SCRIPTED_PAGES = { 'drift-meter.html': 1 };
 
 function walk(dir) {
   const out = [];
@@ -65,7 +82,62 @@ for (const file of files) {
   }
 }
 
+/** Every `src=` and `href=` in a page, however quoted. */
+function referencedUrls(html) {
+  const attribute = /\b(?:src|href)\s*=\s*("([^"]*)"|'([^']*)'|([^\s">]+))/gi;
+  const urls = [];
+  let match;
+  while ((match = attribute.exec(html)) !== null) {
+    urls.push(match[2] ?? match[3] ?? match[4] ?? '');
+  }
+  return urls;
+}
+
+function scriptTagCount(html) {
+  return (html.match(/<script\b/gi) ?? []).length;
+}
+
 const failures = [];
+
+for (const page of SCRIPTLESS_PAGES) {
+  let html;
+  try {
+    html = readFileSync(join(DIST, page), 'utf8');
+  } catch {
+    failures.push(`${page} is not in ${DIST}/ — the build no longer emits it`);
+    continue;
+  }
+  const scripts = scriptTagCount(html);
+  if (scripts > 0) {
+    failures.push(
+      `${page} carries ${String(scripts)} <script> tag(s). The prose pages are finished ` +
+        `documents and are readable with scripting off; that is the property this defends.`,
+    );
+  }
+  const js = referencedUrls(html).filter((url) => /\.m?js(\?|#|$)/i.test(url));
+  if (js.length > 0) {
+    failures.push(`${page} references JavaScript: ${js.join(', ')}`);
+  }
+}
+
+for (const [page, expected] of Object.entries(SCRIPTED_PAGES)) {
+  let html;
+  try {
+    html = readFileSync(join(DIST, page), 'utf8');
+  } catch {
+    failures.push(`${page} is not in ${DIST}/ — the build no longer emits it`);
+    continue;
+  }
+  const scripts = scriptTagCount(html);
+  if (scripts !== expected) {
+    failures.push(
+      `${page} carries ${String(scripts)} <script> tag(s), expected ${String(expected)}. ` +
+        `The instrument needs its entry point; a count of zero means the build stopped ` +
+        `emitting one and the scriptless check above would not have noticed.`,
+    );
+  }
+}
+
 if (jsGzip > BUDGETS.jsGzipBytes) {
   failures.push(`JavaScript is ${kb(jsGzip)} gzipped, over the ${kb(BUDGETS.jsGzipBytes)} budget`);
 }
@@ -81,11 +153,16 @@ console.log(
 for (const { file, size, gz } of jsFiles.sort((a, b) => b.gz - a.gz)) {
   console.log(`  ${file}  ${kb(size)} → ${kb(gz)} gzipped`);
 }
+console.log(
+  `check-size: ${SCRIPTLESS_PAGES.join(', ')} carry no script; ` +
+    `${Object.keys(SCRIPTED_PAGES).join(', ')} carries its entry point`,
+);
 
 if (failures.length > 0) {
-  console.error('\ncheck-size: over budget');
+  console.error('\ncheck-size: failed');
   for (const failure of failures) console.error(`  - ${failure}`);
-  console.error('\nEither trim the output or raise the budget in scripts/check-size.mjs,');
-  console.error('in a commit that says why.');
+  console.error('\nA budget can be raised in scripts/check-size.mjs, in a commit that says why.');
+  console.error('A script tag on a prose page is not a budget — those pages are meant to be');
+  console.error('readable with scripting off, and the fix is to remove the tag.');
   process.exit(1);
 }

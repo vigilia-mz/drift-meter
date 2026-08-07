@@ -29,6 +29,8 @@ are nine. This repository exists to make that class of error hard rather than ea
 | `src/prompts/`                             | The three system prompts, as Markdown. Licensed CC BY 4.0.                   |
 | `api/reflect.ts`                           | The endpoint that holds the Anthropic API key. Never reaches the browser.    |
 | `shared/`                                  | Types and constants imported by both the endpoint and the front end.         |
+| `tests/`                                   | The browser suite: Playwright and axe over the built site. Not Vitest.       |
+| `scripts/`                                 | The two budgets: bundle size, and colour contrast.                           |
 | `CHANGELOG.md`                             | Versioned record of what changed and why. Retractions stay in.               |
 | `SOURCES.md`                               | Every external claim, its source, and its clearance status.                  |
 
@@ -110,12 +112,14 @@ content change under rule 5.
 ## Conventions
 
 **The three prose pages carry no JavaScript.** They are finished documents. `vite.config.ts` lists
-them as entries with no script tag, so the build emits no JS chunk for them. Nothing asserts that per
-page yet. `scripts/check-size.mjs` reports the JavaScript total for the whole build, which would stay
-quiet if a script tag appeared on one essay and the total still fit the budget; the per-page
-assertion — that each prose page issues zero `.js` requests — is scheduled with the end-to-end tests
-in issue #19. Until it lands, review is the only thing holding the property. Keep it — it is the
-reason a reader can have the essays with scripting disabled.
+them as entries with no script tag, so the build emits no JS chunk for them, and two checks hold that
+from opposite sides. `scripts/check-size.mjs` asserts, per page, that each built prose page carries no
+`<script>` and references no `.js` — and that `drift-meter.html` carries exactly one, so a build that
+stopped emitting JavaScript altogether cannot pass as a clean sheet. `tests/prose.spec.ts` counts what
+a browser actually requests from each page, which is the only way to catch JavaScript arriving through
+something that is not a script tag, and loads each page with scripting disabled to check the whole
+document is still there. Keep both — they are the reason a reader can have the essays with scripting
+off.
 
 **Two palettes, deliberately.** The prose pages are `#F0EEE6` on `#1A1916`; the instrument is
 `#ECE8DE` on `#1F1B16`. They read as the same paper and are not the same hex. Tokens are namespaced
@@ -125,7 +129,18 @@ unify them.
 **Colours are roles, not hexes, above the token layer.** The assisted, unassisted and Round 3 accents
 (`#2E5E4F`, `#3C5A74`, `#7A4E2D`) are selected by a `data-accent` attribute that rebinds one custom
 property. Domain code returns a role name; it never returns a colour. Hex literals live only in
-`tokens.css`.
+`tokens.css`, with one unavoidable exception: `public/favicon.svg` is fetched as its own document and
+cannot read the page's custom properties, so it copies two of them and says so.
+
+**Contrast is checked, not commented.** `scripts/check-contrast.mjs` reads the hexes out of
+`tokens.css` — it never restates one — and pairs each text role with the surface it sits on. Every text
+pair must clear 4.5:1, and every token in `tokens.css` must appear in the table as text, as non-text,
+as a surface or as an alias; an unclassified token fails the run. That last part is the point: adding a
+colour without saying what it is for is how the table would go quietly out of date. Non-text pairs are
+measured and not enforced, because 1.4.11's threshold applies only where a graphic carries information
+and that is a judgement — so where this repository has made one, it is a sentence beside the pair.
+Ratios used to live in a comment in `tokens.css`; one of them was wrong for three versions. Do not put
+them back.
 
 **Fonts are self-hosted.** Newsreader, IBM Plex Sans and IBM Plex Mono ship from `public/fonts/`. This
 is not a performance preference: the consent screen tells the reader "no cookie, no analytics, no
@@ -146,6 +161,26 @@ demonstrations. When a parameter forces an assignment, the debrief says so on th
 claiming the run was counterbalanced. An instrument about unearned confidence cannot misreport its
 own randomisation.
 
+**Two suites, one repository, no test hooks.** Vitest is the unit suite over `src/**/*.test.ts` and
+`shared/**/*.test.ts`; Playwright owns `tests/` and drives the built site. They do not overlap by
+accident — `vite.config.ts` excludes `tests/` from the Vitest glob, and a Playwright spec collected by
+Vitest would fail on its first `page` fixture.
+
+The browser suite drives the instrument the way a reader does, through `?seed=`, `?order=`, `?slate=`
+and `?arm=`. Those four exist because a demonstration link needs them, not because a test does, and
+there is deliberately no `window.__TEST__` and no `import.meta.env.MODE` branch anywhere in the
+application. Do not add one. The suite is also where copy is pinned: `tests/flow.ts` writes out the
+labels it asserts rather than importing them from `src/content/`, because a test that imports the
+string it checks has checked that a constant equals itself.
+
+**End-to-end exemptions are one rule on one selector, with the clause.** Two are live. `region` is off
+for the stub screens, because a page whose only content is "this is not finished yet" should not grow a
+wrapper to satisfy a checker; it goes with the screens in #18. `color-contrast` is off for `.sep` — the
+`· · ·` between sections of the long essay — on the exemption SC 1.4.3 writes for pure decoration, and
+a test asserts the exemption still matches five nodes so that it cannot become dead code that makes the
+sweep look stricter than it is. Neither is a blanket `disableRules` and neither is silent. Do not add a
+third without the same shape.
+
 ## Voice
 
 Plain, unhurried, understated. No hype, no flattery, no exclamation points, no marketing register.
@@ -154,8 +189,13 @@ in any prose added to the site — including microcopy, error messages, and comm
 
 ## Running and deploying
 
-- **Locally:** `npm install`, then `npm run dev`. `npm test` runs the unit suite; `npm run build`
-  produces `dist/`.
+- **Locally:** `npm install`, then `npm run dev`. `npm run check` is the gate the first CI job runs —
+  typecheck, lint, format, the unit suite and the contrast budget. `npm run build` produces `dist/`.
+- **The browser suite is separate, and slower.** `npm run test:e2e` needs a browser
+  (`npx playwright install chromium`, roughly 100 MB, once) and builds the site before it runs, because
+  the published site sits under `/drift-meter/` and a suite pointed at the dev server would be testing a
+  URL layout that does not exist. It is its own CI job so that a typo fails in seconds rather than behind
+  a Chromium install, and so that a red X says which of the two kinds of check went red.
 - **Publishing:** GitHub Actions builds `dist/` and deploys it to GitHub Pages on every push to
   `main`. `https://vigilia-mz.github.io/drift-meter/` is the canonical URL and the only live copy.
   Two live copies of a research artifact is a citation problem; do not create a second one.

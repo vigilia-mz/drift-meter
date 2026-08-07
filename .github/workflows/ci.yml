@@ -42,10 +42,58 @@ jobs:
       - name: Test
         run: npm test
 
+      # The contrast ratios in tokens.css used to live in a comment, and one of
+      # them was wrong for three versions. This is that comment, run.
+      - name: Contrast budget
+        run: npm run check:contrast
+
       - name: Build
         run: npm run build
 
       # CLAUDE.md hard rule 1: the previous build's central defect was an
-      # 894 KB committed bundle. This is that lesson as a check.
+      # 894 KB committed bundle. This is that lesson as a check. It also asserts
+      # that the three prose pages emit no script, per page rather than as a
+      # total, which is what lets them be read with scripting disabled.
       - name: Size budget
         run: npm run check:size
+
+  # A separate job, not another step. It downloads a browser and is the slowest
+  # thing here by an order of magnitude, so a typo should still fail in seconds
+  # rather than behind a Chromium install — and a red X should say which of the
+  # two kinds of check went red.
+  e2e:
+    name: Browser suite
+    runs-on: ubuntu-latest
+    steps:
+      # Actions are pinned to full commit SHAs because the repository requires
+      # it. Dependabot keeps them current; see .github/dependabot.yml.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+
+      # Chromium only. The suite checks structure, arithmetic, focus order and
+      # network behaviour, none of which is engine-specific, and the reasoning is
+      # written down in playwright.config.ts rather than implied by this line.
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      # `playwright.config.ts` builds the site and serves it with `vite preview`,
+      # because the published site sits under a base path and a suite pointed at
+      # the dev server would be testing a URL layout that does not exist.
+      - name: End-to-end and accessibility
+        run: npm run test:e2e
+
+      - if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: playwright-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7
+          if-no-files-found: ignore

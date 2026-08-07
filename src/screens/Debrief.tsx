@@ -109,7 +109,10 @@ export function Debrief({ containerRef, run, onContinue, onMethod }: Props) {
         <table class="dm-table">
           <thead>
             <tr>
-              <th scope="col" />
+              {/* Empty on the page, named to a screen reader. See `countsRowAxis`. */}
+              <th scope="col">
+                <span class="dm-sr-only">{DEBRIEF.countsRowAxis}</span>
+              </th>
               <th scope="col">{DEBRIEF.legendAssisted}</th>
               <th scope="col">{DEBRIEF.legendUnassisted}</th>
             </tr>
