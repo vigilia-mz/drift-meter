@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { SLATES } from '../content/slates.js';
+import type { Case } from '../content/types.js';
 import { calc, clamp, dominantSet, fmtAssump, intervalFor, mid, money } from './model.js';
 
 /**
@@ -9,6 +10,30 @@ import { calc, clamp, dominantSet, fmtAssump, intervalFor, mid, money } from './
  * zero and a "tidier" implementation using banker's rounding would silently move
  * the slider's starting position and therefore move the measures.
  */
+
+/**
+ * Assert that a set of slider values is one a reader could actually reach on this
+ * case — every value in range and on its step grid — and return it.
+ *
+ * The two `money` boundary tests below claim a formatting quirk is visible to a
+ * reader rather than merely arithmetically possible. That claim is only worth
+ * making if the inputs are reachable, so it is checked against the slate instead
+ * of asserted in a comment. Widening a slider's range or changing its step will
+ * fail here rather than quietly making the comment wrong, which is how the
+ * previous version of that comment came to be wrong.
+ */
+function onStep(c: Case, vals: readonly number[]): readonly number[] {
+  const TOLERANCE = 1e-6;
+  vals.forEach((v, k) => {
+    const sp = c.a[k]!;
+    const where = `${c.org} · ${sp.label}`;
+    expect(v, `${where} at or above min`).toBeGreaterThanOrEqual(sp.min);
+    expect(v, `${where} at or below max`).toBeLessThanOrEqual(sp.max);
+    const steps = (v - sp.min) / sp.step;
+    expect(Math.abs(steps - Math.round(steps)), `${where} on step`).toBeLessThan(TOLERANCE);
+  });
+  return vals;
+}
 
 describe('calc', () => {
   it('computes cost per outcome as cost / (rate × yield)', () => {
@@ -116,12 +141,29 @@ describe('money', () => {
   it('prints a value that rounds up to a thousand without a separator', () => {
     // A faithful quirk, not a bug. The branch order is `< 1000` before the
     // separator branch, so anything in [999.5, 1000) is routed to the plain
-    // whole-dollar format and only then rounded — giving "$1000". Values in that
-    // window are unreachable from the six real cases, and "fixing" it would change
-    // a published formatter for no reader-visible benefit. Pinned so the behaviour
-    // is a decision rather than an accident.
+    // whole-dollar format and only then rounded — giving "$1000".
+    //
+    // This comment said the window was unreachable from the six real cases until
+    // v0.6, when the claim was checked instead of repeated. It is reachable, and
+    // the assertion below reaches it through the real slate rather than through a
+    // literal, so that a slider edit which moved it out of reach would fail here
+    // instead of quietly making this comment wrong again. The behaviour is still
+    // deliberate; "fixing" it would change a published formatter.
     expect(money(999.6)).toBe('$1000');
     expect(money(999.4)).toBe('$999');
+    const vitaminA = SLATES.B.cases[0]; // Slate B, case 1
+    expect(money(calc(onStep(vitaminA, [1.2, 80, 0.0015])))).toBe('$1000');
+  });
+
+  it('prints a value that rounds up to ten with cents, since the cents branch is chosen first', () => {
+    // The same branch-then-round shape as the thousand boundary, one decade down
+    // and louder, because the two forms differ by more than a comma: [9.995, 10)
+    // takes the cents branch and prints "$10.00", while 10 itself prints "$10".
+    // Reachable from Slate A's deworming case, and reached here through the slate.
+    expect(money(9.996)).toBe('$10.00');
+    const deworming = SLATES.A.cases[2]; // Slate A, case 3
+    expect(money(calc(onStep(deworming, [0.7, 7, 1])))).toBe('$10.00');
+    expect(money(10)).toBe('$10');
   });
 
   it('refuses to print a number for a non-finite or non-positive result', () => {
