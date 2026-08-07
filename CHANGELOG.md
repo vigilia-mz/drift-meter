@@ -100,6 +100,21 @@ This file is the surviving record of them.
   without being told which one it is. `invariants.test.ts` asserts both halves — that the three
   screens carry the disclosure, and that neither pre-run screen contains the trap case's name or its
   slider's label.
+- **The Clio reference is pinned, and the claim it was pinned for is narrower than the row said,
+  which closes #8.** It is the first link this table has held in this repository; the other ten rows
+  still read `Primary link: TODO`. #8 asked for the reference to be pinned or for the claim to stop
+  being made. The reference is pinned, and the row's own characterisation is narrowed rather than
+  dropped. The row called Clio the reference standard for privacy-preserving measurement over real
+  usage. Anthropic's paper says the core technologies underlying Clio are not fundamentally new, says
+  it builds on differential privacy, k-anonymity and federated learning, and says formal guarantees
+  of that kind are difficult to apply to it; neither the paper nor the research page calls Clio a
+  standard. So the superlative is withdrawn, the row claims what the pinned pages support, and it
+  moves from PRIMARY AVAILABLE to PRIMARY. No page changes: the rebuilt consent screen already
+  declined the comparison, and the protocol screen that also carried it is still a route to the
+  not-rebuilt stub. Two consequences elsewhere. The table's header now defines PRIMARY, which it had
+  left to a single self-explaining row, and says of PRIMARY AVAILABLE that an unpinned source is also
+  an unread one. And `CLAUDE.md` said the printed model ID is the one row graded `PRIMARY`; it now
+  says the row is graded `PRIMARY` on the same grounds, without the count.
 - Corrected: the contrast note in `tokens.css` gave `#6B6358` as 4.76:1 on `#ECE8DE`. It measures
   4.83:1. The two failing ratios in the same note were right; the passing one — the number carrying
   the claim that the fix clears 4.5:1 — was not.
@@ -126,6 +141,13 @@ This file is the surviving record of them.
   the module itself, and whether a snapshot test earns its keep on top of that is left open. The
   invariants test named in the same sentence is real, and the convention now describes what it
   actually asserts.
+- Corrected: the Clio row in `SOURCES.md` said the word appeared nowhere in the repository except in
+  its own heading, and that the protocol screen does not exist. The header of the same file uses the
+  word too, in the sentence recording that the rebuilt consent screen declines to make the claim —
+  added by the merge that rewrote the row's sentence, so the sentence was false as soon as it was
+  written. The protocol screen is a route that is reachable from the intro and the debrief and lands
+  on the not-rebuilt stub. The row now names the file rather than counting the places, and says what
+  the route does.
 
 **Why**
 
@@ -162,13 +184,26 @@ weakness beside its verdict, and why Round 3 states that it is excluded from the
 leaving the reader to assume it. A test now asserts that nothing done after the debrief can change
 the debrief — the transfer pick and every Round 3 slider are outside anything the measures read.
 
-Six of the bullets above are corrections. Five are claims this project made about its own work: a
-contrast ratio, and four claims about its own tests, three of which describe tests that do not exist.
-The sixth is a scale qualifier on a published figure, which the source table already existed to
-prevent. That they survived until someone checked the paperwork against the code is the uncomfortable
-part.
+Pinning the Clio reference was the mildest obligation in the source table, and it turned into a
+withdrawal. The publication existed, so the row had been graded since v0.3 as though the pin were
+clerical; what nobody did in that time was read the publication against the sentence it was supposed
+to support. It does not support it. A source that exists is not a source
+that agrees, and PRIMARY AVAILABLE made the difference easy to miss, because the grade is defined by
+whether a link has been typed here rather than by whether anyone has read one. The claim was
+published on the consent screen of the build that has since been deleted, which is the screen where a
+reader is deciding whether to trust the page about data handling. Nothing in this repository records
+the sentence itself, only that it was made.
 
-Two of the six are in `CLAUDE.md`, which this pass first skipped on the grounds that it is the
+Seven of the bullets above are corrections. Six are claims this project made about its own work: a
+contrast ratio, four claims about its own tests, three of which describe tests that do not exist, and
+a claim about where a word appears in the repository. The seventh is a scale qualifier on a published
+figure, which the source table already existed to prevent. That they survived until someone checked
+the paperwork against the code is the uncomfortable part. The withdrawal of “reference standard” in
+the Clio bullet is a correction too, and the largest of the pass; it is filed as a change rather than
+counted here because what it corrects is a claim about the world, not a claim about this project's
+own work.
+
+Two of the seven are in `CLAUDE.md`, which this pass first skipped on the grounds that it is the
 working agreement rather than site content. The exemption does not survive the argument. A document
 that tells every future contributor which properties are guaranteed, while naming two guarantees the
 repository does not provide, is the failure this experiment is about: a claimed test is worse than a
