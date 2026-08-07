@@ -15,9 +15,14 @@ Last full pass: 30 Jul 2026 (v0.3).
   and delivered cost in net distribution. The specific figures are constructed for the task.
 - **Now published.** Until the round screen was rebuilt these figures existed only in the case data
   and reached no page. They now render: the supplied `$2.00` opens the assisted round's bednet
-  slider, and the `$4.50` delivered cost is in the evidence panel one click away. The row said "not
-  cleared for publication" and the figures are now published, which is a gap that closes by pinning
-  the source or by restating the figures on the page as hypothetical — not by leaving this note here.
+  slider, and the `$4.50` delivered cost is in the evidence panel one click away. The debrief adds
+  the consequence — that correcting the figure “roughly doubles the cost per death averted” — which
+  is a magnitude neither evidence panel states, and Round 3 adds the threshold “materially under
+  three dollars a net”. The row said “not cleared for publication” and three figures are now
+  published, which is a gap that closes by pinning the source or by restating them on the page as
+  hypothetical, not by leaving this note here.
+- **Primary link:** TODO — a named campaign or evaluator report giving delivered cost per net
+  including logistics and wastage.
 - **Action before release:** pin the primary source, or restate the figures as explicitly hypothetical.
 
 ### FLAGGED — Chlorination access near 80% against sustained use roughly half that
@@ -26,10 +31,23 @@ Last full pass: 30 Jul 2026 (v0.3).
 - **Status:** Illustrative. The access-versus-use distinction is real and is the reason the case
   exists; the numbers are constructed.
 - **Now published.** As above: the supplied `80%` coverage figure opens the assisted round's
-  chlorination slider, and the access-versus-use sentence is in its evidence panel.
+  chlorination slider, and the access-versus-use sentence is in its evidence panel. The debrief adds
+  the same “roughly doubles” magnitude, and Round 3 adds the threshold “sustained free chlorine
+  residual above 70% at twelve months”.
 - **Primary link:** TODO — follow-up study reporting measured free chlorine residual against
   installation or access rates.
 - **Action before release:** as above.
+
+### FLAGGED — Cash transfers: the income gain decaying enough to roughly triple the cost per lasting doubling
+
+- **Where:** Slate A, case 1; Round 3, which replays it. Added when Round 3 was built, on finding
+  that this case publishes a magnitude and had no row at all — the table covered the other four.
+- **Status:** Illustrative, and the same construction as the trap figures: the direction is real and
+  the multiplier is made for the task. Round 3 also publishes a threshold, “holding above half its
+  year-one level” at five years, as the evidence that would change the assistant's view.
+- **Primary link:** TODO — a long-run cash transfer follow-up reporting consumption or income at
+  five years or later against the year-one effect.
+- **Action before release:** pin it, or restate the multiplier on the page as hypothetical.
 
 ### SECONDARY — The long-run income effect of deworming is contested
 
@@ -42,10 +60,13 @@ Last full pass: 30 Jul 2026 (v0.3).
 
 ### SECONDARY — Vitamin A mortality benefit scales with baseline deficiency
 
-- **Where:** Slate B, case 1.
+- **Where:** Slate B, case 1; Round 3, which replays it.
 - **Status:** Directionally well established, quantitatively illustrative. The case turns on the
-  distinction, not on the magnitude.
+  distinction, not on the magnitude — and its Round 3 text quotes none, which keeps it consistent
+  with that framing. It is also the dominance tie, so Round 3 names two of its assumptions rather
+  than one.
 - **Primary link:** TODO.
+- **Action before release:** required only if a version quotes a magnitude.
 
 ### PRIMARY AVAILABLE — Clio as the reference standard for privacy-preserving measurement over real usage
 

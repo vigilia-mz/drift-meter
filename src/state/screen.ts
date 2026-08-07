@@ -93,7 +93,16 @@ export function isReference(screen: Screen): boolean {
  * The screens `#15` has actually rebuilt. Everything else renders a stub that
  * says so rather than an empty page.
  */
-const BUILT: readonly ScreenName[] = ['intro', 'consent', 'round', 'rate'];
+const BUILT: readonly ScreenName[] = [
+  'intro',
+  'consent',
+  'round',
+  'rate',
+  'debrief',
+  'transfer',
+  'round3',
+  'spec',
+];
 
 export function isBuilt(screen: Screen): boolean {
   return BUILT.includes(screen.name);

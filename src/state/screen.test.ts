@@ -37,11 +37,12 @@ describe('the screen union', () => {
     }
   });
 
-  it('starts the flow at the intro and ends the built part at rate 2', () => {
+  it('starts the flow at the intro and ends the built part at the four rules', () => {
     expect(LINEAR_PATH[0]).toEqual({ name: 'intro' });
     const built = LINEAR_PATH.filter(isBuilt);
-    expect(built).toHaveLength(6);
-    expect(built[built.length - 1]).toEqual({ name: 'rate', ordinal: 2 });
+    // Ten of the thirteen rendered screens: six from #15, four more from #16.
+    expect(built).toHaveLength(10);
+    expect(built[built.length - 1]).toEqual({ name: 'spec' });
   });
 });
 

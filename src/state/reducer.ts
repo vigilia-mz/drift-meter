@@ -59,6 +59,23 @@ export type Action =
   | { readonly type: 'toggleFlag'; readonly caseIndex: number }
   | { readonly type: 'setConfidence'; readonly value: Confidence }
   | { readonly type: 'commitRound' }
+  // The three below write only into a complete run. They exist after the debrief,
+  // and none of them can reach a `RoundRecord` — which is the point: the transfer
+  // check and Round 3 are excluded from the measures by construction, and the
+  // only way to keep that true is for them to have nowhere to write.
+  | { readonly type: 'pickTransfer'; readonly option: string }
+  | {
+      readonly type: 'commitR3';
+      readonly slot: number;
+      readonly read: Rec;
+      readonly driver: number;
+    }
+  | {
+      readonly type: 'setR3Value';
+      readonly slot: number;
+      readonly sliderIndex: number;
+      readonly value: number;
+    }
   | { readonly type: 'restart' };
 
 /** Which condition the screen's ordinal is currently writing into. */
@@ -204,6 +221,40 @@ export function reducer(state: AppState, action: Action): AppState {
           working: freshRound(state.run.assign, condFor(state.run.assign, second)),
         },
       };
+    }
+
+    case 'pickTransfer': {
+      if (state.run.status !== 'complete') return state;
+      // Stored on the run and nowhere near a `RoundRecord`. `metrics()` takes
+      // `data` and `confidence`; there is no path from here into either.
+      return { ...state, run: { ...state.run, transfer: action.option } };
+    }
+
+    case 'commitR3': {
+      if (state.run.status !== 'complete') return state;
+      const target = state.run.r3[action.slot];
+      if (target === undefined) return state;
+      // Commit-then-reveal, and `revealed` is monotonic: there is no path back to
+      // the state before the figure appeared, which is why the screen must not
+      // offer one. Committing a second time cannot un-reveal.
+      const r3 = state.run.r3.map((r, i) =>
+        i === action.slot ? { ...r, read: action.read, driver: action.driver, revealed: true } : r,
+      );
+      return { ...state, run: { ...state.run, r3 } };
+    }
+
+    case 'setR3Value': {
+      if (state.run.status !== 'complete') return state;
+      const target = state.run.r3[action.slot];
+      if (target === undefined || target.vals[action.sliderIndex] === undefined) return state;
+      // No `touched` array here, deliberately. Round 3 is excluded from the
+      // measures, so there is nothing for a movement flag to feed.
+      const r3 = state.run.r3.map((r, i) =>
+        i === action.slot
+          ? { ...r, vals: r.vals.map((v, k) => (k === action.sliderIndex ? action.value : v)) }
+          : r,
+      );
+      return { ...state, run: { ...state.run, r3 } };
     }
 
     case 'restart':
