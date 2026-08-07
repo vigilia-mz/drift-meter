@@ -1,8 +1,12 @@
 import { describe, expect, it } from 'vitest';
-import { ARM_NOTES, ARMS, REC_LABELS } from './arms.js';
-import { otherSlate, SLATES } from './slates.js';
-import { TRAP, TRAP_HEADINGS } from './trap.js';
+import * as armsModule from './arms.js';
+import * as slatesModule from './slates.js';
+import * as trapModule from './trap.js';
 import type { Slate, TrapBranch } from './types.js';
+
+const { ARM_NOTES, ARMS, recSentencePrefix, REC_LABELS } = armsModule;
+const { otherSlate, SLATES } = slatesModule;
+const { TRAP, TRAP_HEADINGS } = trapModule;
 
 /**
  * Structural facts about the content, asserted so that editing it cannot quietly
@@ -143,6 +147,49 @@ describe('attribution arms', () => {
   });
 });
 
+describe('recommendation prefix', () => {
+  /**
+   * recSentencePrefix strips a possessive off the arm's own label with a regex,
+   * so the label and the regex are one thing edited in two places. Normalising
+   * the labels' apostrophe, or renaming the suffix on either side alone, leaves
+   * the stripping silently inert and the page reading "Claude’s read
+   * recommends: ". Nothing else in the codebase would notice.
+   */
+  const ATTRIBUTED = [ARMS.ai, ARMS.human] as const;
+
+  it('reads as a sentence in every arm', () => {
+    expect(recSentencePrefix(ARMS.ai)).toBe('Claude recommends: ');
+    expect(recSentencePrefix(ARMS.human)).toBe('Programme officer recommends: ');
+    expect(recSentencePrefix(ARMS.unlabelled)).toBe('Filed recommendation: ');
+  });
+
+  it('strips the possessive rather than carrying the label through whole', () => {
+    for (const arm of ATTRIBUTED) {
+      const prefix = recSentencePrefix(arm);
+      expect(prefix.startsWith(arm.label), arm.key).toBe(false);
+      expect(prefix, arm.key).not.toContain('read');
+      expect(prefix, arm.key).not.toMatch(/['’]/);
+      expect(prefix, arm.key).toMatch(/ recommends: $/);
+    }
+  });
+
+  it('keeps the labels in the shape the stripping expects', () => {
+    // The other half of the coupling: if a label stops ending this way, the
+    // regex above it has nothing to remove.
+    for (const arm of ATTRIBUTED) {
+      expect(arm.label, arm.key).toMatch(/’s read$/);
+    }
+  });
+
+  it('names no source in the unattributed arm', () => {
+    // Withholding the source is what that arm is for, so the passive
+    // construction is load-bearing rather than stylistic.
+    const prefix = recSentencePrefix(ARMS.unlabelled);
+    expect(prefix).not.toContain(ARMS.unlabelled.label);
+    expect(prefix).not.toContain(ARMS.unlabelled.who);
+  });
+});
+
 describe('typography', () => {
   /**
    * The writing uses typographic quotes and dashes throughout. A straight
@@ -159,20 +206,35 @@ describe('typography', () => {
     }
   }
 
-  const fields: Array<[string, string]> = [];
-  proseOf(SLATES, 'SLATES', fields);
-  proseOf(TRAP, 'TRAP', fields);
-  proseOf(ARMS, 'ARMS', fields);
-  proseOf(ARM_NOTES, 'ARM_NOTES', fields);
+  /**
+   * The walk is derived from the module namespaces rather than from a list of
+   * records typed out here. An earlier version named four records by hand and so
+   * checked neither REC_LABELS nor TRAP_HEADINGS — seven on-screen strings that
+   * nothing was reading. Anything a content module exports is now checked by the
+   * act of exporting it.
+   */
+  const MODULES = { arms: armsModule, slates: slatesModule, trap: trapModule };
 
-  it('has prose to check', () => {
-    expect(fields.length).toBeGreaterThan(50);
+  const fields: Array<[string, string]> = [];
+  for (const [name, mod] of Object.entries(MODULES)) proseOf(mod, name, fields);
+
+  it('has prose to check from every content module', () => {
+    expect(fields.length).toBeGreaterThan(100);
+    for (const name of Object.keys(MODULES)) {
+      expect(
+        fields.some(([path]) => path.startsWith(`${name}.`)),
+        name,
+      ).toBe(true);
+    }
   });
 
-  it("uses ’ rather than ' inside words", () => {
+  it("uses ’ rather than ' everywhere", () => {
+    // Flat, not positional. The earlier form matched letter-apostrophe-letter
+    // only, which left a trailing possessive (programmes'), a leading elision
+    // ('tis, '90s), a digit (1990's) and an accented stem (café's) all passing.
+    // No content string has a use for U+0027, so the ban is the whole rule.
     for (const [path, text] of fields) {
-      // A straight apostrophe between letters is always a typographic error here.
-      expect(text, path).not.toMatch(/[A-Za-z]'[A-Za-z]/);
+      expect(text, path).not.toContain("'");
     }
   });
 
