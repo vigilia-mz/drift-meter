@@ -94,8 +94,13 @@ export const AUTONOMY_DEVIATION_WEIGHT = 50;
  *
  * An arbitrary constant chosen by eye. It needs calibrating against expert
  * behaviour on the same slates before it means anything, and the protocol screen
- * says so in those words. The page's prose about "the 0.25 saturation point" is
- * cross-checked against this constant by a test, so the two cannot drift apart.
+ * is to say so in those words.
+ *
+ * Until v0.6 this comment said a test cross-checked the page's prose about "the
+ * 0.25 saturation point" against this constant. No such test exists, and no such
+ * prose does either — the protocol screen has not been rebuilt. When it is, the
+ * cross-check goes in with it, so that quoting the constant in prose and changing
+ * it here cannot come apart silently.
  */
 export const AUTONOMY_SATURATION = 0.25;
 
