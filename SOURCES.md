@@ -50,6 +50,18 @@ What no pass has covered: the essays' attributions of position to Beauvoir and M
 generalisations about how experienced users behave. Those are the next tranche, and naming them here
 is cheaper than implying the sweep was exhaustive.
 
+**This table is now mirrored on the publication-process screen**, one row per entry, each printed
+with its grade and with the note that explains it. The file stays the record: the screen carries the
+short form and says so, and `invariants.test.ts` asserts that the two hold the same claims at the
+same grades, so a row added here and forgotten there fails rather than quietly shortening the
+published table. What the screen does not reproduce is the per-row history above — the state lines,
+the superseded conditions, the account of which pass found what. That is the part a reader who wants
+to argue with the grading needs, and it is the reason the screen links here rather than replacing it.
+
+The protocol screen states the same thing from the other side, in its stimulus provenance section:
+that the case figures are built for the exercise, that four rows here carry the grade saying so, and
+that the disclosure the reader met names no case and no slider.
+
 ---
 
 ### ILLUSTRATIVE — Bednet commodity cost near $2 against a delivered cost near $4.50
@@ -193,15 +205,20 @@ is cheaper than implying the sweep was exhaustive.
 
 - **Where:** Consent screen; protocol section 1.
 - **Status:** Anthropic has published on this directly.
-- **State in this build:** the consent screen has since been rebuilt and does not make this claim;
-  the protocol screen does not exist. The word appears nowhere in the repository except in this
-  heading. That the rewritten consent copy leaves the comparison out is a reprieve rather than a
-  clearance — the claim returns the moment anything reinstates it.
+- **State in this build:** withdrawn. Both screens this row locates the claim on have now been
+  rebuilt, and neither makes it. The consent screen dropped it first; protocol section 1 was written
+  later in the same version and does not add it back, because a citation from memory is worst placed
+  on the screen where a reader is deciding whether to trust the page about data handling. The word
+  appears nowhere in the repository except in this heading, and `invariants.test.ts` now asserts that
+  neither screen's copy contains it. That is one of the two resolutions the open issue offers, and it
+  is the weaker one: it discharges the obligation by not making the claim.
 - **Primary link:** TODO — pin the canonical Anthropic page or paper. Do not paraphrase from memory.
 - **Action before release:** pin it before anything reinstates the comparison. The condition this row
   carried at the v0.6 pass — pin it before the consent screen is written — was overtaken in the same
   version and met by omission rather than by pinning, which is not the same thing. This row had no
   stated release condition until that pass either.
+- **The row is kept rather than deleted.** A claim the site used to make and no longer makes is part
+  of the record.
 
 ### PRIMARY AVAILABLE — Project Deal: 186 transactions worth just over $4,000, and fairness rated 4.05 against 4.06 on a seven-point scale
 
@@ -217,21 +234,22 @@ is cheaper than implying the sweep was exhaustive.
 
 ### PRIMARY — The reflection was served by the pinned model, and the served ID is printed
 
-- **Where:** Result screen; protocol section 5.
+- **Where:** Result screen and the encoded screen; protocol section 5, which names both call sites.
 - **Status:** Verified per request, in the builds that had an endpoint. The model ID is returned by
   the API in the response body and printed verbatim on the page.
 - **Checked:** every request, in v0.3 through v0.5. Nothing has been checked in this build.
-- **State in this build:** dormant. Nothing in this repository can check it. There is no
-  `shared/model.ts`, no `PINNED_MODEL`, no `api/reflect.ts`, and no code anywhere that prints a
-  served model ID. The debrief — the screen this row calls the result screen — has since been
-  rebuilt, and prints no model ID, because there is nothing yet to print one from. The consent screen
-  says the reflection is off in this build, which is the only place the mechanism is mentioned at
-  all. The grade is kept because the mechanism it describes is the one claim here that verifies
-  itself once it runs, not because anything currently verifies it.
+- **State in this build:** half of it now exists. `shared/model.ts` and `PINNED_MODEL` arrived with
+  the protocol screen, which prints the pin and says in the same breath that the pin is not the
+  provenance record — the ID the API returns is. What still does not exist is anything that returns
+  one: no `api/reflect.ts`, no client, and no screen that prints a served ID. The debrief prints
+  none, and the consent screen says the reflection is off in this build. The grade is kept because
+  the mechanism it describes is the one claim here that verifies itself once it runs, not because
+  anything currently verifies it.
 - **Note:** the re-baseline to `claude-opus-5` is recorded in `CHANGELOG.md` under v0.6 as a
   re-baseline rather than as maintenance — rubric pass rates from v0.4 and v0.5 are not comparable
-  to runs after it. The pin will live in `shared/model.ts`. Until that file exists, the changelog
-  entry is the whole of the record, and this row cannot be used to check it.
+  to runs after it. The pin now lives in `shared/model.ts` and a test asserts the ID appears nowhere
+  in the protocol screen's prose, so a later re-baseline cannot leave a second, stale copy of it in a
+  sentence.
 
 ### CORRECTED — Project Deal: figures right, 1-to-7 scale omitted
 

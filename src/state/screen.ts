@@ -79,6 +79,19 @@ export const LINEAR_PATH: readonly Screen[] = [
   { name: 'encoded' },
 ];
 
+/** The two screens outside the linear path. */
+export const REFERENCE_PATH: readonly Screen[] = [{ name: 'method' }, { name: 'process' }];
+
+/**
+ * Every screen the instrument can show, in one list.
+ *
+ * The history codec matches a stored entry against this rather than reassembling
+ * a `Screen` from a name and an ordinal, so a malformed entry — a round with no
+ * ordinal, an intro carrying one — finds no match and is rejected instead of
+ * producing a screen that is not in the union.
+ */
+export const ALL_SCREENS: readonly Screen[] = [...LINEAR_PATH, ...REFERENCE_PATH];
+
 /** Whether a screen is a step in the run rather than a reference screen. */
 export function isLinear(screen: Screen): boolean {
   return LINEAR_PATH.some((s) => screenKey(s) === screenKey(screen));
@@ -90,8 +103,11 @@ export function isReference(screen: Screen): boolean {
 }
 
 /**
- * The screens `#15` has actually rebuilt. Everything else renders a stub that
- * says so rather than an empty page.
+ * The screens the rebuild has actually reached. Everything else renders a stub
+ * that says so rather than an empty page.
+ *
+ * `encoded` is the last one outstanding: it is the live-Claude screen, and it
+ * arrives with the endpoint in `#18`.
  */
 const BUILT: readonly ScreenName[] = [
   'intro',
@@ -102,6 +118,8 @@ const BUILT: readonly ScreenName[] = [
   'transfer',
   'round3',
   'spec',
+  'method',
+  'process',
 ];
 
 export function isBuilt(screen: Screen): boolean {

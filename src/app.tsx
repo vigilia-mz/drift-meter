@@ -7,17 +7,25 @@
  * that begins the run — not in a render body and not in a hook initialiser, both
  * of which can run twice and would consume a seeded stream twice, quietly
  * changing what every demonstration URL means.
+ *
+ * Browser history is the second thing here that is not the reducer's business.
+ * Only the two reference screens get an entry, and the rules for that live in
+ * `platform/history.ts`, where they are pure and tested. This file is where they
+ * meet `window`.
  */
 
-import { useLayoutEffect, useReducer, useRef } from 'preact/hooks';
+import { useEffect, useLayoutEffect, useReducer, useRef } from 'preact/hooks';
 import { announceFor, titleFor } from './content/shell.js';
 import type { Rec } from './content/types.js';
 import { condFor, randomAssignment } from './domain/assignment.js';
 import type { Confidence } from './domain/metrics.js';
+import { screenFromEntry, syncHistory } from './platform/history.js';
 import { parseRunConfig, rngFor, runConfigFromLocation } from './platform/runConfig.js';
 import { Consent } from './screens/Consent.js';
 import { Debrief } from './screens/Debrief.js';
 import { Intro } from './screens/Intro.js';
+import { Method } from './screens/Method.js';
+import { Process } from './screens/Process.js';
 import { Rate } from './screens/Rate.js';
 import { Round } from './screens/Round.js';
 import { Round3 } from './screens/Round3.js';
@@ -65,6 +73,54 @@ export function App() {
     containerRef.current?.focus();
   }, [key, state.screen.name, ordinal]);
 
+  // History, in the same pass. `syncHistory` pushes an entry only for the two
+  // reference screens, replaces the current one otherwise, and does nothing at all
+  // when the entry already names this screen — which is the case immediately after
+  // a Back or Forward press, and is what stops this effect from pushing a
+  // duplicate of the entry the reader just navigated to.
+  //
+  // Keyed on the whole state rather than on the screen, because `popTo` can leave
+  // the screen where it was while the entry beneath still names somewhere else. It
+  // therefore runs on every dispatch, including every slider move — which is free,
+  // and which matters: `decideHistory` returns `none` when nothing has moved, so no
+  // write reaches the browser and nothing approaches the rate limit on
+  // `replaceState`.
+  useLayoutEffect(() => {
+    syncHistory(window.history, state.screen);
+  }, [state]);
+
+  // The other direction. Nothing is read from history on load: an entry names a
+  // screen and a reload has no run, so restoring the debrief from one would render
+  // a readout of a session that no longer exists.
+  //
+  // Which is also why this dispatches `popTo` rather than `goto`. The entries
+  // beneath survive a reload and the run does not, so a Back press after one can
+  // arrive naming a screen this session cannot produce. The reducer holds that
+  // check, because it is the only place with the run in hand — a guard closed over
+  // here would freeze on the state this listener was mounted with.
+  useEffect(() => {
+    function onPop(event: PopStateEvent) {
+      const screen = screenFromEntry(event.state);
+      if (screen !== null) dispatch({ type: 'popTo', screen });
+    }
+    window.addEventListener('popstate', onPop);
+    return () => {
+      window.removeEventListener('popstate', onPop);
+    };
+  }, []);
+
+  /**
+   * Leaving a reference screen.
+   *
+   * `history.back()` rather than a dispatch, so the in-app control and the
+   * browser's own Back do the same thing. Dispatching would replace the pushed
+   * entry and leave a stale one beneath it, so the reader's next Back press would
+   * appear to do nothing.
+   */
+  function leaveReference() {
+    window.history.back();
+  }
+
   function begin(localOnly: boolean) {
     const config = runConfigFromLocation();
     const assign = randomAssignment(rngFor(config), config.assignment);
@@ -95,6 +151,9 @@ export function App() {
           }}
           onMethod={() => {
             dispatch({ type: 'goto', screen: { name: 'method' } });
+          }}
+          onProcess={() => {
+            dispatch({ type: 'goto', screen: { name: 'process' } });
           }}
         />
       );
@@ -158,6 +217,34 @@ export function App() {
       );
     }
 
+    // The two reference screens, outside the linear path and outside the run.
+    // They are documents: reachable from the intro before anything has been
+    // drawn and from the debrief after everything has, and they read nothing
+    // from the run, so they render the same either way.
+    if (screen.name === 'method') {
+      return (
+        <Method
+          containerRef={containerRef}
+          onBack={leaveReference}
+          onProcess={() => {
+            dispatch({ type: 'goto', screen: { name: 'process' } });
+          }}
+        />
+      );
+    }
+
+    if (screen.name === 'process') {
+      return (
+        <Process
+          containerRef={containerRef}
+          onBack={leaveReference}
+          onMethod={() => {
+            dispatch({ type: 'goto', screen: { name: 'method' } });
+          }}
+        />
+      );
+    }
+
     // The four screens after the run. Each needs the complete variant, in which
     // both rounds are present by construction — reaching one without a finished
     // run falls through to the stub rather than asserting a round exists.
@@ -174,6 +261,9 @@ export function App() {
             }}
             onMethod={() => {
               dispatch({ type: 'goto', screen: { name: 'method' } });
+            }}
+            onProcess={() => {
+              dispatch({ type: 'goto', screen: { name: 'process' } });
             }}
           />
         );

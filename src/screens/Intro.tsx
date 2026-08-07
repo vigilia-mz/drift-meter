@@ -15,9 +15,10 @@ interface Props {
   readonly containerRef: RefObject<HTMLElement>;
   readonly onBegin: () => void;
   readonly onMethod: () => void;
+  readonly onProcess: () => void;
 }
 
-export function Intro({ containerRef, onBegin, onMethod }: Props) {
+export function Intro({ containerRef, onBegin, onMethod, onProcess }: Props) {
   return (
     <ScreenFrame containerRef={containerRef} heading={INTRO.heading} standfirst={INTRO.standfirst}>
       {INTRO.body.map((p) => (
@@ -50,6 +51,9 @@ export function Intro({ containerRef, onBegin, onMethod }: Props) {
         </button>
         <button type="button" class="dm-button dm-button-ghost" onClick={onMethod}>
           {INTRO.methodLink}
+        </button>
+        <button type="button" class="dm-button dm-button-ghost" onClick={onProcess}>
+          {INTRO.processLink}
         </button>
       </div>
     </ScreenFrame>
