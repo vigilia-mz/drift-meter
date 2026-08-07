@@ -314,6 +314,59 @@ describe('navigation and restart', () => {
     const finished = rate(rate(begin(), 4), 4);
     expect(reducer(finished, { type: 'restart' })).toEqual(INITIAL_STATE);
   });
+
+  describe('popTo', () => {
+    /**
+     * A Back press, which is not a `goto`.
+     *
+     * History entries survive a reload and the run does not, so a Back press can
+     * arrive naming a screen the current session cannot produce. Taking it would
+     * render the not-rebuilt stub for a screen that is built, which is the one
+     * false thing this whole scheme could put on a page.
+     */
+    it('behaves like goto for a screen this session can show', () => {
+      const complete = rate(rate(begin(), 4), 4);
+      for (const screen of [
+        { name: 'method' },
+        { name: 'process' },
+        { name: 'debrief' },
+      ] as const) {
+        const moved = reducer(complete, { type: 'popTo', screen });
+        expect(moved.screen, screen.name).toEqual(screen);
+        expect(moved.run, screen.name).toBe(complete.run);
+      }
+    });
+
+    it('sends a reader to the intro rather than to a screen with no run behind it', () => {
+      // The reload case: the entry beneath still names the debrief, and the run
+      // it described is gone.
+      for (const screen of [
+        { name: 'debrief' },
+        { name: 'transfer' },
+        { name: 'round3' },
+        { name: 'spec' },
+        { name: 'round', ordinal: 1 },
+      ] as const) {
+        const moved = reducer(INITIAL_STATE, { type: 'popTo', screen });
+        expect(moved.screen, screen.name).toEqual({ name: 'intro' });
+        expect(moved.run, screen.name).toBe(INITIAL_STATE.run);
+      }
+    });
+
+    it('lets the two reference screens through with no run at all', () => {
+      // They read nothing from the run, which is why a reader can reach them from
+      // the intro before anything has been drawn.
+      for (const screen of [{ name: 'method' }, { name: 'process' }] as const) {
+        expect(reducer(INITIAL_STATE, { type: 'popTo', screen }).screen).toEqual(screen);
+      }
+    });
+
+    it('does not offer a finished run the screens of an unfinished one', () => {
+      const complete = rate(rate(begin(), 4), 4);
+      const moved = reducer(complete, { type: 'popTo', screen: { name: 'round', ordinal: 2 } });
+      expect(moved.screen).toEqual({ name: 'intro' });
+    });
+  });
 });
 
 describe('what happens after the debrief cannot change the debrief', () => {

@@ -108,6 +108,7 @@ export const INTRO = {
   ],
   begin: 'Begin',
   methodLink: 'Read the method first',
+  processLink: 'How this was made',
 } as const;
 
 /**
