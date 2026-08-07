@@ -8,6 +8,37 @@ Every release records what changed and why. Retractions are recorded, not delete
 Versions v0.1 through v0.5 were published from a separate repository, which has since been deleted.
 This file is the surviving record of them.
 
+## Unreleased — Two tests CLAUDE.md claimed, and does not have
+
+Folds into the v0.6 entry when #20 writes it.
+
+**What changed**
+
+- `CLAUDE.md` asserted, in the present tense, that an end-to-end test checks the three prose pages
+  issue zero `.js` requests. There is no end-to-end test and no Playwright in the toolchain. The
+  sentence now says what holds the property today — the pages carry no script tag, so the build
+  emits no chunk for them, and review is the only thing enforcing it — and points at #19, where
+  the assertion was always scheduled. `scripts/check-size.mjs` is described as what it is: a
+  JavaScript total for the whole build, which would stay quiet if one essay gained a script tag and
+  the total still fit the budget.
+- The same claim in the `vite.config.ts` comment, corrected in the same pass.
+- `CLAUDE.md` also asserted that the wording in `src/content/` is snapshot-tested. There are no
+  snapshot files. That claim is withdrawn rather than rescheduled: the content modules are the
+  prose rather than a rendering of it, so an edit to the author's words is already a reviewable
+  diff in the module itself, and whether a snapshot test earns its keep on top of that is left as
+  an open call. The invariants test named in the same sentence is real, and the paragraph now
+  describes what it actually asserts.
+
+**Why**
+
+The v0.6 paperwork pass (#20) corrected this class of error in `tokens.css`,
+`src/domain/model.test.ts` and `src/domain/metrics.ts`, and left `CLAUDE.md` alone on the grounds
+that it is the working agreement rather than site content. That exemption does not survive the
+argument the project is making. A document that tells every future contributor which properties are
+guaranteed, while naming two guarantees that do not exist, is the failure this experiment is about:
+a claimed test is worse than a missing one, because it stops anyone from looking for the gap. No
+guarantee was lost here — there was never one to lose, which is the point.
+
 ## v0.5 — 30 Jul 2026 — It teaches, it checks, and it says who wrote it
 
 **What changed**
