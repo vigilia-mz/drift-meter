@@ -184,7 +184,8 @@ This file is the surviving record of them.
   rebuilt consent screen declines to make the claim — added by the merge that rewrote the row's
   sentence, so the sentence was false as soon as it was written, and it survived the rewrite the
   bullet above gave that row. The mirrored table and the test that holds it there put the word in the
-  repository again. The row now names the file rather than counting the places.
+  repository again. The row makes no claim about where the word appears now: counting occurrences was
+  never what it was for, and the count is what kept going stale.
 
 **Why**
 
