@@ -13,8 +13,11 @@ Last full pass: 30 Jul 2026 (v0.3).
 - **Where:** Slate A, case 2; trap copy on the result screen.
 - **Status:** Illustrative. Carries the shape of a real, well-documented gap between commodity
   and delivered cost in net distribution. The specific figures are constructed for the task.
-- **Primary link:** TODO — a named campaign or evaluator report giving delivered cost per net
-  including logistics and wastage.
+- **Now published.** Until the round screen was rebuilt these figures existed only in the case data
+  and reached no page. They now render: the supplied `$2.00` opens the assisted round's bednet
+  slider, and the `$4.50` delivered cost is in the evidence panel one click away. The row said "not
+  cleared for publication" and the figures are now published, which is a gap that closes by pinning
+  the source or by restating the figures on the page as hypothetical — not by leaving this note here.
 - **Action before release:** pin the primary source, or restate the figures as explicitly hypothetical.
 
 ### FLAGGED — Chlorination access near 80% against sustained use roughly half that
@@ -22,6 +25,8 @@ Last full pass: 30 Jul 2026 (v0.3).
 - **Where:** Slate B, case 3; trap copy on the result screen.
 - **Status:** Illustrative. The access-versus-use distinction is real and is the reason the case
   exists; the numbers are constructed.
+- **Now published.** As above: the supplied `80%` coverage figure opens the assisted round's
+  chlorination slider, and the access-versus-use sentence is in its evidence panel.
 - **Primary link:** TODO — follow-up study reporting measured free chlorine residual against
   installation or access rates.
 - **Action before release:** as above.

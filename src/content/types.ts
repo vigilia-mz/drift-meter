@@ -13,6 +13,44 @@
 /** Which of the two case slates. */
 export type SlateId = 'A' | 'B';
 
+/**
+ * The instrument's thirteen screens, as eleven names.
+ *
+ * `round` and `rate` each render twice, once per ordinal, which is why eleven
+ * names cover thirteen screens. The name is the vocabulary the copy is keyed by;
+ * `src/state/screen.ts` builds the discriminated union that carries the ordinal.
+ *
+ * `method` and `process` sit outside the linear path — they are reference screens
+ * reachable from the intro and from the debrief, and the only two that get a
+ * history entry.
+ */
+export type ScreenName =
+  | 'intro'
+  | 'consent'
+  | 'round'
+  | 'rate'
+  | 'debrief'
+  | 'transfer'
+  | 'round3'
+  | 'spec'
+  | 'encoded'
+  | 'method'
+  | 'process';
+
+/**
+ * What the shell needs in order to announce a screen change.
+ *
+ * There is no router, so nothing else tells a keyboard or screen-reader user that
+ * the page swapped. `title` becomes `document.title`; `announce` is read into a
+ * polite live region. Both are prose and both are keyed by screen.
+ */
+export interface ScreenCopy {
+  /** Appended after the site name in `document.title`. */
+  readonly title: string;
+  /** Spoken politely on arrival. A sentence, not a fragment. */
+  readonly announce: string;
+}
+
 /** What the participant can decide about a case. `''` means they have not decided. */
 export type Rec = 'fund' | 'investigate' | 'pass';
 

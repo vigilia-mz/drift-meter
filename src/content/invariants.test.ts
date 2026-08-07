@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { ARM_NOTES, ARMS, REC_LABELS } from './arms.js';
+import { CONSENT, INTRO, RATE, ROUND, SCREENS, STUB } from './shell.js';
 import { otherSlate, SLATES } from './slates.js';
 import { TRAP, TRAP_HEADINGS } from './trap.js';
 import type { Slate, TrapBranch } from './types.js';
@@ -164,6 +165,14 @@ describe('typography', () => {
   proseOf(TRAP, 'TRAP', fields);
   proseOf(ARMS, 'ARMS', fields);
   proseOf(ARM_NOTES, 'ARM_NOTES', fields);
+  // The shell's copy is prose on a page like any other, so it joins the walk in
+  // the change that introduces it rather than after someone notices.
+  proseOf(SCREENS, 'SCREENS', fields);
+  proseOf(INTRO, 'INTRO', fields);
+  proseOf(CONSENT, 'CONSENT', fields);
+  proseOf(ROUND, 'ROUND', fields);
+  proseOf(RATE, 'RATE', fields);
+  proseOf(STUB, 'STUB', fields);
 
   it('has prose to check', () => {
     expect(fields.length).toBeGreaterThan(50);

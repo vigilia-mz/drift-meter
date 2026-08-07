@@ -8,6 +8,42 @@ Every release records what changed and why. Retractions are recorded, not delete
 Versions v0.1 through v0.5 were published from a separate repository, which has since been deleted.
 This file is the surviving record of them.
 
+## v0.6 — in progress — Rebuilt from source
+
+**What changed**
+
+- The instrument runs again, from editable source. Six of its thirteen screens are rebuilt — the
+  intro, the consent step, and both rounds with their confidence gates — and the remaining seven
+  render a page saying they are not finished rather than an empty frame.
+- One reducer holds the whole flow, and it is pure: no DOM, no clock, no entropy. The assignment is
+  drawn outside it and handed in, which is what lets the thirteen-screen flow be exercised in tests
+  with no browser. The previous build kept the two rounds in loose arrays and read them through
+  non-null assertions; a completed run is now a type in which both rounds are present.
+- The run parameters are back — `?seed=`, `?order=`, `?slate=` and `?arm=` — and a pinned run is
+  recorded as pinned, so the debrief can decline to call it counterbalanced. A parameter that fails
+  to parse produces an ordinary randomised run and does not claim otherwise.
+- Screen changes move focus to the new screen's heading, retitle the document and announce politely.
+  There is no router, so without this a keyboard reader gets no signal that the page changed at all.
+  The two rounds announce their number, because they are otherwise the same screen twice.
+- **Two figures flagged as not cleared for publication are now published.** The bednet case's
+  supplied `$2.00` and the chlorination case's `80%` coverage reach a page for the first time in this
+  rebuild, along with the evidence text that undoes each. Both rows in `SOURCES.md` said "not cleared
+  for publication" and both now say they render. Pinning them, or restating them on the page as
+  hypothetical, is now overdue rather than pending.
+
+**Why**
+
+The previous build shipped the instrument as one generated file with no editable source, which made
+it impossible to correct with any confidence — the wrong property for something whose whole claim is
+that it measures something. Rebuilding it in reviewable pieces is the only version of this that can
+be argued with.
+
+Three behaviours in the rebuilt reducer look like defects and are not: a case stays read once a panel
+has been opened, a slider counts as touched even if it is put back, and a supplied recommendation
+left standing records nothing. All three were already documented and already tested at the domain
+layer, but those tests set the fields by hand and would have stayed green if the reducer wrote them
+wrongly. They are now tested where they are actually implemented.
+
 ## v0.5 — 30 Jul 2026 — It teaches, it checks, and it says who wrote it
 
 **What changed**
