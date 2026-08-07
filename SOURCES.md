@@ -6,8 +6,17 @@ source or restated as explicitly hypothetical before this leaves prototype statu
 means a specific primary source is known to exist and has simply not been pinned here yet; FLAGGED
 means no particular source has been identified.
 
+ILLUSTRATIVE was added at the v0.6 close of #7, for a figure that is constructed for the exercise and
+says so on the page. It is the second of the two exits FLAGGED offers, and it is not a weaker version
+of a pinned row: a figure taken from a source and a figure built for a task are different objects,
+and the table was previously unable to say which one it held. A row earns it only while the
+disclosure is live, which is what `invariants.test.ts` holds in place. It is not CORRECTED — nothing
+here was wrong. It was undisclosed, which is a different failure with a different fix.
+
 Last location-and-state pass: 7 Aug 2026 (v0.6). Last source pass: 30 Jul 2026 (v0.3). No row's
-source was re-verified in the v0.6 pass — every `Primary link: TODO` below is as open as it was.
+source was re-verified in the v0.6 pass, and #7 did not verify one either — every `Primary link:
+TODO` below is as open as it was. Restating a figure as illustrative closes the publication
+obligation and closes nothing else.
 
 The v0.6 pass was run against the rebuild rather than against the deleted build these rows were
 written for, which changed two things. Several rows locate a claim on a screen the rebuild has not
@@ -25,13 +34,25 @@ out to publish a multiplier. Those rows say where the claim appears now. A **Sta
 line that reports a claim as unexercised is worth exactly as long as that stays true, which here was
 days.
 
-What the pass did not cover: the essays' attributions of position to Beauvoir and Murdoch, and their
+Then #7 was closed, by the second of the two exits its own header offers: the four constructed case
+figures are restated on the page as illustrative rather than pinned to sources they were never taken
+from. Four rows move from FLAGGED to ILLUSTRATIVE, and a fifth case — the transfer check's — turned
+out to publish constructed figures and to be tracked by nothing at all. It has a row now. What this
+did not do is verify anything. Every `Primary link: TODO` in those rows is still a TODO; they are
+simply no longer blocking, because the page no longer presents the figures as findings.
+
+The three FLAGGED rows that remain are a different object and are untouched by that reasoning. They
+are the essay pages' empirical claims about students, endoscopists and developers: assertions about
+the world, stated as findings, with no citation. A disclosure cannot clear those, because they are
+not illustrative — they are either true and uncited or they are not true. They stay FLAGGED.
+
+What no pass has covered: the essays' attributions of position to Beauvoir and Murdoch, and their
 generalisations about how experienced users behave. Those are the next tranche, and naming them here
 is cheaper than implying the sweep was exhaustive.
 
 ---
 
-### FLAGGED — Bednet commodity cost near $2 against a delivered cost near $4.50
+### ILLUSTRATIVE — Bednet commodity cost near $2 against a delivered cost near $4.50
 
 - **Where:** Slate A, case 2 — `SLATES.A.cases[1]`, since this file numbers cases from one and the
   array is indexed from zero; trap copy on the result screen.
@@ -46,11 +67,21 @@ is cheaper than implying the sweep was exhaustive.
   3 adds the threshold “materially under three dollars a net”. The row said “not cleared for
   publication” and three figures are now published, which is a gap that closes by pinning the source
   or by restating them on the page as hypothetical, not by leaving this note here.
+- **Restated, 7 Aug 2026 (#7).** The second exit, taken. The intro and the consent screen now say
+  that every case is written for this exercise and every figure in it is illustrative, and the
+  debrief says it again after the run. The disclosure is deliberately general: it does not name this
+  case or this slider, because the instrument observes whether a reader interrogates the load-bearing
+  figure without being told which one it is, and a disclosure that pointed at it would leave nothing
+  to observe. `invariants.test.ts` asserts both halves — that the three screens call the figures
+  illustrative, and that neither pre-run screen names the trap case or its slider.
 - **Primary link:** TODO — a named campaign or evaluator report giving delivered cost per net
-  including logistics and wastage.
-- **Action before release:** pin the primary source, or restate the figures as explicitly hypothetical.
+  including logistics and wastage. Still open, and now optional rather than blocking: pinning it
+  would move this row to PRIMARY and would mean changing `$2.00` and `$4.50` to whatever the source
+  says, which rewrites all six branches of the trap copy and Round 3's threshold with them.
+- **Action before release:** none outstanding. The publication obligation is discharged by the
+  disclosure, and the disclosure is the thing to protect: deleting it puts this row back to FLAGGED.
 
-### FLAGGED — Chlorination access near 80% against sustained use roughly half that
+### ILLUSTRATIVE — Chlorination access near 80% against sustained use roughly half that
 
 - **Where:** Slate B, case 3 — `SLATES.B.cases[2]`; trap copy on the result screen.
 - **Status:** Illustrative. The access-versus-use distinction is real and is the reason the case
@@ -60,11 +91,14 @@ is cheaper than implying the sweep was exhaustive.
   figure opens the assisted round's chlorination slider, and the access-versus-use sentence is in its
   evidence panel. The debrief adds the same “roughly doubles” magnitude, and Round 3 adds the
   threshold “sustained free chlorine residual above 70% at twelve months”.
+- **Restated, 7 Aug 2026 (#7).** As above, and by the same three screens — the disclosure is written
+  once and covers every case rather than being repeated per figure, which is also why it names
+  neither this case nor its slider.
 - **Primary link:** TODO — follow-up study reporting measured free chlorine residual against
-  installation or access rates.
-- **Action before release:** as above.
+  installation or access rates. Still open, and now optional rather than blocking, on the same terms.
+- **Action before release:** none outstanding, on the same terms as above.
 
-### FLAGGED — Cash transfers: the income gain decaying enough to roughly triple the cost per lasting doubling
+### ILLUSTRATIVE — Cash transfers: the income gain decaying enough to roughly triple the cost per lasting doubling
 
 - **Where:** Slate A, case 1 — `SLATES.A.cases[0]`; Round 3, which replays it. Added when Round 3
   was built, on finding that this case publishes a magnitude and had no row at all — the table
@@ -72,9 +106,29 @@ is cheaper than implying the sweep was exhaustive.
 - **Status:** Illustrative, and the same construction as the trap figures: the direction is real and
   the multiplier is made for the task. Round 3 also publishes a threshold, “holding above half its
   year-one level” at five years, as the evidence that would change the assistant's view.
+- **Restated, 7 Aug 2026 (#7).** Covered by the same disclosure. This row is not named in #7, which
+  asked about the two trap figures, but it is the same object — a multiplier built for the task and
+  published — and clearing the two while leaving an identical third would make the grade mean the
+  issue number rather than the state of the figure.
 - **Primary link:** TODO — a long-run cash transfer follow-up reporting consumption or income at
-  five years or later against the year-one effect.
-- **Action before release:** pin it, or restate the multiplier on the page as hypothetical.
+  five years or later against the year-one effect. Still open, and now optional rather than blocking.
+- **Action before release:** none outstanding, on the same terms as above.
+
+### ILLUSTRATIVE — Transfer check: 41,000 doses at about $1.90 per dose, reported as $1.90 per child protected
+
+- **Where:** The transfer check — `TRANSFER` in `src/content/transfer.ts`, the summary and the first
+  of the four options. Added at the #7 pass, which found the seventh case carrying the same class of
+  constructed figure as the six in the slates and tracked by no row at all.
+- **Status:** Illustrative, and constructed for the same purpose as the trap: the gap between doses
+  delivered and children completing a three-dose course is a real measurement problem, and the
+  programme, the country, the dose count and the unit cost are written for the exercise.
+- **Restated, 7 Aug 2026 (#7).** Covered by the intro and consent disclosure, which says every case
+  here is written for this exercise. The debrief's line lands before this screen, so a reader meets
+  the transfer case having been told twice.
+- **Primary link:** TODO — an outreach immunisation costing that reports cost per fully immunised
+  child alongside cost per dose. Optional rather than blocking, on the same terms as the rows above.
+- **Action before release:** none outstanding. Recorded chiefly so that the next reader of this table
+  finds the seventh case in it rather than discovering it the way this pass did.
 
 ### FLAGGED — Students with ChatGPT practised better and scored worse on exams taken without it
 
@@ -111,7 +165,9 @@ is cheaper than implying the sweep was exhaustive.
   case. That is a starting position for the reader to move rather than a quoted result, and the
   screen labels it "Supplied value. Move the slider to use your own." It is still a number on a page,
   and it should be decided deliberately rather than left standing because it was written as a
-  default.
+  default. The #7 disclosure covers it — the intro and consent screens say every figure in every case
+  is illustrative, which includes this one — so the question it raises is now about the design rather
+  than about publication.
 - **Primary link:** TODO — the original long-run income paper and the principal replication or
   reanalysis on the other side.
 - **Action before release:** required only if a version quotes an effect size.
@@ -127,7 +183,8 @@ is cheaper than implying the sweep was exhaustive.
   does carry a "Deaths averted per child-year" slider supplied at 0.0015, which the rebuilt round
   renders as the assisted round's opening position on this case. As with the deworming row, that is a
   starting position rather than a quoted result, and the screen says so — but it is a magnitude, and
-  it now reads as one on a page rather than in a data file.
+  it now reads as one on a page rather than in a data file. The #7 disclosure covers it on the same
+  terms as the deworming row.
 - **Primary link:** TODO.
 - **Action before release:** required only if a version quotes a magnitude. This row had no stated
   release condition until the v0.6 pass; it now carries the deworming row's.

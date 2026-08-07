@@ -199,6 +199,7 @@ export function Debrief({ containerRef, run, onContinue, onMethod }: Props) {
           {DEBRIEF.closingHeading}
         </h2>
         <p class="dm-body">{DEBRIEF.closing[closingKey(a.auto)]}</p>
+        <p class="dm-body">{DEBRIEF.closingCases}</p>
       </section>
 
       <div class="dm-actions">

@@ -86,6 +86,20 @@ This file is the surviving record of them.
   hypothetical, is overdue rather than pending. The deworming case's lifetime income gain factor of
   3.0 and the vitamin A case's 0.0015 deaths averted per child-year render alongside them, as the
   assisted round's opening position rather than as quoted results; their two rows say so.
+- **The case figures are restated on the page as illustrative, which closes #7.** The instrument now
+  says, on the intro and on the consent screen before any work starts and once more in the debrief
+  after it, that every case is written for the exercise, that the programmes are generic rather than
+  real organisations, and that every figure attached to them is illustrative rather than traced to a
+  named study. Four rows in `SOURCES.md` move from FLAGGED to a new ILLUSTRATIVE grade: the bednet
+  and chlorination trap figures #7 named, the cash transfers multiplier, and the transfer check's
+  `$1.90` per dose, which was published by a seventh case that no row tracked at all. The three
+  FLAGGED rows on the essay pages are untouched: those are claims about the world stated as findings,
+  and a disclosure cannot clear them.
+- The disclosure names no case and no slider. It says every figure is illustrative and stops there,
+  because what the instrument observes is whether a reader interrogates the load-bearing number
+  without being told which one it is. `invariants.test.ts` asserts both halves — that the three
+  screens carry the disclosure, and that neither pre-run screen contains the trap case's name or its
+  slider's label.
 - Corrected: the contrast note in `tokens.css` gave `#6B6358` as 4.76:1 on `#ECE8DE`. It measures
   4.83:1. The two failing ratios in the same note were right; the passing one — the number carrying
   the claim that the fix clears 4.5:1 — was not.
@@ -125,6 +139,21 @@ has been opened, a slider counts as touched even if it is put back, and a suppli
 left standing records nothing. All three were already documented and already tested at the domain
 layer, but those tests set the fields by hand and would have stayed green if the reducer wrote them
 wrongly. They are now tested where they are actually implemented.
+
+Restating the figures rather than pinning them is the honest reading of what they are. They were
+built to make a particular error catchable, not taken from a source and then approximated, so pinning
+one would mean changing the number to whatever the source said and rewriting the trap copy, Round 3's
+thresholds and the transfer case around it — retro-fitting a provenance the figures never had. The
+grade exists because the table could not previously say which of the two it held. What the restatement
+does not do is verify anything: every `Primary link: TODO` in those rows is still open, and now
+optional rather than blocking.
+
+The disclosure is general on purpose, and that is the one place where this change trades against the
+instrument. Saying beside the supplied estimate that this figure is illustrative would be the most
+transparent version and would leave nothing to measure; a reader told where the planted error is has
+not been observed noticing it. Saying only in the debrief would be safest for the measurement and
+would still have the reader accept figures for three minutes before being told what they are. Before
+and after, worded generally, is the version where both obligations survive.
 
 The debrief is the screen where overclaiming would cost most, so what it says is bounded by what one
 person on six cases can support: every branch names the confounds it cannot separate, and nothing on

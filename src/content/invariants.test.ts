@@ -10,6 +10,8 @@ import * as trapModule from './trap.js';
 import type { Slate, TrapBranch } from './types.js';
 
 const { ARM_NOTES, ARMS, recSentencePrefix, REC_LABELS } = armsModule;
+const { DEBRIEF } = debriefModule;
+const { CONSENT, INTRO } = shellModule;
 const { otherSlate, SLATES } = slatesModule;
 const { TRAP, TRAP_HEADINGS } = trapModule;
 
@@ -257,6 +259,55 @@ describe('typography', () => {
   it('uses no straight double quotes', () => {
     for (const [path, text] of fields) {
       expect(text, path).not.toContain('"');
+    }
+  });
+});
+
+describe('the illustrative disclosure', () => {
+  /**
+   * #7's resolution. The case figures are constructed, and the page now says so
+   * rather than a comment in `slates.ts` saying it to nobody. Three screens
+   * carry it, and deleting one would otherwise be invisible: the disclosure is
+   * prose, so nothing else in this suite would go red.
+   */
+  const BEFORE_THE_WORK: ReadonlyArray<readonly [string, string]> = [
+    ['INTRO.constructed', INTRO.constructed],
+    ['CONSENT.constructed', CONSENT.constructed],
+  ];
+
+  const EVERYWHERE: ReadonlyArray<readonly [string, string]> = [
+    ...BEFORE_THE_WORK,
+    ['DEBRIEF.closingCases', DEBRIEF.closingCases],
+  ];
+
+  it('calls the figures illustrative on all three screens that carry it', () => {
+    for (const [path, text] of EVERYWHERE) {
+      expect(text, path).toContain('illustrative');
+    }
+  });
+
+  it('names no trap case and no trap slider before the reader has worked them', () => {
+    // Disclosing that the cases are built is not the same as disclosing which
+    // number is wrong. What the instrument observes is whether the reader
+    // interrogates the load-bearing figure unprompted, so a disclosure that
+    // pointed at the slider would leave nothing to observe. The debrief is
+    // exempt: by then the trap has been shown.
+    const spoilers = slates.flatMap((slate) => {
+      const c = slate.cases[slate.trapCase];
+      if (c === undefined) throw new Error(`${slate.id}: trapCase out of range`);
+      const sp = c.a[slate.trapSlider];
+      if (sp === undefined) throw new Error(`${slate.id}: trapSlider out of range`);
+      return [c.org, sp.label];
+    });
+
+    // Without this the loop below would pass on an empty list, which is the
+    // failure mode this project keeps finding in its own tests.
+    expect(spoilers).toHaveLength(slates.length * 2);
+
+    for (const [path, text] of BEFORE_THE_WORK) {
+      for (const spoiler of spoilers) {
+        expect(text.toLowerCase(), `${path} names ${spoiler}`).not.toContain(spoiler.toLowerCase());
+      }
     }
   });
 });

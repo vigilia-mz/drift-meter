@@ -80,14 +80,18 @@ endpoint.
 **5. Factual changes carry paperwork.**
 This project's argument is about unearned confidence, so its own claims are tracked. If a change
 touches an external claim, a figure, or a source, update `SOURCES.md` in the same pass (rows are
-`FLAGGED` / `SECONDARY` / `PRIMARY AVAILABLE` / `PRIMARY` / `CORRECTED`). If it changes what the site
-asserts, or removes something previously published, add a `CHANGELOG.md` entry with **What changed**
-and **Why**. Errors get recorded, not deleted.
+`FLAGGED` / `ILLUSTRATIVE` / `SECONDARY` / `PRIMARY AVAILABLE` / `PRIMARY` / `CORRECTED`). If it
+changes what the site asserts, or removes something previously published, add a `CHANGELOG.md` entry
+with **What changed** and **Why**. Errors get recorded, not deleted.
 
 **6. Do not invent numbers.**
 No illustrative-but-unlabelled figures, no cohort data, no placeholder statistics. A prior version
 shipped an invented cohort dashboard and it was retracted (v0.2). Anything illustrative must say so
-on the page.
+on the page — on the page, not in a comment beside the data, which is where the case figures said it
+until #7. Every case is disclosed as constructed on the intro, the consent screen and the debrief,
+generally rather than per figure, so that the disclosure does not name the planted error. That copy
+is what the `ILLUSTRATIVE` rows in `SOURCES.md` rest on; `src/content/invariants.test.ts` asserts it
+is present and that the two pre-run screens do not name the trap case or its slider.
 
 **7. Derived measures require a test.**
 Any function that produces a number appearing on screen, or in the reflect payload, has a Vitest case.

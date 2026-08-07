@@ -14,8 +14,14 @@
  * away.
  *
  * The figures are illustrative and carry the shape of real, documented disputes.
- * They are not traced to named studies, and both trap rows are FLAGGED in
- * SOURCES.md as not cleared for publication. Do not quote them.
+ * They are not traced to named studies. Do not quote them.
+ *
+ * That used to be said here and nowhere else, which is what #7 was about: a
+ * comment in a source file is not a disclosure to a reader. The intro and the
+ * consent screen now say it on the page, and the debrief says it again after the
+ * run, so the rows in SOURCES.md are graded ILLUSTRATIVE rather than FLAGGED.
+ * The grade depends on that copy existing — `invariants.test.ts` is what keeps
+ * it there, and deleting it puts the rows back to not cleared for publication.
  */
 
 import type { Slate, SlateId } from './types.js';

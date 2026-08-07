@@ -113,6 +113,16 @@ export const DEBRIEF = {
   },
 
   closingHeading: 'What this run can and cannot say',
+  /**
+   * The third statement of #7's disclosure, after the work rather than before it.
+   *
+   * It sits in the closing section because that section is already the place
+   * where the run's limits are named, and because the trap has been revealed by
+   * the time a reader reaches it — so this can say that the planted error was
+   * built without telling anyone anything they have not just been shown.
+   */
+  closingCases:
+    'One limit applies to all of the above. The cases were written for this exercise: the programmes are generic, and every figure in them is illustrative, the planted error included. What was recorded about how you worked is real. The numbers you worked on were not.',
   /** One paragraph per branch of `closingKey`. `null` autonomy takes `keptAuthorship`. */
   closing: {
     delegatedModel:
