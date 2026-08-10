@@ -137,7 +137,7 @@ export const DEBRIEF = {
    */
   primaryTag: 'Primary outcome',
   primaryNote:
-    'Evidence engagement is the primary outcome, and it was fixed before any data existed. The other four are secondary, which here means reported and worth reading rather than set aside: they are the same traces they were before one of them was named, and naming one in advance is what stops whichever bar moved most from being read afterwards as the result.',
+    'Evidence engagement is the measure the primary outcome is defined on, and it was fixed before any data existed. The other four are secondary, which here means reported and worth reading rather than set aside: they are the same traces they were before one of them was named, and naming one in advance is the cheapest guard against whichever bar moved most being read afterwards as the result. What the primary outcome compares is this measure across the three attribution arms, and one run draws one arm — so it is not computed here and no run computes it. The method screen states it in full.',
 
   /**
    * One paragraph per branch of `headlineFor`.

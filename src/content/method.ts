@@ -108,8 +108,11 @@ export const METHOD = {
    * The primary outcome, stated rather than left to be chosen afterwards.
    *
    * Seven measures reported as peers is a forking path drawn in the interface. The
-   * statement below is a registered analysis plan and not a description of the
-   * readout: it names a between-arm contrast, and one reader draws one arm, so no
+   * statement below is one element of a registered analysis plan and not a
+   * description of the readout — the same narrowing the process screen's reviewers
+   * row makes, because four elements of a plan are still missing and this version
+   * has already corrected that row once for overstating the paperwork. It names a
+   * between-arm contrast, and one reader draws one arm, so no
    * run computes it. The limit is stated on the page immediately after it rather
    * than left for a reader to derive from the design section — see
    * `primaryOutcomeLimit`, and `limits` for the same absence in the general case.
@@ -123,7 +126,7 @@ export const METHOD = {
   primaryOutcome:
     'The primary outcome is the difference in evidence engagement between conditions, within the AI-attributed arm, tested against the same difference in the human-attributed and unattributed arms, fixed before any data exists.',
   primaryOutcomeWhy:
-    'Reported as peers, whichever measure moved most would read as the result, and nothing on either screen would distinguish a prediction from a preference formed after seeing the numbers. Naming one measure in advance is the cheapest guard against that, and it is only available while n is zero. The other six are secondary in the sense that they are reported and worth reading rather than set aside; none of them is retired, and the debrief says the same thing in its own words.',
+    'Reported as peers, whichever measure moved most could have been presented afterwards as the result without contradicting anything registered. Six predictions are registered below with the condition that would falsify each, which is what stops a claim being invented after the fact; what none of them said is which measure the design turns on, and that is the gap this closes. Naming one measure in advance is the cheapest guard against it, and it is only available while n is zero. The other six are secondary in the sense that they are reported and worth reading rather than set aside; none of them is retired, and the debrief says the same thing in its own words.',
   primaryOutcomeLimit:
     'What this build does with that statement is nothing, and the statement is worth less if it does not say so. One reader draws one arm, so a run yields the within-reader difference for a single arm and no between-arm contrast at all; nothing is stored and no two runs are ever compared. The comparison above needs a cohort that does not exist. It is registered here so that it cannot be chosen later, which is the only thing pre-specification does.',
 
@@ -195,7 +198,7 @@ export const METHOD = {
     'Drift is longitudinal — a capacity weakening across repeated delegation — and a run is one sitting. What a run records is short-run behaviour under two conditions, which is at most the trace such a weakening would leave on its way through, and is equally consistent with there being no weakening at all. No arrangement of a single sitting distinguishes those two; a design that returns to the same readers over time is the only thing that would.',
     'Six cases in one sitting, with no stakes and no clock, is the condition under which a reader is at their most careful. Whatever drift exists in real work under real deadlines, this is the setting least likely to show it.',
     'Readers arrive from an essay that states the expected result. That is a demand characteristic sitting directly upstream of the measurement, and the instrument has no version of itself that does not have it.',
-    'The primary outcome is a process trace, and a weak one. A reader who opens every panel out of habit scores full marks on evidence engagement without having read anything, and nothing here can tell the two apart — so the measure fixed in advance is the measure that cannot distinguish a reflexive click from a careful one. It was chosen for being the one P1 is about rather than for being the best of the seven, and the two of the seven that are not traces at all report as undefined in every run today.',
+    'The primary outcome is a process trace, and a weak one. A reader who opens every panel out of habit scores full marks on evidence engagement without having read anything, and nothing here can tell the two apart — so the measure fixed in advance is the measure that cannot distinguish a reflexive click from a careful one. It was chosen for being the one P1 is about rather than for being the best of the seven. Of the two that are not traces at all, accuracy is undefined in every run today and the catch rate is one observation per reader.',
     'The saturation point, the two autonomy weights and the three debrief thresholds were all chosen by eye. They need calibrating against how experienced evaluators actually work these slates before any of them means anything.',
     'The control round’s sliders open at an arbitrary midpoint and the assisted round’s open at an authoritative number. Moving off those two starting points is not the same act, and the difference inflates the control round on one measure.',
     'One reader, one arm, one slate, one order per run. Every between-subject comparison this design is built to support needs a cohort, and there is not one.',

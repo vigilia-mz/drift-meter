@@ -370,7 +370,38 @@ test('one bar carries the primary-outcome tag, and it is evidence engagement', a
   await expect(accuracy.locator('.dm-measure-tag')).toHaveCount(0);
 
   // The tag is a mark, not the explanation. The page has to say what secondary means.
-  await expect(page.locator('body')).toContainText('worth reading rather than set aside');
+  await expect(page.locator('body')).toContainText(COPY.debrief.primarySecondarySense);
+});
+
+/**
+ * 7b-iii. The protocol screen publishes the primary outcome with its limit beside it.
+ *
+ * The statement names a between-arm contrast and one reader draws one arm, so no run
+ * computes it. Publishing the statement without the limit would be the overclaim this
+ * project is named for, and the unit suite cannot see the difference: it reads two
+ * constants out of a content module, and both would still be there if the paragraph
+ * were deleted from `Method.tsx` or moved above the statement it qualifies.
+ *
+ * Order is asserted rather than mere presence, because a limit a reader meets before
+ * the claim it limits is not a limit — it is a sentence about nothing yet.
+ */
+test('the protocol screen states the primary outcome and its limit, in that order', async ({
+  page,
+}) => {
+  await open(page, SLATE_A);
+  await page.getByRole('button', { name: COPY.intro.method, exact: true }).click();
+  await expect(page.getByRole('heading', { level: 1, name: COPY.method.heading })).toBeVisible();
+
+  const body = page.locator('body');
+  await expect(body).toContainText(COPY.method.primaryOutcomeHeading);
+  await expect(body).toContainText(COPY.method.primaryOutcomeOpening);
+  await expect(body).toContainText(COPY.method.primaryOutcomeLimit);
+
+  const text = (await body.innerText()).replace(/\s+/g, ' ');
+  const statement = text.indexOf(COPY.method.primaryOutcomeOpening);
+  const limit = text.indexOf(COPY.method.primaryOutcomeLimit);
+  expect(statement).toBeGreaterThan(-1);
+  expect(limit).toBeGreaterThan(statement);
 });
 
 /**

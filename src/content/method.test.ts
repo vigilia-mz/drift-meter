@@ -75,27 +75,38 @@ describe('the seven measures', () => {
       expect(copy).toContain('secondary');
       expect(copy).toContain('worth reading rather than set aside');
     }
-    expect(DEBRIEF.primaryNote).not.toContain('worthless');
   });
 
-  it('counts the secondary bars against the array rather than from memory', () => {
-    // The same shape as the heading count below, for the same reason: this build has
-    // published a stale measure count twice, and the comment above MEASURES said
-    // four for two versions after a fifth bar arrived.
+  it('counts both remainders against the arrays rather than from memory', () => {
+    // Two remainder counts are published, on two screens, against two different
+    // sets: five bars on the debrief and seven measures here. Both are held, because
+    // holding one of them is how the other goes stale — this version has already
+    // corrected a measure count twice, and the comment above MEASURES said four from
+    // the commit that added the fifth bar until the one that declared the primary.
     const WORDS = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven'] as const;
-    const word = WORDS[MEASURES.length - 1];
-    expect(word, `no number word for ${String(MEASURES.length - 1)} secondary bars`).toBeDefined();
-    expect(DEBRIEF.primaryNote).toContain(`The other ${String(word)} are secondary`);
+
+    const bars = WORDS[MEASURES.length - 1];
+    expect(bars, `no number word for ${String(MEASURES.length - 1)} secondary bars`).toBeDefined();
+    expect(DEBRIEF.primaryNote).toContain(`The other ${String(bars)} are secondary`);
+
+    const specs = WORDS[MEASURE_SPECS.length - 1];
+    expect(
+      specs,
+      `no number word for ${String(MEASURE_SPECS.length - 1)} secondary measures`,
+    ).toBeDefined();
+    expect(METHOD.primaryOutcomeWhy).toContain(`The other ${String(specs)} are secondary`);
   });
 
-  it('says on the page that no run computes the primary outcome', () => {
-    // The statement names a between-arm contrast and one reader draws one arm, so
-    // the plan describes an analysis this build cannot perform. Pre-specification is
-    // still worth doing; publishing it without the limit beside it would not be.
+  it('states in the module that no run computes the primary outcome', () => {
+    // Titled for what it checks: these are constants, not a page. That the limit
+    // actually renders, and renders after the statement it qualifies, is held in the
+    // browser suite — a paragraph deleted from Method.tsx would leave this green.
     expect(METHOD.primaryOutcomeLimit).toContain('one arm');
     expect(METHOD.primaryOutcomeLimit).toContain('cohort that does not exist');
     // And the general case is still in the limits, not replaced by the specific one.
     expect(METHOD.limits.join(' ')).toContain('needs a cohort');
+    // The debrief cannot name the primary outcome and drop the limit on its own.
+    expect(DEBRIEF.primaryNote).toContain('one run draws one arm');
   });
 
   it('says in the heading how many it names', () => {

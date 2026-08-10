@@ -115,6 +115,7 @@ export const COPY = {
      */
     primaryTag: 'Primary outcome',
     evidenceEngagement: 'Evidence engagement',
+    primarySecondarySense: 'worth reading rather than set aside',
     /**
      * The confidence comparison, since #37.
      *
@@ -187,6 +188,17 @@ export const COPY = {
     heading: 'Method',
     back: 'Back',
     process: 'How this was made',
+    /**
+     * The primary outcome, and the limit that has to travel with it.
+     *
+     * The statement describes a between-arm contrast and one reader draws one arm, so
+     * publishing it without the limit beside it would be the overclaim this project
+     * is named for. The unit suite holds that the strings say this; only a browser can
+     * hold that both reach the page, and in that order.
+     */
+    primaryOutcomeHeading: 'The primary outcome, fixed in advance',
+    primaryOutcomeOpening: 'The primary outcome is the difference in evidence engagement',
+    primaryOutcomeLimit: 'cohort that does not exist',
   },
   process: {
     heading: 'Process',

@@ -86,16 +86,19 @@ This file is the surviving record of them.
   contract that stopped describing the mechanism rather than a behaviour that changed.
 - **A primary outcome is declared, while there is still nothing to choose from.** Five bars on the
   debrief and seven measures on the protocol screen, all reported as peers, is a forking path drawn in
-  the interface: whichever moved most would read afterwards as the result, and nothing on either screen
-  would distinguish a prediction from a preference formed after seeing the numbers. Evidence engagement
+  the interface: whichever moved most could have been presented afterwards as the result without
+  contradicting anything registered. Six predictions were already registered with the condition that
+  would falsify each; what none of them said is which measure the design turns on. Evidence engagement
   is now fixed as the primary outcome, marked on its own bar, and the protocol screen states the
   comparison it belongs to — the difference in evidence engagement between conditions, within the
   AI-attributed arm, tested against the same difference in the other two arms. The rest are secondary in
   the sense that they are reported and worth reading rather than set aside, which both screens say in
   those words, because the other sense of secondary would have a reader stop at the first bar. Three
   assertions hold it: exactly one measure carries the flag, the protocol screen names the same measure
-  the debrief marks, and the copy says which sense of secondary it means. A fourth holds the count of
-  the remainder against the array, because this is the fourth measure count in this version to be
+  the debrief marks, and the copy says which sense of secondary it means. A fourth holds both remainder
+  counts against the arrays they count — five bars on the debrief and seven measures on the protocol
+  screen, which are different sets and therefore different number words — because holding one of two
+  published counts is how the other goes stale, and this is the fourth measure count in this version
   written in prose beside the list it counts.
 - **The statement names an analysis no run performs, and the page says so immediately after it.** One
   reader draws one arm, nothing is stored and no two runs are compared, so a run yields the within-reader
@@ -119,9 +122,11 @@ This file is the surviving record of them.
   what P1 is about rather than for being the best of the seven, and it cannot distinguish a reflexive
   click from a careful read.
 - Corrected: the comment above `MEASURES` said "The four paired measures" and there have been five since
-  estimate accuracy arrived earlier in this version. Nothing published was false, because a comment is
-  not screen copy — which is exactly why it went two versions without being caught, and why it is the
-  likely source of the count in the issue that asked for this change.
+  estimate accuracy arrived earlier in this version. It was accurate for the whole of v0.6, when there
+  were four, and wrong from the commit that added the fifth bar until this one — inside a single
+  unreleased version rather than across two. Nothing published was false, because a comment is not
+  screen copy, which is why nothing caught it; it is also the likely source of the count in the issue
+  that asked for this change, which described the debrief as drawing four bars.
 - **The confidence gap is no longer reported as a quantity.** It subtracted a five-point self-report,
   rescaled to 0–100, from a mean of three unlike process measures carrying equal weights. Both halves
   are authorial choices, so the difference inherited both and declared neither, and it was the figure

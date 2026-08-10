@@ -55,8 +55,10 @@ now, while `n` is zero, because after collection starts the answer is worth much
 > reviewer — the figure, the reasoning and the recommendation are identical in all three, and only the
 > authority attached to them changes. One case per slate carries a planted error: a figure that is not
 > what its label says it is. A transfer case afterwards asks about the same pattern in a case the
-> reader has not seen. Six measures come out of a run, five of them process traces and one an accuracy
-> score that is undefined at present. The whole thing takes about three minutes.
+> reader has not seen. Seven measures come out of a run. Five are traces of how the work was done, one
+> of which is the primary outcome; the other two ask whether the answer was right — an accuracy score
+> that is undefined at present, and a planted-error catch rate that is one observation per reader. The
+> whole thing takes about three minutes.
 >
 > The six predictions and their falsification conditions are in section 4 of the protocol screen. The
 > measures, each with its formula and the objection to it, are in section 3. Both are here:
@@ -76,9 +78,11 @@ now, while `n` is zero, because after collection starts the answer is worth much
 >    directly upstream of the measurement.
 >
 > And one thing I would rather you told me than had me discover: what is registered is six predictions
-> with falsification conditions, not an analysis plan. There is no test named per prediction, no
-> target `n`, no stopping rule and no correction for testing six things at once. I do not know whether
-> that gap is the first thing to fix or a detail next to the two above.
+> with falsification conditions and one element of an analysis plan — a primary outcome, fixed before
+> any data exists. There is still no test named per prediction, no target `n`, no stopping rule and no
+> correction for testing six predictions at once. I do not know whether that gap is the first thing to
+> fix or a detail next to the two above, and the primary outcome as stated describes a between-arm
+> comparison the build cannot perform, which may be its own problem.
 >
 > Four questions, if it helps to have them as questions:
 >
