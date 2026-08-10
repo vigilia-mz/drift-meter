@@ -28,15 +28,19 @@ The reviewers table on the publication-process screen names three readers as not
 says the missing one is the real gap:
 
 - **A methods reader** — attack the design. Order effects, the anchoring confound, construct
-  definitions, whether the registered analysis plan can actually test the five predictions. The
-  project's network is philosophy-heavy, which is the right network for the conceptual argument and
-  the wrong one for experimental design.
+  definitions, whether the design can actually test the six registered predictions. The project's
+  network is philosophy-heavy, which is the right network for the conceptual argument and the wrong
+  one for experimental design.
 - **An editor** — attack the prose for overclaiming. Given the subject, this is where the risk
   concentrates: an essay arguing that fluent answers get accepted too easily is itself a fluent answer.
 - **A naive reader** — not whether you liked it. Where you stopped understanding it, and at which
   sentence.
 
-If you are willing to be any of those, that is the highest-value thing on this list.
+If you are willing to be any of those, that is the highest-value thing on this list. The route in is
+the **Offer to read it** issue form, which asks which of the three and not much else. Each ask is
+written out in full in [`docs/review-briefs.md`](docs/review-briefs.md), including what is already
+known to be wrong — a reader who spends their pass finding something already published on the site is
+a reader who has been wasted.
 
 ## Code changes
 
@@ -44,7 +48,7 @@ Pull requests are welcome for the things where correctness is objective: a broke
 build, an accessibility defect, a typo, a dependency bump, a genuine bug in a derived measure.
 
 **I may decline changes to the instrument itself**, even good ones. The instrument is a measuring
-device with a registered analysis plan and stated falsification conditions; changing how it behaves
+device with registered predictions and stated falsification conditions; changing how it behaves
 changes what it measures, which is a research decision rather than an engineering one. If you think
 its behaviour is wrong, an issue arguing that is more likely to land than a PR implementing it.
 

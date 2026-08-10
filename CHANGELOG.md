@@ -411,6 +411,21 @@ This file is the surviving record of them.
   “Illustrative”, which is the same word an invented cohort dashboard could have carried, on the page
   whose own method note explains why that dashboard was retracted. Rule 6 asks for the plainer
   sentence and it now carries it.
+- **The reviewers table asked a methods reader whether the registered analysis plan can test the
+  predictions. There is no analysis plan.** What is registered is six predictions and the condition
+  that would falsify each one — no test named per prediction, no target `n`, no stopping rule, and no
+  correction for testing six things at once. Calling that an analysis plan overstated the paperwork to
+  the one reader recruited to find exactly that kind of overstatement, and it was the shortest
+  overclaim on the site. The row now says what is registered and says what is not. `CONTRIBUTING.md`
+  carried the same phrase and, separately, still asked about five predictions after P6 was registered
+  in v0.5; both corrected there.
+- **The three asks are written out rather than described.** `docs/review-briefs.md` holds each of them
+  at the length it would be sent, with the known defects handed over first and the naive reader's brief
+  asking its reader not to prepare, plus a draft of the public design review the process screen says is
+  the cheaper substitute. There is a route in for someone offering to be one of the three, which there
+  was not. None of this recruits anyone: nothing has been sent, the reviewers table still reads “Not
+  recruited” and “Not assigned”, and a briefs file that made the screen look busier than the project is
+  would be this project's own failure mode in its own documentation.
 
 **Why**
 

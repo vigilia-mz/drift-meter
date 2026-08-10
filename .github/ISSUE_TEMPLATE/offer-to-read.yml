@@ -1,0 +1,62 @@
+name: Offer to read it
+description: You are willing to be the methods reader, the editor or the naive reader. This is the highest-value thing on the list.
+labels: ['review']
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The publication-process screen names three readers and says none of them has been asked. It
+        also says which absence matters most: the confound that produced v0.3 was caught by an outside
+        reader rather than by the process, and the methods reader exists to catch that class of thing
+        before collection starts rather than after.
+
+        Each of the three is asked for exactly one thing, so that agreeing to help is not agreeing to
+        an unbounded amount of it. The asks are written out in
+        [`docs/review-briefs.md`](https://github.com/vigilia-mz/drift-meter/blob/main/docs/review-briefs.md),
+        including what is already known to be wrong — so that a pass is not spent finding it.
+
+        Reviewers are acknowledged by name once they have read a version, because a name is someone
+        who can be asked what they actually said.
+
+  - type: dropdown
+    id: which
+    attributes:
+      label: Which reader
+      description: More than one is allowed and is rarer than it sounds. The third works best from someone who has read none of the essays.
+      multiple: true
+      options:
+        - Methods reader — attack the design, before there is data to reverse-engineer an analysis from
+        - Editor — attack the prose for overclaiming
+        - Naive reader — say where you stopped understanding it, and at which sentence
+    validations:
+      required: true
+
+  - type: textarea
+    id: background
+    attributes:
+      label: Anything about you that bears on it
+      description: Optional, and asymmetrically so. It is worth knowing for the first two. For the naive reader it counts against you — that reader is useful precisely for not arriving with the background, and nothing here is a credential check.
+    validations:
+      required: false
+
+  - type: textarea
+    id: terms
+    attributes:
+      label: What you would need from me
+      description: A deadline, a narrower question, a version that is not moving under you, or the argument stated somewhere other than an essay that announces its own conclusion. Say it here rather than discovering it halfway through.
+    validations:
+      required: false
+
+  - type: markdown
+    attributes:
+      value: |
+        What comes back is logged in `CHANGELOG.md` whether or not it is flattering, and a reply that
+        kills a registered prediction takes the prediction off the screen.
+
+  - type: checkboxes
+    id: acknowledgement
+    attributes:
+      label: Attribution
+      options:
+        - label: Name me on the publication-process screen once I have read a version. Leaving this unticked records the reading without a name.
+          required: false
