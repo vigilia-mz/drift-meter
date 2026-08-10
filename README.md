@@ -11,20 +11,25 @@ small, reasonable acts of delegation.
 **Status: prototype. n = 0.** No data has been collected from anyone. This is an instrument and a
 design argument, not a finding, and every screen that could be mistaken for a result says so.
 
-**This repository is mid-rebuild.** In place and under test: the three prose pages, the design
-system, the case data, the cost model and the derived measures. Not yet rebuilt: the instrument's
-screens, its endpoint, and its pinned model. `drift-meter.html` says so at the instrument's own URL
-rather than linking to something that is not there, and the rebuild is recorded as v0.6 in
+**The instrument runs.** A full pass is intro, consent, two rounds of three cases, a confidence
+question after each, the debrief, a transfer item, a replay round and the four rules: about three
+minutes. The protocol screen states the design, the five measures with their formulas, the six
+registered predictions with the condition that would falsify each, and the provenance; the process
+screen mirrors the changelog and the source table.
+
+**Still to build:** the Claude endpoint and the encoded screen, shipped dark (issue #18), and the
+accessibility and end-to-end sweep (#19). Any screen the rebuild has not reached says so where it
+stands rather than rendering an empty frame. The rebuild is recorded from v0.6 in
 [`CHANGELOG.md`](CHANGELOG.md).
 
 ## What is here
 
-| Page               | What it is                                                                                                                                                                                                                                |
-| ------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `index.html`       | Landing page — what the instrument measures and why.                                                                                                                                                                                      |
-| `essay.html`       | _Evaluating the Evaluator_ — the short companion essay.                                                                                                                                                                                   |
-| `atrophy.html`     | _The Atrophy of Judgment_ — the long essay.                                                                                                                                                                                               |
-| `drift-meter.html` | The instrument — two slates of charity cost-effectiveness cases, completed with and without a supplied estimate, then a debrief on what changed in the texture of your judgment. Serving a placeholder page until the rebuild reaches it. |
+| Page               | What it is                                                                                                                                                                                                                                                                  |
+| ------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `index.html`       | Landing page — what the instrument measures and why.                                                                                                                                                                                                                        |
+| `essay.html`       | _Evaluating the Evaluator_ — the short companion essay.                                                                                                                                                                                                                     |
+| `atrophy.html`     | _The Atrophy of Judgment_ — the long essay.                                                                                                                                                                                                                                 |
+| `drift-meter.html` | The instrument — two slates of charity cost-effectiveness cases, completed with and without a supplied estimate, then a debrief on what changed in the texture of your judgment. The protocol and process screens are reachable from the first screen and from the debrief. |
 
 Two documents are part of the artifact rather than notes about it: [`CHANGELOG.md`](CHANGELOG.md), recording what
 changed in each version and why with retractions kept in; and [`SOURCES.md`](SOURCES.md), recording every external

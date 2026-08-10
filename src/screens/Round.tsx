@@ -13,7 +13,7 @@
  */
 
 import type { RefObject } from 'preact';
-import { ARMS, REC_LABELS, recSentencePrefix } from '../content/arms.js';
+import { ARMS, REC_LABELS, recSentencePrefix, standingAttribution } from '../content/arms.js';
 import { ROUND } from '../content/shell.js';
 import type { Case, Condition, Rec, Slate } from '../content/types.js';
 import type { Assignment } from '../domain/assignment.js';
@@ -96,6 +96,7 @@ export function Round({
 
               {assisted ? (
                 <div class="dm-supplied">
+                  <p class="dm-attribution">{standingAttribution(arm)}</p>
                   <button
                     type="button"
                     class="dm-disclosure"
