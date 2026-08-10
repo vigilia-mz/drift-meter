@@ -264,6 +264,15 @@ export interface ReviewerRow {
   /** The single thing this reader is asked for. */
   readonly brief: string;
   readonly note: string;
+  /**
+   * A correction to the note that cannot be made inside it.
+   *
+   * The methods reader's note is surviving copy, used verbatim, and it dates the
+   * confound to v0.1 where the changelog dates the reader's objection to v0.2.
+   * Editing a passage marked verbatim is a worse defect than the discrepancy, so
+   * the gloss sits beside the note and the note stays as it was written.
+   */
+  readonly noteGloss?: string;
 }
 
 /** One row of the production-provenance table: where the line sits. */

@@ -13,10 +13,11 @@ ILLUSTRATIVE was added at the v0.6 close of #7, for a figure that is constructed
 says so on the page. It is the second of the two exits FLAGGED offers, and it is not a weaker version
 of a pinned row: a figure taken from a source and a figure built for a task are different objects,
 and the table was previously unable to say which one it held. A row earns it only while the
-disclosure is live, which is what `invariants.test.ts` holds in place. It is not CORRECTED — nothing
+disclosure is live. For the four case rows that is held by `invariants.test.ts`; for the landing
+page's specimen readout it is held by review, and that row says so. It is not CORRECTED — nothing
 here was wrong. It was undisclosed, which is a different failure with a different fix.
 
-Last location-and-state pass: 7 Aug 2026 (v0.6). Last source pass: 30 Jul 2026 (v0.3). First source
+Last location-and-state pass: 10 Aug 2026 (#39). Last source pass: 30 Jul 2026 (v0.3). First source
 pinned: 7 Aug 2026 (#8). No row's source was re-verified in the v0.6 pass, and #7 did not verify one
 either; #8 verified one, and the ten `Primary link: TODO` lines that remain below are as open as they
 were. Restating a figure as illustrative closes the publication obligation and closes nothing else.
@@ -30,7 +31,7 @@ untracked entirely, and the Project Deal figures tracked only by the CORRECTED r
 in a separate document. They have rows now.
 
 The screens then arrived in the same version, before the pass had cooled, and overtook most of what
-it had recorded. Ten of the thirteen render, so the bednet, chlorination, deworming and vitamin A
+it had recorded. All thirteen now render, so the bednet, chlorination, deworming and vitamin A
 figures are on a page rather than in a data file, the trap copy is published by the debrief, the
 consent screen exists and declines to make the Clio claim, and one case that had no row at all turned
 out to publish a multiplier. Those rows say where the claim appears now. A **State in this build**
@@ -66,6 +67,14 @@ literature, not a standard for the field. The superlative is withdrawn and the r
 pinned pages support. That row carries the first link in this table, and it is the only claim here
 checked against a source since 30 Jul 2026.
 
+Then #39, which asked what paperwork the August patch owed. Most of it had been paid inside the same
+version, by the commits that made the changes rather than by a pass afterwards. What the question also
+turned up is the row below on the landing page's specimen readout: six invented bar widths, published
+on the front door since v0.1 and located by nothing here. Every pass above ran against the instrument
+— its content modules, its screens, its case data — and this claim is markup in a hand-written page,
+so each of them looked past it. A location pass is only as wide as the thing it was pointed at, and
+saying so here is cheaper than implying this file is now complete.
+
 What no pass has covered: the essays' attributions of position to Beauvoir and Murdoch, and their
 generalisations about how experienced users behave. Those are the next tranche, and naming them here
 is cheaper than implying the sweep was exhaustive. The accessibility sweep is not exhaustive either,
@@ -81,7 +90,8 @@ the superseded conditions, the account of which pass found what. That is the par
 to argue with the grading needs, and it is the reason the screen links here rather than replacing it.
 
 The protocol screen states the same thing from the other side, in its stimulus provenance section:
-that the case figures are built for the exercise, that four rows here carry the grade saying so, and
+that the case figures are built for the exercise, that five rows here carry the grade saying so — the
+four case figures and the landing page's specimen readout — and
 that the disclosure the reader met names no case and no slider.
 
 ---
@@ -163,6 +173,33 @@ that the disclosure the reader met names no case and no slider.
   child alongside cost per dose. Optional rather than blocking, on the same terms as the rows above.
 - **Action before release:** none outstanding. Recorded chiefly so that the next reader of this table
   finds the seventh case in it rather than discovering it the way this pass did.
+
+### ILLUSTRATIVE — Landing page specimen readout: three pairs of bars, at 84 against 43, 71 against 39, and 31 against 72
+
+- **Where:** `index.html`, the specimen block between the hero and the section on what the instrument
+  measures. Six bar widths, written as percentages in the markup.
+- **Status:** Illustrative, and a different kind of thing from the four rows above. Those approximate
+  quantities that exist; these approximate nothing. They are a drawing of the readout's shape, put on
+  the landing page so a reader who will not start the instrument can see what it produces. There is no
+  run behind them and there is no cohort.
+- **Disclosed on the page, in those words.** The caption says the three bars are invented, that no run
+  has produced them, that n is zero, and that nothing has been collected from anyone.
+- **Added 10 Aug 2026 (#39).** Neither the v0.6 location pass nor the #7 pass found this claim, and #7
+  is where it belonged: that pass gave a row to every other constructed figure on the site, and this
+  is the only set of them on the front door. Both passes ran against the instrument, where a
+  constructed figure lives in a content module as data, and these six numbers are style attributes in
+  a hand-written page. The sweep found what it was pointed at.
+- **Primary link:** none, and not TODO. The other ILLUSTRATIVE rows carry an open link that pinning
+  would convert to PRIMARY. This one has nothing to pin, because the bars are not an estimate of
+  anything. What would retire the row is a run, which is #34, and n is zero.
+- **Action before release:** none outstanding while the caption stands, and the caption is the whole of
+  what this grade rests on. Two conditions on it. It may not be shortened back to a one-word label: it
+  read “Illustrative” until 10 Aug 2026, which is the same word an invented cohort dashboard could have
+  carried, on the page whose own method note explains why that dashboard was retracted — rule 6 asks
+  for the sentence. And nothing tests it. The instrument's disclosure is held by `invariants.test.ts`,
+  but `index.html` has no content module and no test reads its prose, so this caption is held by review
+  alone. That is the weakest support under any row in this table, and it is stated here rather than
+  left to be inferred from the absence of a test name.
 
 ### FLAGGED — Students with ChatGPT practised better and scored worse on exams taken without it
 

@@ -15,12 +15,23 @@ This file is the surviving record of them.
 - The instrument is being rebuilt from source, in this repository, and it runs again. v0.1 through
   v0.5 shipped it as a single generated file with no editable source on disk, no tests, no types, no
   linting and no continuous integration; the last of them weighed 894 KB. Rebuilt and under test so
-  far: the case data, the cost model, the derived measures, and twelve of the instrument's thirteen
+  far: the case data, the cost model, the derived measures, and all thirteen of the instrument's
   screens — the intro, the consent step, both rounds with their confidence gates, the debrief, the
-  transfer check, Round 3, the four design rules, and the protocol and publication-process screens.
-  The remaining one renders a page saying it is not finished rather than an empty frame. Not
-  rebuilt: the endpoint, and the live-Claude screen that needs it. The remaining steps are tracked
-  in the open rather than described as finished.
+  transfer check, Round 3, the four design rules, the protocol and publication-process screens, and
+  the encoded-rules screen. Nothing renders a stub any longer, and the axe exemption the stub needed
+  was deleted rather than left standing. The endpoint exists too, and is dark by default: the key
+  lives in its own environment and `VITE_REFLECT_ENDPOINT` is empty in the committed `.env`, so every
+  clone is off and cannot spend the author's credit. The remaining steps are tracked in the open
+  rather than described as finished.
+- Corrected four claims this build made about itself, all of them overtaken by work in this same
+  version. The landing page named five measures and there are six; the process screen said twelve of
+  the thirteen screens render and all thirteen do; `SOURCES.md` said ten of the thirteen; and this
+  entry itself said the endpoint and the live-Claude screen were not rebuilt, which stopped being
+  true when they were. The landing page now also says the sixth measure reports as undefined, because
+  naming a measure on the front door without saying it has no values yet is the overclaim this
+  project exists to argue against. Recorded rather than quietly fixed: a version whose own changelog
+  described the version before it is exactly the failure this file is meant to catch, and it went
+  three merges without being caught by anything but a hand count.
 - The instrument can now produce a result that counts against its own hypothesis. A sixth measure,
   estimate accuracy, scores how close the reader's final values came to what the evidence supports,
   normalised by each slider's own range — the same convention the framing-autonomy term already used,
@@ -437,8 +448,51 @@ This file is the surviving record of them.
   was not. None of this recruits anyone: nothing has been sent, the reviewers table still reads “Not
   recruited” and “Not assigned”, and a briefs file that made the screen look busier than the project is
   would be this project's own failure mode in its own documentation.
+- Corrected: `README.md` said the repository was mid-rebuild with the instrument's screens not yet
+  rebuilt, and that `drift-meter.html` served a placeholder. Both had stopped being true before the
+  protocol and process screens landed. It now says the rebuild has reached every screen, names the
+  endpoint as built and shipped switched off, and points here. The correction travelled with the
+  attribution fix and was not recorded in this file until the pass below, which is the same gap in
+  miniature: the change was made and the paperwork was not.
+- **The landing page's specimen readout has a row in `SOURCES.md`, and it is the last claim on the site
+  to get one.** Three pairs of bars, six invented percentages, published on the front door since v0.1
+  and located by no row in the table — not by the v0.6 location pass, and not by #7, which is the pass
+  that gave every other constructed figure on the site a row. Both ran against the instrument, where a
+  constructed figure is data in a content module; these six numbers are style attributes in a
+  hand-written page, so both looked past them. The row is graded ILLUSTRATIVE and is the fifth to carry
+  that grade, which moves the count the protocol screen states in prose and fails the test that holds
+  the screen's count to the file's — the intended behaviour of that test, and the reason the count is
+  written out rather than computed. It carries no `Primary link: TODO`: unlike the four case figures,
+  these bars approximate nothing that has a source, and what would retire the row is a run, which is
+  #34, with n still zero. What the row does carry is the weakest support under anything in the table.
+  The four case disclosures are held by `invariants.test.ts`; this caption is held by review, because
+  `index.html` has no content module and no test reads its prose, and the row says so rather than
+  leaving it to be inferred from the absence of a test name.
+- Corrected: `docs/deliberate-quirks.md` described four behaviours as unpinned on the grounds that the
+  code which would pin them had not been rebuilt. All four had been, in this same version. The reducer
+  pins that `read` survives closing either panel and that the control round opens at midpoints;
+  `mid()` has two production callers rather than none; the debrief renders the hatched `n/a` bar. The
+  four entries now name the tests that hold them. The section listing what was still to come is
+  rewritten with them: of the two quirks it predicted, the hatched bar landed and is written up, and
+  the partial recolour of the assisted card did not arrive in that shape at all, because the accent is
+  set once on the round screen and rebinds one property for everything inside it. The accuracy entry
+  added earlier in this version is also refiled — it had been appended under that trailing heading, and
+  therefore under the claim that it was not on the list yet, when it is live and tested; it now sits
+  beside the composite it warns against being folded into. A file that exists to stop a later reader
+  tidying something away is worth less for every version it spends describing a repository that has
+  moved on, and this one had spent one.
 
 **Why**
+
+The paperwork pass at the end of this version was asked for as bookkeeping and turned up a claim
+nobody had tracked. Most of what it went looking for had already been paid, by the commits that made
+the changes rather than by a pass afterwards, which is the right way round. What it found instead is
+that every location pass this table has had was pointed at the instrument, and the site's front door
+publishes six invented numbers that none of them saw. That is not a lapse in any one pass; it is what a
+pass is, and the fix is to say where this one stopped rather than to imply the file is now complete.
+The same shape accounts for the quirks file: four of its entries described a repository that had been
+rebuilt underneath them, all four understating the guarantees rather than overstating them, which is
+the safer direction to be wrong in and still wrong.
 
 The attribution fix is the one correction in this version that changes what the instrument would
 measure rather than what it says. Everything else here is the site catching up with the artifact.

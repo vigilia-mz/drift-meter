@@ -339,6 +339,19 @@ describe('the process screen', () => {
     expect(PROCESS.reviewersLead).toContain('Nobody, yet');
   });
 
+  it('corrects the verbatim note from outside it, and leaves the note alone', () => {
+    // The methods reader's note is surviving copy. It dates the confound to v0.1
+    // where the changelog dates the objection to v0.2, and the fix is a gloss
+    // beside it rather than an edit inside it — a passage marked verbatim that
+    // has been quietly corrected is worth less than one that disagrees in the
+    // open, because nothing on the page would say which had happened.
+    const methods = REVIEWER_ROWS.find((r) => r.role === 'Methods reader');
+    expect(methods?.note).toContain('The confound in v0.1');
+    expect(methods?.note).not.toContain('v0.2');
+    expect(methods?.noteGloss).toContain('v0.1');
+    expect(methods?.noteGloss).toContain('v0.2');
+  });
+
   it('keeps the row saying what Claude drafted that was cut', () => {
     // All three were produced fluently on request and all three are the thing this
     // project argues against. Retractions stay in.
