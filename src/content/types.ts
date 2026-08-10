@@ -104,11 +104,39 @@ export interface AssumptionSpec {
 }
 
 /**
+ * A planted error on one case: a figure that is not what its label says it is.
+ *
+ * On the case rather than on the slate. The slate used to name a single
+ * `trapCase` and `trapSlider`, which allowed exactly one planted error per slate
+ * and therefore made catch rate one observation per reader on the only thing here
+ * with a normative direction. One observation is a coin flip rather than a rate,
+ * and a slate-level field could not hold a second one (#31).
+ *
+ * A trap is `provided ≠ supported` on a named slider, which is the same fact the
+ * accuracy measure reads (#30). It is stated here rather than derived from those
+ * two fields because most `supported` values are unauthored and will stay that
+ * way: an assumption with no defensible supported value can still carry a
+ * misstated label, and a trap the instrument cannot see is a trap it cannot score.
+ *
+ * The two prose fields are the whole of the case-specific half of the debrief's
+ * trap paragraph, and they are stated once here rather than restated in each of
+ * the six branches — see `src/content/trap.ts`.
+ */
+export interface Trap {
+  /** Index into the case's `a`. Which assumption the misstated figure is. */
+  readonly slider: number;
+  /** What the slider's label claims the figure is. A noun phrase, no full stop. */
+  readonly whatTheLabelSays: string;
+  /** What the figure actually is, and what correcting it costs the headline. */
+  readonly whatTheFigureIs: string;
+}
+
+/**
  * One charity cost-effectiveness case.
  *
  * `summary` is the supplied assistant read and appears only in the assisted
  * round. `evidence` is available in both rounds, one click away — which is the
- * point: in the trap cases it contains the fact that undoes the headline.
+ * point: in a trapped case it contains the fact that undoes the headline.
  */
 export interface Case {
   readonly org: string;
@@ -123,6 +151,8 @@ export interface Case {
   readonly disagree: string;
   /** Round 3, Rule 4: what would move the assistant's view. */
   readonly changeMind: string;
+  /** The planted error this case carries, or `null` where it carries none. */
+  readonly trap: Trap | null;
   /** Exactly three, in the order the cost model consumes them. */
   readonly a: readonly [AssumptionSpec, AssumptionSpec, AssumptionSpec];
 }
@@ -130,16 +160,12 @@ export interface Case {
 /**
  * A slate of three cases.
  *
- * `trapCase` names the case carrying the planted error and `trapSlider` the
- * assumption that error lives in — the figure whose value decides the answer and
- * which the supplied summary misstates. `r3` names the two cases replayed in
- * Round 3.
+ * The planted errors are on the cases, not here. `r3` names the two cases
+ * replayed in Round 3.
  */
 export interface Slate {
   readonly id: SlateId;
   readonly name: string;
-  readonly trapCase: number;
-  readonly trapSlider: number;
   readonly r3: readonly [number, number];
   readonly cases: readonly [Case, Case, Case];
 }
@@ -174,8 +200,6 @@ export interface Arm {
  */
 export type TrapBranch =
   'caught' | 'flaggedNotChecked' | 'missFund' | 'missAccepted' | 'missOpened' | 'miss';
-
-export type TrapCopy = Readonly<Record<TrapBranch, string>>;
 
 /** A label/value pair, used by every table on the protocol and process screens. */
 export interface LabelledRow {
@@ -213,7 +237,7 @@ export interface PredictionRow {
  * asserts that each printed constant equals the one the code uses.
  */
 export interface MeasureSpec {
-  readonly key: 'engagement' | 'range' | 'amb' | 'auto' | 'accuracy' | 'gap';
+  readonly key: 'engagement' | 'range' | 'amb' | 'auto' | 'accuracy' | 'catchRate' | 'gap';
   readonly label: string;
   readonly definition: string;
   readonly formula: string;

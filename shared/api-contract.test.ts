@@ -43,7 +43,7 @@ const summary = {
     forcedSlate: false,
     forcedArm: false,
   },
-  trapBranch: 'caught',
+  trapBranches: ['caught'],
   transfer: 'proxy',
 };
 
@@ -102,12 +102,12 @@ describe('sanitizeReflect', () => {
     const clean = sanitizeReflect({
       ...summary,
       assignment: { ...summary.assignment, assistedSlate: 'Z', armKey: 'sudo' },
-      trapBranch: 'made-up',
+      trapBranches: ['made-up', 'caught'],
       transfer: 'made-up',
     });
     expect(clean.assignment.assistedSlate).toBe('A');
     expect(clean.assignment.armKey).toBe('unlabelled');
-    expect(clean.trapBranch).toBeNull();
+    expect(clean.trapBranches).toEqual(['caught']);
     expect(clean.transfer).toBeNull();
   });
 
@@ -116,7 +116,20 @@ describe('sanitizeReflect', () => {
     const clean = sanitizeReflect(undefined);
     expect(clean.assisted.engagement).toBe(0);
     expect(clean.assignment.armKey).toBe('unlabelled');
-    expect(clean.trapBranch).toBeNull();
+    expect(clean.trapBranches).toEqual([]);
+  });
+
+  it('takes a branch per planted error, and refuses a list longer than a slate', () => {
+    // A list since #31: a run earns one verdict per trapped case. Not an open list —
+    // there is at most one planted error per case and three cases, so a caller cannot
+    // make the endpoint carry an arbitrary array into the prompt.
+    expect(sanitizeReflect({ ...summary, trapBranches: ['caught', 'miss'] }).trapBranches).toEqual([
+      'caught',
+      'miss',
+    ]);
+    const long = Array.from({ length: 50 }, () => 'caught');
+    expect(sanitizeReflect({ ...summary, trapBranches: long }).trapBranches).toHaveLength(3);
+    expect(sanitizeReflect({ ...summary, trapBranches: 'caught' }).trapBranches).toEqual([]);
   });
 
   it('treats a truthy non-boolean as false rather than as true', () => {

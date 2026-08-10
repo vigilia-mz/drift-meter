@@ -55,6 +55,35 @@ This file is the surviving record of them.
   and the two no longer share one line of copy. Several of these quantities should stay `null`
   permanently; cash-transfer persistence at five years is disputed and the case's own evidence panel
   says so.
+- A planted error is now a property of a case rather than of a slate, and a seventh measure reports
+  what was done about them. `Slate.trapCase` and `Slate.trapSlider` are gone; `Case.trap` is nullable
+  and any case may carry one. `trapVerdict()` became `trapVerdicts()` and returns one verdict per
+  trapped case with the six-branch logic unchanged per case, so the debrief prints one panel per
+  planted error and a reader who interrogates one and leaves another standing is told both. The
+  planted-error catch rate joins the measures: caught errors over the errors the slate carries,
+  undefined rather than zero in the round where nothing was supplied — framing autonomy's rule, for
+  framing autonomy's reason — and undefined where a slate carries none. It is not folded into the
+  behavioural composite, on both of the other exclusions' grounds at once. What did not change is the
+  content: one planted error is still authored per slate, which the protocol screen now names as the
+  catch rate's weakness rather than leaving it to be inferred from a number.
+- The trap copy is composed rather than duplicated, which is a change to published prose. It held one
+  set of six paragraphs per slate, and the two sets were the same six with one correction swapped in —
+  the bednet figures written out six times and the chlorination figures six times. `SOURCES.md` had
+  already recorded the cost of that in both rows: pinning either figure to a source “rewrites all six
+  branches of the trap copy”. There is now one frame per branch, saying the part that is about the
+  reader, and the correction comes from the case, so each figure is stated once. The wording changed
+  where the two sets differed only by phrasing; the six distinctions between the branches, which are
+  the reason there are six, are all still there and still separately asserted.
+- The landing page and the protocol screen say seven measures, because there are seven. This is the
+  second time a count of measures on the front door has had to be corrected — the first, five against
+  six, is recorded under v0.6 — and it is now asserted rather than remembered: a test reads the number
+  of measures the protocol screen defines and requires the heading to name it in words, and the
+  existing browser test that the landing page names every measure caught the omission before a human
+  did.
+- The reflect payload carries a branch per planted error rather than one branch. `trapBranch` became
+  `trapBranches`, a list bounded at one per case, rebuilt from the known label set like everything
+  else in `sanitizeReflect`. Nothing populates it yet — no screen builds a summary — so this is a
+  contract that stopped describing the mechanism rather than a behaviour that changed.
 - **The landing page said the review is completed once with AI assistance and once without it.** It
   is completed with and without a supplied estimate, with the attribution randomised across it, which
   is what the protocol screen's arm table and P5 are both about. The front door was asserting the
@@ -122,12 +151,38 @@ never in an arm at all. It was found in a review pass, not by a test, which is t
 ÷6-versus-÷9 bug was found — and the tests added with it exist so that the next person to tidy the
 panel has to argue with the measurement rather than only with the markup.
 
-The accuracy measure is the other change that is about the design rather than about the paperwork, and
+The accuracy measure is another change that is about the design rather than about the paperwork, and
 it is the one that lets the design lose. Every measure before it recorded how a reader worked and none
 recorded whether they were right, so a reader who delegated and happened to be correct was
 indistinguishable from a reader who drifted. An instrument whose every outcome is consistent with its
 own hypothesis is not an instrument. It ships undefined, because the values it would score against
 have not been authored and inventing them is the failure this project is named for.
+
+Moving the planted error onto the case is not a refactor and it does not, by itself, fix anything. The
+catch rate is the only measure here with a right answer behind it, and two of the six registered
+predictions rest on it. It was one observation per reader, which is a coin flip rather than a rate, and
+the slate-level field meant a second planted error had nowhere to live — the limitation was in the type
+rather than in the authoring. It is now in the authoring, which is the correct place for it and is also
+a weaker claim than the change might look like from the diff: nothing a reader sees is different, one
+planted error is still all the content carries, and the protocol screen says so in the measure's own
+row and in the list of what this build cannot do. What the change buys is that authoring the second one
+is a content change with a source row, rather than a code change first.
+
+The catch rate is computed and deliberately not drawn as a bar, which is the one place the debrief now
+reports less than the instrument knows. With one planted error the measure takes two values, 0 and 100,
+and a bar is a shape that reads as a rate; either end of it off a single observation would look like a
+finding. The debrief prints a paragraph per planted error instead, which says what was actually done
+and claims nothing more. The omission is stated in the measure's row rather than left as an absence,
+because a measure computed and not shown is exactly the kind of thing this project has no business
+keeping quiet.
+
+Composing the trap copy rewrites prose already published, which was worth being reluctant about. The
+repository's convention is that the content modules are the prose rather than a rendering of it, and
+`method.ts` writes its formulas out in full for that reason. The distinction that decided it: a formula
+is a sentence a reader checks against a constant by eye, and interpolating one would make the test that
+guards it vacuous, whereas the trap correction is checked against nothing — it is a fact stated twelve
+times, which is the shape that goes out of date. Six copies of a figure per slate is how the
+÷6-versus-÷9 bug would have arrived in prose, and it would have arrived slower and been harder to see.
 
 The paperwork pass at the end of this version was asked for as bookkeeping and turned up a claim
 nobody had tracked. Most of what it went looking for had already been paid, by the commits that made
@@ -511,7 +566,8 @@ paid here.
 - `scripts/check-size.mjs` now asserts, per page, that each prose page carries no `<script>` and
   references no `.js` — and that `drift-meter.html` carries exactly one, because a check that only ever
   looks for absence would pass just as happily on a build that emitted no JavaScript at all.
-  **Why**
+
+**Why**
 
 The previous build's central defect was that it could not be corrected with any confidence. There
 was no source to correct, and nothing in the process that would have caught an arithmetic error in a

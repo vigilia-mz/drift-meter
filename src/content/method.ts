@@ -101,9 +101,9 @@ export const METHOD = {
       'The reader’s own working, as a baseline for their own assisted round. It is within-subject, so it is the one comparison here that does not depend on anyone else existing.',
   } as const satisfies ArmRow,
 
-  measuresHeading: '3 · The six measures',
+  measuresHeading: '3 · The seven measures',
   measuresLead:
-    'The first five are reported on a 0–100 scale. The fourth is undefined rather than zero in the round where no estimate was supplied; the fifth is the only one that asks whether the answer was right, and is undefined in every run at present, for the reason in its row. The sixth is the signed difference between two of the others and runs from −100 to +100. All but the fifth are traces of how the work was done. Earlier versions said that of all of them, and said nothing here was compared to a correct answer — true, and a defect rather than a principle: a design where reduced scrutiny of an estimate that happened to be right is indistinguishable from drift cannot produce a result that counts against its own hypothesis.',
+    'Six are reported on a 0–100 scale; the seventh is the signed difference between two of the others and runs from −100 to +100. Four of the six are traces of how the work was done. The other two are not, and they are here so that a run can count against this project’s own hypothesis: estimate accuracy asks whether the reader was right, and the catch rate asks whether they found what was misstated. Three of the seven report as undefined rather than zero in at least one round — framing autonomy and the catch rate in the round where nothing was supplied, because neither a frame nor a misstated figure exists there, and accuracy in every run at present, for the reason in its row. Earlier versions said all of these were traces of how the work was done, and that nothing here was compared to a correct answer — true, and a defect rather than a principle: a design where reduced scrutiny of an estimate that happened to be right is indistinguishable from drift cannot produce a result that counts against its own hypothesis.',
   measuresFields: {
     definition: 'What is counted',
     formula: 'Formula',
@@ -141,7 +141,7 @@ export const METHOD = {
     {
       label: 'The planted errors',
       value:
-        'One per slate, in the same shape both times: a figure that is not what its label says it is. Slate A misstates a cost and slate B misstates a rate, so that the transfer check is asking about a pattern rather than about a number the reader has already seen.',
+        'A property of a case rather than of a slate, so any case may carry one: a figure that is not what its label says it is. One is authored per slate today, in the same shape both times — slate A misstates a cost and slate B misstates a rate, so that the transfer check is asking about a pattern rather than about a number the reader has already seen. The catch-rate row above says what one per slate costs the measurement.',
     },
     {
       label: 'The figures',
@@ -176,6 +176,7 @@ export const METHOD = {
     'The saturation point, the two autonomy weights and the three debrief thresholds were all chosen by eye. They need calibrating against how experienced evaluators actually work these slates before any of them means anything.',
     'The control round’s sliders open at an arbitrary midpoint and the assisted round’s open at an authoritative number. Moving off those two starting points is not the same act, and the difference inflates the control round on one measure.',
     'One reader, one arm, one slate, one order per run. Every between-subject comparison this design is built to support needs a cohort, and there is not one.',
+    'One planted error is authored per slate, so the catch rate — the only measure here with a right answer behind it — is one observation per reader. A single observation is a coin flip, and two of the six registered predictions rest on it. The instrument now records a planted error per case rather than per slate, so more can be authored; until they are, this is the weakest denominator on the screen.',
   ],
 
   backLabel: 'Back',
@@ -183,12 +184,19 @@ export const METHOD = {
 } as const;
 
 /**
- * The six measures, with their arithmetic and the objection to each.
+ * The seven measures, with their arithmetic and the objection to each.
  *
  * `key` is a field of `Metrics`, so this screen cannot name a measure the
- * instrument does not compute — and the four the debrief draws as paired bars
- * share their labels with the four entries here, which a test asserts. The fifth,
- * the confidence gap, has no bar because it is a difference rather than a pair.
+ * instrument does not compute, and every measure the debrief draws as a paired bar
+ * shares its label with the entry here, which a test asserts.
+ *
+ * The reverse does not hold, and two entries prove it. The confidence gap has no bar
+ * because it is a difference rather than a pair. The catch rate has none because it
+ * is one observation per reader while one planted error is authored per slate, and a
+ * bar is a shape that invites reading 0 or 100 as a rate; the debrief gives it a
+ * paragraph per planted error instead. Both exclusions are stated in their own rows,
+ * because a measure computed and not shown is a thing a reader is entitled to know
+ * about.
  */
 export const MEASURE_SPECS = [
   {
@@ -237,6 +245,16 @@ export const MEASURE_SPECS = [
       '100 − mean(min(1, |final − supported| ÷ slider range)) × 100, over supported assumptions',
     threat:
       'No assumption carries a supported value yet, so the measure is undefined in every run and the bar reads n/a. Several of these quantities have no single defensible number — cash-transfer persistence at five years is disputed, and the case’s own evidence panel says so — and inventing one to complete the measure would be the failure this instrument is about. Where a value is authored the measure inherits its contestability: a reader is then scored against one reading of the evidence, which is not the same as being wrong. It is reported beside the behavioural measures and never averaged into them.',
+  },
+  {
+    key: 'catchRate',
+    label: 'Planted-error catch rate',
+    definition:
+      'Of the cases carrying a planted error — a figure that is not what its label says it is — the share on which the reader moved the misstated figure. Moving that one slider is the whole of it: opening the evidence panel that carries the correction does not count, and flagging the case does not count. Undefined rather than zero in the round where no estimate was supplied, because nothing was misstated there and a zero would say the reader missed something that was never set.',
+    formula:
+      'planted errors whose figure was moved ÷ planted errors on the slate × 100, undefined where the slate carries none',
+    threat:
+      'The content authors one planted error per slate, so for a single reader this is one observation on the only thing here with a right answer, and one observation is a coin flip rather than a rate. Until #31 it could not have been more: the slate named a single trapped case, and a second one had nowhere to live. The mechanism now carries any number per slate and the content carries one, which is a limit of the authoring and is why this measure is reported here and not drawn as a bar beside the others — a bar reading 0 or 100 off a single observation would look like a rate. What the debrief shows instead is one paragraph per planted error, saying what was done about that one.',
   },
   {
     key: 'gap',

@@ -43,9 +43,25 @@ function synthSlate(caseCount: number, slidersPerCase: number, rec: Rec = 'fund'
     evidence: 'e',
     disagree: 'd',
     changeMind: 'm',
+    trap: null,
     a: Array.from({ length: slidersPerCase }, () => spec()),
   })) as unknown as Slate['cases'];
-  return { id: 'A', name: 'synthetic', trapCase: 0, trapSlider: 0, r3: [0, 0], cases };
+  return { id: 'A', name: 'synthetic', r3: [0, 0], cases };
+}
+
+/** The same slate with a planted error on the first `count` cases, slider 0. */
+function withTraps(slate: Slate, count: number): Slate {
+  return {
+    ...slate,
+    cases: slate.cases.map((c, i) =>
+      i < count
+        ? {
+            ...c,
+            trap: { slider: 0, whatTheLabelSays: 'the label', whatTheFigureIs: 'something else' },
+          }
+        : c,
+    ),
+  } as unknown as Slate;
 }
 
 function blank(slate: Slate, over: Partial<CaseState> = {}): CaseState[] {
@@ -594,5 +610,107 @@ describe('accuracy', () => {
     });
     // No span, so nothing scorable, so null — not a division by zero and not 100.
     expect(run(degenerate, blank(degenerate)).accuracy).toBeNull();
+  });
+});
+
+// --- the catch rate ----------------------------------------------------------
+//
+// #31. Before it, a slate named one trapped case, so this was one observation per
+// reader on the only measure with a right answer behind it. The mechanism now takes
+// a planted error per case; the content still authors one per slate, which is why
+// the assertions below run against synthetic slates carrying two and three. A
+// literal denominator here would pass on the real slates and be wrong on the first
+// authored second error, which is the ÷6-versus-÷9 failure with the timing changed.
+
+describe('the catch rate', () => {
+  it('is null rather than zero in the control round', () => {
+    // Nothing is supplied there, so nothing is misstated and there is nothing to
+    // catch. A zero would tell the reader they missed something that was never set —
+    // framing autonomy's rule, for framing autonomy's reason.
+    const slate = withTraps(synthSlate(3, 3), 1);
+    const control = run(slate, blank(slate), 'unassisted');
+    expect(control.catchRate).toBeNull();
+    expect(control.catchRate).not.toBe(0);
+  });
+
+  it('is null rather than zero when the slate carries no planted error', () => {
+    // Zero out of zero is not a miss. Accuracy's rule, for accuracy's reason.
+    const slate = synthSlate(3, 3);
+    expect(slate.cases.every((c) => c.trap === null)).toBe(true);
+    expect(run(slate, blank(slate)).catchRate).toBeNull();
+  });
+
+  it('cannot widen to a bare number', () => {
+    expectTypeOf<Metrics['catchRate']>().toEqualTypeOf<Score | null>();
+  });
+
+  it('divides by the planted errors the slate carries, not by the case count', () => {
+    // The denominator under test. One caught out of two trapped cases is 50 on a
+    // three-case slate, and would be 33 if the divisor were the cases.
+    const slate = withTraps(synthSlate(3, 3), 2);
+    const data = blank(slate);
+    data[0] = { ...data[0]!, touched: data[0]!.touched.map((_, i) => i === 0) };
+    expect(run(slate, data).catchRate).toBe(50);
+  });
+
+  it('holds against slates carrying one, two and three planted errors', () => {
+    const PERCENT = 100;
+    for (const trapped of [1, 2, 3]) {
+      const slate = withTraps(synthSlate(3, 3), trapped);
+      for (let caught = 0; caught <= trapped; caught += 1) {
+        const data = blank(slate).map((st, i) => ({
+          ...st,
+          touched: st.touched.map((_, k) => i < caught && k === 0),
+        }));
+        expect(run(slate, data).catchRate, `${String(caught)}/${String(trapped)}`).toBe(
+          clamp((caught / trapped) * PERCENT),
+        );
+      }
+    }
+  });
+
+  it('counts only the misstated slider, and not the others on the same case', () => {
+    // The same rule the debrief branches on, and it has to be the same rule: moving
+    // the usage rate is real work and it is not catching the planted cost. If these
+    // two ever disagreed, a reader could be shown “you did not check the number” and
+    // counted as having caught it.
+    const slate = withTraps(synthSlate(3, 3), 1);
+    const elsewhere = blank(slate).map((st, i) => ({
+      ...st,
+      touched: st.touched.map((_, k) => i === 0 && k > 0),
+    }));
+    expect(run(slate, elsewhere).catchRate).toBe(0);
+    expect(run(slate, elsewhere).range).toBeGreaterThan(0);
+  });
+
+  it('is not folded into the behavioural composite', () => {
+    // Out on both of the other exclusions' grounds at once: undefined in one round,
+    // and a normative measure rather than a trace. A reader who caught every planted
+    // error and did nothing else still posts a composite of zero.
+    const slate = withTraps(synthSlate(3, 3), 3);
+    const caughtAll = blank(slate).map((st) => ({
+      ...st,
+      touched: st.touched.map((_, k) => k === 0),
+    }));
+    const m = run(slate, caughtAll);
+    expect(m.catchRate).toBe(100);
+    expect(m.actual).toBe(clamp((m.engagement + m.range + m.amb) / 3));
+    expect(m.engagement).toBe(0);
+  });
+
+  it('is 0 on the published slates for a run that moved nothing, and 100 for one that moved the figure', () => {
+    // The two ends, on the content as it ships. One planted error per slate, which
+    // is exactly why the range of this measure for a real reader is {0, 100}.
+    const published: readonly Slate[] = Object.values(SLATES);
+    for (const s of published) {
+      const trapped = s.cases.flatMap((c, i) => (c.trap === null ? [] : [{ i, trap: c.trap }]));
+      expect(trapped, s.id).toHaveLength(1);
+      expect(run(s, blank(s)).catchRate, s.id).toBe(0);
+
+      const hit = blank(s);
+      const { i, trap } = trapped[0]!;
+      hit[i] = { ...hit[i]!, touched: hit[i]!.touched.map((_, k) => k === trap.slider) };
+      expect(run(s, hit).catchRate, s.id).toBe(100);
+    }
   });
 });

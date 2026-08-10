@@ -16,6 +16,7 @@
  * of it — was held by a comment until there was a browser here to hold it.
  */
 import { expect, test } from '@playwright/test';
+import type { Page } from '@playwright/test';
 import {
   COPY,
   SLATE_A,
@@ -205,18 +206,30 @@ test('the confidence gate opens by keyboard alone', async ({ page }) => {
 });
 
 /**
- * 6. Both trap branches.
+ * 6. Both trap branches, and one panel per planted error.
  *
  * Two seeded runs, one branch each, chosen to be the pair that is easiest to get
  * wrong: moving the planted figure is the only thing that counts as catching it,
  * and leaving the pre-selected recommendation standing is not the same as agreeing
- * with it. `trapVerdict` distinguishes six branches; these two are the ones whose
+ * with it. `trapVerdicts` distinguishes six branches; these two are the ones whose
  * copy makes a claim about the reader, so they are the two worth pinning to a run.
  *
- * The slates carry the trap in different places — Slate A on case 2's cost per
- * net, Slate B on case 3's use rate — so running one branch on each also checks
- * that `trapCase` and `trapSlider` are read from the slate rather than assumed.
+ * The slates carry the planted error in different places — Slate A on case 2's cost
+ * per net, Slate B on case 3's use rate — so running one branch on each also checks
+ * that it is read off the case rather than assumed.
+ *
+ * Since #31 a planted error is a property of a case, so the section holds one panel
+ * per case that carries one. Both tests count the panels: one is what the content
+ * authors per slate, and the singular heading and lead are what a reader sees while
+ * that stays true. A second authored planted error fails these, which is the point —
+ * it is the change that has to be read on the page rather than only in the diff.
  */
+function trapSection(page: Page) {
+  return page.locator('section', {
+    has: page.getByRole('heading', { level: 2, name: COPY.debrief.trapHeading }),
+  });
+}
+
 test('moving the planted figure earns the caught branch', async ({ page }) => {
   await open(page, SLATE_A);
   await begin(page, SLATE_A);
@@ -231,25 +244,36 @@ test('moving the planted figure earns the caught branch', async ({ page }) => {
   await expect(page.getByRole('heading', { level: 1, name: slateHeading('B') })).toBeVisible();
   await leaveRound(page, 3);
 
-  const panel = page.locator('.dm-panel', { hasText: COPY.debrief.trapHeading });
-  await expect(panel.getByRole('heading', { level: 2 })).toHaveText(COPY.trapHeadings.interrogated);
+  const section = trapSection(page);
+  await expect(section).toContainText(COPY.debrief.trapLead);
+  const panel = section.locator('.dm-panel');
+  await expect(panel).toHaveCount(1);
+  await expect(panel.getByRole('heading', { level: 3 })).toHaveText(COPY.trapHeadings.interrogated);
   await expect(panel).toHaveAttribute('data-accent', 'caught');
-  await expect(panel).toContainText('moved the cost-per-net figure off the supplied $2');
+  // The panel names the case it is about, which is what lets a second one be told
+  // apart from it, and the composed correction carries both halves of the figure.
+  await expect(panel).toContainText(COPY.debrief.trapCase.bednets);
+  await expect(panel).toContainText('moved the figure this case’s headline rests on');
+  await expect(panel).toContainText('The label says the delivered cost of a net.');
+  await expect(panel).toContainText('$2 against a delivered cost');
 });
 
 test('leaving the supplied recommendation standing earns the left-standing branch', async ({
   page,
 }) => {
-  // Slate B's trap case supplies `fund`, which is what makes this branch
+  // Slate B's trapped case supplies `fund`, which is what makes this branch
   // reachable: it is the one that describes a funding call nobody made.
   await reachDebrief(page, SLATE_B);
 
-  const panel = page.locator('.dm-panel', { hasText: COPY.debrief.trapHeading });
-  await expect(panel.getByRole('heading', { level: 2 })).toHaveText(
+  const panel = trapSection(page).locator('.dm-panel');
+  await expect(panel).toHaveCount(1);
+  await expect(panel.getByRole('heading', { level: 3 })).toHaveText(
     COPY.trapHeadings.recommendationLeftStanding,
   );
   await expect(panel).toHaveAttribute('data-accent', 'neutral');
+  await expect(panel).toContainText(COPY.debrief.trapCase.chlorination);
   await expect(panel).toContainText('nothing here recorded a decision from you either way');
+  await expect(panel).toContainText('The figure is the access rate — 80%');
 });
 
 /**

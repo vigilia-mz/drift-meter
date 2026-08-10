@@ -284,7 +284,7 @@ export const SOURCE_ROWS = [
   {
     claim: 'Bednet commodity cost near $2 against a delivered cost near $4.50.',
     where:
-      'Slate A, case 2. The supplied figure, the evidence panel, and the debrief’s trap paragraph.',
+      'Slate A, case 2. The supplied figure, the evidence panel, and the case’s own trap record, which the debrief’s paragraph is composed from.',
     grade: 'Illustrative',
     checked: 'Restated 7 Aug 2026',
     note: 'Constructed for the task. The gap between commodity and delivered cost in net distribution is real and well documented; these particular figures are not taken from it. The disclosure that says so is general on purpose — naming this case would tell the reader where the planted error is, and leave nothing to observe.',
@@ -292,7 +292,7 @@ export const SOURCE_ROWS = [
   {
     claim: 'Chlorination access near 80% against sustained use roughly half that.',
     where:
-      'Slate B, case 3. The supplied figure, the evidence panel, and the debrief’s trap paragraph.',
+      'Slate B, case 3. The supplied figure, the evidence panel, and the case’s own trap record, which the debrief’s paragraph is composed from.',
     grade: 'Illustrative',
     checked: 'Restated 7 Aug 2026',
     note: 'Constructed on the same terms. The access-versus-use distinction is real and is the reason the case exists; the numbers are made for the exercise.',

@@ -13,7 +13,7 @@
  * re-introducing a literal fails immediately rather than shipping.
  */
 
-import type { AssumptionSpec, Condition, Rec, Slate } from '../content/types.js';
+import type { AssumptionSpec, Case, Condition, Rec, Slate, Trap } from '../content/types.js';
 import { clamp, type Score } from './model.js';
 
 /** Confidence is a single five-point self-rating. 0 means not yet rated. */
@@ -69,6 +69,48 @@ export function effRec(
   if (st.recTouched) return st.rec;
   if (opts.assisted && opts.prefill) return opts.suppliedRec;
   return '';
+}
+
+/**
+ * One case that carries a planted error, and where on it.
+ *
+ * Non-null by construction, which is the point. Every consumer of the traps —
+ * `trapVerdicts()` on the debrief, the catch rate below, and the invariants test —
+ * walks this rather than indexing `slate.cases` and narrowing `trap` again in three
+ * places.
+ */
+export interface TrappedCase {
+  /** Index into the slate's `cases`, so a caller can find the recorded state. */
+  readonly index: number;
+  readonly case: Case;
+  readonly trap: Trap;
+}
+
+/**
+ * The slate's planted errors, derived from the cases rather than counted anywhere.
+ *
+ * This is the catch rate's denominator, and rule 7 is why it is a walk rather than
+ * a number: a slate that gains a second planted error changes the denominator by
+ * gaining it, and no literal has to be found and edited to keep up. It is the same
+ * discipline as `sliderCount` below, for the same published reason.
+ */
+export function trappedCases(slate: Slate): readonly TrappedCase[] {
+  return slate.cases.flatMap((c, index) =>
+    c.trap === null ? [] : [{ index, case: c, trap: c.trap }],
+  );
+}
+
+/**
+ * The one thing that counts as catching a planted error: moving the figure.
+ *
+ * Not opening the evidence panel that contains the correction, and not flagging
+ * the case. Defined once and read by both consumers — the debrief's branch logic in
+ * `trap.ts` and the catch rate below — because two definitions of "caught" is the
+ * shape where the paragraph a reader is shown and the number they are counted in
+ * can disagree.
+ */
+export function caughtTrap(st: CaseState, trap: Trap): boolean {
+  return st.touched[trap.slider] === true;
 }
 
 /**
@@ -168,6 +210,24 @@ export interface Metrics {
    * Deliberately NOT in the `actual` composite — see the note at the composite.
    */
   readonly accuracy: Score | null;
+  /**
+   * Planted errors whose misstated figure the reader moved, as a share of the
+   * planted errors on the slate.
+   *
+   * `null` — never 0 — in the control round, on exactly framing autonomy's grounds:
+   * no estimate is supplied there, so no figure is misstated and there is nothing to
+   * catch. Zero would say the reader missed something that was never set. Also
+   * `null` where the slate carries no planted error at all, which is the accuracy
+   * measure's rule for the same reason.
+   *
+   * Reported here and deliberately not drawn as a bar on the debrief. One planted
+   * error is authored per slate, so for a single reader this is one observation, and
+   * a bar reading 0 or 100 off one observation looks like a rate. The debrief prints
+   * one paragraph per planted error instead, which says what was actually done.
+   *
+   * Deliberately NOT in the `actual` composite — see the note at the composite.
+   */
+  readonly catchRate: Score | null;
   /** The self-rating, rescaled. */
   readonly perceived: Score;
   /** The behavioural composite. Excludes `auto`, which is undefined in one round. */
@@ -259,6 +319,23 @@ export function metrics(input: {
   // on a written denominator holds here without a literal to get wrong.
   const accuracy: Score | null = scored > 0 ? clamp(PERCENT - (distance / scored) * PERCENT) : null;
 
+  // The catch rate, over the planted errors the slate actually carries.
+  //
+  // Assisted round only. In the control round nothing is supplied, so no figure
+  // misstates anything and there is no planted error in play — `null`, not 0, for the
+  // same reason framing autonomy is. `trapped.length` is the denominator and it is a
+  // walk of the slate rather than a number, so authoring a second planted error moves
+  // it without anyone editing a literal (rule 7).
+  const trapped = trappedCases(slate);
+  let catchRate: Score | null = null;
+  if (condition === 'assisted' && trapped.length > 0) {
+    const caught = trapped.filter((t) => {
+      const st = data[t.index];
+      return st !== undefined && caughtTrap(st, t.trap);
+    }).length;
+    catchRate = clamp((caught / trapped.length) * PERCENT);
+  }
+
   const perceived = clamp((confidence / CONFIDENCE_SCALE_MAX) * PERCENT);
 
   // The composite averages over the measures that are defined in both rounds, so
@@ -273,6 +350,11 @@ export function metrics(input: {
   //   looked but happened to land on the supported values would post a healthy
   //   `actual`, and the gap against `perceived` would stop meaning anything. They are
   //   reported side by side and never summed.
+  //
+  //   `catchRate` is out on both counts at once (#31): it does not exist in the
+  //   control round, and it is a normative measure rather than a trace. It is also the
+  //   coarsest number here — one observation per reader today — so averaging it in
+  //   would let a single coin flip move the composite the gap measure is read against.
   const composite = [engagement, range, amb];
   const actual = clamp(composite.reduce((a, b) => a + b, 0) / composite.length);
 
@@ -282,6 +364,7 @@ export function metrics(input: {
     amb,
     auto,
     accuracy,
+    catchRate,
     perceived,
     actual,
     gap: perceived - actual,

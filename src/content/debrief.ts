@@ -186,9 +186,24 @@ export const DEBRIEF = {
     'Drawn independently of the order, so case difficulty cannot stand in for the condition.',
   randomisedArm: 'Drawn uniformly across the three arms.',
 
-  trapHeading: 'The case with something wrong in it',
-  trapLead:
-    'One case in the round with the supplied estimate carried a planted error: a figure that was not what its label said it was. What follows depends on what you did, not on whether you got the answer right.',
+  /**
+   * The trap section, in a singular and a plural form.
+   *
+   * Two forms rather than one that covers both, because a planted error is now a
+   * property of a case and any case may carry one (#31) — so the number a run meets
+   * is a fact about the slate rather than a constant. One is authored per slate
+   * today, which means the singular is what every reader currently sees and the
+   * plural is the form that arrives with the second planted error. Writing "one or
+   * more" would have been a sentence that is never quite true of the page it is on.
+   */
+  trapHeading: {
+    one: 'The case with something wrong in it',
+    many: 'The cases with something wrong in them',
+  },
+  trapLead: {
+    one: 'One case in the round with the supplied estimate carried a planted error: a figure that was not what its label said it was. What follows depends on what you did, not on whether you got the answer right.',
+    many: 'More than one case in the round with the supplied estimate carried a planted error: a figure that was not what its label said it was. There is a panel below for each, and what each one says depends on what you did, not on whether you got the answer right.',
+  },
 
   nextLabel: 'Continue',
   methodLabel: 'Read the method',
