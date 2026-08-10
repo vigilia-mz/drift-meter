@@ -306,6 +306,14 @@ export const SOURCE_ROWS = [
     note: 'The seventh case, and the last to get a row. The gap between doses delivered and children completing a three-dose course is a real measurement problem; the programme, the country, the dose count and the unit cost are written for the exercise.',
   },
   {
+    claim:
+      'The landing page’s specimen readout: three pairs of bars showing the shape of a result.',
+    where: 'The landing page, between the opening and the section on what the instrument measures.',
+    grade: 'Illustrative',
+    checked: 'Added 10 Aug 2026',
+    note: 'Invented, and the caption says so in those words: no run produced them, n is zero, nothing has been collected from anyone. Unlike the case figures these approximate nothing — they are a drawing of the readout, for a reader who will not start the instrument. The last claim on the site to get a row, because every earlier pass ran against the instrument and these six numbers are markup in a hand-written page. Nothing tests the caption they rest on.',
+  },
+  {
     claim: 'Students with ChatGPT practised better and scored worse on exams taken without it.',
     where: 'The long essay, in its empirical section.',
     grade: 'Flagged',

@@ -422,8 +422,51 @@ This file is the surviving record of them.
   “Illustrative”, which is the same word an invented cohort dashboard could have carried, on the page
   whose own method note explains why that dashboard was retracted. Rule 6 asks for the plainer
   sentence and it now carries it.
+- Corrected: `README.md` said the repository was mid-rebuild with the instrument's screens not yet
+  rebuilt, and that `drift-meter.html` served a placeholder. Both had stopped being true before the
+  protocol and process screens landed. It now says the rebuild has reached every screen, names the
+  endpoint as built and shipped switched off, and points here. The correction travelled with the
+  attribution fix and was not recorded in this file until the pass below, which is the same gap in
+  miniature: the change was made and the paperwork was not.
+- **The landing page's specimen readout has a row in `SOURCES.md`, and it is the last claim on the site
+  to get one.** Three pairs of bars, six invented percentages, published on the front door since v0.1
+  and located by no row in the table — not by the v0.6 location pass, and not by #7, which is the pass
+  that gave every other constructed figure on the site a row. Both ran against the instrument, where a
+  constructed figure is data in a content module; these six numbers are style attributes in a
+  hand-written page, so both looked past them. The row is graded ILLUSTRATIVE and is the fifth to carry
+  that grade, which moves the count the protocol screen states in prose and fails the test that holds
+  the screen's count to the file's — the intended behaviour of that test, and the reason the count is
+  written out rather than computed. It carries no `Primary link: TODO`: unlike the four case figures,
+  these bars approximate nothing that has a source, and what would retire the row is a run, which is
+  #34, with n still zero. What the row does carry is the weakest support under anything in the table.
+  The four case disclosures are held by `invariants.test.ts`; this caption is held by review, because
+  `index.html` has no content module and no test reads its prose, and the row says so rather than
+  leaving it to be inferred from the absence of a test name.
+- Corrected: `docs/deliberate-quirks.md` described four behaviours as unpinned on the grounds that the
+  code which would pin them had not been rebuilt. All four had been, in this same version. The reducer
+  pins that `read` survives closing either panel and that the control round opens at midpoints;
+  `mid()` has two production callers rather than none; the debrief renders the hatched `n/a` bar. The
+  four entries now name the tests that hold them. The section listing what was still to come is
+  rewritten with them: of the two quirks it predicted, the hatched bar landed and is written up, and
+  the partial recolour of the assisted card did not arrive in that shape at all, because the accent is
+  set once on the round screen and rebinds one property for everything inside it. The accuracy entry
+  added earlier in this version is also refiled — it had been appended under that trailing heading, and
+  therefore under the claim that it was not on the list yet, when it is live and tested; it now sits
+  beside the composite it warns against being folded into. A file that exists to stop a later reader
+  tidying something away is worth less for every version it spends describing a repository that has
+  moved on, and this one had spent one.
 
 **Why**
+
+The paperwork pass at the end of this version was asked for as bookkeeping and turned up a claim
+nobody had tracked. Most of what it went looking for had already been paid, by the commits that made
+the changes rather than by a pass afterwards, which is the right way round. What it found instead is
+that every location pass this table has had was pointed at the instrument, and the site's front door
+publishes six invented numbers that none of them saw. That is not a lapse in any one pass; it is what a
+pass is, and the fix is to say where this one stopped rather than to imply the file is now complete.
+The same shape accounts for the quirks file: four of its entries described a repository that had been
+rebuilt underneath them, all four understating the guarantees rather than overstating them, which is
+the safer direction to be wrong in and still wrong.
 
 The attribution fix is the one correction in this version that changes what the instrument would
 measure rather than what it says. Everything else here is the site catching up with the artifact.
