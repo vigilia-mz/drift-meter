@@ -18,6 +18,20 @@ import type { Score } from '../domain/model.js';
 interface Props {
   readonly label: string;
   readonly what: string;
+  /**
+   * Marks the pre-specified primary outcome. `null` on every other measure.
+   *
+   * It is a separate element rather than an addition to `label`, because a test
+   * asserts that each bar's label is the one the protocol screen prints for the
+   * same measure, and folding a tag into the label would either break that or
+   * force the same tag onto the protocol screen's table.
+   *
+   * Explicitly `null` rather than optional, which is how `assisted` says the same
+   * thing: `exactOptionalPropertyTypes` is on, so an optional prop cannot be handed
+   * an `undefined`, and every call site saying what it means is better than a spread
+   * that hides which measures are unmarked.
+   */
+  readonly tag: string | null;
   /** `null` renders as hatched and `n/a`, never as zero. */
   readonly assisted: Score | null;
   readonly unassisted: Score | null;
@@ -61,6 +75,7 @@ function Row({
 export function PairedBar({
   label,
   what,
+  tag,
   assisted,
   unassisted,
   assistedLabel,
@@ -70,7 +85,10 @@ export function PairedBar({
 }: Props) {
   return (
     <div class="dm-measure">
-      <p class="dm-measure-label">{label}</p>
+      <p class="dm-measure-label">
+        {label}
+        {tag === null ? null : <span class="dm-measure-tag">{tag}</span>}
+      </p>
       <p class="dm-measure-what">{what}</p>
       <Row
         value={assisted}

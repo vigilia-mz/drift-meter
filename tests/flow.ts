@@ -107,6 +107,15 @@ export const COPY = {
     undefinedCaption: 'Undefined without a supplied frame. Reported rather than imputed.',
     estimateAccuracy: 'Estimate accuracy',
     /**
+     * The primary outcome, declared before any data existed.
+     *
+     * Which bar carries the tag is the part a unit test cannot see: the content
+     * module can be marked correctly and the tag still render on the wrong measure,
+     * or on all five.
+     */
+    primaryTag: 'Primary outcome',
+    evidenceEngagement: 'Evidence engagement',
+    /**
      * The confidence comparison, since #37.
      *
      * The two components are printed side by side and their difference is not. The

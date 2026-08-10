@@ -346,6 +346,34 @@ test('estimate accuracy is undefined in both rounds, for its own stated reason',
 });
 
 /**
+ * 7b-ii. Exactly one bar is marked as the primary outcome, and it is the right one.
+ *
+ * Five bars drawn as peers is a forking path drawn in the interface: whichever moved
+ * most reads afterwards as the result. One measure is fixed in advance, and the unit
+ * suite holds that exactly one entry carries the flag and that the protocol screen
+ * names the same measure. What it cannot see is the page — the flag can be set
+ * correctly and the tag still render on the wrong bar, or on all five, because the
+ * mapping from flag to element lives in the component rather than in the content.
+ */
+test('one bar carries the primary-outcome tag, and it is evidence engagement', async ({ page }) => {
+  await reachDebrief(page, SLATE_A);
+
+  const tags = page.locator('.dm-measure-tag');
+  await expect(tags).toHaveCount(1);
+  await expect(tags).toHaveText(COPY.debrief.primaryTag);
+
+  // On the engagement bar specifically, and on no other.
+  const engagement = page.locator('.dm-measure', { hasText: COPY.debrief.evidenceEngagement });
+  await expect(engagement.locator('.dm-measure-tag')).toHaveCount(1);
+
+  const accuracy = page.locator('.dm-measure', { hasText: COPY.debrief.estimateAccuracy });
+  await expect(accuracy.locator('.dm-measure-tag')).toHaveCount(0);
+
+  // The tag is a mark, not the explanation. The page has to say what secondary means.
+  await expect(page.locator('body')).toContainText('worth reading rather than set aside');
+});
+
+/**
  * 7c. The confidence comparison prints its two components and never their difference.
  *
  * #37. The difference was a five-point self-report rescaled to 0–100 minus a mean of

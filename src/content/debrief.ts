@@ -18,9 +18,16 @@
  */
 
 import type { ClosingKey, GapBand, HeadlineKey } from '../domain/reveal.js';
+import type { DebriefMeasure } from './types.js';
 
 /**
- * The four paired measures, in the order the debrief shows them.
+ * The five paired measures, in the order the debrief shows them.
+ *
+ * This said four until the primary outcome was declared, and it had said four
+ * since estimate accuracy joined them — a count in a comment beside the list it
+ * counts, which is the shape this repository keeps finding stale. Nothing
+ * published was wrong, because a comment is not screen copy; the counts that are
+ * screen copy are held against the array by tests instead.
  *
  * `key` names the `Metrics` field. The labels are the ones the landing page
  * already uses for the measures, so a reader who arrived from there meets
@@ -46,6 +53,7 @@ export const MEASURES = [
     label: 'Evidence engagement',
     what: 'Cases where you opened the estimate or the evidence, as a share of the three.',
     undefinedCaption: ALWAYS_DEFINED,
+    primary: true,
   },
   {
     key: 'range',
@@ -72,7 +80,7 @@ export const MEASURES = [
     undefinedCaption:
       'No assumption here carries a supported value yet, so accuracy is undefined rather than perfect. Reported rather than imputed.',
   },
-] as const;
+] as const satisfies readonly DebriefMeasure[];
 
 export const DEBRIEF = {
   standfirst:
@@ -113,6 +121,24 @@ export const DEBRIEF = {
   },
 
   headlineHeading: 'The comparison',
+
+  /**
+   * The primary outcome, marked on the bar and named under it.
+   *
+   * Five bars drawn as peers is a forking path drawn in the interface: whichever
+   * moved most reads as the result, and nothing on the screen distinguishes a
+   * prediction from a preference formed after seeing the numbers. One measure is
+   * therefore fixed in advance, and the protocol screen states the comparison it
+   * belongs to. A test holds the two screens to the same measure.
+   *
+   * Secondary is not a demotion, and the copy has to say which sense it means.
+   * These four are the same traces they were before anything was declared; what
+   * changed is that they can no longer be promoted after the fact.
+   */
+  primaryTag: 'Primary outcome',
+  primaryNote:
+    'Evidence engagement is the primary outcome, and it was fixed before any data existed. The other four are secondary, which here means reported and worth reading rather than set aside: they are the same traces they were before one of them was named, and naming one in advance is what stops whichever bar moved most from being read afterwards as the result.',
+
   /**
    * One paragraph per branch of `headlineFor`.
    *

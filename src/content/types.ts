@@ -245,6 +245,32 @@ export interface MeasureSpec {
   readonly threat: string;
 }
 
+/**
+ * One measure the debrief draws as a paired bar.
+ *
+ * `MEASURES` was a bare `as const` with no governing type until the primary
+ * outcome was declared. An optional field on one entry of an untyped tuple is not
+ * readable off the union — the same wall `noteGloss` hit on `ReviewerRow`, and it
+ * takes the same cast at the read site. The type exists so `primary` can be read;
+ * the `satisfies` clause keeps `key` narrow, so the debrief still cannot name a
+ * measure `Metrics` does not carry.
+ */
+export interface DebriefMeasure {
+  readonly key: 'engagement' | 'range' | 'amb' | 'auto' | 'accuracy';
+  readonly label: string;
+  readonly what: string;
+  readonly undefinedCaption: string;
+  /**
+   * The pre-specified primary outcome.
+   *
+   * Exactly one measure carries it, which a test asserts: two would be no
+   * declaration at all, and none is the forking path the declaration exists to
+   * close. Optional rather than a boolean on every entry, so that the absence is
+   * the default and marking a second one is a visible act.
+   */
+  readonly primary?: true;
+}
+
 /** One row of the protocol screen's arm table. Three are derived from `ARMS`. */
 export interface ArmRow {
   readonly arm: string;

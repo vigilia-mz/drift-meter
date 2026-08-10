@@ -14,6 +14,7 @@
 import type { RefObject } from 'preact';
 import { ARM_NOTES, ARMS } from '../content/arms.js';
 import { DEBRIEF, MEASURES } from '../content/debrief.js';
+import type { DebriefMeasure } from '../content/types.js';
 import { SCREENS } from '../content/shell.js';
 import { TRAP_HEADINGS, trapParagraph } from '../content/trap.js';
 import type { Metrics } from '../domain/metrics.js';
@@ -87,11 +88,17 @@ export function Debrief({ containerRef, run, onContinue, onMethod, onProcess }: 
         </h2>
         <p class="dm-body">{DEBRIEF.headline[headline]}</p>
 
-        {MEASURES.map((measure) => (
+        {/*
+          Read as the interface rather than as the literal tuple: `primary` is
+          optional and only one measure carries it, so the tuple's union does not
+          have the property on every member. Same shape as `REVIEWER_ROWS`.
+        */}
+        {(MEASURES as readonly DebriefMeasure[]).map((measure) => (
           <PairedBar
             key={measure.key}
             label={measure.label}
             what={measure.what}
+            tag={measure.primary === true ? DEBRIEF.primaryTag : null}
             assisted={valueOf(a, measure.key)}
             unassisted={valueOf(u, measure.key)}
             assistedLabel={DEBRIEF.legendAssisted}
@@ -100,6 +107,9 @@ export function Debrief({ containerRef, run, onContinue, onMethod, onProcess }: 
             undefinedCaption={measure.undefinedCaption}
           />
         ))}
+
+        {/* Which one is primary, and what secondary does and does not mean. */}
+        <p class="dm-note">{DEBRIEF.primaryNote}</p>
       </section>
 
       <section aria-labelledby="dm-counts">

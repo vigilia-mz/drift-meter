@@ -77,6 +77,16 @@ export function Method({ containerRef, onBack, onProcess }: Props) {
         </h2>
         <p class="dm-body">{METHOD.measuresLead}</p>
 
+        {/*
+          Before the table rather than after it. A reader who stops at the first
+          measure should already know that one of the seven was named in advance,
+          and that the naming buys nothing this build can compute.
+        */}
+        <h3 class="dm-spec-title">{METHOD.primaryOutcomeHeading}</h3>
+        <p class="dm-body">{METHOD.primaryOutcome}</p>
+        <p class="dm-body">{METHOD.primaryOutcomeWhy}</p>
+        <p class="dm-note">{METHOD.primaryOutcomeLimit}</p>
+
         <ol class="dm-specs">
           {MEASURE_SPECS.map((measure) => (
             <li class="dm-spec" key={measure.key}>

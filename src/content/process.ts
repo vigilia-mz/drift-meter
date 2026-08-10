@@ -199,7 +199,7 @@ export const REVIEWER_ROWS = [
     role: 'Methods reader',
     status: 'Not recruited',
     brief:
-      'Attack the design: order effects, the anchoring confound, construct definitions, and whether the six registered predictions can be tested by it. They are registered with their falsification conditions and without an analysis plan.',
+      'Attack the design: order effects, the anchoring confound, construct definitions, and whether the six registered predictions can be tested by it. They are registered with their falsification conditions and with one element of an analysis plan — a primary outcome, fixed before any data exists. There is still no test named per prediction, no target n, no stopping rule and no correction for testing six predictions at once.',
     note: 'This is the real gap. The network behind this project is philosophy-heavy, which is the right network for the conceptual argument and the wrong one for experimental design. The confound in v0.1 is precisely what this reader exists to catch, and it was caught by an outside reader instead of by the process.',
     noteGloss:
       '[Introduced in v0.1, recorded at v0.2. Editorial gloss, outside the surviving note.]',

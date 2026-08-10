@@ -84,6 +84,44 @@ This file is the surviving record of them.
   `trapBranches`, a list bounded at one per case, rebuilt from the known label set like everything
   else in `sanitizeReflect`. Nothing populates it yet — no screen builds a summary — so this is a
   contract that stopped describing the mechanism rather than a behaviour that changed.
+- **A primary outcome is declared, while there is still nothing to choose from.** Five bars on the
+  debrief and seven measures on the protocol screen, all reported as peers, is a forking path drawn in
+  the interface: whichever moved most would read afterwards as the result, and nothing on either screen
+  would distinguish a prediction from a preference formed after seeing the numbers. Evidence engagement
+  is now fixed as the primary outcome, marked on its own bar, and the protocol screen states the
+  comparison it belongs to — the difference in evidence engagement between conditions, within the
+  AI-attributed arm, tested against the same difference in the other two arms. The rest are secondary in
+  the sense that they are reported and worth reading rather than set aside, which both screens say in
+  those words, because the other sense of secondary would have a reader stop at the first bar. Three
+  assertions hold it: exactly one measure carries the flag, the protocol screen names the same measure
+  the debrief marks, and the copy says which sense of secondary it means. A fourth holds the count of
+  the remainder against the array, because this is the fourth measure count in this version to be
+  written in prose beside the list it counts.
+- **The statement names an analysis no run performs, and the page says so immediately after it.** One
+  reader draws one arm, nothing is stored and no two runs are compared, so a run yields the within-reader
+  difference for a single arm and no between-arm contrast at all. The comparison that was just registered
+  needs a cohort that does not exist. Registering it anyway is the whole of what pre-specification does —
+  it cannot be chosen later — and publishing it without that limit beside it would have been the
+  overclaim this project is named for. The design section's older and broader sentence stays exactly as
+  it was: the within-reader comparison is the only one this build is entitled to make.
+- Corrected: the reviewers table asked a methods reader about six predictions "registered with their
+  falsification conditions and without an analysis plan". A primary outcome fixed in advance is an
+  analysis-plan element, so leaving that row would have had the site assert and deny an analysis plan on
+  two screens at once. The row now names the one element that exists and the four that still do not — no
+  test per prediction, no target `n`, no stopping rule, no correction for testing six predictions at
+  once. This is the second correction to that row in this version, the first for overstating the
+  paperwork and this one for understating it.
+- Corrected: the limits list opened its fifth item with "The measures are process traces." That blanket
+  was retired earlier in this same version, in the paragraph above the measure table, and the limits
+  list was not moved with it — so a claim this version had already recorded as a defect rather than a
+  principle was still being published two sections further down. The item now says the narrower and more
+  uncomfortable thing: the measure fixed in advance is a process trace and a weak one, chosen for being
+  what P1 is about rather than for being the best of the seven, and it cannot distinguish a reflexive
+  click from a careful read.
+- Corrected: the comment above `MEASURES` said "The four paired measures" and there have been five since
+  estimate accuracy arrived earlier in this version. Nothing published was false, because a comment is
+  not screen copy — which is exactly why it went two versions without being caught, and why it is the
+  likely source of the count in the issue that asked for this change.
 - **The confidence gap is no longer reported as a quantity.** It subtracted a five-point self-report,
   rescaled to 0–100, from a mean of three unlike process measures carrying equal weights. Both halves
   are authorial choices, so the difference inherited both and declared neither, and it was the figure
@@ -242,6 +280,23 @@ is a sentence a reader checks against a constant by eye, and interpolating one w
 guards it vacuous, whereas the trap correction is checked against nothing — it is a fact stated twelve
 times, which is the shape that goes out of date. Six copies of a figure per slate is how the
 ÷6-versus-÷9 bug would have arrived in prose, and it would have arrived slower and been harder to see.
+
+Declaring a primary outcome is the cheapest change in this version and the one with the shortest window
+in which it is worth anything. With n at zero there is no result to prefer, so naming the measure costs
+nothing and forecloses the move it exists to foreclose; after collection starts, the same sentence is
+unfalsifiable as a claim about when it was written. What it does not do is improve the measure. Evidence
+engagement is a binary, sticky flag that cannot tell a habitual click from a careful read, and fixing it
+in advance makes that the stated weakness of the primary outcome rather than of one measure among peers —
+which is a worse-sounding sentence and a more accurate one. It was chosen for being the measure P1 is
+about, not for being the best of the seven, and the limits list now says so in those words.
+
+The uncomfortable part is what the statement describes. It names a between-arm contrast and this build
+computes nothing of the kind: one reader, one arm, nothing stored, no two runs ever compared. A
+pre-specified analysis that the instrument cannot run is still worth registering — that is what
+registration is for — but a page that published it without saying so would be doing the thing this
+project was built to argue against, in the section where it explains its own method. So the limit is
+stated on the page, immediately after the statement, and the older and broader sentence in the design
+section is left exactly as it was.
 
 The paperwork pass at the end of this version was asked for as bookkeeping and turned up a claim
 nobody had tracked. Most of what it went looking for had already been paid, by the commits that made
