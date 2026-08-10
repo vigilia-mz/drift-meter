@@ -196,8 +196,39 @@ This file is the surviving record of them.
   about stakes and deadlines, which was a claim about how large an effect would be rather than about
   what kind of thing a sitting can observe. `invariants.test.ts` asserts the two screens do not come
   apart on it.
+- **The attribution arm is delivered to every reader, not only to the ones who opened a panel.** The
+  arm's label rendered inside the expanded estimate panel, which starts closed. A reader who never
+  opened it never learned whether the number came from Claude, from a programme officer, or from
+  nowhere in particular — and the debrief told them their arm regardless. That reader is the one the
+  instrument exists to observe: P1 is a claim about low engagement, so the manipulation P5 is built
+  on was undelivered for exactly the subgroup that separates the two. Opening the panel was measuring
+  evidence engagement and delivering the treatment at once, which makes an outcome measure its own
+  independent variable. The source is now a standing line above the disclosure and the panel still
+  holds the reasoning and the recommendation. Five invariants hold it there, and the entry in
+  `docs/deliberate-quirks.md` says why moving it back would be a measurement error rather than a
+  layout preference.
+- **The landing page said the review is completed once with AI assistance and once without it.** It
+  is completed with and without a supplied estimate, with the attribution randomised across it, which
+  is what the protocol screen's arm table and P5 are both about. The front door was asserting the
+  claim the three arms exist to avoid making. Corrected, with the three arms named there.
+- **The specimen readout on the landing page says its three bars are invented.** They were labelled
+  “Illustrative”, which is the same word an invented cohort dashboard could have carried, on the page
+  whose own method note explains why that dashboard was retracted. Rule 6 asks for the plainer
+  sentence and it now carries it.
+- **The README said the instrument's screens were not rebuilt and that its own URL served a
+  placeholder.** Both stopped being true when the shell, the debrief and then the protocol and
+  process screens landed, and a reader who checks the repository before clicking the link was being
+  told there was nothing to click.
 
 **Why**
+
+The attribution fix is the one correction in this version that changes what the instrument would
+measure rather than what it says. Everything else here is the site catching up with the artifact.
+That one was the artifact disagreeing with itself: the design's whole claim to be about AI rather
+than about handed answers rests on the three arms, and a third of the readers most relevant to that
+claim were never in an arm at all. It was found in a review pass, not by a test, which is the same
+way the ÷6-versus-÷9 bug was found — and the tests added with it exist so that the next person to
+tidy the panel has to argue with the measurement rather than only with the markup.
 
 The previous build's central defect was that it could not be corrected with any confidence. There
 was no source to correct, and nothing in the process that would have caught an arithmetic error in a

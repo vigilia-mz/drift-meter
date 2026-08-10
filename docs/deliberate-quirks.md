@@ -236,6 +236,30 @@ forces callers to handle instead of a falsy string that can reach `fetch` by acc
 - Tests: the five cases in `src/platform/env.test.ts`, of which `treats the committed empty default
 as dark` and `never returns an empty string, so the dark state is always null` carry the weight.
 
+## The round screen
+
+### The attribution is outside the disclosure, not inside it
+
+`standingAttribution()` renders above the “Show the estimate” button rather than within the panel it
+opens. Tidying it inside — where the arm's label already sits, and where it visually belongs — would
+be a measurement error, not a layout preference.
+
+`CaseState.modelOpen` starts `false`. If the arm is only rendered when it is `true`, a reader who
+never opens the panel is never in an arm, while the debrief still tells them which one they drew.
+That reader is not an edge case: `engagement` counts exactly those who did not open, P1 is a claim
+about them, and P5 needs the arms to have been delivered to them. Opening the panel would be both the
+outcome measure and the delivery mechanism for the treatment the outcome is compared against.
+
+- Where: `standingAttribution()` in `src/content/arms.ts`; the `.dm-attribution` paragraph in
+  `src/screens/Round.tsx`, above the `dm-disclosure` button.
+- Tests: the five in `standing attribution`, in `src/content/invariants.test.ts` — every arm names a
+  source, the three lines differ, Claude appears only in the AI arm, the human arm names a person and
+  no AI, and the unattributed arm withholds an identity without withholding that there was a source.
+- **What the tests do not pin.** They check the sentence, not where it renders. A refactor that moved
+  the paragraph back inside `{st.modelOpen ? …}` would keep all five green. Pinning the position
+  needs the end-to-end tests scheduled in issue #19, and until those land this note is the only thing
+  holding it.
+
 ## What is not on this list yet
 
 The screens, the endpoint and the model pin have not been rebuilt, so their quirks are not here. When
