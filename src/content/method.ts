@@ -146,7 +146,7 @@ export const METHOD = {
     {
       label: 'The figures',
       value:
-        'Illustrative, and the instrument says so before the run and again after it. Four rows in the repository’s source table carry the grade that means built for the exercise rather than taken from anywhere. The disclosure names no case and no slider, because what this measures is whether a reader interrogates the load-bearing figure without being told which one it is.',
+        'Illustrative, and the instrument says so before the run and again after it. Five rows in the repository’s source table carry the grade that means built for the exercise rather than taken from anywhere: the four case figures, and the specimen readout on the landing page, which is a drawing of a result rather than a result. The disclosure names no case and no slider, because what this measures is whether a reader interrogates the load-bearing figure without being told which one it is.',
     },
     {
       label: 'The estimates',

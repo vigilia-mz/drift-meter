@@ -45,7 +45,7 @@ export const PROCESS = {
     {
       label: 'Version',
       value:
-        'v0.6, rebuilt from source. The changelog below records every version and what it changed.',
+        'v0.7, on the v0.6 rebuild. The changelog below records every version and what it changed.',
     },
     {
       label: 'Status',
@@ -137,10 +137,17 @@ export const PROCESS = {
  */
 export const CHANGELOG_ROWS = [
   {
-    version: 'v0.6',
+    version: 'v0.7',
     date: 'In progress',
+    title: 'The attribution reaches every reader, and a measure that can lose',
+    what: 'The arm’s label moved out of the estimate panel, which starts closed, so a reader who never opened it was never in an arm while the debrief told them which one they drew. A sixth measure, estimate accuracy, scores the reader against what the evidence supports and is reported beside the behavioural measures, never averaged into them; it is undefined in every run today because the values it would score against have not been authored. The landing page stopped saying the review is done once with AI assistance and once without it, and its specimen bars now say they are invented. Three files of paperwork corrected, and one claim nobody had tracked given a row.',
+    why: 'Opening the panel was measuring evidence engagement and delivering the treatment at once, and a measure cannot also be its own independent variable — P1 is a claim about exactly the readers the manipulation was not reaching. The accuracy measure is what lets the design lose: until it, every outcome was consistent with the hypothesis, which is not an instrument. Both were found by reading rather than by a test, which is how the ÷6-versus-÷9 bug was found too.',
+  },
+  {
+    version: 'v0.6',
+    date: '10 Aug 2026',
     title: 'Rebuilt from source, and a model re-baseline',
-    what: 'The instrument runs again from editable source, with one pure reducer, typed content modules and a test suite; the previous build shipped as a single generated bundle whose source existed nowhere. All thirteen screens render, and the endpoint exists and is dark by default. The case figures are restated on the page as illustrative. Six claims this project made about its own work are corrected, five of them claims about its own tests. The model is re-baselined.',
+    what: 'The instrument runs again from editable source, with one pure reducer, typed content modules and a test suite; the previous build shipped as a single generated bundle whose source existed nowhere. All thirteen screens render, and the endpoint exists and is dark by default. The case figures are restated on the page as illustrative. Eleven claims this project made about its own work are corrected, four of them claims about its own tests. The model is re-baselined.',
     why: 'A build that cannot be corrected with confidence is the wrong property for something whose whole claim is that it measures something. The corrections are the uncomfortable part: a claimed test is worse than a missing one, because it stops anyone looking for the gap. The model change is a re-baseline rather than maintenance — rubric pass rates from v0.4 and v0.5 are not comparable to runs after it, and the series restarts here.',
   },
   {
@@ -193,7 +200,7 @@ export const REVIEWER_ROWS = [
     status: 'Not recruited',
     brief:
       'Attack the design: order effects, the anchoring confound, construct definitions, whether the registered analysis plan can actually test the six predictions.',
-    note: 'This is the real gap. The network behind this project is philosophy-heavy, which is the right network for the conceptual argument and the wrong one for experimental design. The confound in v0.1 is precisely what this reader exists to catch, and it was caught by an outside reader instead of by the process.',
+    note: 'This is the real gap. The network behind this project is philosophy-heavy, which is the right network for the conceptual argument and the wrong one for experimental design. The confound in v0.1 is precisely what this reader exists to catch, and it was caught by an outside reader instead of by the process. [Introduced in v0.1, recorded at v0.2. Editorial gloss, outside the surviving note.]',
   },
   {
     role: 'Editor',
@@ -304,6 +311,14 @@ export const SOURCE_ROWS = [
     grade: 'Illustrative',
     checked: 'Restated 7 Aug 2026',
     note: 'The seventh case, and the last to get a row. The gap between doses delivered and children completing a three-dose course is a real measurement problem; the programme, the country, the dose count and the unit cost are written for the exercise.',
+  },
+  {
+    claim:
+      'The landing page’s specimen readout: three pairs of bars showing the shape of a result.',
+    where: 'The landing page, between the opening and the section on what the instrument measures.',
+    grade: 'Illustrative',
+    checked: 'Added 10 Aug 2026',
+    note: 'Invented, and the caption says so in those words: no run produced them, n is zero, nothing has been collected from anyone. Unlike the case figures these approximate nothing — they are a drawing of the readout, for a reader who will not start the instrument. The last claim on the site to get a row, because every earlier pass ran against the instrument and these six numbers are markup in a hand-written page. The caption they rest on is tested by reading the page itself, since it has no content module to read instead.',
   },
   {
     claim: 'Students with ChatGPT practised better and scored worse on exams taken without it.',
