@@ -18,6 +18,7 @@ import type { Case, Condition, Rec, SlateId, Slate } from '../content/types.js';
 import type { Assignment } from '../domain/assignment.js';
 import type { CaseState, Confidence } from '../domain/metrics.js';
 import { mid } from '../domain/model.js';
+import type { RubricResult, TeachResult } from '../../shared/api-contract.js';
 
 /**
  * Which parts of the assignment a URL parameter pinned.
@@ -88,6 +89,49 @@ interface RunBase {
   readonly localOnly: boolean;
 }
 
+/**
+ * The encoded screen's exchange.
+ *
+ * On the complete-run variant for the same reason Round 3 is: it happens after the
+ * debrief and must not be able to reach a measure. It is stored rather than held in
+ * the screen's own state because the two reference screens push a history entry —
+ * a reader who steps aside into the protocol screen and presses Back would
+ * otherwise return to an empty screen and spend three more model calls to refill
+ * it.
+ *
+ * Nothing here is scored, and nothing here is randomised. `signature` is opaque to
+ * the client: received from the endpoint, held, handed back to it untouched.
+ */
+export interface EncodedRepair {
+  readonly answer: string;
+  readonly rubric: readonly RubricResult[];
+  readonly model: string;
+}
+
+export interface EncodedExchange {
+  /** The same question answered with no rules at all. The control. */
+  readonly plain: string;
+  readonly result: TeachResult;
+  readonly signature: string;
+  /** The ID the API returned, printed beside the answer. Not the pin. */
+  readonly model: string;
+  readonly repair: EncodedRepair | null;
+  /** Set when a repair pass was asked for and did not arrive. */
+  readonly repairError: string | null;
+}
+
+export type Encoded =
+  | { readonly status: 'idle' }
+  | { readonly status: 'running' }
+  | { readonly status: 'repairing'; readonly exchange: EncodedExchange }
+  | { readonly status: 'done'; readonly exchange: EncodedExchange }
+  /** The endpoint is dark. Not a failure — the committed default. */
+  | { readonly status: 'unconfigured' }
+  | { readonly status: 'refused'; readonly category: string }
+  | { readonly status: 'error'; readonly message: string };
+
+export const ENCODED_IDLE: Encoded = { status: 'idle' };
+
 export type Run =
   | { readonly status: 'not-started' }
   | (RunBase & {
@@ -110,6 +154,8 @@ export type Run =
       readonly transfer: string | null;
       /** Round 3's two replayed cases, in the order the slate lists them. */
       readonly r3: readonly R3CaseState[];
+      /** The encoded screen's exchange with the endpoint. Feeds no measure. */
+      readonly encoded: Encoded;
     });
 
 export const NOT_STARTED: Run = { status: 'not-started' };

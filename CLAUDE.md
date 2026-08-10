@@ -26,8 +26,9 @@ are nine. This repository exists to make that class of error hard rather than ea
 | `src/content/`                             | Every word of screen copy and every case table, as typed modules.            |
 | `src/domain/`                              | The pure functions. No DOM, no framework, fully unit-tested.                 |
 | `src/state/`                               | The reducer and the screen/run unions.                                       |
-| `src/prompts/`                             | The three system prompts, as Markdown. Licensed CC BY 4.0.                   |
+| `src/prompts/`                             | The three system prompts, as typed modules. Licensed CC BY 4.0.              |
 | `api/reflect.ts`                           | The endpoint that holds the Anthropic API key. Never reaches the browser.    |
+| `src/api/`                                 | The client half. Knows a public URL and a contract; never a key.             |
 | `shared/`                                  | Types and constants imported by both the endpoint and the front end.         |
 | `CHANGELOG.md`                             | Versioned record of what changed and why. Retractions stay in.               |
 | `SOURCES.md`                               | Every external claim, its source, and its clearance status.                  |
@@ -102,7 +103,7 @@ re-introduced literal fails immediately. This rule exists because of the ÷6-ver
 caught by a reader, not by the code, and it should not have been possible to ship.
 
 **8. The prompts are the artifact, not implementation detail.**
-`src/prompts/teach-system.md` is displayed in full on the page and is the thing the encoded screen
+`src/prompts/teach-system.ts` is displayed in full on the page and is the thing the encoded screen
 puts under test. Do not re-tune it to suit a new model or to improve its rubric score — that is
 editing the experiment to flatter the result. If a prompt genuinely needs to change, that is a
 content change under rule 5.

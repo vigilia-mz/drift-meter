@@ -1,0 +1,35 @@
+# The endpoint's host, and the only host-specific file in the repository.
+#
+# `api/reflect.ts` is a portable `(Request, ReflectEnv) => Promise<Response>` over
+# Web-standard types; its default export is the Worker adapter. Moving hosts means
+# replacing this file and that one export, and nothing else.
+#
+# NOT DEPLOYED BY CI. `.github/workflows/deploy.yml` builds `dist/` and publishes it
+# to GitHub Pages; it does not touch this. The endpoint is deployed by hand, on
+# purpose: connecting it is what makes the instrument able to spend money, and #13
+# holds the console actions that have to happen first. Treat the deploy and the
+# one-line change to `VITE_REFLECT_ENDPOINT` as the same act — going live.
+#
+# THE TWO SECRETS ARE NOT HERE AND MUST NOT BE ADDED HERE.
+#
+#   wrangler secret put ANTHROPIC_API_KEY
+#   wrangler secret put REFLECT_SIGNING_KEY
+#
+# Locally they go in `.dev.vars`, which is gitignored. A `[vars]` block in this file
+# would put them in the repository, which is the failure CLAUDE.md rule 2 exists to
+# prevent. There is deliberately no `[vars]` block below, so there is nowhere for one
+# to be added by habit.
+#
+# The signing key is not the API key and is not interchangeable with it. It signs the
+# teach result so the repair channel can authenticate what it is handed; if it is
+# missing, `repair` fails closed and `teach` refuses to answer rather than returning
+# an unsigned result somebody could replay. Rotating it invalidates every signature
+# already in a reader's browser, which costs them one repair pass and nothing else.
+
+name = "drift-meter-reflect"
+main = "api/reflect.ts"
+compatibility_date = "2026-08-01"
+
+# Node built-ins are not needed and not enabled. The endpoint uses `crypto.subtle`
+# rather than `node:crypto` for exactly this reason: the signature works on an edge
+# runtime with no Node compatibility layer, and the same code runs under Vitest.
