@@ -13,7 +13,7 @@
  * re-introducing a literal fails immediately rather than shipping.
  */
 
-import type { Condition, Rec, Slate } from '../content/types.js';
+import type { AssumptionSpec, Condition, Rec, Slate } from '../content/types.js';
 import { clamp, type Score } from './model.js';
 
 /** Confidence is a single five-point self-rating. 0 means not yet rated. */
@@ -109,6 +109,28 @@ export const AUTONOMY_DEVIATION_WEIGHT = 50;
  */
 export const AUTONOMY_SATURATION = 0.25;
 
+/**
+ * How far one value sits from a target, as a share of that slider's own range.
+ *
+ * Both distance terms in this file go through here, and that is the point rather
+ * than tidiness. The autonomy term measures distance from the *supplied* value and
+ * the accuracy term measures distance from the *supported* value, and #30 settled
+ * that they normalise the same way: by the slider's own range, so a $2–$7 cost and
+ * a 50–95% rate contribute comparably and neither dominates by unit. A second
+ * convention would make the two numbers look like the same kind of quantity while
+ * being different ones. Sharing the function is what stops that drifting apart —
+ * a comment saying "same as above" would not have.
+ *
+ * Capped at 1 so one value parked at the far end of its range cannot outweigh
+ * everything else, and `null` for a zero-width slider, which has no scale to be a
+ * share of.
+ */
+function normalisedDistance(value: number, target: number, spec: AssumptionSpec): number | null {
+  const span = spec.max - spec.min;
+  if (span <= 0) return null;
+  return Math.min(1, Math.abs(value - target) / span);
+}
+
 export interface Metrics {
   /** Cases where a panel was opened, as a share of cases. */
   readonly engagement: Score;
@@ -125,6 +147,27 @@ export interface Metrics {
    * imputed it from an invented constant; that was removed in v0.3.
    */
   readonly auto: Score | null;
+  /**
+   * How close the final values came to what the evidence supports.
+   *
+   * Higher is more accurate, so it reads the same direction as everything beside
+   * it. Built from the mean normalised distance between each final value and its
+   * supported value (#30), expressed as its complement: 100 is on the supported
+   * value throughout, 0 is a full slider-range away on every assumption.
+   *
+   * `null` — never 0 — when no assumption in play carries a supported value, which
+   * is currently every run, because rule 6 forbids inventing the figures and none
+   * has been authored yet. Zero would say the reader was maximally wrong. Null says
+   * the instrument has no opinion, which is the true thing.
+   *
+   * This is the measure that lets the design lose. Every other measure here scores
+   * how someone worked; this one scores whether they were right. Without it,
+   * reduced scrutiny of an estimate that was already correct is indistinguishable
+   * from drift, and no result could count against the hypothesis.
+   *
+   * Deliberately NOT in the `actual` composite — see the note at the composite.
+   */
+  readonly accuracy: Score | null;
   /** The self-rating, rescaled. */
   readonly perceived: Score;
   /** The behavioural composite. Excludes `auto`, which is undefined in one round. */
@@ -178,11 +221,10 @@ export function metrics(input: {
       x.vals.forEach((v, k) => {
         const sp = slate.cases[i]?.a[k];
         if (sp === undefined) return;
-        const span = sp.max - sp.min;
-        if (span > 0) {
-          deviation += Math.min(1, Math.abs(v - sp.provided) / span);
-          counted += 1;
-        }
+        const d = normalisedDistance(v, sp.provided, sp);
+        if (d === null) return;
+        deviation += d;
+        counted += 1;
       });
     });
     const devNorm = counted > 0 ? deviation / counted : 0;
@@ -193,11 +235,44 @@ export function metrics(input: {
     );
   }
 
+  // Accuracy, over the subset of assumptions that carry a supported value.
+  //
+  // Defined in both rounds, unlike `auto`: being right does not depend on having
+  // been given a frame. The denominator counts what it actually summed rather than
+  // the slider total, so an unauthored `supported` lowers coverage instead of
+  // silently scoring as a perfect hit — which is what a `?? 0` here would have
+  // done, and it would have read as flawless accuracy across the board.
+  let distance = 0;
+  let scored = 0;
+  data.forEach((x, i) => {
+    x.vals.forEach((v, k) => {
+      const sp = slate.cases[i]?.a[k];
+      if (sp === undefined || sp.supported === null) return;
+      const d = normalisedDistance(v, sp.supported, sp);
+      if (d === null) return;
+      distance += d;
+      scored += 1;
+    });
+  });
+  // Null rather than 0 where nothing was scorable. `scored` is derived from the
+  // slate by construction — it counts the terms that were summed — so rule 7's ban
+  // on a written denominator holds here without a literal to get wrong.
+  const accuracy: Score | null = scored > 0 ? clamp(PERCENT - (distance / scored) * PERCENT) : null;
+
   const perceived = clamp((confidence / CONFIDENCE_SCALE_MAX) * PERCENT);
 
   // The composite averages over the measures that are defined in both rounds, so
-  // adding one here changes the divisor automatically. `auto` is excluded because
-  // it does not exist in the control round.
+  // adding one here changes the divisor automatically. That convenience is also a
+  // hazard, so both exclusions are stated:
+  //
+  //   `auto` is out because it does not exist in the control round.
+  //
+  //   `accuracy` is out on purpose, and must stay out (#30). Every term here scores
+  //   how someone worked; accuracy scores whether they were right. Averaging the two
+  //   collapses the distinction the whole instrument rests on — a reader who barely
+  //   looked but happened to land on the supported values would post a healthy
+  //   `actual`, and the gap against `perceived` would stop meaning anything. They are
+  //   reported side by side and never summed.
   const composite = [engagement, range, amb];
   const actual = clamp(composite.reduce((a, b) => a + b, 0) / composite.length);
 
@@ -206,6 +281,7 @@ export function metrics(input: {
     range,
     amb,
     auto,
+    accuracy,
     perceived,
     actual,
     gap: perceived - actual,

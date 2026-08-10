@@ -23,30 +23,54 @@ import type { ClosingKey, GapBand, HeadlineKey } from '../domain/reveal.js';
  * The four paired measures, in the order the debrief shows them.
  *
  * `key` names the `Metrics` field. The labels are the ones the landing page
- * already uses for the five measures, so a reader who arrived from there meets
+ * already uses for the measures, so a reader who arrived from there meets
  * the same vocabulary; the `what` line says what was actually counted, because
  * a bar with only a name on it invites the reader to supply their own meaning.
  */
+/**
+ * Why a bar reads `n/a`, per measure.
+ *
+ * Per measure rather than one shared line, because the two measures that can be
+ * undefined are undefined for unrelated reasons: framing autonomy has no supplied
+ * frame to depart from in the control round, and accuracy has no authored supported
+ * value to be close to. One caption covering both would have to be vague enough to
+ * be true of either, and “reported rather than imputed” is a promise about a
+ * specific thing rather than a general disclaimer.
+ */
+const NO_FRAME = 'Undefined without a supplied frame. Reported rather than imputed.';
+const ALWAYS_DEFINED = 'Undefined. Reported rather than imputed.';
+
 export const MEASURES = [
   {
     key: 'engagement',
     label: 'Evidence engagement',
     what: 'Cases where you opened the estimate or the evidence, as a share of the three.',
+    undefinedCaption: ALWAYS_DEFINED,
   },
   {
     key: 'range',
     label: 'Revision behaviour',
     what: 'Sliders you moved off the value they started on, as a share of all nine.',
+    undefinedCaption: ALWAYS_DEFINED,
   },
   {
     key: 'amb',
     label: 'Ambiguity tolerance',
     what: 'Uncertainty flags and calls to investigate, as a share of the two available per case.',
+    undefinedCaption: ALWAYS_DEFINED,
   },
   {
     key: 'auto',
     label: 'Framing autonomy',
     what: 'How far you departed from the estimate you were given — undefined where none was.',
+    undefinedCaption: NO_FRAME,
+  },
+  {
+    key: 'accuracy',
+    label: 'Estimate accuracy',
+    what: 'How close your final values came to what the evidence supports, where it supports a number.',
+    undefinedCaption:
+      'No assumption here carries a supported value yet, so accuracy is undefined rather than perfect. Reported rather than imputed.',
   },
 ] as const;
 
@@ -67,7 +91,7 @@ export const DEBRIEF = {
    * “reported rather than imputed” instead of quietly showing nothing.
    */
   undefinedBar: 'n/a',
-  undefinedCaption: 'Undefined without a supplied frame. Reported rather than imputed.',
+  undefinedCaption: NO_FRAME,
 
   countsHeading: 'What the two rounds recorded',
   /**

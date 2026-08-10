@@ -76,6 +76,31 @@ export interface AssumptionSpec {
   readonly step: number;
   /** The value supplied in the assisted round. */
   readonly provided: number;
+  /**
+   * What the evidence supports, where the evidence supports a number.
+   *
+   * `null`, never `0`, wherever it does not — and it does not for most of these
+   * yet. This is the field that lets the design lose. Without it the instrument
+   * records how someone worked and refuses to say whether they were right, which
+   * means reduced scrutiny of a *correct* estimate reads the same as drift, and no
+   * result can count against the hypothesis. A design that cannot lose is not an
+   * instrument (#30).
+   *
+   * Nullable by design rather than as a stage. Some of these assumptions have no
+   * defensible supported value: cash-transfer persistence at five years is
+   * genuinely disputed and the case's own evidence panel says so. Inventing one to
+   * make the measure complete would break rule 6, and a partial measure that says
+   * what it covers is worth more than a complete one that invented its way there.
+   */
+  readonly supported: number | null;
+  /**
+   * Why that is what the evidence supports, or why nothing is.
+   *
+   * Never empty. Where `supported` is `null` this is the reason it is null, which
+   * is the half a reader actually needs — a measure that quietly skips an
+   * assumption is indistinguishable from one that has no opinion about it.
+   */
+  readonly supportedNote: string;
 }
 
 /**
@@ -188,7 +213,7 @@ export interface PredictionRow {
  * asserts that each printed constant equals the one the code uses.
  */
 export interface MeasureSpec {
-  readonly key: 'engagement' | 'range' | 'amb' | 'auto' | 'gap';
+  readonly key: 'engagement' | 'range' | 'amb' | 'auto' | 'accuracy' | 'gap';
   readonly label: string;
   readonly definition: string;
   readonly formula: string;

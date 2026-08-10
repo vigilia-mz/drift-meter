@@ -360,3 +360,19 @@ that the disclosure the reader met names no case and no slider.
 - **Action:** corrected twice; kept here as the standing reason for the process. That the same
   omission was live on a page of this build, with the row already written, is the more useful half of
   the record.
+
+### PRIMARY AVAILABLE — Accuracy: the eighteen supported values are unauthored
+
+- **Where:** `src/content/slates.ts`, `supported` on every `AssumptionSpec`; the accuracy row on the
+  protocol screen (`src/content/method.ts`).
+- **Status:** Nothing is asserted. All eighteen are `null`, so the measure is undefined in every run
+  and the debrief bar reads `n/a` with a caption saying why. This row exists because the _absence_ is
+  the thing worth tracking: the machinery to score a reader against the evidence landed in v0.6
+  (#30), and the values it would score against did not. Grading it here rather than leaving the field
+  blank is what makes authoring one a change that has to come through this table.
+- **Action:** each `supported` value that is ever authored needs its own row and its own source
+  before it ships — a number that a reader is scored against is the strongest claim this project
+  could make, and it is the one that must not arrive as a plausible guess. Some of these have no
+  defensible single value and should stay `null` permanently: cash-transfer persistence at five years
+  is genuinely disputed and the case's own evidence panel says so. A partial measure that states its
+  coverage is worth more than a complete one that invented its way to completeness.

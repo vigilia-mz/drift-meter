@@ -1,3 +1,4 @@
+import { MEASURES } from './debrief.js';
 import { describe, expect, it } from 'vitest';
 // The two paperwork files as text, through the bundler rather than through
 // `node:fs`. They are part of the artifact, and the two tables on the process
@@ -501,5 +502,20 @@ describe('what one sitting cannot show', () => {
     for (const [path, text] of CARRIERS) {
       expect(text, path).toContain('equally consistent');
     }
+  });
+});
+
+describe('every bar says why it would read n/a', () => {
+  it('gives each measure its own reason, and does not reuse the frame one', () => {
+    for (const bar of MEASURES) {
+      expect(bar.undefinedCaption.length, bar.key).toBeGreaterThan(20);
+    }
+    // Framing autonomy is undefined because no estimate was supplied; accuracy is
+    // undefined because no supported value has been authored. Sharing one caption
+    // would tell a reader the wrong thing about one of them.
+    const auto = MEASURES.find((b) => b.key === 'auto');
+    const accuracy = MEASURES.find((b) => b.key === 'accuracy');
+    expect(auto?.undefinedCaption).not.toBe(accuracy?.undefinedCaption);
+    expect(accuracy?.undefinedCaption).not.toContain('supplied frame');
   });
 });

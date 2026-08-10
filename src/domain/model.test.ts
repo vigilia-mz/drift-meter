@@ -232,9 +232,39 @@ describe('dominantSet', () => {
     const c = {
       ...SLATES.A.cases[0],
       a: [
-        { label: 'a', unit: '' as const, dp: 0, min: 1, max: 100, step: 1, provided: 1 },
-        { label: 'b', unit: '' as const, dp: 0, min: 1, max: 95, step: 1, provided: 1 },
-        { label: 'c', unit: '' as const, dp: 0, min: 1, max: 2, step: 1, provided: 1 },
+        {
+          label: 'a',
+          unit: '' as const,
+          dp: 0,
+          min: 1,
+          max: 100,
+          step: 1,
+          provided: 1,
+          supported: null,
+          supportedNote: 'Synthetic.',
+        },
+        {
+          label: 'b',
+          unit: '' as const,
+          dp: 0,
+          min: 1,
+          max: 95,
+          step: 1,
+          provided: 1,
+          supported: null,
+          supportedNote: 'Synthetic.',
+        },
+        {
+          label: 'c',
+          unit: '' as const,
+          dp: 0,
+          min: 1,
+          max: 2,
+          step: 1,
+          provided: 1,
+          supported: null,
+          supportedNote: 'Synthetic.',
+        },
       ] as const,
     };
     // 95 is exactly 0.95 × 100, so it ties rather than losing.
