@@ -16,6 +16,21 @@
 # block academic and commercial republication alike. Plain BY asks for
 # attribution and nothing else, which is the right ask from an author who takes
 # sole responsibility for every claim.
+#
+# The third block is the repository's own documentation, and it exists because
+# the two principles above disagree about it. CLAUDE.md, CONTRIBUTING.md,
+# SECURITY.md and docs/ are prose, so a software licence is as incoherent for
+# them as it is for the essays — and they are notes about the artifact rather
+# than part of it, which is the distinction that puts CHANGELOG.md and SOURCES.md
+# in the first block. They are listed separately at the same licence so that both
+# things stay visible: same terms, different standing, and nothing quietly
+# re-filed as the artifact to make a glob shorter.
+#
+# `scripts/check-licensing.mjs` asserts that every tracked file is covered here
+# and that every licence named here has its text in LICENSES/. This file used to
+# be checked by reading it, and under that arrangement two of the three licence
+# texts were missing and six files were covered by nothing — including a docs/
+# page added in the same version as this comment.
 
 version = 1
 SPDX-PackageName = "The Drift Meter"
@@ -40,7 +55,24 @@ precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Megi Pishtari"
 SPDX-License-Identifier = "CC-BY-4.0"
 
+# --- Prose: notes about the artifact -----------------------------------------
+
+[[annotations]]
+path = [
+  "CLAUDE.md",
+  "CONTRIBUTING.md",
+  "SECURITY.md",
+  "docs/**",
+]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Megi Pishtari"
+SPDX-License-Identifier = "CC-BY-4.0"
+
 # --- Code --------------------------------------------------------------------
+#
+# drift-meter.html is here rather than with the essay pages because it mounts the
+# app and carries no content of its own. The config files are here because they
+# are not prose, which is the only distinction this file makes.
 
 [[annotations]]
 path = [
@@ -50,12 +82,20 @@ path = [
   "scripts/**",
   "tests/**",
   "public/favicon.svg",
+  "drift-meter.html",
   "*.json",
   "*.ts",
   "*.js",
   "*.mjs",
   "*.yml",
+  "*.toml",
   ".github/**",
+  ".editorconfig",
+  ".env",
+  ".gitattributes",
+  ".gitignore",
+  ".nvmrc",
+  ".prettierignore",
 ]
 precedence = "closest"
 SPDX-FileCopyrightText = "2026 Megi Pishtari"

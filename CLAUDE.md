@@ -31,7 +31,7 @@ are nine. This repository exists to make that class of error hard rather than ea
 | `src/api/`                                 | The client half. Knows a public URL and a contract; never a key.             |
 | `shared/`                                  | Types and constants imported by both the endpoint and the front end.         |
 | `tests/`                                   | The browser suite: Playwright and axe over the built site. Not Vitest.       |
-| `scripts/`                                 | The two budgets: bundle size, and colour contrast.                           |
+| `scripts/`                                 | The three budgets: bundle size, colour contrast, and licensing coverage.     |
 | `CHANGELOG.md`                             | Versioned record of what changed and why. Retractions stay in.               |
 | `SOURCES.md`                               | Every external claim, its source, and its clearance status.                  |
 
@@ -143,6 +143,16 @@ and that is a judgement — so where this repository has made one, it is a sente
 Ratios used to live in a comment in `tokens.css`; one of them was wrong for three versions. Do not put
 them back.
 
+**Licensing is checked on the same terms.** Two kinds of thing, licensed differently, and the reasoning
+for which is which lives in `REUSE.toml` — where it went out of date, because six paragraphs of prose
+about a set of globs cannot tell you whether the globs still cover the repository. They did not.
+`scripts/check-licensing.mjs` asserts that every tracked file matches an annotation and that every
+licence named has its text in `LICENSES/`. A new file therefore needs a home in that file, and the
+choice is prose or code. What the check does not do is say a file has the _right_ licence: two blocks
+overlap deliberately and REUSE's precedence rules settle that, so a wrong home is still caught by
+reading rather than by running. The limit is written into the script's header rather than left to be
+discovered.
+
 **Fonts are self-hosted.** Newsreader, IBM Plex Sans and IBM Plex Mono ship from `public/fonts/`. This
 is not a performance preference: the consent screen tells the reader "no cookie, no analytics, no
 fingerprint" and "Leaves the browser: nothing," and a third-party font request would make both false.
@@ -192,7 +202,8 @@ in any prose added to the site — including microcopy, error messages, and comm
 ## Running and deploying
 
 - **Locally:** `npm install`, then `npm run dev`. `npm run check` is the gate the first CI job runs —
-  typecheck, lint, format, the unit suite and the contrast budget. `npm run build` produces `dist/`.
+  typecheck, lint, format, the unit suite, the contrast budget and the licensing budget. `npm run build`
+  produces `dist/`.
 - **The browser suite is separate, and slower.** `npm run test:e2e` needs a browser
   (`npx playwright install chromium`, roughly 100 MB, once) and builds the site before it runs, because
   the published site sits under `/drift-meter/` and a suite pointed at the dev server would be testing a

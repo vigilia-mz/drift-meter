@@ -419,6 +419,17 @@ This file is the surviving record of them.
   overclaim on the site. The row now says what is registered and says what is not. `CONTRIBUTING.md`
   carried the same phrase and, separately, still asked about five predictions after P6 was registered
   in v0.5; both corrected there.
+- **`REUSE.toml` explained at length how this repository licenses two kinds of thing, and had stopped
+  describing the repository.** Two of the three licences it names — Apache-2.0 and OFL-1.1 — had no text
+  in `LICENSES/`, so the file asserted terms the repository did not carry. Six tracked files matched no
+  annotation at all: `CLAUDE.md`, `CONTRIBUTING.md`, `SECURITY.md`, `docs/`, `drift-meter.html` and
+  `wrangler.toml`, plus the config files. The prose documentation now has its own block at CC BY 4.0,
+  listed separately from the artifact rather than folded into it, because notes about the work and the
+  work are different standings at the same terms. The two missing licence texts are copied from the
+  copies this repository already shipped — the root `LICENSE`, and the OFL text inside the font
+  licences — rather than retyped. `scripts/check-licensing.mjs` runs both assertions on every push, and
+  says in its own header what it does not check: which of two overlapping blocks wins, which is REUSE's
+  question and not a script's.
 - **The three asks are written out rather than described.** `docs/review-briefs.md` holds each of them
   at the length it would be sent, with the known defects handed over first and the naive reader's brief
   asking its reader not to prepare, plus a draft of the public design review the process screen says is
