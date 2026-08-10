@@ -270,3 +270,21 @@ The screens, the endpoint and the model pin have not been rebuilt, so their quir
 they land, the ones already known to be coming are the partial recolour of the assisted card — only
 that card reads the run parameter, while the round kicker and the readout bars stay fixed — and the
 hatched `n/a` bar that renders undefined framing autonomy.
+
+### Accuracy is not in the `actual` composite, and must not be added to it
+
+`metrics.ts` builds `actual` from an array, and its comment points out that adding a measure changes
+the divisor automatically. That is true and it is also the hazard: `accuracy` is a `Score` sitting
+three lines away, on the same 0–100 scale, and dropping it into that array would look like
+consistency.
+
+It would break the instrument. Every term in the composite scores _how the reader worked_ — what they
+opened, what they moved, what they flagged. Accuracy scores _whether they were right_. `gap` is
+`perceived − actual`, so the composite is one half of the claim the whole debrief rests on: confidence
+measured against conduct. Fold accuracy in and a reader who barely looked but happened to land on the
+supported values posts a healthy `actual` and a small gap — the instrument would report careful work
+where there was none, on the strength of a lucky starting position.
+
+They are reported side by side and never summed. `metrics.test.ts` asserts a run that moved nothing
+scores 100 accuracy and 0 `actual` at the same time, which is the case that fails if the two are ever
+merged. Settled in #30.

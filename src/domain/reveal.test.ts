@@ -16,6 +16,7 @@ function m(over: Partial<Metrics> = {}): Metrics {
     range: clamp(50),
     amb: clamp(50),
     auto: clamp(50),
+    accuracy: null,
     perceived: clamp(50),
     actual: clamp(50),
     gap: 0,

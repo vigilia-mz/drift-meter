@@ -28,7 +28,22 @@ const DIST = 'dist';
 
 const BUDGETS = {
   jsGzipBytes: 60 * 1024,
-  totalBytes: 400 * 1024,
+  /**
+   * Raised from 400 KB at #30, which is the sixth measure and its paperwork.
+   *
+   * The measure came in at 400.1 KB — a hundred bytes over — and the alternative
+   * was shaving a sentence off a published formula or a stated threat to fit a
+   * round number. That is the wrong trade in this repository: the protocol screen
+   * giving every measure its arithmetic and its objection is the artifact, and a
+   * budget that quietly edits it is a budget doing the wrong job.
+   *
+   * Raised with margin rather than to 401 KB, so the next content change is a
+   * decision about the content and not about this line. What actually governs what
+   * a reader waits for is `jsGzipBytes`, which is at 43 KB of 60 and untouched;
+   * this total is dominated by the self-hosted fonts, which are a promise on the
+   * consent screen rather than an optimisation to revisit.
+   */
+  totalBytes: 416 * 1024,
 };
 
 /**

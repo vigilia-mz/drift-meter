@@ -287,6 +287,41 @@ test('framing autonomy is hatched and reads n/a in the round with no estimate', 
 });
 
 /**
+ * 7b. The accuracy bar is undefined in both rounds, and says why in its own words.
+ *
+ * The measure that lets the design lose (#30), shipped with none of its eighteen
+ * supported values authored — so it is undefined everywhere, and the only thing that
+ * could go wrong here is the thing that would go wrong silently. A zero would print
+ * as "maximally wrong" for every reader on the live site, which is a far stronger
+ * claim than the instrument is entitled to make and would be indistinguishable from
+ * a real finding. The unit suite holds the null; this holds that the null survives
+ * the trip to the page, in both rounds, with the caption that belongs to *this*
+ * measure rather than the one above it.
+ */
+test('estimate accuracy is undefined in both rounds, for its own stated reason', async ({
+  page,
+}) => {
+  await reachDebrief(page, SLATE_A);
+
+  const measure = page.locator('.dm-measure', { hasText: COPY.debrief.estimateAccuracy });
+
+  // Both rounds, unlike framing autonomy: being right does not depend on having
+  // been given a frame, so neither round gets a bar the other does not.
+  for (const i of [0, 1]) {
+    const row = measure.locator('.dm-bar-row').nth(i);
+    await expect(row.locator('.dm-bar-undefined')).toHaveCount(1);
+    await expect(row.locator('.dm-bar-value')).toHaveText(COPY.debrief.undefinedBar);
+    await expect(row).not.toContainText('0');
+  }
+
+  // Its own caption. Accuracy is undefined because nothing has been authored;
+  // autonomy is undefined because no frame was supplied. Sharing one line would
+  // tell the reader something untrue about one of them.
+  await expect(measure).toContainText(COPY.debrief.accuracyCaption);
+  await expect(measure).not.toContainText(COPY.debrief.undefinedCaption);
+});
+
+/**
  * 8. Unconfigured degradation.
  *
  * `VITE_REFLECT_ENDPOINT` is empty in the committed `.env`, so every clone and

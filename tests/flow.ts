@@ -105,6 +105,10 @@ export const COPY = {
     /** Surviving copy. Never a zero — see `PairedBar`. */
     undefinedBar: 'n/a',
     undefinedCaption: 'Undefined without a supplied frame. Reported rather than imputed.',
+    estimateAccuracy: 'Estimate accuracy',
+    /** Accuracy's own reason, which is not framing autonomy's. */
+    accuracyCaption:
+      'No assumption here carries a supported value yet, so accuracy is undefined rather than perfect. Reported rather than imputed.',
     trapHeading: 'The case with something wrong in it',
     continue: 'Continue',
     method: 'Read the method',

@@ -18,7 +18,18 @@ import {
 // --- helpers -----------------------------------------------------------------
 
 function spec(over: Partial<AssumptionSpec> = {}): AssumptionSpec {
-  return { label: 'x', unit: '', dp: 2, min: 0, max: 100, step: 1, provided: 50, ...over };
+  return {
+    label: 'x',
+    unit: '',
+    dp: 2,
+    min: 0,
+    max: 100,
+    step: 1,
+    provided: 50,
+    supported: null,
+    supportedNote: 'Synthetic.',
+    ...over,
+  };
 }
 
 /** A slate of an arbitrary shape, for proving the denominators are derived. */
@@ -49,6 +60,24 @@ function blank(slate: Slate, over: Partial<CaseState> = {}): CaseState[] {
     flagged: false,
     ...over,
   }));
+}
+
+/** The same slate with every assumption replaced, preserving the case arity. */
+function allSupported(slate: Slate, over: Partial<AssumptionSpec>): Slate {
+  return {
+    ...slate,
+    cases: slate.cases.map((c) => ({ ...c, a: c.a.map(() => spec(over)) })),
+  } as unknown as Slate;
+}
+
+/** The same slate with a supported value on the first assumption only. */
+function oneSupported(slate: Slate, supported: number): Slate {
+  return {
+    ...slate,
+    cases: slate.cases.map((c, i) =>
+      i === 0 ? { ...c, a: [spec({ supported }), ...c.a.slice(1)] } : c,
+    ),
+  } as unknown as Slate;
 }
 
 const run = (
@@ -447,5 +476,123 @@ describe('the control round starts at midpoints', () => {
     expect(m.moved).toBe(0);
     expect(m.range).toBe(0);
     expect(m.auto).toBeNull();
+  });
+});
+
+// --- accuracy ----------------------------------------------------------------
+//
+// The measure that lets the design lose (#30). It is the only one here that scores
+// whether the reader was right rather than how they worked, and it is currently
+// undefined in every real run because rule 6 forbids inventing the supported
+// values. These tests hold the machinery so that authoring the figures later is a
+// content change and not a code change — and so that the undefined state cannot
+// quietly become a scored zero in the meantime, which is the specific way this
+// measure could ship a lie.
+
+describe('accuracy', () => {
+  it('is null rather than zero when nothing carries a supported value', () => {
+    // The whole hazard in one test. Zero would print a bar reading “maximally
+    // wrong” for every reader on the live site, which is a stronger claim than the
+    // instrument is entitled to make and would be indistinguishable from a real
+    // result. Null prints n/a and says why.
+    const slate = synthSlate(3, 3);
+    expect(run(slate, blank(slate)).accuracy).toBeNull();
+    expect(run(slate, blank(slate)).accuracy).not.toBe(0);
+
+    // And that is the state of every published slate today, which is the claim the
+    // method page makes in prose. If a supported value is ever authored, this
+    // assertion is the one that should fail and send the author to that copy.
+    // Widened to `Slate`: `SLATES` is `as const`, so its values are two different
+    // literal types and nothing can be said about both at once without this.
+    const published: readonly Slate[] = Object.values(SLATES);
+    for (const s of published) {
+      const authored = s.cases.flatMap((c) => c.a).filter((sp) => sp.supported !== null);
+      expect(authored, s.id).toHaveLength(0);
+      expect(run(s, blank(s)).accuracy, s.id).toBeNull();
+    }
+  });
+
+  it('cannot widen to a bare number', () => {
+    // `Score | null`, checked at the type level. Without this, dropping the null
+    // from the union is a change that compiles, passes every value assertion above,
+    // and turns “we have no opinion” into “you scored zero” at the one call site
+    // that forgets to check.
+    expectTypeOf<Metrics['accuracy']>().toEqualTypeOf<Score | null>();
+  });
+
+  it('divides by what it actually summed, not by the slider count', () => {
+    // Rule 7, and the ÷6-versus-÷9 bug in the other direction: here the denominator
+    // must be *smaller* than the slider total whenever only some assumptions carry
+    // a supported value. A slate where one of nine is supported and the reader is
+    // exactly on it scores 100, not 100/9.
+    const slate = synthSlate(3, 3);
+    const one = oneSupported(slate, 50);
+    expect(sliderCount(one)).toBe(9);
+    expect(run(one, blank(one)).accuracy).toBe(100);
+
+    // Half a range away on the one supported assumption is 50, on any slate shape.
+    for (const [cases, per] of [
+      [3, 3],
+      [2, 5],
+      [4, 1],
+    ] as const) {
+      const s = synthSlate(cases, per);
+      const withOne = oneSupported(s, 0);
+      const data = blank(withOne);
+      // First slider sits at `provided` = 50, supported is 0, range is 0–100.
+      expect(run(withOne, data).accuracy, `${cases}×${per}`).toBe(50);
+    }
+  });
+
+  it('scores a run that moved nothing against the supplied values, not against zero', () => {
+    // A reader who touched nothing is left holding `provided` on every slider. If
+    // the supplied value happens to be what the evidence supports, that reader is
+    // accurate — and the instrument has to say so even though they showed no
+    // scrutiny at all. That combination is the point: it is how a result gets to
+    // contradict the hypothesis rather than confirm it by construction.
+    const slate = synthSlate(3, 3);
+    const supported = allSupported(slate, { supported: 50 });
+    const untouched = run(supported, blank(supported));
+    expect(untouched.accuracy).toBe(100);
+    expect(untouched.range).toBe(0);
+    expect(untouched.engagement).toBe(0);
+
+    // And it is deliberately not folded into the behavioural composite, or that
+    // reader would post a healthy `actual` on the strength of not having moved.
+    expect(untouched.actual).toBe(0);
+  });
+
+  it('is defined in the control round, unlike framing autonomy', () => {
+    // Being right does not depend on having been given a frame. A reader in the
+    // control round is never told they missed something that was never set — `auto`
+    // is undefined there and says so — but they are still scored for accuracy,
+    // because nothing was withheld from them that accuracy depends on.
+    const slate = synthSlate(3, 3);
+    const supported = allSupported(slate, { supported: 50 });
+    const control = run(supported, blank(supported), 'unassisted');
+    expect(control.auto).toBeNull();
+    expect(control.accuracy).toBe(100);
+  });
+
+  it('normalises by the slider’s own range, the same way autonomy does', () => {
+    // One convention, checked rather than commented. A $2–$7 slider and a 0–100
+    // slider that are each a quarter of their range from their supported value
+    // contribute the same amount, so neither dominates by unit.
+    const base = synthSlate(3, 1);
+    const a = allSupported(base, { min: 0, max: 100, provided: 25, supported: 0 });
+    const b = allSupported(base, { min: 2, max: 7, provided: 3.25, supported: 2 });
+    expect(run(a, blank(a)).accuracy).toBe(run(b, blank(b)).accuracy);
+    expect(run(a, blank(a)).accuracy).toBe(75);
+  });
+
+  it('never blames a reader for a slider with no range to be wrong across', () => {
+    const degenerate = allSupported(synthSlate(3, 1), {
+      min: 5,
+      max: 5,
+      provided: 5,
+      supported: 5,
+    });
+    // No span, so nothing scorable, so null — not a division by zero and not 100.
+    expect(run(degenerate, blank(degenerate)).accuracy).toBeNull();
   });
 });

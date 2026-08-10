@@ -98,7 +98,7 @@ export function Debrief({ containerRef, run, onContinue, onMethod, onProcess }: 
             assistedLabel={DEBRIEF.legendAssisted}
             unassistedLabel={DEBRIEF.legendUnassisted}
             undefinedText={DEBRIEF.undefinedBar}
-            undefinedCaption={DEBRIEF.undefinedCaption}
+            undefinedCaption={measure.undefinedCaption}
           />
         ))}
       </section>

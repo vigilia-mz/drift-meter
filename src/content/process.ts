@@ -379,6 +379,13 @@ export const SOURCE_ROWS = [
     note: 'The second claim here that verifies itself. The hexes are read out of the token file and none is restated, so the ratios cannot describe a palette this build does not have, and a token that appears in no pairing fails the run. The ratios used to live in a comment, where one of them was wrong for three versions.',
   },
   {
+    claim: 'Accuracy: the eighteen supported values are unauthored, so the measure is undefined.',
+    where: 'The case data, and the accuracy row on the protocol screen.',
+    grade: 'Primary available',
+    checked: '10 Aug 2026',
+    note: 'A row for an absence. The machinery to score a reader against what the evidence supports arrived without the values it would score against, and grading the gap here is what makes authoring one a change that comes through this table. Some should stay unauthored — cash-transfer persistence at five years is disputed, and the case’s own evidence panel says so — so the measure reports its coverage rather than waiting to be complete.',
+  },
+  {
     claim: 'Project Deal: figures right, the seven-point scale omitted.',
     where: 'The companion essay, corrected. Originally a separate document.',
     grade: 'Corrected',

@@ -26,6 +26,18 @@
 
 import type { Slate, SlateId } from './types.js';
 
+/**
+ * The standing reason every `supported` value is `null`.
+ *
+ * One constant referenced eighteen times rather than eighteen copies: identical
+ * prose repeated per assumption ships as data in the bundle, not as a comment, and
+ * it cost 2.6 KB written out. It is also the right shape for the change that
+ * retires it — an assumption that gets a supported value gets its own note here, so
+ * the ones still holding this constant are exactly the ones still unauthored.
+ */
+const UNAUTHORED =
+  'TODO(author): no supported value is set yet. Accuracy is computed only over assumptions that carry one, and none does, so it is undefined in every run. See #30.';
+
 export const SLATES = {
   A: {
     id: 'A',
@@ -56,6 +68,8 @@ export const SLATES = {
             max: 1400,
             step: 10,
             provided: 850,
+            supported: null,
+            supportedNote: UNAUTHORED,
           },
           {
             label: 'Share with a lasting income gain',
@@ -65,6 +79,8 @@ export const SLATES = {
             max: 60,
             step: 1,
             provided: 45,
+            supported: null,
+            supportedNote: UNAUTHORED,
           },
           {
             label: 'Income-doublings per household',
@@ -74,6 +90,8 @@ export const SLATES = {
             max: 0.7,
             step: 0.01,
             provided: 0.5,
+            supported: null,
+            supportedNote: UNAUTHORED,
           },
         ],
       },
@@ -100,8 +118,20 @@ export const SLATES = {
             max: 7,
             step: 0.25,
             provided: 2.0,
+            supported: null,
+            supportedNote: UNAUTHORED,
           },
-          { label: 'Net usage rate', unit: '%', dp: 0, min: 50, max: 95, step: 1, provided: 85 },
+          {
+            label: 'Net usage rate',
+            unit: '%',
+            dp: 0,
+            min: 50,
+            max: 95,
+            step: 1,
+            provided: 85,
+            supported: null,
+            supportedNote: UNAUTHORED,
+          },
           {
             label: 'Deaths averted per net',
             unit: '',
@@ -110,6 +140,8 @@ export const SLATES = {
             max: 0.0008,
             step: 0.0001,
             provided: 0.0006,
+            supported: null,
+            supportedNote: UNAUTHORED,
           },
         ],
       },
@@ -135,6 +167,8 @@ export const SLATES = {
             max: 3,
             step: 0.05,
             provided: 0.75,
+            supported: null,
+            supportedNote: UNAUTHORED,
           },
           {
             label: 'Probability the income effect is real',
@@ -144,6 +178,8 @@ export const SLATES = {
             max: 60,
             step: 1,
             provided: 50,
+            supported: null,
+            supportedNote: UNAUTHORED,
           },
           {
             label: 'Lifetime income gain factor',
@@ -153,6 +189,8 @@ export const SLATES = {
             max: 5,
             step: 0.1,
             provided: 3.0,
+            supported: null,
+            supportedNote: UNAUTHORED,
           },
         ],
       },
@@ -188,8 +226,20 @@ export const SLATES = {
             max: 4,
             step: 0.1,
             provided: 1.1,
+            supported: null,
+            supportedNote: UNAUTHORED,
           },
-          { label: 'Coverage reached', unit: '%', dp: 0, min: 40, max: 90, step: 1, provided: 80 },
+          {
+            label: 'Coverage reached',
+            unit: '%',
+            dp: 0,
+            min: 40,
+            max: 90,
+            step: 1,
+            provided: 80,
+            supported: null,
+            supportedNote: UNAUTHORED,
+          },
           {
             label: 'Deaths averted per child-year',
             unit: '',
@@ -198,6 +248,8 @@ export const SLATES = {
             max: 0.002,
             step: 0.0001,
             provided: 0.0015,
+            supported: null,
+            supportedNote: UNAUTHORED,
           },
         ],
       },
@@ -223,6 +275,8 @@ export const SLATES = {
             max: 120,
             step: 5,
             provided: 45,
+            supported: null,
+            supportedNote: UNAUTHORED,
           },
           {
             label: 'Skilled-attendance uptake',
@@ -232,6 +286,8 @@ export const SLATES = {
             max: 85,
             step: 1,
             provided: 75,
+            supported: null,
+            supportedNote: UNAUTHORED,
           },
           {
             label: 'Deaths averted per birth',
@@ -241,6 +297,8 @@ export const SLATES = {
             max: 0.006,
             step: 0.0005,
             provided: 0.0045,
+            supported: null,
+            supportedNote: UNAUTHORED,
           },
         ],
       },
@@ -267,6 +325,8 @@ export const SLATES = {
             max: 6,
             step: 0.25,
             provided: 1.5,
+            supported: null,
+            supportedNote: UNAUTHORED,
           },
           {
             label: 'Consistent use rate',
@@ -276,6 +336,8 @@ export const SLATES = {
             max: 80,
             step: 1,
             provided: 80,
+            supported: null,
+            supportedNote: UNAUTHORED,
           },
           {
             label: 'Deaths averted per person-year',
@@ -285,6 +347,8 @@ export const SLATES = {
             max: 0.001,
             step: 0.0001,
             provided: 0.0008,
+            supported: null,
+            supportedNote: UNAUTHORED,
           },
         ],
       },

@@ -11,7 +11,7 @@
  *
  * WHAT SURVIVES. Almost nothing, in wording. The deleted build's protocol screen
  * is gone with the repository that held it, and what is recoverable is its
- * structure — five measures each with a formula and a stated threat, six
+ * structure — six measures each with a formula and a stated threat, six
  * predictions registered with falsification conditions and printed P6 before P5,
  * and the section numbering that `SOURCES.md` still refers to (section 1 is the
  * design, section 5 is provenance). The prose here is newly written to that shape.
@@ -101,9 +101,9 @@ export const METHOD = {
       'The reader’s own working, as a baseline for their own assisted round. It is within-subject, so it is the one comparison here that does not depend on anyone else existing.',
   } as const satisfies ArmRow,
 
-  measuresHeading: '3 · The five measures',
+  measuresHeading: '3 · The six measures',
   measuresLead:
-    'The first four are reported on a 0–100 scale, and the fourth is reported as undefined rather than as zero in the round where no estimate was supplied. The fifth is the signed difference between two of the others and runs from −100 to +100. All five are traces of how the work was done rather than scores of whether the answer was right: nothing here is compared to a correct answer, because for these cases there is not one.',
+    'The first five are reported on a 0–100 scale. The fourth is undefined rather than zero in the round where no estimate was supplied; the fifth is the only one that asks whether the answer was right, and is undefined in every run at present, for the reason in its row. The sixth is the signed difference between two of the others and runs from −100 to +100. All but the fifth are traces of how the work was done. Earlier versions said that of all of them, and said nothing here was compared to a correct answer — true, and a defect rather than a principle: a design where reduced scrutiny of an estimate that happened to be right is indistinguishable from drift cannot produce a result that counts against its own hypothesis.',
   measuresFields: {
     definition: 'What is counted',
     formula: 'Formula',
@@ -183,7 +183,7 @@ export const METHOD = {
 } as const;
 
 /**
- * The five measures, with their arithmetic and the objection to each.
+ * The six measures, with their arithmetic and the objection to each.
  *
  * `key` is a field of `Metrics`, so this screen cannot name a measure the
  * instrument does not compute — and the four the debrief draws as paired bars
@@ -227,6 +227,16 @@ export const MEASURE_SPECS = [
       '50 × (departures ÷ 3 cases) + 50 × min(1, mean slider deviation ÷ 0.25), capped at 100',
     threat:
       'The 0.25 saturation point — moving every slider a quarter of its range, on average, counted as full autonomy — was chosen by eye and has never been calibrated against anyone’s actual behaviour. The measure is also undefined in the control round, where no frame was supplied, so it is reported as undefined there rather than imputed. An earlier version imputed it from an invented constant and that was retracted.',
+  },
+  {
+    key: 'accuracy',
+    label: 'Estimate accuracy',
+    definition:
+      'How close the reader’s final values came to what the evidence supports, over the assumptions that carry a supported value — currently none of the eighteen, so the measure is undefined in every run. Each distance is a share of that slider’s own range, the convention the autonomy measure uses, so a cost in dollars and a rate in percent count comparably. Defined in both rounds: being right does not depend on having been given a frame.',
+    formula:
+      '100 − mean(min(1, |final − supported| ÷ slider range)) × 100, over supported assumptions',
+    threat:
+      'No assumption carries a supported value yet, so the measure is undefined in every run and the bar reads n/a. Several of these quantities have no single defensible number — cash-transfer persistence at five years is disputed, and the case’s own evidence panel says so — and inventing one to complete the measure would be the failure this instrument is about. Where a value is authored the measure inherits its contestability: a reader is then scored against one reading of the evidence, which is not the same as being wrong. It is reported beside the behavioural measures and never averaged into them.',
   },
   {
     key: 'gap',

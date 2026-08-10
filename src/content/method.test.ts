@@ -19,7 +19,7 @@ import { SLATES } from './slates.js';
 /**
  * The protocol screen against the code it describes.
  *
- * This is the most on-thesis test in the suite. The screen prints five formulas
+ * This is the most on-thesis test in the suite. The screen prints six formulas
  * and the constants inside them, and those constants are transcribed rather than
  * interpolated — because a formula is a sentence a reader checks by eye, and
  * interpolating it would make this file vacuous. So the arithmetic is written out
@@ -41,9 +41,9 @@ function specFor(key: (typeof MEASURE_SPECS)[number]['key']) {
   return found;
 }
 
-describe('the five measures', () => {
-  it('names five, with no repeats', () => {
-    expect(MEASURE_SPECS).toHaveLength(5);
+describe('the six measures', () => {
+  it('names six, with no repeats', () => {
+    expect(MEASURE_SPECS).toHaveLength(6);
     expect(new Set(MEASURE_SPECS.map((m) => m.key)).size).toBe(MEASURE_SPECS.length);
   });
 
@@ -61,13 +61,13 @@ describe('the five measures', () => {
   });
 
   it('uses the same words for a measure as the debrief does', () => {
-    // A reader meets four of these as bars on the debrief and then reads about
+    // A reader meets five of these as bars on the debrief and then reads about
     // them here. Two vocabularies for one measure would be the reader's problem
     // rather than the author's, which is the wrong way round.
     for (const bar of MEASURES) {
       expect(specFor(bar.key).label, bar.key).toBe(bar.label);
     }
-    // The fifth has no bar: it is a difference between two numbers rather than a
+    // Only `gap` has no bar: it is a difference between two numbers rather than a
     // pair of them.
     expect(MEASURE_SPECS.filter((m) => !MEASURES.some((b) => b.key === m.key))).toHaveLength(1);
   });

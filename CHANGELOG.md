@@ -21,6 +21,29 @@ This file is the surviving record of them.
   The remaining one renders a page saying it is not finished rather than an empty frame. Not
   rebuilt: the endpoint, and the live-Claude screen that needs it. The remaining steps are tracked
   in the open rather than described as finished.
+- The instrument can now produce a result that counts against its own hypothesis. A sixth measure,
+  estimate accuracy, scores how close the reader's final values came to what the evidence supports,
+  normalised by each slider's own range — the same convention the framing-autonomy term already used,
+  now a shared function rather than a repeated one. Until this, every measure recorded how someone
+  worked and none recorded whether they were right, which meant reduced scrutiny of an estimate that
+  happened to be correct was indistinguishable from drift, and no run could disconfirm anything. It
+  is reported beside the behavioural measures and deliberately never averaged into them: how
+  carefully someone worked and whether they landed on the right answer are different claims, and
+  averaging them would collapse the distinction the gap measure depends on.
+- Retired a published claim in the process. The protocol screen said all five measures were "traces
+  of how the work was done rather than scores of whether the answer was right," and that "nothing
+  here is compared to a correct answer, because for these cases there is not one." That was an
+  accurate description of the build and a defect in it rather than a principle, and it is recorded
+  here rather than quietly overwritten. The screen now says which measures are traces, which one is
+  not, and that the fifth is undefined at present.
+- Accuracy is undefined in every run today, and says so on the page. None of the eighteen assumptions
+  carries a supported value: the machinery shipped with all eighteen `null` and the figures left to be
+  authored separately, because inventing them to complete the measure is the exact failure this
+  project is about (rule 6). The bar is hatched, reads `n/a`, and carries its own caption — undefined
+  because nothing has been authored, which is a different reason from framing autonomy's undefined,
+  and the two no longer share one line of copy. Several of these quantities should stay `null`
+  permanently; cash-transfer persistence at five years is disputed and the case's own evidence panel
+  says so.
 - One reducer holds the whole flow, and it is pure: no DOM, no clock, no entropy. The assignment is
   drawn outside it and handed in, which is what lets the thirteen-screen flow be exercised in tests
   with no browser. The previous build kept the two rounds in loose arrays and read them through
