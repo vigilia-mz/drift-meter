@@ -24,10 +24,13 @@ at, not for how long or how often, so `metrics()` counts the flag and never the 
   `src/domain/metrics.ts`. The other consumer is the `missOpened` branch of `trapVerdict()`.
 - Tests: `read is sticky: closing a panel does not un-read the case` and `read is set by either
 panel, and opening both still counts once`, in `src/domain/metrics.test.ts`.
-- **What the tests do not pin.** Both set `read` by hand, because the reducer that would open a panel
-  does not exist yet — `src/state/` has not been rebuilt. They pin how `opens` consumes the flag.
-  They would stay green if a future reducer cleared `read` on close, or set it from only one of the
-  two panels. That guarantee arrives with the reducer, and it is the reducer's test to write.
+- **Also pinned at the reducer, since v0.6.** The two tests above set `read` by hand, because when
+  they were written `src/state/` had not been rebuilt; they pin how `opens` consumes the flag and
+  would have stayed green if the reducer cleared `read` on close or set it from only one panel. The
+  reducer exists now and the four tests in `read is sticky`, in `src/state/reducer.test.ts`, pin it
+  where it is actually written — set by either panel, surviving the close of the panel that set it,
+  surviving the close of both so it cannot collapse to `modelOpen || evidenceOpen`, and counting a
+  case once however many panels were opened.
 
 ### `touched` is a movement flag, not a value comparison
 
@@ -58,10 +61,10 @@ clicks` and `effRec shows the supplied recommendation while ownRec still records
 ### Framing autonomy is `null`, never `0`
 
 In the control round no frame was supplied, so departure from it is undefined rather than zero. The
-measure returns `null`. The reveal screen is to render that as a hatched bar reading `n/a` rather
-than impute a number; that screen has not been rebuilt, and the bar is listed at the end of this file
-with the other quirks still to land. An earlier version imputed the value from an invented constant;
-that was removed in v0.3 and the `null` is the record of it.
+measure returns `null`. The debrief renders that as a hatched bar reading `n/a` rather than imputing a
+number — `src/ui/PairedBar.tsx` takes `null` and hatches it, and the caption says the value is
+reported rather than imputed. An earlier version imputed the value from an invented constant; that was
+removed in v0.3 and the `null` is the record of it.
 
 The dangerous consumer is the closing paragraph: in JavaScript `null < 40` is `true`, so a naive
 comparison tells every control-round reader they delegated a model that was never offered to them.
@@ -72,7 +75,9 @@ comparison tells every control-round reader they delegated a model that was neve
 - Tests: `is null, never zero, in the round where no estimate was supplied` and `is typed as
 nullable, so it cannot be widened to a plain number`, in `src/domain/metrics.test.ts`; and `does not
 tell a control-round reader they delegated a model that was never supplied`, in
-  `src/domain/reveal.test.ts`.
+  `src/domain/reveal.test.ts`. What renders is pinned separately, by the browser: `framing autonomy is
+hatched and reads n/a in the round with no estimate`, in `tests/instrument.spec.ts`, which asserts
+  there is no zero anywhere on the row.
 
 ### The behavioural composite excludes framing autonomy
 
@@ -85,6 +90,24 @@ it automatically.
 - Where: `composite` in `metrics()`, `src/domain/metrics.ts`.
 - Tests: `excludes framing autonomy, which is undefined in one of the two rounds` and `averages over
 the measures defined in both rounds`, in `src/domain/metrics.test.ts`.
+
+### Accuracy is not in the `actual` composite, and must not be added to it
+
+`metrics.ts` builds `actual` from an array, and its comment points out that adding a measure changes
+the divisor automatically. That is true and it is also the hazard: `accuracy` is a `Score` sitting
+three lines away, on the same 0–100 scale, and dropping it into that array would look like
+consistency.
+
+It would break the instrument. Every term in the composite scores _how the reader worked_ — what they
+opened, what they moved, what they flagged. Accuracy scores _whether they were right_. `gap` is
+`perceived − actual`, so the composite is one half of the claim the whole debrief rests on: confidence
+measured against conduct. Fold accuracy in and a reader who barely looked but happened to land on the
+supported values posts a healthy `actual` and a small gap — the instrument would report careful work
+where there was none, on the strength of a lucky starting position.
+
+They are reported side by side and never summed. `metrics.test.ts` asserts a run that moved nothing
+scores 100 accuracy and 0 `actual` at the same time, which is the case that fails if the two are ever
+merged. Settled in #30.
 
 ### The confidence gap is not clamped
 
@@ -148,24 +171,30 @@ rather than theoretical.
 
 ### The control round's sliders start somewhere the reader did not put them
 
-The control round is to start each slider at the snapped midpoint of its range rather than at the
-supplied value, so a fresh, untouched control round shows numbers that differ from the assisted
-round's while correctly scoring zero movement. The protocol screen is to name the resulting asymmetry
-as a threat to validity rather than hide it: moving off an arbitrary midpoint is a different act from
-moving off an authoritative number. Neither screen has been rebuilt; the wording lands with them.
+The control round starts each slider at the snapped midpoint of its range rather than at the supplied
+value, so a fresh, untouched control round shows numbers that differ from the assisted round's while
+correctly scoring zero movement. The round screen labels them as arbitrary rather than as a
+suggestion, and the protocol screen names the resulting asymmetry as a threat to validity rather than
+hiding it: moving off an arbitrary midpoint is a different act from moving off an authoritative
+number, it inflates evaluative range in the control round, and the screen calls it the largest single
+threat on it — which is the one threat there running in the same direction as the prediction.
 
 `mid()` snaps through `toFixed(6)`, and at a step of 0.0001 its results sit on rounding boundaries.
 Simplifying that would silently move slider start positions, and therefore move the measures.
 
-- Where: `mid()` in `src/domain/model.ts`.
+- Where: `mid()` in `src/domain/model.ts`, called by `freshCase()` and `freshR3()` in
+  `src/state/run.ts`; the on-screen note is `midpointNote` in `src/content/shell.ts`, and the threat is
+  the evaluative-range row in `src/content/method.ts`.
 - Tests: `a fresh control round has moved nothing even though values differ from supplied`, in
   `src/domain/metrics.test.ts`; and in `src/domain/model.test.ts`, an eighteen-value golden table
   (`snaps the midpoint of all eighteen sliders to the expected value`) with `rounds half away from
 zero, not to even` and `survives a step small enough to expose floating-point error` beside it.
-- **What the tests do not pin.** `mid()` has no production caller — the metrics test builds its
-  midpoint values by hand. The golden table pins what `mid()` returns for all eighteen sliders, and
-  the metrics test pins that midpoint values score zero movement, but nothing yet pins that the
-  control round starts there. That arrives with the screen that renders it.
+- **That the control round actually starts there is pinned at the reducer, since v0.6.** When this
+  entry was written `mid()` had no production caller and the metrics test built its midpoint values by
+  hand, so the golden table pinned what `mid()` returns and nothing pinned where the round opened.
+  `opens the control round at midpoints, never at the supplied values`, in
+  `src/state/reducer.test.ts`, now pins both halves: that a fresh control round's values are `mid()`
+  of each spec, and that they are not the supplied values.
 
 ### `dominantSet()` returns more than one answer
 
@@ -266,25 +295,15 @@ outcome measure and the delivery mechanism for the treatment the outcome is comp
 
 ## What is not on this list yet
 
-The screens, the endpoint and the model pin have not been rebuilt, so their quirks are not here. When
-they land, the ones already known to be coming are the partial recolour of the assisted card — only
-that card reads the run parameter, while the round kicker and the readout bars stay fixed — and the
-hatched `n/a` bar that renders undefined framing autonomy.
+The screens, the endpoint and the model pin have all been rebuilt since this section was written, so
+what it was holding a place for has either landed or turned out not to exist. Of the two quirks it
+named as coming: the hatched `n/a` bar is live and is written up above, with the framing-autonomy
+entry it belongs to. The partial recolour of the assisted card did not arrive in that shape — `accent`
+is set once on the round screen's `<main>` from the condition (`src/screens/Round.tsx`, through
+`src/ui/ScreenFrame.tsx`) and rebinds one custom property for everything inside it, so there is no
+divergence between the card and the kicker to document.
 
-### Accuracy is not in the `actual` composite, and must not be added to it
-
-`metrics.ts` builds `actual` from an array, and its comment points out that adding a measure changes
-the divisor automatically. That is true and it is also the hazard: `accuracy` is a `Score` sitting
-three lines away, on the same 0–100 scale, and dropping it into that array would look like
-consistency.
-
-It would break the instrument. Every term in the composite scores _how the reader worked_ — what they
-opened, what they moved, what they flagged. Accuracy scores _whether they were right_. `gap` is
-`perceived − actual`, so the composite is one half of the claim the whole debrief rests on: confidence
-measured against conduct. Fold accuracy in and a reader who barely looked but happened to land on the
-supported values posts a healthy `actual` and a small gap — the instrument would report careful work
-where there was none, on the strength of a lucky starting position.
-
-They are reported side by side and never summed. `metrics.test.ts` asserts a run that moved nothing
-scores 100 accuracy and 0 `actual` at the same time, which is the case that fails if the two are ever
-merged. Settled in #30.
+What this file still does not cover is the endpoint and the encoded screen. They shipped dark, so
+their behaviour under a live key has never been observed, and a quirk nobody has watched happen is not
+a quirk anybody should write down. The one thing already known and recorded elsewhere is that an empty
+`VITE_REFLECT_ENDPOINT` is the correct state rather than a broken one, which is above.
