@@ -45,7 +45,7 @@ export const PROCESS = {
     {
       label: 'Version',
       value:
-        'v0.6, rebuilt from source. The changelog below records every version and what it changed.',
+        'v0.7, on the v0.6 rebuild. The changelog below records every version and what it changed.',
     },
     {
       label: 'Status',
@@ -137,8 +137,15 @@ export const PROCESS = {
  */
 export const CHANGELOG_ROWS = [
   {
-    version: 'v0.6',
+    version: 'v0.7',
     date: 'In progress',
+    title: 'The attribution reaches every reader, and a measure that can lose',
+    what: 'The arm’s label moved out of the estimate panel, which starts closed, so a reader who never opened it was never in an arm while the debrief told them which one they drew. A sixth measure, estimate accuracy, scores the reader against what the evidence supports and is reported beside the behavioural measures, never averaged into them; it is undefined in every run today because the values it would score against have not been authored. The landing page stopped saying the review is done once with AI assistance and once without it, and its specimen bars now say they are invented. Three files of paperwork corrected, and one claim nobody had tracked given a row.',
+    why: 'Opening the panel was measuring evidence engagement and delivering the treatment at once, and a measure cannot also be its own independent variable — P1 is a claim about exactly the readers the manipulation was not reaching. The accuracy measure is what lets the design lose: until it, every outcome was consistent with the hypothesis, which is not an instrument. Both were found by reading rather than by a test, which is how the ÷6-versus-÷9 bug was found too.',
+  },
+  {
+    version: 'v0.6',
+    date: '10 Aug 2026',
     title: 'Rebuilt from source, and a model re-baseline',
     what: 'The instrument runs again from editable source, with one pure reducer, typed content modules and a test suite; the previous build shipped as a single generated bundle whose source existed nowhere. Twelve of the thirteen screens render. The case figures are restated on the page as illustrative. Six claims this project made about its own work are corrected, five of them claims about its own tests. The model is re-baselined.',
     why: 'A build that cannot be corrected with confidence is the wrong property for something whose whole claim is that it measures something. The corrections are the uncomfortable part: a claimed test is worse than a missing one, because it stops anyone looking for the gap. The model change is a re-baseline rather than maintenance — rubric pass rates from v0.4 and v0.5 are not comparable to runs after it, and the series restarts here.',

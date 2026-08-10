@@ -404,7 +404,7 @@ that the disclosure the reader met names no case and no slider.
   protocol screen (`src/content/method.ts`).
 - **Status:** Nothing is asserted. All eighteen are `null`, so the measure is undefined in every run
   and the debrief bar reads `n/a` with a caption saying why. This row exists because the _absence_ is
-  the thing worth tracking: the machinery to score a reader against the evidence landed in v0.6
+  the thing worth tracking: the machinery to score a reader against the evidence landed in v0.7
   (#30), and the values it would score against did not. Grading it here rather than leaving the field
   blank is what makes authoring one a change that has to come through this table.
 - **Action:** each `supported` value that is ever authored needs its own row and its own source

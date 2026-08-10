@@ -8,7 +8,130 @@ Every release records what changed and why. Retractions are recorded, not delete
 Versions v0.1 through v0.5 were published from a separate repository, which has since been deleted.
 This file is the surviving record of them.
 
-## v0.6 — in progress — Rebuilt from source, and a model re-baseline
+## v0.7 — in progress — The attribution reaches every reader, and a measure that can lose
+
+**What changed**
+
+- **The attribution arm is delivered to every reader, not only to the ones who opened a panel.** The
+  arm's label rendered inside the expanded estimate panel, which starts closed. A reader who never
+  opened it never learned whether the number came from Claude, from a programme officer, or from
+  nowhere in particular — and the debrief told them their arm regardless. That reader is the one the
+  instrument exists to observe: P1 is a claim about low engagement, so the manipulation P5 is built
+  on was undelivered for exactly the subgroup that separates the two. Opening the panel was measuring
+  evidence engagement and delivering the treatment at once, which makes an outcome measure its own
+  independent variable. The source is now a standing line above the disclosure and the panel still
+  holds the reasoning and the recommendation.
+- **What holds the attribution there is split in two, because one half of it cannot see the page.**
+  Five invariants hold the sentence — every arm names a source, the three lines differ, Claude
+  appears only in the AI arm, the human arm names a person and no AI, and the unattributed arm
+  withholds an identity without withholding that there was a source. None of them can see where the
+  sentence renders: they call the function and read the string, so a refactor that moved the
+  paragraph back inside the panel would keep all five green. The position is held separately, by a
+  browser test that reads the line in all three arms with the panel still shut, finds no supplied
+  body in the DOM at that moment, and finds no attribution at all in the round where no estimate is
+  supplied. That test exists because the browser suite arrived in v0.6; before it there was nothing
+  but the note in `docs/deliberate-quirks.md`, which stays, and which says why moving it back would
+  be a measurement error rather than a layout preference.
+- The instrument can now produce a result that counts against its own hypothesis. A sixth measure,
+  estimate accuracy, scores how close the reader's final values came to what the evidence supports,
+  normalised by each slider's own range — the same convention the framing-autonomy term already used,
+  now a shared function rather than a repeated one. Until this, every measure recorded how someone
+  worked and none recorded whether they were right, which meant reduced scrutiny of an estimate that
+  happened to be correct was indistinguishable from drift, and no run could disconfirm anything. It
+  is reported beside the behavioural measures and deliberately never averaged into them: how
+  carefully someone worked and whether they landed on the right answer are different claims, and
+  averaging them would collapse the distinction the gap measure depends on.
+- Retired a published claim in the process, and it was v0.6's. The protocol screen said all five
+  measures were “traces of how the work was done rather than scores of whether the answer was right,”
+  and that “nothing here is compared to a correct answer, because for these cases there is not one.”
+  That was an accurate description of the build and a defect in it rather than a principle, and it is
+  recorded here rather than quietly overwritten. The screen now says which measures are traces, which
+  one is not, and that the sixth is undefined at present.
+- Accuracy is undefined in every run today, and says so on the page. None of the eighteen assumptions
+  carries a supported value: the machinery shipped with all eighteen `null` and the figures left to be
+  authored separately, because inventing them to complete the measure is the exact failure this
+  project is about (rule 6). The bar is hatched, reads `n/a`, and carries its own caption — undefined
+  because nothing has been authored, which is a different reason from framing autonomy's undefined,
+  and the two no longer share one line of copy. Several of these quantities should stay `null`
+  permanently; cash-transfer persistence at five years is disputed and the case's own evidence panel
+  says so.
+- **The landing page said the review is completed once with AI assistance and once without it.** It
+  is completed with and without a supplied estimate, with the attribution randomised across it, which
+  is what the protocol screen's arm table and P5 are both about. The front door was asserting the
+  claim the three arms exist to avoid making. Corrected, with the three arms named there.
+- **The specimen readout on the landing page says its three bars are invented.** They were labelled
+  “Illustrative”, which is the same word an invented cohort dashboard could have carried, on the page
+  whose own method note explains why that dashboard was retracted. Rule 6 asks for the plainer
+  sentence and it now carries it.
+- Corrected: `README.md` said the repository was mid-rebuild with the instrument's screens not yet
+  rebuilt, and that `drift-meter.html` served a placeholder. Both had stopped being true before the
+  protocol and process screens landed in v0.6. It now says the rebuild has reached every screen, names
+  the endpoint as built and shipped switched off, and points here. The correction travelled with the
+  attribution fix and was not recorded in this file until the pass below, which is the same gap in
+  miniature: the change was made and the paperwork was not.
+- **The landing page's specimen readout has a row in `SOURCES.md`, and it is the last claim on the site
+  to get one.** Three pairs of bars, six invented percentages, published on the front door since v0.1
+  and located by no row in the table — not by the v0.6 location pass, and not by #7, which is the pass
+  that gave every other constructed figure on the site a row. Both ran against the instrument, where a
+  constructed figure is data in a content module; these six numbers are style attributes in a
+  hand-written page, so both looked past them. The row is graded ILLUSTRATIVE and is the fifth to carry
+  that grade, which moves the count the protocol screen states in prose and fails the test that holds
+  the screen's count to the file's — the intended behaviour of that test, and the reason the count is
+  written out rather than computed. It carries no `Primary link: TODO`: unlike the four case figures,
+  these bars approximate nothing that has a source, and what would retire the row is a run, which is
+  #34, with n still zero. What the row does carry is the weakest support under anything in the table.
+  The four case disclosures are held by `invariants.test.ts`; this caption is held by review, because
+  `index.html` has no content module and no test reads its prose, and the row says so rather than
+  leaving it to be inferred from the absence of a test name.
+- Corrected: `docs/deliberate-quirks.md` described four behaviours as unpinned on the grounds that the
+  code which would pin them had not been rebuilt. All four had been, in v0.6. The reducer pins that
+  `read` survives closing either panel and that the control round opens at midpoints; `mid()` has two
+  production callers rather than none; the debrief renders the hatched `n/a` bar. The four entries now
+  name the tests that hold them. The section listing what was still to come is rewritten with them: of
+  the two quirks it predicted, the hatched bar landed and is written up, and the partial recolour of
+  the assisted card did not arrive in that shape at all, because the accent is set once on the round
+  screen and rebinds one property for everything inside it. The accuracy entry added earlier in this
+  version is also refiled — it had been appended under that trailing heading, and therefore under the
+  claim that it was not on the list yet, when it is live and tested; it now sits beside the composite
+  it warns against being folded into. A file that exists to stop a later reader tidying something away
+  is worth less for every version it spends describing a repository that has moved on, and this one had
+  spent one.
+
+**Why**
+
+The attribution fix is the one correction here that changes what the instrument would measure rather
+than what it says. Everything else in this version is the site catching up with the artifact. That one
+was the artifact disagreeing with itself: the design's whole claim to be about AI rather than about
+handed answers rests on the three arms, and a third of the readers most relevant to that claim were
+never in an arm at all. It was found in a review pass, not by a test, which is the same way the
+÷6-versus-÷9 bug was found — and the tests added with it exist so that the next person to tidy the
+panel has to argue with the measurement rather than only with the markup.
+
+The accuracy measure is the other change that is about the design rather than about the paperwork, and
+it is the one that lets the design lose. Every measure before it recorded how a reader worked and none
+recorded whether they were right, so a reader who delegated and happened to be correct was
+indistinguishable from a reader who drifted. An instrument whose every outcome is consistent with its
+own hypothesis is not an instrument. It ships undefined, because the values it would score against
+have not been authored and inventing them is the failure this project is named for.
+
+The paperwork pass at the end of this version was asked for as bookkeeping and turned up a claim
+nobody had tracked. Most of what it went looking for had already been paid, by the commits that made
+the changes rather than by a pass afterwards, which is the right way round. What it found instead is
+that every location pass this table has had was pointed at the instrument, and the site's front door
+publishes six invented numbers that none of them saw. That is not a lapse in any one pass; it is what a
+pass is, and the fix is to say where this one stopped rather than to imply the file is now complete.
+The same shape accounts for the quirks file: four of its entries described a repository that had been
+rebuilt underneath them, all four understating the guarantees rather than overstating them, which is
+the safer direction to be wrong in and still wrong.
+
+This is a version of its own rather than more of v0.6 because v0.6 is the rebuild, and these changes
+are what happened once the rebuild was complete. The boundary is not cosmetic: the attribution fix
+changes what a run would measure, so runs before and after it are not comparable to each other, and
+that is exactly the kind of line a version number exists to draw. The protocol and process screens
+stay in v0.6, where the rebuild that produced them is recorded, even though the paperwork for them was
+paid here.
+
+## v0.6 — 10 Aug 2026 — Rebuilt from source, and a model re-baseline
 
 **What changed**
 
@@ -21,29 +144,6 @@ This file is the surviving record of them.
   The remaining one renders a page saying it is not finished rather than an empty frame. Not
   rebuilt: the endpoint, and the live-Claude screen that needs it. The remaining steps are tracked
   in the open rather than described as finished.
-- The instrument can now produce a result that counts against its own hypothesis. A sixth measure,
-  estimate accuracy, scores how close the reader's final values came to what the evidence supports,
-  normalised by each slider's own range — the same convention the framing-autonomy term already used,
-  now a shared function rather than a repeated one. Until this, every measure recorded how someone
-  worked and none recorded whether they were right, which meant reduced scrutiny of an estimate that
-  happened to be correct was indistinguishable from drift, and no run could disconfirm anything. It
-  is reported beside the behavioural measures and deliberately never averaged into them: how
-  carefully someone worked and whether they landed on the right answer are different claims, and
-  averaging them would collapse the distinction the gap measure depends on.
-- Retired a published claim in the process. The protocol screen said all five measures were "traces
-  of how the work was done rather than scores of whether the answer was right," and that "nothing
-  here is compared to a correct answer, because for these cases there is not one." That was an
-  accurate description of the build and a defect in it rather than a principle, and it is recorded
-  here rather than quietly overwritten. The screen now says which measures are traces, which one is
-  not, and that the fifth is undefined at present.
-- Accuracy is undefined in every run today, and says so on the page. None of the eighteen assumptions
-  carries a supported value: the machinery shipped with all eighteen `null` and the figures left to be
-  authored separately, because inventing them to complete the measure is the exact failure this
-  project is about (rule 6). The bar is hatched, reads `n/a`, and carries its own caption — undefined
-  because nothing has been authored, which is a different reason from framing autonomy's undefined,
-  and the two no longer share one line of copy. Several of these quantities should stay `null`
-  permanently; cash-transfer persistence at five years is disputed and the case's own evidence panel
-  says so.
 - One reducer holds the whole flow, and it is pure: no DOM, no clock, no entropy. The assignment is
   drawn outside it and handed in, which is what lets the thirteen-screen flow be exercised in tests
   with no browser. The previous build kept the two rounds in loose arrays and read them through
@@ -383,87 +483,7 @@ This file is the surviving record of them.
 - `scripts/check-size.mjs` now asserts, per page, that each prose page carries no `<script>` and
   references no `.js` — and that `drift-meter.html` carries exactly one, because a check that only ever
   looks for absence would pass just as happily on a build that emitted no JavaScript at all.
-- **The attribution arm is delivered to every reader, not only to the ones who opened a panel.** The
-  arm's label rendered inside the expanded estimate panel, which starts closed. A reader who never
-  opened it never learned whether the number came from Claude, from a programme officer, or from
-  nowhere in particular — and the debrief told them their arm regardless. That reader is the one the
-  instrument exists to observe: P1 is a claim about low engagement, so the manipulation P5 is built
-  on was undelivered for exactly the subgroup that separates the two. Opening the panel was measuring
-  evidence engagement and delivering the treatment at once, which makes an outcome measure its own
-  independent variable. The source is now a standing line above the disclosure and the panel still
-  holds the reasoning and the recommendation.
-- **What holds the attribution there is split in two, because one half of it cannot see the page.**
-  Five invariants hold the sentence — every arm names a source, the three lines differ, Claude
-  appears only in the AI arm, the human arm names a person and no AI, and the unattributed arm
-  withholds an identity without withholding that there was a source. None of them can see where the
-  sentence renders: they call the function and read the string, so a refactor that moved the
-  paragraph back inside the panel would keep all five green. The position is held separately, by a
-  browser test that reads the line in all three arms with the panel still shut, finds no supplied
-  body in the DOM at that moment, and finds no attribution at all in the round where no estimate is
-  supplied. That test exists because the sweep above put a browser in the toolchain in this same
-  version; before it there was nothing but the note in `docs/deliberate-quirks.md`, which stays, and
-  which says why moving it back would be a measurement error rather than a layout preference.
-- **The landing page said the review is completed once with AI assistance and once without it.** It
-  is completed with and without a supplied estimate, with the attribution randomised across it, which
-  is what the protocol screen's arm table and P5 are both about. The front door was asserting the
-  claim the three arms exist to avoid making. Corrected, with the three arms named there.
-- **The specimen readout on the landing page says its three bars are invented.** They were labelled
-  “Illustrative”, which is the same word an invented cohort dashboard could have carried, on the page
-  whose own method note explains why that dashboard was retracted. Rule 6 asks for the plainer
-  sentence and it now carries it.
-- Corrected: `README.md` said the repository was mid-rebuild with the instrument's screens not yet
-  rebuilt, and that `drift-meter.html` served a placeholder. Both had stopped being true before the
-  protocol and process screens landed. It now says the rebuild has reached every screen, names the
-  endpoint as built and shipped switched off, and points here. The correction travelled with the
-  attribution fix and was not recorded in this file until the pass below, which is the same gap in
-  miniature: the change was made and the paperwork was not.
-- **The landing page's specimen readout has a row in `SOURCES.md`, and it is the last claim on the site
-  to get one.** Three pairs of bars, six invented percentages, published on the front door since v0.1
-  and located by no row in the table — not by the v0.6 location pass, and not by #7, which is the pass
-  that gave every other constructed figure on the site a row. Both ran against the instrument, where a
-  constructed figure is data in a content module; these six numbers are style attributes in a
-  hand-written page, so both looked past them. The row is graded ILLUSTRATIVE and is the fifth to carry
-  that grade, which moves the count the protocol screen states in prose and fails the test that holds
-  the screen's count to the file's — the intended behaviour of that test, and the reason the count is
-  written out rather than computed. It carries no `Primary link: TODO`: unlike the four case figures,
-  these bars approximate nothing that has a source, and what would retire the row is a run, which is
-  #34, with n still zero. What the row does carry is the weakest support under anything in the table.
-  The four case disclosures are held by `invariants.test.ts`; this caption is held by review, because
-  `index.html` has no content module and no test reads its prose, and the row says so rather than
-  leaving it to be inferred from the absence of a test name.
-- Corrected: `docs/deliberate-quirks.md` described four behaviours as unpinned on the grounds that the
-  code which would pin them had not been rebuilt. All four had been, in this same version. The reducer
-  pins that `read` survives closing either panel and that the control round opens at midpoints;
-  `mid()` has two production callers rather than none; the debrief renders the hatched `n/a` bar. The
-  four entries now name the tests that hold them. The section listing what was still to come is
-  rewritten with them: of the two quirks it predicted, the hatched bar landed and is written up, and
-  the partial recolour of the assisted card did not arrive in that shape at all, because the accent is
-  set once on the round screen and rebinds one property for everything inside it. The accuracy entry
-  added earlier in this version is also refiled — it had been appended under that trailing heading, and
-  therefore under the claim that it was not on the list yet, when it is live and tested; it now sits
-  beside the composite it warns against being folded into. A file that exists to stop a later reader
-  tidying something away is worth less for every version it spends describing a repository that has
-  moved on, and this one had spent one.
-
-**Why**
-
-The paperwork pass at the end of this version was asked for as bookkeeping and turned up a claim
-nobody had tracked. Most of what it went looking for had already been paid, by the commits that made
-the changes rather than by a pass afterwards, which is the right way round. What it found instead is
-that every location pass this table has had was pointed at the instrument, and the site's front door
-publishes six invented numbers that none of them saw. That is not a lapse in any one pass; it is what a
-pass is, and the fix is to say where this one stopped rather than to imply the file is now complete.
-The same shape accounts for the quirks file: four of its entries described a repository that had been
-rebuilt underneath them, all four understating the guarantees rather than overstating them, which is
-the safer direction to be wrong in and still wrong.
-
-The attribution fix is the one correction in this version that changes what the instrument would
-measure rather than what it says. Everything else here is the site catching up with the artifact.
-That one was the artifact disagreeing with itself: the design's whole claim to be about AI rather
-than about handed answers rests on the three arms, and a third of the readers most relevant to that
-claim were never in an arm at all. It was found in a review pass, not by a test, which is the same
-way the ÷6-versus-÷9 bug was found — and the tests added with it exist so that the next person to
-tidy the panel has to argue with the measurement rather than only with the markup.
+  **Why**
 
 The previous build's central defect was that it could not be corrected with any confidence. There
 was no source to correct, and nothing in the process that would have caught an arithmetic error in a
