@@ -164,6 +164,19 @@ export interface TeachRequest {
 
 export interface TeachResponse extends TeachResult {
   readonly mode: 'teach';
+  /**
+   * The same question answered with no rules at all.
+   *
+   * This is the comparison the encoded screen exists to show, and it is why a
+   * teach run is three calls rather than two: the unruled answer, the
+   * rule-governed answer, and the grading pass. v0.4 recorded it in those words.
+   *
+   * Not covered by the signature, and it does not need to be. Only the
+   * rule-governed result travels back to the endpoint — a repair pass rewrites
+   * that, never this — so there is no path by which a tampered `plain` re-enters a
+   * prompt. Signing it would suggest a protection that is not doing any work.
+   */
+  readonly plain: string;
   readonly signature: string;
   readonly model: string;
 }

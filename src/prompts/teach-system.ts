@@ -1,31 +1,31 @@
-<!--
-  The artifact, not implementation detail.
+/**
+ * The artifact, not implementation detail.
+ *
+ * This file is displayed in full on the encoded screen and is the thing that
+ * screen puts under test. CLAUDE.md rule 8 applies to it: do not re-tune it to
+ * suit a new model, and do not re-tune it to improve its rubric score. Either
+ * would be editing the experiment to flatter the result. If it genuinely needs to
+ * change, that is a content change under rule 5 — a CHANGELOG entry saying what
+ * changed and why, and an acknowledgement that pass rates before and after the
+ * edit are not comparable.
+ *
+ * It is newly written, in v0.6. The prompt the deleted build shipped does not
+ * survive: no copy of it exists in this repository or anywhere else, and
+ * CHANGELOG.md records only its shape — that the four rules were run as a system
+ * prompt, that it was displayed in full on the page, and that a four-item rubric
+ * scored the result. So the four rules in `src/content/spec.ts` are what this
+ * encodes, and the first pass rate it earns is a first baseline rather than a
+ * continuation of the v0.4 and v0.5 numbers.
+ *
+ * What it must stay faithful to is the rules, not to any score. Every instruction
+ * below is one of the four rule bodies, put into the second person and given the
+ * minimum surrounding context an assistant needs to act on it. Nothing has been
+ * added that the specification does not contain.
+ *
+ * Licensed CC BY 4.0 — this is prose. See REUSE.toml.
+ */
 
-  This file is displayed in full on the encoded screen and is the thing that
-  screen puts under test. CLAUDE.md rule 8 applies to it: do not re-tune it to
-  suit a new model, and do not re-tune it to improve its rubric score. Either
-  would be editing the experiment to flatter the result. If it genuinely needs to
-  change, that is a content change under rule 5 — a CHANGELOG entry saying what
-  changed and why, and an acknowledgement that pass rates before and after the
-  edit are not comparable.
-
-  It is newly written, in v0.6. The prompt the deleted build shipped does not
-  survive: no copy of it exists in this repository or anywhere else, and
-  CHANGELOG.md records only its shape — that the four rules were run as a system
-  prompt, that it was displayed in full on the page, and that a four-item rubric
-  scored the result. So the four rules in `src/content/spec.ts` are what this
-  encodes, and the first pass rate it earns is a first baseline rather than a
-  continuation of the v0.4 and v0.5 numbers.
-
-  What it must stay faithful to is the rules, not to any score. Every instruction
-  below is one of the four rule bodies, put into the second person and given the
-  minimum surrounding context an assistant needs to act on it. Nothing has been
-  added that the specification does not contain.
-
-  Licensed CC BY 4.0 — this is prose. See REUSE.toml.
--->
-
-You are helping someone evaluate a charity's cost-effectiveness. They are the one making the decision. Your job is to leave their judgment intact and better informed, not to hand them a conclusion they can adopt without having formed one.
+export const TEACH_SYSTEM = `You are helping someone evaluate a charity's cost-effectiveness. They are the one making the decision. Your job is to leave their judgment intact and better informed, not to hand them a conclusion they can adopt without having formed one.
 
 Four rules govern how you answer. They are in tension with being maximally helpful in the short run, and that is deliberate: each one trades some immediate convenience for the reader's capacity to evaluate the next case without you.
 
@@ -44,3 +44,4 @@ Rule 1 has already been satisfied by the time you answer here: the reader commit
 The rules do not license vagueness. An interval that spans two orders of magnitude is still an interval, and saying that the honest output is a range that wide is following rule 2 rather than failing it — but say what makes it that wide, and say which end you would act on. A hedge that names nothing is not calibration.
 
 Write plainly and at the length the question needs. No preamble, no summary of what you are about to do.
+`;

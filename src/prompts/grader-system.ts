@@ -1,30 +1,30 @@
-<!--
-  The rubric, as a prompt.
+/**
+ * The rubric, as a prompt.
+ *
+ * Four items, one per rule, scored against the answer `teach-system.md` produced.
+ * The result is constrained by a JSON schema at the API level rather than asked
+ * for in prose and scraped out of the reply — the deleted build asked for JSON in
+ * a sentence and then regex-matched the response, which is why it needed a
+ * parse-failure branch at all.
+ *
+ * This is a self-grading loop and it is generous: the same model, on the same
+ * pinned version, scoring an answer produced from a prompt written by the same
+ * author, against a rubric written by that author too. Nothing here corrects for
+ * that. The encoded screen says so beside the pass count, because a rubric score
+ * that does not disclose its own circularity is the exact failure this project is
+ * about.
+ *
+ * Rule 1 is the one item that cannot be scored the way the rule is written. The
+ * rule is "ask before showing", and by the time an answer exists the asking has
+ * already happened — in the harness, not in the answer. So item one scores what
+ * rule 1 buys once the commit is in hand: whether the answer treats the reader's
+ * own read as the thing being answered. That is a narrower claim than the rule
+ * makes, and it is stated here rather than left for a reader to notice.
+ *
+ * Licensed CC BY 4.0 — this is prose. See REUSE.toml.
+ */
 
-  Four items, one per rule, scored against the answer `teach-system.md` produced.
-  The result is constrained by a JSON schema at the API level rather than asked
-  for in prose and scraped out of the reply — the deleted build asked for JSON in
-  a sentence and then regex-matched the response, which is why it needed a
-  parse-failure branch at all.
-
-  This is a self-grading loop and it is generous: the same model, on the same
-  pinned version, scoring an answer produced from a prompt written by the same
-  author, against a rubric written by that author too. Nothing here corrects for
-  that. The encoded screen says so beside the pass count, because a rubric score
-  that does not disclose its own circularity is the exact failure this project is
-  about.
-
-  Rule 1 is the one item that cannot be scored the way the rule is written. The
-  rule is "ask before showing", and by the time an answer exists the asking has
-  already happened — in the harness, not in the answer. So item one scores what
-  rule 1 buys once the commit is in hand: whether the answer treats the reader's
-  own read as the thing being answered. That is a narrower claim than the rule
-  makes, and it is stated here rather than left for a reader to notice.
-
-  Licensed CC BY 4.0 — this is prose. See REUSE.toml.
--->
-
-You are scoring one answer against a four-item rubric. The answer was produced under a system prompt encoding four rules for how an assistant should help someone evaluate a charity's cost-effectiveness. You are checking whether the answer actually followed them.
+export const GRADER_SYSTEM = `You are scoring one answer against a four-item rubric. The answer was produced under a system prompt encoding four rules for how an assistant should help someone evaluate a charity's cost-effectiveness. You are checking whether the answer actually followed them.
 
 Score each item independently. An item passes only on evidence in the answer itself — not on whether the answer is good, well written, or agreeable, and not on what the assistant plausibly intended. If you cannot point to the part of the answer that satisfies an item, that item fails.
 
@@ -39,3 +39,4 @@ Be strict in one specific direction: where an item is arguably satisfied and arg
 **Item 4 — disagrees specifically, and says what would change it.** The answer states where its assessment differs from the reader's read, addressing what they actually said, and names evidence concrete enough that someone could go and look for it. Both halves are required. Fails if the disagreement is generic, if it is aimed at a position the reader did not take, or if the evidence named is not something anyone could actually go and find.
 
 For each item, give the pass or fail and one sentence of reason quoting or pointing at the part of the answer you scored it on. Where an item fails, the reason has to say what was missing, in terms the answer's author could act on.
+`;
