@@ -99,6 +99,19 @@ This file is the surviving record of them.
   is worth less for every version it spends describing a repository that has moved on, and this one had
   spent one.
 
+- **A declared licence has its text.** `REUSE.toml` has named `OFL-1.1` for the self-hosted fonts since
+  they arrived, with no `LICENSES/OFL-1.1.txt` beside it — the one thing REUSE asks of a declared
+  licence, missing for four versions, and enforced by nothing: there is no `reuse lint` in CI or in
+  `npm run check`. The file is the generic licence rather than either font's copy of it, and the
+  distinction is the whole of the care here. Both `public/fonts/LICENSE-*.txt` open with a font-specific
+  copyright naming a particular `.ttf`, so serving either as the licence for the other font would be
+  wrong in both directions. From their ninth line to their last the two are byte-identical to each
+  other, name no font, and are the OFL text proper. That is what was copied — copied rather than
+  retyped, because a licence transcribed by hand is a licence with a typo in it — and the one-line
+  `diff` that re-derives it is written beside the declaration.
+- Found and not fixed: nothing checks that a licence this repository declares has its text on disk. The
+  gap above was found by reading, and the same reading would be needed to find the next one.
+
 **Why**
 
 The attribution fix is the one correction here that changes what the instrument would measure rather
