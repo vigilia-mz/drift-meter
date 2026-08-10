@@ -383,8 +383,44 @@ This file is the surviving record of them.
 - `scripts/check-size.mjs` now asserts, per page, that each prose page carries no `<script>` and
   references no `.js` — and that `drift-meter.html` carries exactly one, because a check that only ever
   looks for absence would pass just as happily on a build that emitted no JavaScript at all.
+- **The attribution arm is delivered to every reader, not only to the ones who opened a panel.** The
+  arm's label rendered inside the expanded estimate panel, which starts closed. A reader who never
+  opened it never learned whether the number came from Claude, from a programme officer, or from
+  nowhere in particular — and the debrief told them their arm regardless. That reader is the one the
+  instrument exists to observe: P1 is a claim about low engagement, so the manipulation P5 is built
+  on was undelivered for exactly the subgroup that separates the two. Opening the panel was measuring
+  evidence engagement and delivering the treatment at once, which makes an outcome measure its own
+  independent variable. The source is now a standing line above the disclosure and the panel still
+  holds the reasoning and the recommendation.
+- **What holds the attribution there is split in two, because one half of it cannot see the page.**
+  Five invariants hold the sentence — every arm names a source, the three lines differ, Claude
+  appears only in the AI arm, the human arm names a person and no AI, and the unattributed arm
+  withholds an identity without withholding that there was a source. None of them can see where the
+  sentence renders: they call the function and read the string, so a refactor that moved the
+  paragraph back inside the panel would keep all five green. The position is held separately, by a
+  browser test that reads the line in all three arms with the panel still shut, finds no supplied
+  body in the DOM at that moment, and finds no attribution at all in the round where no estimate is
+  supplied. That test exists because the sweep above put a browser in the toolchain in this same
+  version; before it there was nothing but the note in `docs/deliberate-quirks.md`, which stays, and
+  which says why moving it back would be a measurement error rather than a layout preference.
+- **The landing page said the review is completed once with AI assistance and once without it.** It
+  is completed with and without a supplied estimate, with the attribution randomised across it, which
+  is what the protocol screen's arm table and P5 are both about. The front door was asserting the
+  claim the three arms exist to avoid making. Corrected, with the three arms named there.
+- **The specimen readout on the landing page says its three bars are invented.** They were labelled
+  “Illustrative”, which is the same word an invented cohort dashboard could have carried, on the page
+  whose own method note explains why that dashboard was retracted. Rule 6 asks for the plainer
+  sentence and it now carries it.
 
 **Why**
+
+The attribution fix is the one correction in this version that changes what the instrument would
+measure rather than what it says. Everything else here is the site catching up with the artifact.
+That one was the artifact disagreeing with itself: the design's whole claim to be about AI rather
+than about handed answers rests on the three arms, and a third of the readers most relevant to that
+claim were never in an arm at all. It was found in a review pass, not by a test, which is the same
+way the ÷6-versus-÷9 bug was found — and the tests added with it exist so that the next person to
+tidy the panel has to argue with the measurement rather than only with the markup.
 
 The previous build's central defect was that it could not be corrected with any confidence. There
 was no source to correct, and nothing in the process that would have caught an arithmetic error in a

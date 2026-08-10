@@ -1,14 +1,19 @@
 /**
  * The instrument, driven.
  *
- * Eight assertions, in the order #19 put them in, and each one is here because a
- * refactor could break it without breaking a unit test. The domain layer is
- * already covered: `metrics.test.ts` sets `CaseState` fields by hand and checks
- * the arithmetic, `reducer.test.ts` checks that the reducer writes those fields
- * correctly. What neither can see is whether the screen is wired to them — whether
- * the slider the reader drags is the one `touched[k]` records, whether the
+ * The first eight assertions are the ones #19 asked for, in its order, and each is
+ * here because a refactor could break it without breaking a unit test. The domain
+ * layer is already covered: `metrics.test.ts` sets `CaseState` fields by hand and
+ * checks the arithmetic, `reducer.test.ts` checks that the reducer writes those
+ * fields correctly. What neither can see is whether the screen is wired to them —
+ * whether the slider the reader drags is the one `touched[k]` records, whether the
  * pre-selected button writes `recTouched`, whether the figure on the page is the
  * one `calc` produced.
+ *
+ * The ninth arrived after them, for the same reason and from the other direction:
+ * the standing attribution has five unit invariants over the sentence it prints
+ * and none of them can see the markup, so the position — which is the whole point
+ * of it — was held by a comment until there was a browser here to hold it.
  */
 import { expect, test } from '@playwright/test';
 import {
@@ -22,6 +27,7 @@ import {
   reachDebrief,
   slateHeading,
 } from './flow.js';
+import type { Pins } from './flow.js';
 
 /**
  * 1. The $3,922 headline.
@@ -349,4 +355,68 @@ test('a whole run makes no request off the origin, and none to the endpoint', as
 
   expect(reflect).toEqual([]);
   expect(offOrigin).toEqual([]);
+});
+
+/**
+ * 9. The attribution is delivered before anything is opened.
+ *
+ * The one assertion in this file that exists because the unit tests cannot make
+ * it. The five invariants in `standing attribution` call `standingAttribution()`
+ * and read the string; none of them renders a screen, so all five stay green on a
+ * build that has quietly moved the line back inside the estimate panel — which is
+ * where it used to live, and where it visually belongs.
+ *
+ * That position is not a layout preference. `CaseState.modelOpen` starts false, so
+ * an attribution rendered only inside the panel is delivered only to readers who
+ * opened it. Those are the readers `engagement` is highest for, P1 is a claim
+ * about the ones who did not, and P5 needs all of them to have been in an arm. The
+ * panel would be measuring evidence engagement and delivering the manipulation at
+ * once, and the debrief would still tell every reader which arm they drew.
+ *
+ * So: the line is visible with the panel shut, in all three arms, and absent from
+ * the round where nothing is supplied.
+ */
+for (const arm of ['ai', 'human', 'unlabelled'] as const) {
+  test(`the ${arm} attribution is on screen before the estimate panel is opened`, async ({
+    page,
+  }) => {
+    const pins: Pins = { order: 'assisted-first', slate: 'A', arm };
+    await open(page, pins);
+    await begin(page, pins);
+
+    // Every case carries it, and every panel is still shut.
+    await expect(cases(page)).toHaveCount(3);
+    await expect(page.locator('.dm-attribution')).toHaveCount(3);
+    await expect(page.locator('.dm-attribution').first()).toBeVisible();
+    await expect(page.locator('.dm-attribution').first()).toHaveText(COPY.round.attribution[arm]);
+
+    // The disclosure has not been touched, so nothing inside it is in the DOM.
+    await expect(page.locator('.dm-supplied-body')).toHaveCount(0);
+    await expect(page.getByRole('button', { name: COPY.round.showModel }).first()).toHaveAttribute(
+      'aria-expanded',
+      'false',
+    );
+
+    // And the panel still carries the arm's own heading once it is opened, so
+    // this asserts the source moved out rather than that the label moved away.
+    await page.getByRole('button', { name: COPY.round.showModel }).first().click();
+    await expect(page.locator('.dm-supplied-body').first()).toBeVisible();
+    await expect(page.locator('.dm-attribution')).toHaveCount(3);
+  });
+}
+
+test('the round with no estimate supplied carries no attribution at all', async ({ page }) => {
+  // The other half of the same guarantee. An attribution in the control round
+  // would put a source on a number nobody supplied. Reached the long way, through
+  // round one, because the control round is whichever one did not draw the slate.
+  await open(page, SLATE_A);
+  await begin(page, SLATE_A);
+  await expect(page.locator('.dm-attribution')).toHaveCount(3);
+
+  await leaveRound(page, 4);
+  await expect(page.getByRole('heading', { level: 1, name: slateHeading('B') })).toBeVisible();
+
+  await expect(cases(page)).toHaveCount(3);
+  await expect(page.locator('.dm-attribution')).toHaveCount(0);
+  await expect(page.locator('.dm-supplied-body')).toHaveCount(0);
 });
