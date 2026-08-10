@@ -204,9 +204,12 @@ This file is the surviving record of them.
   on was undelivered for exactly the subgroup that separates the two. Opening the panel was measuring
   evidence engagement and delivering the treatment at once, which makes an outcome measure its own
   independent variable. The source is now a standing line above the disclosure and the panel still
-  holds the reasoning and the recommendation. Five invariants hold it there, and the entry in
-  `docs/deliberate-quirks.md` says why moving it back would be a measurement error rather than a
-  layout preference.
+  holds the reasoning and the recommendation. Five invariants hold the sentence — every arm names a
+  source, the three differ, and each says what its arm is for — and nothing holds its position:
+  there is no DOM test environment in this toolchain, so a refactor that moved the paragraph back
+  inside the panel would keep all five green. Pinning where it renders waits on the end-to-end tests
+  in #19. Until then the entry in `docs/deliberate-quirks.md` is the only thing holding it, and it
+  says why moving it back would be a measurement error rather than a layout preference.
 - **The landing page said the review is completed once with AI assistance and once without it.** It
   is completed with and without a supplied estimate, with the attribution randomised across it, which
   is what the protocol screen's arm table and P5 are both about. The front door was asserting the
