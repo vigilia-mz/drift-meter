@@ -15,12 +15,23 @@ This file is the surviving record of them.
 - The instrument is being rebuilt from source, in this repository, and it runs again. v0.1 through
   v0.5 shipped it as a single generated file with no editable source on disk, no tests, no types, no
   linting and no continuous integration; the last of them weighed 894 KB. Rebuilt and under test so
-  far: the case data, the cost model, the derived measures, and twelve of the instrument's thirteen
+  far: the case data, the cost model, the derived measures, and all thirteen of the instrument's
   screens — the intro, the consent step, both rounds with their confidence gates, the debrief, the
-  transfer check, Round 3, the four design rules, and the protocol and publication-process screens.
-  The remaining one renders a page saying it is not finished rather than an empty frame. Not
-  rebuilt: the endpoint, and the live-Claude screen that needs it. The remaining steps are tracked
-  in the open rather than described as finished.
+  transfer check, Round 3, the four design rules, the protocol and publication-process screens, and
+  the encoded-rules screen. Nothing renders a stub any longer, and the axe exemption the stub needed
+  was deleted rather than left standing. The endpoint exists too, and is dark by default: the key
+  lives in its own environment and `VITE_REFLECT_ENDPOINT` is empty in the committed `.env`, so every
+  clone is off and cannot spend the author's credit. The remaining steps are tracked in the open
+  rather than described as finished.
+- Corrected four claims this build made about itself, all of them overtaken by work in this same
+  version. The landing page named five measures and there are six; the process screen said twelve of
+  the thirteen screens render and all thirteen do; `SOURCES.md` said ten of the thirteen; and this
+  entry itself said the endpoint and the live-Claude screen were not rebuilt, which stopped being
+  true when they were. The landing page now also says the sixth measure reports as undefined, because
+  naming a measure on the front door without saying it has no values yet is the overclaim this
+  project exists to argue against. Recorded rather than quietly fixed: a version whose own changelog
+  described the version before it is exactly the failure this file is meant to catch, and it went
+  three merges without being caught by anything but a hand count.
 - The instrument can now produce a result that counts against its own hypothesis. A sixth measure,
   estimate accuracy, scores how close the reader's final values came to what the evidence supports,
   normalised by each slider's own range — the same convention the framing-autonomy term already used,

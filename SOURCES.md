@@ -30,7 +30,7 @@ untracked entirely, and the Project Deal figures tracked only by the CORRECTED r
 in a separate document. They have rows now.
 
 The screens then arrived in the same version, before the pass had cooled, and overtook most of what
-it had recorded. Ten of the thirteen render, so the bednet, chlorination, deworming and vitamin A
+it had recorded. All thirteen now render, so the bednet, chlorination, deworming and vitamin A
 figures are on a page rather than in a data file, the trap copy is published by the debrief, the
 consent screen exists and declines to make the Clio claim, and one case that had no row at all turned
 out to publish a multiplier. Those rows say where the claim appears now. A **State in this build**
