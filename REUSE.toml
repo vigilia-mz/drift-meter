@@ -73,10 +73,18 @@ SPDX-License-Identifier = "CC-BY-4.0"
 # drift-meter.html is here rather than with the essay pages because it mounts the
 # app and carries no content of its own. The config files are here because they
 # are not prose, which is the only distinction this file makes.
+#
+# CITATION.cff is named rather than left to a glob. `*.json` already covers
+# .zenodo.json — `*` does not cross a directory separator, so it matches a
+# root-level dotfile and not `src/anything.json` — but `.cff` matches nothing here,
+# and `check-licensing.mjs` fails a tracked file that matches no annotation. That
+# check is the reason this comment can be short: the arrangement is asserted rather
+# than described.
 
 [[annotations]]
 path = [
   "src/**",
+  "CITATION.cff",
   "shared/**",
   "api/**",
   "scripts/**",

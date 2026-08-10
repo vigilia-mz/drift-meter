@@ -74,7 +74,8 @@ export const PROCESS = {
    *
    * It is the argument for this whole screen, and it is the standard the rest of
    * the screen is failing to meet in three places — no named readers, three
-   * unpinned figures, no citable identifier.
+   * unpinned figures, and no archived identifier. The third narrowed when v0.7 was
+   * closed and tagged: a reader can now cite a dated version, and not an archive.
    */
   whyLead:
     'Anyone can publish a prototype. Without an institution behind it, the visible process is what makes a claim checkable: a version, a record of what changed and why, named readers who tried to break it, stated conditions of defeat, and every external claim traced to where it came from.',
@@ -106,7 +107,7 @@ export const PROCESS = {
     'The argument and the instrument were built by the same person, in that order. An instrument built to find a pattern by someone who expects the pattern is not neutral about what it counts, and no amount of care inside the code fixes that.',
     'Parts of this site were drafted with Claude, which is the subject of the argument being made. The provenance table below says which parts, including the ones that were cut for being exactly the kind of thing the argument warns about.',
     'Every figure in every case is written for the exercise, and the instrument says so before the run and again after it. What that disclosure does not do is verify anything: the figures are still not traced to any source, and the reason they are cleared is that the page no longer presents them as findings. It is the weaker of the two exits, taken deliberately, and it is worth reading as such.',
-    'There is no citable identifier. A reader can point at this URL, which serves whatever version is current, and not at the version that shipped the retracted dashboard or at the version that removed it.',
+    'There is no archived identifier. A reader can now point at a dated version — v0.7 is closed in the changelog below and tagged in the repository — but not at a DOI, which needs an archive outside this repository and has not been minted. Until it is, this URL still serves whatever version is current, so a citation of the page cannot distinguish the version that shipped the retracted dashboard from the version that removed it.',
   ],
 
   provenanceHeading: 'How this page was produced',
@@ -138,10 +139,10 @@ export const PROCESS = {
 export const CHANGELOG_ROWS = [
   {
     version: 'v0.7',
-    date: 'In progress',
+    date: '10 Aug 2026',
     title: 'The attribution reaches every reader, and a measure that can lose',
-    what: 'The arm’s label moved out of the estimate panel, which starts closed, so a reader who never opened it was never in an arm while the debrief told them which one they drew. A sixth measure, estimate accuracy, scores the reader against what the evidence supports and is reported beside the behavioural measures, never averaged into them; it is undefined in every run today because the values it would score against have not been authored. The landing page stopped saying the review is done once with AI assistance and once without it, and its specimen bars now say they are invented. Three files of paperwork corrected, and one claim nobody had tracked given a row.',
-    why: 'Opening the panel was measuring evidence engagement and delivering the treatment at once, and a measure cannot also be its own independent variable — P1 is a claim about exactly the readers the manipulation was not reaching. The accuracy measure is what lets the design lose: until it, every outcome was consistent with the hypothesis, which is not an instrument. Both were found by reading rather than by a test, which is how the ÷6-versus-÷9 bug was found too.',
+    what: 'The arm’s label moved out of the estimate panel, which starts closed, so a reader who never opened it was never in an arm while the debrief told them which one they drew. Two measures were added: estimate accuracy, which scores the reader against what the evidence supports and is undefined in every run today because those values have not been authored, and a planted-error catch rate, after the planted error moved from the slate onto the case. The confidence gap stopped being reported as a quantity and is now two figures printed side by side. A primary outcome was declared while n is zero — evidence engagement — and the page says no run computes the comparison it names. The landing page stopped saying the review is done once with AI assistance and once without it, and its specimen bars now say they are invented. Several files of paperwork corrected, one claim nobody had tracked given a row, and a licence declaration given its text.',
+    why: 'Opening the panel was measuring evidence engagement and delivering the treatment at once, and a measure cannot also be its own independent variable — P1 is a claim about exactly the readers the manipulation was not reaching. The accuracy measure is what lets the design lose: until it, every outcome was consistent with the hypothesis, which is not an instrument. Declaring a primary outcome costs nothing while there is no result to prefer and is worthless afterwards, which is the whole of why it happened here. Most of these were found by reading rather than by a test, which is how the ÷6-versus-÷9 bug was found too.',
   },
   {
     version: 'v0.6',

@@ -1,0 +1,47 @@
+# How to cite this artifact.
+#
+# Citation File Format, read by GitHub and by Zenodo. It exists because the
+# publication-process screen argues that without an institution behind it, the
+# visible process is what makes a claim checkable — and then lists a citable
+# identifier as one of the three things the screen was failing to provide.
+#
+# There is no `doi:` field here yet, and adding one before an archive exists would
+# be the kind of unearned claim this project is about. When a DOI is minted the
+# field goes in, in its own commit, and the caveat on the process screen changes
+# with it.
+#
+# The version and date below are the closed v0.7 entry in CHANGELOG.md. A citation
+# of this artifact should name a version: the changelog records a retraction, so
+# "the Drift Meter" without a version cannot distinguish the build that shipped an
+# invented cohort dashboard from the build that removed it.
+cff-version: 1.2.0
+message: If you cite this artifact, please cite the version you read.
+title: The Drift Meter
+abstract: >-
+  Experiment 01 of the Agential Drift Research Program. Three essay pages and one
+  interactive instrument that asks a reader to complete the same evaluation task
+  twice, once with an estimate supplied and once without, and reports a trace of
+  how they worked rather than a score of whether they were right. A design
+  argument rather than a finding: n is zero, no data has been collected from
+  anyone, and every case figure is written for the exercise and disclosed as such.
+type: software
+authors:
+  - family-names: Pishtari
+    given-names: Megi
+    website: https://github.com/vigilia-mz
+repository-code: https://github.com/vigilia-mz/drift-meter
+url: https://vigilia-mz.github.io/drift-meter/
+version: 0.7.0
+date-released: '2026-08-10'
+# Two licences, deliberately, and REUSE.toml explains the split at length: the code
+# under Apache-2.0, and the prose — the essays, every word of screen copy, the
+# system prompts, the changelog and the source table — under CC BY 4.0.
+license:
+  - Apache-2.0
+  - CC-BY-4.0
+keywords:
+  - research artifact
+  - human-AI interaction
+  - automation bias
+  - deskilling
+  - pre-registration

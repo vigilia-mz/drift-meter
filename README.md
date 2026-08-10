@@ -15,7 +15,8 @@ design argument, not a finding, and every screen that could be mistaken for a re
 pages, the design system, the case data, the cost model, the derived measures, all thirteen screens,
 the pinned model and the endpoint that calls it. The endpoint ships **switched off** — see below — so
 nothing here can spend anyone's API credit. The rebuild is recorded as v0.6 in
-[`CHANGELOG.md`](CHANGELOG.md); v0.7, the version in progress, is what has changed since.
+[`CHANGELOG.md`](CHANGELOG.md); v0.7, dated 10 Aug 2026 and tagged `v0.7.0`, is what has changed
+since.
 
 ## What is here
 

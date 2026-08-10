@@ -397,6 +397,23 @@ describe('the process screen', () => {
     expect(CHANGELOG_ROWS.map((e) => e.version)).toEqual(fileOrder);
   });
 
+  it('dates every version the same way the changelog file dates it', () => {
+    // The gap this closes: the test above compares version strings and their order
+    // and never looks at the date, so dating a heading in `CHANGELOG.md` and leaving
+    // `date` here reading “In progress” passed the whole suite. That is a published
+    // screen saying a version is unfinished inside a release said to be closed, and
+    // it is the shape this repository keeps catching — a mirror that agrees about the
+    // rows and disagrees about what they say.
+    //
+    // The file is the record and the screen is the mirror, so the file is read for
+    // the expected value rather than the two being compared to a third constant.
+    for (const entry of CHANGELOG_ROWS) {
+      const heading = new RegExp(`^## ${entry.version} — ([^—]+) — `, 'm').exec(changelogFile);
+      expect(heading, `no dated heading for ${entry.version}`).not.toBeNull();
+      expect(entry.date, entry.version).toBe(heading?.[1]?.trim());
+    }
+  });
+
   it('grades the same claims the source file grades', () => {
     // The screen is a mirror of `SOURCES.md` at the length a screen can carry. If
     // a row is added to the file and not to the screen, the page is quietly

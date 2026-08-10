@@ -8,7 +8,7 @@ Every release records what changed and why. Retractions are recorded, not delete
 Versions v0.1 through v0.5 were published from a separate repository, which has since been deleted.
 This file is the surviving record of them.
 
-## v0.7 — in progress — The attribution reaches every reader, and a measure that can lose
+## v0.7 — 10 Aug 2026 — The attribution reaches every reader, and a measure that can lose
 
 **What changed**
 
@@ -243,6 +243,30 @@ This file is the surviving record of them.
   script's. What the line recording this as found and not fixed had recorded is worth keeping: the gap
   was found by reading rather than by a check, which is the fact that made the check worth writing.
 
+- **The version is closed, dated and tagged, and the artifact is citable by version for the first
+  time.** `v0.7.0` is the repository's first git tag; nothing was tagged before, so a reader could point
+  only at a URL that serves whatever is current. `CITATION.cff` is added, which GitHub and Zenodo both
+  read, and `.zenodo.json` sets the metadata an archive would use. Closing the version is what makes the
+  tag mean something: the changelog heading carries a date, and the process screen's changelog mirror
+  carries the same date, which it did not before.
+- **The mirror's dates are now held against the file, because dating one and not the other passed every
+  check.** The only test over the process screen's changelog table compared version strings and their
+  order and never looked at the date. So the file could say `## v0.7 — 10 Aug 2026` while the published
+  screen said the version was in progress, and the suite would stay green — a screen calling a release
+  unfinished inside the release itself. The test now reads the date out of the heading and requires the
+  mirror to match it, per version, with the file as the record and the screen as the mirror rather than
+  both compared to a third constant.
+- The caveat that said there is no citable identifier now says there is no _archived_ one, which is a
+  smaller claim and the true one. A dated, tagged version is something to cite; a DOI is not minted, and
+  minting one needs an archive outside this repository. `CITATION.cff` carries no `doi:` field for the
+  same reason, and says in its own comment that adding one before an archive exists would be the kind of
+  unearned claim this project is about. Both change again when the DOI exists, in their own commit.
+- The process screen's summary of this version had stopped describing it. The mirror still said a sixth
+  measure had been added, before the catch rate made seven; it did not mention that the confidence gap
+  stopped being reported as a quantity, or that a primary outcome had been declared. A mirror is only
+  worth having if it is re-read when the thing it mirrors changes, and closing a version is the last
+  point at which that is cheap.
+
 **Why**
 
 The attribution fix is the one correction here that changes what the instrument would measure rather
@@ -285,6 +309,15 @@ is a sentence a reader checks against a constant by eye, and interpolating one w
 guards it vacuous, whereas the trap correction is checked against nothing — it is a fact stated twelve
 times, which is the shape that goes out of date. Six copies of a figure per slate is how the
 ÷6-versus-÷9 bug would have arrived in prose, and it would have arrived slower and been harder to see.
+
+Closing the version is the change with the least code in it and the most consequence for anyone who
+wants to refer to this. The changelog already recorded a retraction — an invented cohort dashboard,
+published and then removed — which is precisely the case where an unversioned citation is worthless: the
+URL serves whatever is current, so "the Drift Meter" could mean the build that shipped the dashboard or
+the build that took it out. A tag and a dated entry make those two different things to point at. The DOI
+is the part that is not done, and it is not done because it cannot be done from inside the repository;
+what is inside the repository is the metadata an archive will read, and a caveat that now claims exactly
+as much as is true.
 
 Declaring a primary outcome is the cheapest change in this version and the one with the shortest window
 in which it is worth anything. With n at zero there is no result to prefer, so naming the measure costs
