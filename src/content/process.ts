@@ -147,7 +147,7 @@ export const CHANGELOG_ROWS = [
     version: 'v0.6',
     date: '10 Aug 2026',
     title: 'Rebuilt from source, and a model re-baseline',
-    what: 'The instrument runs again from editable source, with one pure reducer, typed content modules and a test suite; the previous build shipped as a single generated bundle whose source existed nowhere. Twelve of the thirteen screens render. The case figures are restated on the page as illustrative. Six claims this project made about its own work are corrected, five of them claims about its own tests. The model is re-baselined.',
+    what: 'The instrument runs again from editable source, with one pure reducer, typed content modules and a test suite; the previous build shipped as a single generated bundle whose source existed nowhere. Twelve of the thirteen screens render. The case figures are restated on the page as illustrative. Seven claims this project made about its own work are corrected, four of them claims about its own tests. The model is re-baselined.',
     why: 'A build that cannot be corrected with confidence is the wrong property for something whose whole claim is that it measures something. The corrections are the uncomfortable part: a claimed test is worse than a missing one, because it stops anyone looking for the gap. The model change is a re-baseline rather than maintenance — rubric pass rates from v0.4 and v0.5 are not comparable to runs after it, and the series restarts here.',
   },
   {
@@ -200,7 +200,7 @@ export const REVIEWER_ROWS = [
     status: 'Not recruited',
     brief:
       'Attack the design: order effects, the anchoring confound, construct definitions, whether the registered analysis plan can actually test the six predictions.',
-    note: 'This is the real gap. The network behind this project is philosophy-heavy, which is the right network for the conceptual argument and the wrong one for experimental design. The confound in v0.1 is precisely what this reader exists to catch, and it was caught by an outside reader instead of by the process.',
+    note: 'This is the real gap. The network behind this project is philosophy-heavy, which is the right network for the conceptual argument and the wrong one for experimental design. The confound in v0.1 is precisely what this reader exists to catch, and it was caught by an outside reader instead of by the process. [Introduced in v0.1, recorded at v0.2. Editorial gloss, outside the surviving note.]',
   },
   {
     role: 'Editor',
@@ -318,7 +318,7 @@ export const SOURCE_ROWS = [
     where: 'The landing page, between the opening and the section on what the instrument measures.',
     grade: 'Illustrative',
     checked: 'Added 10 Aug 2026',
-    note: 'Invented, and the caption says so in those words: no run produced them, n is zero, nothing has been collected from anyone. Unlike the case figures these approximate nothing — they are a drawing of the readout, for a reader who will not start the instrument. The last claim on the site to get a row, because every earlier pass ran against the instrument and these six numbers are markup in a hand-written page. Nothing tests the caption they rest on.',
+    note: 'Invented, and the caption says so in those words: no run produced them, n is zero, nothing has been collected from anyone. Unlike the case figures these approximate nothing — they are a drawing of the readout, for a reader who will not start the instrument. The last claim on the site to get a row, because every earlier pass ran against the instrument and these six numbers are markup in a hand-written page. The caption they rest on is tested by reading the page itself, since it has no content module to read instead.',
   },
   {
     claim: 'Students with ChatGPT practised better and scored worse on exams taken without it.',

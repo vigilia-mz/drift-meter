@@ -13,8 +13,9 @@ ILLUSTRATIVE was added at the v0.6 close of #7, for a figure that is constructed
 says so on the page. It is the second of the two exits FLAGGED offers, and it is not a weaker version
 of a pinned row: a figure taken from a source and a figure built for a task are different objects,
 and the table was previously unable to say which one it held. A row earns it only while the
-disclosure is live. For the four case rows that is held by `invariants.test.ts`; for the landing
-page's specimen readout it is held by review, and that row says so. It is not CORRECTED — nothing
+disclosure is live, and for all five rows that is now held by `invariants.test.ts`: the four case rows
+through the content modules, and the landing page's specimen readout by reading the page itself, since
+it is hand-written and has no module. It is not CORRECTED — nothing
 here was wrong. It was undisclosed, which is a different failure with a different fix.
 
 Last location-and-state pass: 10 Aug 2026 (#39). Last source pass: 30 Jul 2026 (v0.3). First source
@@ -196,10 +197,13 @@ that the disclosure the reader met names no case and no slider.
   what this grade rests on. Two conditions on it. It may not be shortened back to a one-word label: it
   read “Illustrative” until 10 Aug 2026, which is the same word an invented cohort dashboard could have
   carried, on the page whose own method note explains why that dashboard was retracted — rule 6 asks
-  for the sentence. And nothing tests it. The instrument's disclosure is held by `invariants.test.ts`,
-  but `index.html` has no content module and no test reads its prose, so this caption is held by review
-  alone. That is the weakest support under any row in this table, and it is stated here rather than
-  left to be inferred from the absence of a test name.
+  for the sentence. And it is tested, which it was not when this row was written: three cases in
+  `the landing page says its specimen bars are invented`, in `src/content/invariants.test.ts`, read
+  `index.html` itself rather than a content module, because it is a finished hand-written document and
+  has none. They pin the word `invented` in the caption, the sentence that n is zero and nothing was
+  collected, and the existence of this row at this grade — so the caption and the row cannot be removed
+  one without the other. For one version this row rested on review, and it said so rather than leaving
+  that to be inferred from the absence of a test name.
 
 ### FLAGGED — Students with ChatGPT practised better and scored worse on exams taken without it
 

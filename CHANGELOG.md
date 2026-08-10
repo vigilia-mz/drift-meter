@@ -79,10 +79,12 @@ This file is the surviving record of them.
   the screen's count to the file's — the intended behaviour of that test, and the reason the count is
   written out rather than computed. It carries no `Primary link: TODO`: unlike the four case figures,
   these bars approximate nothing that has a source, and what would retire the row is a run, which is
-  #34, with n still zero. What the row does carry is the weakest support under anything in the table.
-  The four case disclosures are held by `invariants.test.ts`; this caption is held by review, because
-  `index.html` has no content module and no test reads its prose, and the row says so rather than
-  leaving it to be inferred from the absence of a test name.
+  #34, with n still zero. The row was published saying the caption it rests on was held by review and
+  nothing else, because `index.html` is a finished hand-written document with no content module for a
+  test to read. It is held now: three cases in `invariants.test.ts` read the page itself and pin the
+  word `invented` in the caption, the sentence that n is zero and nothing was collected, and this row
+  at this grade — so the caption and the row cannot be removed one without the other. Stating the gap
+  is what made it cheap to close; the row records that it stood open for a version.
 - Corrected: `docs/deliberate-quirks.md` described four behaviours as unpinned on the grounds that the
   code which would pin them had not been rebuilt. All four had been, in v0.6. The reducer pins that
   `read` survives closing either panel and that the control round opens at midpoints; `mid()` has two
@@ -537,10 +539,14 @@ screen of the build that has since been deleted, which is the screen where a rea
 whether to trust the page about data handling. Nothing in this repository records the sentence
 itself, only that it was made.
 
-Seven of the bullets above are corrections. Six are claims this project made about its own work: a
-contrast ratio, four claims about its own tests, three of which described tests that did not exist,
-and a claim about where a word appears in the repository. The seventh is a scale qualifier on a
-published figure, which the source table already existed to prevent. That they survived until
+Eight of the bullets above are corrections. Seven are claims this project made about its own work: a
+contrast ratio, four claims about its own tests, three of which described tests that did not exist, a
+claim about where a word appears in the repository, and a source row that reported three files as
+missing when all three existed. The eighth is a scale qualifier on a
+published figure, which the source table already existed to prevent. This paragraph said seven and six
+until the v0.7 paperwork pass counted them: the endpoint pass added the eighth correction later in this
+same version and did not come back to the tally, which is a count going stale between one pass and the
+next inside a single version. That they survived until
 someone checked the paperwork against the code is the uncomfortable part. The withdrawal of
 “reference standard” in the Clio bullet is a correction too, and the largest of the pass; it is
 filed as a change rather than counted here because what it corrects is a claim about the world, not
