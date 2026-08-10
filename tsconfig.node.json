@@ -17,5 +17,9 @@
     "skipLibCheck": true,
     "types": ["node"]
   },
-  "include": ["vite.config.ts", "scripts/**/*.mjs"]
+  // playwright.config.ts belongs here rather than in tsconfig.json: it runs in
+  // Node, not in the browser, and it is the only way the file is typechecked and
+  // linted at all — eslint's typed rules need every .ts file to be in one of the
+  // two projects, and a config file outside both is silently unchecked.
+  "include": ["vite.config.ts", "playwright.config.ts", "scripts/**/*.mjs"]
 }

@@ -260,6 +260,106 @@ This file is the surviving record of them.
   about stakes and deadlines, which was a claim about how large an effect would be rather than about
   what kind of thing a sitting can observe. `invariants.test.ts` asserts the two screens do not come
   apart on it.
+- **There is a browser suite, and the three claims it was written to stand behind are no longer
+  unbacked.** Playwright and axe are in the toolchain, driving the built site under `/drift-meter/`
+  rather than the dev server, in a CI job of their own. Thirty-three tests. The prose pages issue
+  no JavaScript and reach no other origin, and each renders in full with scripting disabled — the
+  claim `CLAUDE.md` and `vite.config.ts` both made before it existed, corrected earlier in this
+  version to say review was the only thing holding it. A whole run reaches no network at all: no
+  request off the origin, nothing with a body, no cookie, nothing in local or session storage, and
+  nothing left after a reload, which is the consent screen's four promises taken one at a time. And
+  the shipped bundle contains no endpoint URL, no key-shaped string and no `api.anthropic.com`, which
+  is the cheapest possible check of the second hard rule.
+- The eight assertions #19 asked for are in `tests/instrument.spec.ts`, each one a wiring failure a
+  unit test cannot see: the `$3,922` bednet headline on a pinned Slate A run, and the `$2.00`, `85%`
+  and `0.0006` it is computed from; a supplied recommendation rendering `aria-checked` while “Calls
+  you made” stays 0/3; a case still counted as opened after both its panels are closed; a slider
+  moved and returned still counted as moved; the confidence gate opened by keyboard alone, arrow keys
+  and one Tab out of the group; both trap branches from two seeded runs, on the two slates that carry
+  the trap in different places; and framing autonomy hatched and reading `n/a` with no zero anywhere
+  on the row.
+- **The accessibility sweep found four controls too small to hit and fixed all four.** At 390×844 the
+  disclosure rendered 18px tall and the sliders 16px, both under the 24px WCAG 2.2 requires at AA
+  (SC 2.5.8); the uncertainty flag came in at 35 and the decision options at 41, over 24 and under
+  the 44 asked for at AAA (SC 2.5.5). All four now answer across 44×44. The flag and the options grew
+  by a `min-height` and are visibly a few pixels taller. The disclosure and the back link did not
+  change size at all — a transparent pseudo-element carries their hit area, because padding would
+  have dropped the rule under the label with it — and the sliders keep their 4px track inside a 44px
+  box that a negative margin gives back to the layout, so the design is unmoved and measurably so.
+  `tests/targets.spec.ts` probes the hit area with `elementFromPoint` rather than reading a bounding
+  box, which is the only way to see a pseudo-element: the disclosure still reports 18px tall and is
+  44px live. The same test caught the first attempt at the slider, where the box was 44px and its
+  lower 4px answered to the note underneath it.
+- **The contrast ratios have moved out of a comment and into a check.** `scripts/check-contrast.mjs`
+  reads the hexes out of `tokens.css` and pairs every text role with the surface it sits on; the
+  ratios are not written down anywhere any more, because the one that was is the reason this exists.
+  It also fails on any token in `tokens.css` that appears in no pairing, so a new colour has to say
+  whether it is text, non-text, a surface or an alias before it can ship. Forty-three text pairings
+  enforced, one exempt, nineteen non-text measured and reasoned about rather than enforced.
+- **The #4 contrast fix is confirmed rather than reverted, and the sweep finishes it.** The failing
+  values were failing: `#6B6358` in the muted-text role stays. `--prose-muted-soft` and
+  `--dm-muted-soft` were the two left over, a step lighter and both under 4.5:1 on real text at
+  11–12.5px, and both now hold the muted value. That is a visible change to `.back`, `.byline`,
+  `.eyebrow`, `.spec-label` and `.note-line` on the essay pages, and it costs the soft grade its
+  distinction: nothing lighter than `#6B6358` in either palette clears the threshold, so there was no
+  lighter passing value to move them to. The names stay, because they say which elements the role
+  covers. Four one-line reverts if the author disagrees.
+- axe over every screen a reader can reach, at A and AA through WCAG 2.2 with best-practice on, at
+  sixteen stops because four screens have a second state carrying markup the first does not. It found
+  two things. The debrief's counts table had an empty corner header, which announces as “blank” and
+  leaves five row labels belonging to nothing; it now carries “What was recorded”, visible to a screen
+  reader and not on the page. And the three prose pages had no `main` landmark at all — the heading,
+  the byline and the footer sat in a bare `div` — so `.wrap` is now a `<main>` on each of them. Both
+  are real improvements rather than accommodations to a checker.
+- **All thirteen screens are swept, and a test says so rather than a list.** The sweep was written
+  against twelve, because `process` had nothing navigating to it — `app.tsx` wired `method` from the
+  intro and the debrief and had no equivalent — and it recorded that as a skipped test carrying the
+  reason rather than counting to twelve and saying thirteen. The protocol and process screens then
+  arrived in this same version and closed the gap, so the walk covers every screen in the union, and
+  the two reference screens are entered through each other and left by their own Back, which exercises
+  the history scheme on the way past. What survives from the shortfall is the assertion that would have
+  caught it: the sweep's list of stops is checked against the keys of `SCREENS`, which the compiler
+  holds exhaustive, so a fourteenth screen fails here instead of going unswept.
+- Found and not fixed: `--blue-bar` is 2.47:1 against the bar track it sits on, under the 3:1 SC
+  1.4.11 asks of a graphic that carries information. Every bar prints its value beside it and repeats
+  it in an `aria-label`, so nothing on the debrief is available only from the fill — but that is
+  reasoning doing work rather than confirming a pass, and it is the one place in the palette where it
+  does. Darkening the control series is a change to the debrief's chart and is the author's call, not
+  the sweep's. The check prints the ratio and the argument on every run. It has no row of its own in
+  `SOURCES.md`: a failing pair is a defect in this build rather than a claim taken from somewhere
+  else, and grading it FLAGGED would have made that grade mean both an unpinned assertion about the
+  world and a hex that needs changing. It is stated inside the row that pins the standard instead, so
+  that row cannot be read as claiming conformance.
+- **One end-to-end exemption, down from two, because the screen the other one covered now exists.**
+  `region` was off for the stub screens — a page whose only content is that it is not finished should
+  not grow a wrapper to satisfy a checker — and the constant carrying it said to delete it rather than
+  leave it standing once nothing was a stub. The endpoint arrived, `encoded` became a real screen, and
+  it is deleted: every screen is now swept under the same rules with no per-screen exceptions. The
+  sweep also asserts that the encoded screen it lands on is the real one, because a dark build that
+  rendered an empty frame would sweep clean and "no violations" on a blank screen is not a result. Its
+  live states are not swept and cannot be from here — they need a key and three model calls — and that
+  gap is stated in the file. `color-contrast` is off for the
+  `· · ·` between sections of the long essay, on the exemption SC 1.4.3 writes for pure decoration —
+  the paragraph gap is what marks the section, and darkening an ornament to 4.5:1 would make it louder
+  than the prose it separates. A test asserts that exemption still matches five nodes, so it cannot
+  become dead code that makes the sweep look stricter than it is. The separators also gained
+  `aria-hidden`, which is a separate point and not the justification: it stops a screen reader
+  announcing five sets of middots.
+- Reduced motion is measured rather than assumed: `.dm-button`'s 150ms transition computes to 0.15s
+  without the preference and under a millisecond with it, both checked, so a pass means the guard did
+  something rather than that there was nothing to guard. There are still no `@keyframes` in the
+  instrument — the two entrance animations the original had were not rebuilt — and the suite prints
+  the count so that is visible rather than inferred.
+- A favicon, which resolves. All four pages declare `public/favicon.svg`, so browsers stop guessing at
+  `/favicon.ico` and 404ing on first load. The mark is the instrument's own selected-option glyph,
+  `◉`, which the radio groups and the flag already draw; nothing new was designed for it. It is the
+  one file outside `tokens.css` that contains a colour literal, because a favicon is fetched as its own
+  document and cannot read the page's custom properties, and it says so. Safari before 16 ignores the
+  link element and asks the site root, which is not served from this repository; that limit is written
+  at the change rather than left to be discovered.
+- `scripts/check-size.mjs` now asserts, per page, that each prose page carries no `<script>` and
+  references no `.js` — and that `drift-meter.html` carries exactly one, because a check that only ever
+  looks for absence would pass just as happily on a build that emitted no JavaScript at all.
 
 **Why**
 
@@ -356,6 +456,40 @@ The re-baseline is recorded on its own because it costs something. A pinned mode
 runs comparable, so moving the pin discards the comparison: the v0.4 and v0.5 rubric pass rates
 describe an instrument that no longer exists. Filing that as maintenance would preserve the
 appearance of a continuous series while removing the thing that made it one.
+
+The browser suite is late on purpose and was worth waiting for. Playwright was left out of the initial
+toolchain because it is a large download and the slowest thing in the pipeline, for value that only
+exists once there are screens to drive. What it bought, now that there are, is not regression cover on
+markup: it is the first check on three claims this project had been making in prose. Two of the three
+were already known to be unbacked — the corrections earlier in this version say so — and the third,
+the consent screen's privacy promises, had nobody looking at all. A claim about behaviour that nothing
+exercises is the failure this experiment is about, and the essays' zero-JavaScript property was being
+held by review, which is another way of saying by memory.
+
+The accessibility work went the same way and produced the same shape of result: the two things the
+sweep found that mattered were an empty table header and three pages with no landmark, neither of
+which any amount of reading the CSS would have surfaced. Both are ordinary defects that only a tool
+that walks the rendered page can see, which is the argument for having one.
+
+One thing this pass got wrong and had corrected for it. The sweep was built while the protocol and
+process screens were stubs, and it covered twelve of the thirteen because the thirteenth had no path
+into it — recorded honestly, and still a list of screen names that no test held to the union it was
+drawn from. Merging the branch that built those two screens is what surfaced it. The fix is not the
+three names added to the list; it is the assertion that the list has to match `SCREENS`, so the next
+screen cannot arrive unswept and accurate-sounding at the same time.
+
+Where the sweep stops is written down rather than smoothed over. Two axe rules are off, each on one
+selector, each with the clause it stands on and a test that the exemption still matches something. One non-text pair is under
+its threshold and is left to the author, because darkening the control series in the debrief's chart is
+a design decision and the sweep does not get to make design decisions on its way past. The alternative
+in each case was a green tick that meant less than it looked like it meant, which is the currency this
+project is trying not to accept.
+
+The contrast fix from #4 is confirmed on the merits and the sweep finishes it, at a cost worth naming.
+The soft grade in both palettes now holds the same hex as the grade above it, so a distinction the
+author drew is gone — not traded away for a threshold, but because no lighter value in either palette
+clears 4.5:1 and there was nothing to move it to. Saying that plainly is better than keeping a token
+whose name promises a step that its value no longer takes. Four one-line reverts, all four recorded.
 
 ## v0.5 — 30 Jul 2026 — It teaches, it checks, and it says who wrote it
 

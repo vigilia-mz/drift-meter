@@ -51,7 +51,7 @@
   --prose-ink-strong: #1a1916;
 
   --prose-muted: #6b6358; /* muted TEXT — see the contrast note below */
-  --prose-muted-soft: #8c8472; /* eyebrows, back links, spec labels */
+  --prose-muted-soft: #6b6358; /* eyebrows, back links, spec labels */
   --prose-decor: #a39a88; /* NON-TEXT only: dots, hairlines, decoration */
   --prose-legend: #6b675e;
   --prose-desc: #6b6358;
@@ -83,7 +83,7 @@
   --dm-track-alt: #dad4c6; /* second stripe of the hatched "undefined" bar */
 
   --dm-muted: #6b6358; /* muted TEXT — see the contrast note below */
-  --dm-muted-soft: #8a8173;
+  --dm-muted-soft: #6b6358;
   --dm-decor: #a39a8b; /* NON-TEXT only */
   --dm-decor-alt: #9a9081; /* NON-TEXT only */
 
@@ -176,29 +176,37 @@
 /*
  * Contrast.
  *
- * The original used #A39A8B and #9A9081 on the instrument, and #A39A88 on the
- * essays, for 10.5–12px captions, kickers, footers and the "Supplied value"
- * notes. Measured against their own backgrounds those are 2.27:1, 2.57:1 and
- * 2.40:1 — well under the 4.5:1 needed for body text, and this is real text
- * rather than decoration.
+ * There are no ratios written down here any more. `scripts/check-contrast.mjs`
+ * reads the hexes above, computes every pairing against the surface it sits on,
+ * and fails the build if a text role is under the threshold; `npm run
+ * check:contrast` prints the whole table. A ratio in a comment is a claim about
+ * arithmetic nobody re-runs, and the one that used to sit in this paragraph was
+ * wrong for three versions.
  *
- * The fix stays inside the author's own palette: #6B6358, already in use for
- * muted body copy, measures 4.83:1 on #ECE8DE and 5.09:1 on #F0EEE6. It is
- * promoted to the muted-text role in both palettes, and the original values are
- * kept for non-text use only. This is a visible change to caption colour,
- * recorded in CHANGELOG.md under v0.6, and it is a two-token revert — --dm-muted
- * and --prose-muted — if the author disagrees.
+ * What the tokens above record instead is the decision. The original used
+ * #A39A8B and #9A9081 on the instrument and #A39A88 on the essays for 10.5–12px
+ * captions, kickers, footers and the "Supplied value" notes — real text, not
+ * decoration, and all three well under the 4.5:1 that WCAG 2.2 SC 1.4.3 asks of
+ * text that size. #6B6358, already in use for muted body copy, replaced them in
+ * the muted-text role in v0.6. The sweep confirms that fix rather than reverting
+ * it: the failing values were failing.
  *
- * This note gave 4.76:1 until v0.6. The figure was wrong; the two failing ratios
- * beside it were right. It was also the only number here that the fix depended
- * on.
+ * The soft grade goes the same way, and loses its distinction doing so.
+ * --prose-muted-soft and --dm-muted-soft were declared a step lighter than
+ * muted, and both failed on text at 11–12.5px. Nothing lighter than #6B6358 in
+ * either palette clears the threshold, so there is no lighter passing value to
+ * move them to and the honest outcome is that the soft grade now holds the same
+ * hex as the grade above it. The names stay, because they say which elements the
+ * role covers — eyebrows, back links, spec labels — and a future value for them
+ * has to pass the check to survive.
  *
- * The fix is partial, and stops at the muted-text role. --prose-muted-soft
- * (#8C8472, 3.19:1) still colours real text at 11–12.5px and still fails.
- * --dm-muted-soft (#8A8173, 3.14:1) is declared at the same grade and has no
- * consumer: app.css reads --dm-muted throughout and the soft grade nowhere.
- * Nine of the --dm-* tokens below are still unrendered, the rebuild having
- * reached ten of the thirteen screens. All of them are left for the
- * accessibility sweep, which will lock them with a contrast check rather than a
- * comment.
+ * The three --*-decor tokens keep the old light values. They are declared for
+ * non-text use, they have no consumer today, and the check reports their ratios
+ * without enforcing 4.5:1 against them: the threshold for a hairline is 3:1
+ * under SC 1.4.11 and only when the hairline carries information, which is a
+ * judgement a script cannot make. If one of them ever colours text, it fails.
+ *
+ * Four visible changes, four one-line reverts: --dm-muted, --prose-muted,
+ * --dm-muted-soft, --prose-muted-soft. All four are recorded in CHANGELOG.md
+ * under v0.6.
  */

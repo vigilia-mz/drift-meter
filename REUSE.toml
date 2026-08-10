@@ -49,9 +49,11 @@ path = [
   "api/**",
   "scripts/**",
   "tests/**",
+  "public/favicon.svg",
   "*.json",
   "*.ts",
   "*.js",
+  "*.mjs",
   "*.yml",
   ".github/**",
 ]

@@ -43,7 +43,13 @@ npm run dev
 ```
 
 Other scripts: `npm test` (unit suite, including the endpoint's refusal paths), `npm run build`
-(produces `dist/`), `npm run typecheck`, `npm run lint`, `npm run check:size`.
+(produces `dist/`), `npm run typecheck`, `npm run lint`, `npm run check:size`,
+`npm run check:contrast` (every colour token against the surface it sits on).
+
+`npm run test:e2e` is the browser suite: Playwright drives the built site, sweeps every screen a
+reader can reach with axe, measures the touch targets, and counts what the three essay pages request.
+It needs a browser — `npx playwright install chromium`, roughly 100 MB, once — which is why it is
+separate from `npm test` and runs as its own job in CI.
 
 The endpoint in [`api/reflect.ts`](api/reflect.ts) is deployed separately and by hand — CI publishes
 `dist/` to GitHub Pages and does not touch it. Its two secrets, the Anthropic key and the key that

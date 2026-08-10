@@ -51,9 +51,11 @@ export default tseslint.config(
   },
 
   // CLAUDE.md: randomisation is injected, never global, so assignment is
-  // deterministic under test and drivable from URL parameters.
+  // deterministic under test and drivable from URL parameters. `tests/` is in
+  // scope too: an end-to-end run that drew its own random number would pin its
+  // assertions to whatever it happened to draw.
   {
-    files: ['src/**/*.ts', 'src/**/*.tsx', 'shared/**/*.ts'],
+    files: ['src/**/*.ts', 'src/**/*.tsx', 'shared/**/*.ts', 'tests/**/*.ts'],
     ignores: ['src/platform/rng.ts'],
     rules: {
       'no-restricted-properties': [
