@@ -96,6 +96,30 @@ export function Round({
 
               {assisted ? (
                 <div class="dm-supplied">
+                  {/*
+                   * The attribution stands outside the disclosure, and this is the
+                   * one piece of layout here that is a measurement decision rather
+                   * than a design one.
+                   *
+                   * The arm is the manipulation. Until v0.6 both the attribution and
+                   * the attributed recommendation sat inside the panel, so a reader
+                   * who never opened it was never told where the estimate came from
+                   * — the treatment reached only readers who opened a panel, and
+                   * `engagement` is the share of cases where a panel was opened. One
+                   * click was simultaneously the dose and the outcome, and the
+                   * debrief still told every reader which arm they had been in.
+                   *
+                   * What stays behind the disclosure is the estimate's reasoning,
+                   * which is what opening it should mean.
+                   */}
+                  <p class="dm-supplied-standing">
+                    {ROUND.suppliedBy}
+                    {arm.who}.
+                  </p>
+                  <p class="dm-supplied-rec">
+                    {recSentencePrefix(arm)}
+                    {REC_LABELS[c.rec]}
+                  </p>
                   <button
                     type="button"
                     class="dm-disclosure"
@@ -108,12 +132,7 @@ export function Round({
                   </button>
                   {st.modelOpen ? (
                     <div class="dm-supplied-body">
-                      <p class="dm-supplied-heading">{arm.label}</p>
                       <p class="dm-body">{c.summary}</p>
-                      <p class="dm-supplied-rec">
-                        {recSentencePrefix(arm)}
-                        {REC_LABELS[c.rec]}
-                      </p>
                     </div>
                   ) : null}
                 </div>

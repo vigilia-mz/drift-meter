@@ -181,6 +181,21 @@ export const ROUND = {
     'Each case below arrives with an estimate already worked out, and a recommendation already selected. Change anything you disagree with.',
   unassistedLead:
     'Each case below arrives with nothing filled in. The sliders start at the midpoint of their range, which is an arbitrary starting point rather than a suggestion.',
+  /**
+   * The attribution, standing on every assisted case.
+   *
+   * The arm IS the manipulation — the number, the prose and the recommendation are
+   * identical in all three, and only the authority attached to them changes. So it
+   * cannot sit behind the disclosure. It did until v0.6: a reader who never opened
+   * the estimate panel never learned where the estimate came from, which meant the
+   * treatment was delivered only to readers who opened a panel, and opening a panel
+   * is exactly what `engagement` measures. One click was both the outcome and the
+   * dose. `Round.test.tsx` holds this line outside the panel for that reason.
+   *
+   * Worded identically across the three arms, with only the source substituted, so
+   * that nothing but the authority varies.
+   */
+  suppliedBy: 'This estimate was supplied by ',
   suppliedValue: 'Supplied value',
   suppliedNote: 'Supplied value. Move the slider to use your own.',
   midpointNote: 'Starts at the midpoint of the range. Arbitrary, not a suggestion.',

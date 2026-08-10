@@ -82,6 +82,51 @@ test('a supplied recommendation renders aria-checked while Calls you made stays 
 });
 
 /**
+ * 2b. The attribution is delivered without the panel being opened.
+ *
+ * The arm is the manipulation: the number, the prose and the recommendation are
+ * identical in all three arms and only the authority attached to them changes. Until
+ * v0.6 that authority sat inside the estimate panel, so a reader who never opened it
+ * was never told where the estimate came from — the treatment reached only readers
+ * who opened a panel, and `engagement` is the share of cases where a panel was
+ * opened. One click was both the dose and the outcome.
+ *
+ * This test is the pair of assertions that makes that impossible to reintroduce
+ * silently: the attribution is visible on every assisted case with nothing opened,
+ * and the round still records nothing opened. If the attribution moves back inside
+ * the disclosure, the first half fails; if it is made standing by opening the panels,
+ * the second half fails.
+ */
+test('the attribution is standing, and reading it costs no engagement', async ({ page }) => {
+  await open(page, SLATE_A);
+  await begin(page, SLATE_A);
+
+  // Nothing has been opened. The arm is pinned to `ai` by SLATE_A.
+  const expected = `${COPY.round.suppliedBy} ${COPY.round.armWho.ai}.`;
+  await expect(cases(page)).toHaveCount(3);
+  for (let i = 0; i < 3; i += 1) {
+    await expect(cases(page).nth(i).locator('.dm-supplied-standing')).toHaveText(expected);
+  }
+
+  // And the estimate's reasoning is still behind the disclosure, which is what
+  // opening it is supposed to mean.
+  await expect(page.locator('.dm-supplied-body')).toHaveCount(0);
+  await expect(
+    cases(page).first().getByRole('button', { name: COPY.round.showModel }),
+  ).toBeVisible();
+
+  await leaveRound(page, 3);
+  await expect(page.getByRole('heading', { level: 1, name: slateHeading('B') })).toBeVisible();
+  await leaveRound(page, 3);
+
+  // The treatment was delivered to all three cases and the outcome measure did not
+  // move. That is the whole point of the change.
+  const row = page.getByRole('row', { name: new RegExp(COPY.debrief.opens) });
+  await expect(row.getByRole('cell').nth(0)).toHaveText('0/3');
+  await expect(row.getByRole('cell').nth(1)).toHaveText('0/3');
+});
+
+/**
  * 3. `read` is sticky.
  *
  * Opening either panel sets it and closing never clears it, because the measure is

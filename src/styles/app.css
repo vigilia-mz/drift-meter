@@ -984,3 +984,17 @@ body {
   font-size: 13px;
   color: var(--dm-ink);
 }
+
+/* The standing attribution.
+ *
+ * Reads as part of the supplied panel rather than as a caption, because it is the
+ * manipulation and a reader should not be able to skim past it. It sits above the
+ * disclosure, so the authority is present whether or not the estimate is opened —
+ * see the comment in Round.tsx, which is a measurement decision rather than a
+ * design one. */
+.dm-supplied-standing {
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--dm-ink-body);
+  margin: 0 0 6px;
+}

@@ -250,6 +250,20 @@ This file is the surviving record of them.
   bullet above gave that row. The mirrored table and the test that holds it there put the word in the
   repository again. The row makes no claim about where the word appears now: counting occurrences was
   never what it was for, and the count is what kept going stale.
+- **The attribution now stands on every assisted case instead of hiding inside the estimate panel,
+  which removes a confound that made one click both the treatment and the outcome.** The arm is the
+  manipulation: the number, the prose and the recommendation are identical in all three arms and only
+  the authority attached to them changes. That authority sat inside the disclosure, so a reader who
+  never opened it was never told where the estimate came from — the treatment reached only readers who
+  opened a panel, and `engagement` is the share of cases where a panel was opened. The manipulation
+  could therefore only reach a reader who had already scored on the measure it was supposed to move,
+  and the debrief told every reader which arm they had been in regardless of whether they had seen it.
+  Each assisted case now says `This estimate was supplied by …` above the disclosure, worded
+  identically across the three arms with only the source substituted; the estimate's reasoning stays
+  behind the panel, which is what opening it should mean. A test asserts both halves at once — the
+  attribution is present on all three cases with nothing opened, and the round still records nothing
+  opened — so neither the confound nor a fix that inflates engagement can return silently.
+  `docs/deliberate-quirks.md` carries it as a quirk that looks like layout and is measurement.
 - **The first screen says what one sitting cannot show, which closes #38.** The programme is named
   for a longitudinal claim — a capacity weakening across repeated delegation — and a run is one
   sitting. The sixty-second version on the intro did not say so, and it is what a reader who goes no

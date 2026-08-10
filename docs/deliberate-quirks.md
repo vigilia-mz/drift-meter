@@ -212,6 +212,31 @@ measures to move together before crediting held ground`, `names an over-confiden
 threshold` and `names delegation below the threshold and authorship at or above it`, in
   `src/domain/reveal.test.ts` — each sitting exactly on its boundary.
 
+### The attribution stands outside the disclosure, and must not be moved back in
+
+Every assisted case names where its estimate came from on the case itself, above the disclosure —
+`This estimate was supplied by Claude, an AI assistant.` — and the attributed recommendation stands
+with it. Only the estimate's reasoning is behind the panel. It looks like a layout choice and it is a
+measurement one.
+
+The arm is the manipulation. The number, the prose and the recommendation are identical in all three
+arms; only the authority attached to them changes. Until v0.6 that authority sat inside the panel, so
+a reader who never opened it was never told where the estimate came from — the treatment reached only
+readers who opened a panel. `engagement` is the share of cases where a panel was opened. One click was
+therefore both the dose and the outcome: the manipulation could only affect a reader who had already
+scored on the measure it was supposed to move, and the debrief told every reader which arm they were in
+regardless of whether they had seen it.
+
+Moving it back inside the panel would reintroduce that, and it would do so silently — nothing about
+the screen would look wrong, and the arm would still be printed in the debrief.
+
+- Where: the `.dm-supplied-standing` paragraph in `src/screens/Round.tsx`, and `ROUND.suppliedBy` in
+  `src/content/shell.ts`.
+- Test: `the attribution is standing, and reading it costs no engagement`, in
+  `tests/instrument.spec.ts`. It asserts both halves at once — the attribution is on all three cases
+  with nothing opened, and the round still records `0/3` opened. Moving the attribution back inside the
+  disclosure fails the first half; making it standing by opening the panels fails the second.
+
 ## Assignment and configuration
 
 ### A pinned run still consumes a random draw

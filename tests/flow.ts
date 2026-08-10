@@ -61,6 +61,13 @@ export const COPY = {
     flagOff: 'Flag as uncertain',
     flagOn: 'Flagged as uncertain',
     suppliedNote: 'Supplied value. Move the slider to use your own.',
+    /** The attribution, which must be standing rather than behind the disclosure. */
+    suppliedBy: 'This estimate was supplied by',
+    armWho: {
+      ai: 'Claude, an AI assistant',
+      human: 'a senior programme officer on the grants team',
+      unlabelled: 'an unnamed prior reviewer',
+    },
     midpointNote: 'Starts at the midpoint of the range. Arbitrary, not a suggestion.',
     continue: 'Continue',
   },
