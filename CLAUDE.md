@@ -55,8 +55,8 @@ carry that guarantee, and both matter:
   discipline is no longer "use a dated ID"; it is "change this constant deliberately and never
   incidentally."
 - The ID the API returns is printed in the UI alongside every response. That printed value is the
-  actual provenance record — it is the one row in `SOURCES.md` graded `PRIMARY`, on the grounds that
-  it is the only claim on the page that verifies itself. Keep it.
+  actual provenance record — it is graded `PRIMARY` in `SOURCES.md`, on the grounds that it is the
+  only claim on the page that verifies itself. Keep it.
 
 Do not upgrade the model as routine maintenance or as part of an unrelated change. An upgrade is a
 re-baseline: it makes rubric pass rates and any future cohort figures incomparable to earlier runs,
