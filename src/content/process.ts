@@ -362,7 +362,7 @@ export const SOURCE_ROWS = [
     where: 'The debrief’s reflection, the encoded screen, and protocol section 5.',
     grade: 'Primary',
     checked: 'Every request, once there is an endpoint',
-    note: 'The only claim here that verifies itself: the ID comes back in the response body and is printed verbatim beside the response. Half of the mechanism exists — the pin, and the screen that states it. Nothing yet returns a served ID, so nothing has been verified in this build.',
+    note: 'The only claim here that verifies itself: the ID comes back in the response body and is printed verbatim beside the response. The whole mechanism now exists — the pin, the endpoint that reads the served ID, and the screen that prints it. None of it has run: the endpoint URL is empty in this build, so nothing has been spent and nothing has been verified. What is left is a one-line change, not more code.',
   },
   {
     claim: 'The contrast and target-size thresholds this build is held to are WCAG 2.2’s.',

@@ -140,11 +140,17 @@ export const COPY = {
     back: 'Back',
     method: 'Read the method',
   },
-  stub: {
-    /** The standfirst the one unbuilt screen carries. */
-    heading: 'Not rebuilt yet',
-    back: 'Back to the start',
-    encoded: 'The rules, encoded',
+  /**
+   * The encoded screen, in the state it ships in.
+   *
+   * Built and switched off. It renders the system prompt in full and says why it is
+   * dark, so the walk lands on a real screen rather than on a stub — the `Stub`
+   * component is no longer reachable through the flow at all.
+   */
+  encoded: {
+    heading: 'The rules, encoded',
+    promptHeading: 'The system prompt, in full',
+    darkHeading: 'Available on request',
   },
 } as const;
 
@@ -353,6 +359,6 @@ export async function walkWholeFlow(
   await onScreen('spec');
 
   await page.getByRole('button', { name: COPY.spec.continue }).click();
-  await expect(page.getByRole('heading', { level: 1, name: COPY.stub.encoded })).toBeVisible();
+  await expect(page.getByRole('heading', { level: 1, name: COPY.encoded.heading })).toBeVisible();
   await onScreen('encoded');
 }

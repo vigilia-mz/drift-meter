@@ -179,6 +179,70 @@ This file is the surviving record of them.
   to a single self-explaining row, and says of PRIMARY AVAILABLE that an unpinned source is also an
   unread one. And `CLAUDE.md` said the printed model ID is the one row graded `PRIMARY`; it now says
   the row is graded `PRIMARY` on the same grounds, without the count.
+- **The endpoint and the live-Claude screen are built, and shipped dark. That closes #18, and all
+  thirteen screens now render.** `api/reflect.ts` holds the Anthropic key server-side and is a
+  portable `(Request, ReflectEnv) => Promise<Response>` with a Cloudflare Worker adapter as its only
+  host-specific line. The encoded screen asks the pinned model the same question twice — once with no
+  rules at all, once under the four rules — scores the second against a four-item rubric, and offers
+  to feed the failures back and re-score the rewrite. `VITE_REFLECT_ENDPOINT` stays empty in the
+  committed `.env`, so a dark build renders the system prompt and the reason it is dark rather than a
+  disabled button. Turning it on is a one-line change with its own commit, and #13 holds the console
+  actions that come first.
+- **A teach run is three calls, and the first one is the argument.** v0.4 recorded it in those words:
+  the rules run against the same model with no rules at all, then under them, then a grading pass.
+  The rebuild had been designed with two until the changelog was read properly. The unruled answer is
+  the control, and without it the rule-governed answer has nothing to be better than.
+- **The three system prompts are newly written, and the pass rates they earn are a first baseline.**
+  No copy of the deleted build's prompt survives — not in this repository and not anywhere else — and
+  this file records only its shape. So `teach-system.ts` encodes the four rules from the previous
+  screen, whose bodies were already written as instructions a model can follow and a rubric item can
+  check, and adds nothing they do not contain. Rule 8 applies from here: it is not to be re-tuned to
+  suit a model or to improve a score. The consequence is stated rather than implied — the v0.4 and
+  v0.5 rubric pass rates describe a prompt that no longer exists, on a model that no longer exists, so
+  the series restarts twice over.
+- **The repair channel is authenticated, which makes the invariant `CLAUDE.md` claimed true as
+  written.** The old text said the endpoint took a question index and never free text. That was true
+  of two modes and false of the third, which took two thousand characters straight into a prompt.
+  `teach` now returns an HMAC over the result it produced and `repair` recomputes and compares before
+  spending a call. The signature covers the whole result rather than the answer alone: signing only
+  the answer would leave the rubric forgeable, and the rubric is what the repair prompt is told to
+  fix, so a caller could mark every item failed and get an arbitrary rewrite of a text the endpoint
+  had blessed. The comparison uses `crypto.subtle.verify` rather than a string compare, because a
+  string compare returns on the first differing byte and turns forging a signature into sixty-four
+  cheap questions instead of one impossible one.
+- `sanitizeReflect` rebuilds the reflect payload from a named key list rather than validating what
+  arrived, so a field nobody declared cannot travel however it is spelled, and a number outside its
+  range is clamped rather than forwarded. `ALLOWED_ORIGINS` is exactly the published site: the
+  previous version allowlisted a GitHub username the author no longer held, which anyone could have
+  re-registered and pointed at an endpoint spending real money.
+- **There is no fallback model, deliberately.** The API offers a parameter that re-runs a declined
+  request on a different model and returns its answer. It is the right default for most applications
+  and the wrong one here: the served ID is printed on the page as the provenance record, and a silent
+  substitution would make results incomparable while still looking like one series. A refusal is
+  reported to the reader as a refusal, and the screen says why there is no fallback.
+- `max_tokens` went up from the original 320, 420 and 400. Those were sized for a model where the cap
+  applied to visible text; on the pinned model thinking is on by default and the cap covers thinking
+  plus the response, so the old numbers would have spent the budget reasoning and truncated the answer
+  mid-sentence. Thinking is not disabled, which would be the obvious way to save the tokens: on this
+  model disabling it can put a tool call into visible text or leak a `<thinking>` tag into prose the
+  screen prints verbatim.
+- The grader uses structured outputs. The original asked for JSON in prose and then regex-scraped the
+  reply, which is what required a parse-failure branch at all; constraining the shape at the API level
+  removes the regex and the branch together, and closes #9 by deleting the field rather than rendering
+  it.
+- The rate limits are in-process and best-effort, and the endpoint says so where the limiter is
+  defined rather than implying a budget by having one. Instances are short-lived and parallel, so a
+  counter in module memory bounds one instance for as long as it happens to live. The real guarantees
+  are the console spend limit and the per-workspace rate limits on the key, both outside this
+  repository; durable per-visitor and per-day budgets are #11 and are not claimed here.
+- The prompts are typed modules rather than Markdown, which is how this repository already stores
+  prose. The endpoint has to import them and does not run through Vite, so `?raw` — a bundler feature
+  — would have worked in the browser and broken on a Worker. `CLAUDE.md` said Markdown and now says
+  what is there.
+- Corrected: the `SOURCES.md` row on the printed model ID said no `api/reflect.ts`, no client and no
+  screen that prints a served ID existed. All three now do. The row says what is actually missing — a
+  served ID, because the endpoint is dark — and that the distance to a verified row is a one-line
+  change rather than more code. The mirrored row on the process screen moves with it.
 - Corrected: the Clio row in `SOURCES.md` said the word appeared nowhere in the repository except in
   its own heading. The header of the same file used it too, in the sentence recording that the
   rebuilt consent screen declines to make the claim — added by the merge that rewrote the row's
@@ -266,9 +330,15 @@ This file is the surviving record of them.
   else, and grading it FLAGGED would have made that grade mean both an unpinned assertion about the
   world and a hex that needs changing. It is stated inside the row that pins the standard instead, so
   that row cannot be read as claiming conformance.
-- Two end-to-end exemptions, each one rule on one selector with the clause named. `region` is off for
-  the one stub screen: a page whose only content is that it is not finished should not grow a wrapper
-  to satisfy a checker, and the exemption goes with `encoded` in #18. `color-contrast` is off for the
+- **One end-to-end exemption, down from two, because the screen the other one covered now exists.**
+  `region` was off for the stub screens — a page whose only content is that it is not finished should
+  not grow a wrapper to satisfy a checker — and the constant carrying it said to delete it rather than
+  leave it standing once nothing was a stub. The endpoint arrived, `encoded` became a real screen, and
+  it is deleted: every screen is now swept under the same rules with no per-screen exceptions. The
+  sweep also asserts that the encoded screen it lands on is the real one, because a dark build that
+  rendered an empty frame would sweep clean and "no violations" on a blank screen is not a result. Its
+  live states are not swept and cannot be from here — they need a key and three model calls — and that
+  gap is stated in the file. `color-contrast` is off for the
   `· · ·` between sections of the long essay, on the exemption SC 1.4.3 writes for pure decoration —
   the paragraph gap is what marks the section, and darkening an ornament to 4.5:1 would make it louder
   than the prose it separates. A test asserts that exemption still matches five nodes, so it cannot
@@ -359,6 +429,28 @@ working agreement rather than site content. The exemption does not survive the a
 that tells every future contributor which properties are guaranteed, while naming two guarantees the
 repository does not provide, is the failure this experiment is about: a claimed test is worse than a
 missing one, because it stops anyone from looking for the gap.
+
+The endpoint ships built and switched off, and that is the whole of its design rather than a stage in
+it. A repository that can spend money is a different object from one that cannot, and the difference
+should be answerable by reading the repository rather than by inspecting a CI setting — so the switch
+is a committed file with an empty value, and turning it on is a commit somebody can point at. Every
+clone and fork is therefore dark by construction and cannot spend the author's credit, which is the
+only version of “try this yourself” that does not bill the author for it.
+
+What the encoded screen demonstrates is narrower than it looks, and it says so twice on the page. The
+rubric is a self-grading loop: the same model, on the same pin, scoring an answer produced from a
+prompt written by this author, against a rubric written by this author too. And the repair pass
+improving on the first attempt is close to guaranteed, because a second attempt with the failures
+named is an easier task than the first — what it shows is that the failures were specific enough to act
+on, not that the rules are learnable or worth their cost. A pass count that did not carry both
+sentences would be the exact failure this project is about.
+
+The signature is the part of this change that would have been easiest to skip. Two of the three modes
+are closed by construction — an id and an enum — and it would have been possible to ship the third
+with a length cap and a note about the origin check, which is what the deleted build effectively did.
+The reason not to is that `CLAUDE.md` already claimed the channel was closed, and a document that tells
+every future contributor which properties are guaranteed while naming one the code does not provide is
+worse than no document. Making the claim true was cheaper than correcting it.
 
 The re-baseline is recorded on its own because it costs something. A pinned model is what makes two
 runs comparable, so moving the pin discards the comparison: the v0.4 and v0.5 rubric pass rates

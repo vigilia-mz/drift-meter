@@ -8,12 +8,18 @@
  * walk is that one failure stops the rest, so every violation is reported with the
  * screen it was found on and the whole set is printed before the test fails.
  *
- * ALL THIRTEEN. The protocol and process screens arrived while this suite was being
- * written and both are reachable, so the walk covers every screen in the `Screen`
- * union. Twelve of the thirteen render; `encoded` is the one stub, and it arrives
- * with the endpoint in #18.
+ * ALL THIRTEEN, AND NONE OF THEM A STUB. The protocol and process screens arrived
+ * while this suite was being written, and the encoded screen arrived with the
+ * endpoint in #18 — so the walk covers every screen in the `Screen` union and every
+ * one of them renders. The `region` exemption this file used to carry for the stub
+ * screens is gone with them, which is what the comment on it asked for.
  *
- * ONE RULE IS OFF, AND ONLY FOR THE STUB. See `STUB_EXEMPT` below.
+ * The encoded screen is swept in its dark state, because that is the state it
+ * ships in: `VITE_REFLECT_ENDPOINT` is empty in the committed `.env`, so it renders
+ * the system prompt in full and the reason it is switched off. Its live states are
+ * not swept and cannot be from here — they need a key and three model calls — and
+ * that gap is real rather than hidden: the markup those states add is a heading, a
+ * paragraph and a list, all of which this file already sweeps elsewhere.
  */
 import AxeBuilder from '@axe-core/playwright';
 import type { Page } from '@playwright/test';
@@ -32,21 +38,6 @@ import { COPY, SLATE_A, walkWholeFlow } from './flow.js';
  * is about.
  */
 const TAGS = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa', 'wcag22aa', 'best-practice'];
-
-/**
- * `region` is disabled on the one stub screen and nowhere else.
- *
- * A stub is a heading, one paragraph and a button inside `<main>`. The rule wants
- * every piece of content inside a landmark, and it is satisfied on every built
- * screen; on a stub it fires because the paragraph is a direct child of `main`
- * rather than of a `section` within it. Adding a wrapper to satisfy a rule on a
- * page whose only content is "this is not finished yet" would be markup written for
- * the checker. `encoded` is the last one, and the exemption goes with it in #18 —
- * which is a date, not an intention: when `STUBS` is empty this constant has no
- * effect and should be deleted rather than left standing.
- */
-const STUB_EXEMPT = ['region'];
-const STUBS = new Set(['encoded']);
 
 /**
  * Every stop the walk makes, in order: seventeen of them over thirteen screens.
@@ -106,9 +97,9 @@ async function settled(page: Page): Promise<void> {
 
 async function scan(page: Page, screen: string): Promise<Violation[]> {
   await settled(page);
-  let builder = new AxeBuilder({ page }).withTags(TAGS);
-  if (STUBS.has(screen)) builder = builder.disableRules(STUB_EXEMPT);
-  const results = await builder.analyze();
+  // No per-screen exemptions. Every screen renders, so every screen is swept under
+  // the same rules — which is the state this file was waiting for.
+  const results = await new AxeBuilder({ page }).withTags(TAGS).analyze();
   return results.violations.map((violation) => ({
     screen,
     id: violation.id,
@@ -141,6 +132,13 @@ test('every reachable screen of the instrument is free of axe violations', async
   }
 
   expect(found).toEqual([]);
+
+  // The last stop is the encoded screen in the state it ships in. Asserted here
+  // rather than left implicit: a dark build that rendered an empty frame would sweep
+  // clean, and "no violations" on a blank screen is not a result.
+  await expect(page.getByRole('heading', { name: COPY.encoded.promptHeading })).toBeVisible();
+  await expect(page.getByRole('heading', { name: COPY.encoded.darkHeading })).toBeVisible();
+  await expect(page.locator('.dm-prompt')).toContainText('Ask for the person');
 
   // Written down so that a walk which silently stopped short — a button renamed, a
   // gate that no longer opens — fails here instead of reporting a clean sweep of

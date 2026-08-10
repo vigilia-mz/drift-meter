@@ -106,8 +106,14 @@ export function isReference(screen: Screen): boolean {
  * The screens the rebuild has actually reached. Everything else renders a stub
  * that says so rather than an empty page.
  *
- * `encoded` is the last one outstanding: it is the live-Claude screen, and it
- * arrives with the endpoint in `#18`.
+ * All thirteen now render. `encoded` was the last one outstanding and arrived with
+ * the endpoint in #18 — shipped dark, so it renders its "available on request"
+ * copy until `VITE_REFLECT_ENDPOINT` is set. A screen that is built and switched
+ * off is still built: the stub said the screen did not exist, and it does.
+ *
+ * Nothing is a stub any more, which means `Stub` itself is now unreachable through
+ * the flow. It is kept rather than deleted because `canShow` still refuses a deep
+ * link into the middle of a run, and that fall-through is what the reader gets.
  */
 const BUILT: readonly ScreenName[] = [
   'intro',
@@ -120,6 +126,7 @@ const BUILT: readonly ScreenName[] = [
   'spec',
   'method',
   'process',
+  'encoded',
 ];
 
 export function isBuilt(screen: Screen): boolean {

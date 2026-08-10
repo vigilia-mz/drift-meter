@@ -285,13 +285,15 @@ that the disclosure the reader met names no case and no slider.
 - **Status:** Verified per request, in the builds that had an endpoint. The model ID is returned by
   the API in the response body and printed verbatim on the page.
 - **Checked:** every request, in v0.3 through v0.5. Nothing has been checked in this build.
-- **State in this build:** half of it now exists. `shared/model.ts` and `PINNED_MODEL` arrived with
-  the protocol screen, which prints the pin and says in the same breath that the pin is not the
-  provenance record — the ID the API returns is. What still does not exist is anything that returns
-  one: no `api/reflect.ts`, no client, and no screen that prints a served ID. The debrief prints
-  none, and the consent screen says the reflection is off in this build. The grade is kept because
-  the mechanism it describes is the one claim here that verifies itself once it runs, not because
-  anything currently verifies it.
+- **State in this build:** the whole mechanism now exists and none of it has run. `api/reflect.ts`
+  reads the served ID off the response and returns it; the encoded screen prints it beside the
+  answer, under a note saying that the printed value is the provenance record and the pinned constant
+  is only what was asked for. What is still missing is a served ID, and it is missing by choice:
+  `VITE_REFLECT_ENDPOINT` is empty in the committed `.env`, so no call is made, nothing is spent and
+  nothing has been verified. The distance between this row and a verified one is now a one-line
+  change with its own commit, plus the console actions in #13 — not any more code. The grade is kept
+  on the same grounds as before: the mechanism it describes is the one claim here that verifies
+  itself once it runs.
 - **Note:** the re-baseline to `claude-opus-5` is recorded in `CHANGELOG.md` under v0.6 as a
   re-baseline rather than as maintenance — rubric pass rates from v0.4 and v0.5 are not comparable
   to runs after it. The pin now lives in `shared/model.ts` and a test asserts the ID appears nowhere

@@ -20,6 +20,10 @@ blob-report/
 .wrangler/
 .vercel/
 
+# The Worker's local secrets, which hold the API key when running the endpoint
+# on a development machine. .env is committed on purpose; this never is.
+.dev.vars
+
 # Editors
 .vscode/
 .idea/
