@@ -362,7 +362,21 @@ export const SOURCE_ROWS = [
     where: 'The debrief’s reflection, the encoded screen, and protocol section 5.',
     grade: 'Primary',
     checked: 'Every request, once there is an endpoint',
-    note: 'The only claim here that verifies itself: the ID comes back in the response body and is printed verbatim beside the response. Half of the mechanism exists — the pin, and the screen that states it. Nothing yet returns a served ID, so nothing has been verified in this build.',
+    note: 'The only claim here that verifies itself: the ID comes back in the response body and is printed verbatim beside the response. The whole mechanism now exists — the pin, the endpoint that reads the served ID, and the screen that prints it. None of it has run: the endpoint URL is empty in this build, so nothing has been spent and nothing has been verified. What is left is a one-line change, not more code.',
+  },
+  {
+    claim: 'The contrast and target-size thresholds this build is held to are WCAG 2.2’s.',
+    where: 'The stylesheets are written against them; two checks enforce them.',
+    grade: 'Primary',
+    checked: '7 Aug 2026',
+    note: 'The specification itself, not a summary of it: 4.5:1 for text, 3:1 for large text and for non-text that carries information, 24 × 24 for a target and 44 × 44 for the enhanced criterion. Two of this build’s decisions are exemptions the same criterion writes — for pure decoration, and for an inactive control — and an exemption is a claim about what a standard says, which is what put this row here.',
+  },
+  {
+    claim: 'Every contrast ratio in this repository is computed from the palette on every run.',
+    where: 'The contrast check, run by the first CI job.',
+    grade: 'Primary',
+    checked: 'Every run',
+    note: 'The second claim here that verifies itself. The hexes are read out of the token file and none is restated, so the ratios cannot describe a palette this build does not have, and a token that appears in no pairing fails the run. The ratios used to live in a comment, where one of them was wrong for three versions.',
   },
   {
     claim: 'Project Deal: figures right, the seven-point scale omitted.',

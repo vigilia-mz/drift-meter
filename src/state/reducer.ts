@@ -23,8 +23,8 @@ import { condFor } from '../domain/assignment.js';
 import type { CaseState, Confidence } from '../domain/metrics.js';
 import type { Ordinal, Screen } from './screen.js';
 import { INTRO_SCREEN, ordinalOf } from './screen.js';
-import type { Forced, RoundRecord, Run } from './run.js';
-import { NOT_STARTED, freshR3, freshRound } from './run.js';
+import type { Encoded, Forced, RoundRecord, Run } from './run.js';
+import { ENCODED_IDLE, NOT_STARTED, freshR3, freshRound } from './run.js';
 
 export interface AppState {
   readonly screen: Screen;
@@ -88,6 +88,15 @@ export type Action =
       readonly sliderIndex: number;
       readonly value: number;
     }
+  /**
+   * The encoded screen's exchange, as a whole state rather than in pieces.
+   *
+   * One action rather than four (started, answered, repaired, failed) because the
+   * async work is in the screen either way — the reducer is pure and a fetch is
+   * not — and four actions would put half the state machine here and half there.
+   * This keeps the reducer a store for it, which is what it is.
+   */
+  | { readonly type: 'setEncoded'; readonly encoded: Encoded }
   | { readonly type: 'restart' };
 
 /**
@@ -251,6 +260,7 @@ export function reducer(state: AppState, action: Action): AppState {
             rounds: { assisted, unassisted },
             transfer: null,
             r3: freshR3(state.run.assign),
+            encoded: ENCODED_IDLE,
           },
         };
       }
@@ -301,6 +311,14 @@ export function reducer(state: AppState, action: Action): AppState {
           : r,
       );
       return { ...state, run: { ...state.run, r3 } };
+    }
+
+    case 'setEncoded': {
+      if (state.run.status !== 'complete') return state;
+      // Same shape as `pickTransfer` and `setR3Value`: it writes into the complete
+      // run and there is no path from here into a `RoundRecord`, which is what
+      // keeps the encoded screen outside everything `metrics()` reads.
+      return { ...state, run: { ...state.run, encoded: action.encoded } };
     }
 
     case 'restart':

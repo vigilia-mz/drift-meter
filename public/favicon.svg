@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" role="img" aria-label="The Drift Meter">
+  <!--
+    The mark is the instrument's own selected-option glyph, ◉, which the radio
+    groups and the uncertainty flag already draw. Nothing new was invented for
+    it: a ring with a filled centre is what the reader has been clicking.
+
+    The two hexes are copied from tokens.css — #F0EEE6 is --prose-bg and #2E5E4F
+    is --green — and are literals here because they have to be. A favicon is
+    fetched as its own document, with no access to the page's custom properties,
+    so the one place in this repository outside tokens.css where a colour literal
+    is unavoidable is this file. If either token moves, move it here too.
+
+    SVG only, deliberately. Browsers that honour <link rel="icon"> stop asking for
+    /favicon.ico, which is the 404 this fixes. Safari before 16 does not, and asks
+    the site root — vigilia-mz.github.io/favicon.ico — which is not served from
+    this repository and cannot be fixed from here.
+  -->
+  <rect width="32" height="32" fill="#F0EEE6"/>
+  <circle cx="16" cy="16" r="10" fill="none" stroke="#2E5E4F" stroke-width="2.5"/>
+  <circle cx="16" cy="16" r="4.5" fill="#2E5E4F"/>
+</svg>

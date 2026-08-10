@@ -70,6 +70,15 @@ export const DEBRIEF = {
   undefinedCaption: 'Undefined without a supplied frame. Reported rather than imputed.',
 
   countsHeading: 'What the two rounds recorded',
+  /**
+   * The counts table's corner cell.
+   *
+   * Empty on the page, because a two-axis table's corner is empty, and named to a
+   * screen reader, because a header cell with nothing in it announces as "blank"
+   * and leaves the row labels belonging to nothing. It says what the rows are
+   * rather than repeating the section heading above them.
+   */
+  countsRowAxis: 'What was recorded',
   counts: {
     opens: 'Cases opened',
     moved: 'Sliders moved',

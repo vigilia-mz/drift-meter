@@ -20,10 +20,13 @@ export default defineConfig({
     modulePreload: { polyfill: false },
     rollupOptions: {
       // One entry per page. The three prose pages carry no <script>, so Rollup
-      // emits no JavaScript chunk for them. Nothing asserts that per page yet —
-      // the end-to-end check is scheduled in issue #19 — so until it lands the
-      // property is held by review alone. It is easy to break by accident, and
-      // it is the reason the essays can be read with scripting disabled.
+      // emits no JavaScript chunk for them. Two checks hold that now, and they
+      // hold different halves of it: `scripts/check-size.mjs` asserts the built
+      // pages carry no script tag and reference no .js, per page rather than as a
+      // total, and `tests/prose.spec.ts` counts what a browser actually requests
+      // from each — which is the only way to catch JavaScript arriving through
+      // something other than a script tag. It is the reason the essays can be read
+      // with scripting disabled.
       input: {
         index: resolve(import.meta.dirname, 'index.html'),
         essay: resolve(import.meta.dirname, 'essay.html'),
@@ -36,7 +39,18 @@ export default defineConfig({
     // The domain core and the reducer are pure: no DOM, no framework. Component
     // tests add their own jsdom environment per file.
     environment: 'node',
-    include: ['src/**/*.test.ts', 'shared/**/*.test.ts'],
+    // `api/` is in the glob because the endpoint holds the API key, and the paths
+    // that decide whether to spend it — the origin check, the size cap, the
+    // question list, the signature on the repair channel — are exactly the ones
+    // that should not be held by review alone. None of them need a network: they
+    // all run before a client is constructed.
+    //
+    // `tests/` is Playwright's and is deliberately outside this glob. The two
+    // runners share a repository and nothing else: Vitest is the unit suite and
+    // runs in `npm test`, Playwright drives a built site and runs in
+    // `npm run test:e2e`. A Playwright spec collected here would fail on its
+    // first `page` fixture, which is a confusing way to find out.
+    include: ['src/**/*.test.ts', 'shared/**/*.test.ts', 'api/**/*.test.ts'],
     restoreMocks: true,
     // Vitest replaces CSS with an empty string by default, which is right for
     // every stylesheet here except one. `tokens.css` is the only file allowed to

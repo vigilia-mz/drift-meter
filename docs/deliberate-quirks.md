@@ -255,10 +255,14 @@ outcome measure and the delivery mechanism for the treatment the outcome is comp
 - Tests: the five in `standing attribution`, in `src/content/invariants.test.ts` — every arm names a
   source, the three lines differ, Claude appears only in the AI arm, the human arm names a person and
   no AI, and the unattributed arm withholds an identity without withholding that there was a source.
-- **What the tests do not pin.** They check the sentence, not where it renders. A refactor that moved
-  the paragraph back inside `{st.modelOpen ? …}` would keep all five green. Pinning the position
-  needs the end-to-end tests scheduled in issue #19, and until those land this note is the only thing
-  holding it.
+- **What those five do not pin.** They check the sentence, not where it renders: each one calls
+  `standingAttribution()` and reads the returned string, and the unit environment is `node`. A
+  refactor that moved the paragraph back inside `{st.modelOpen ? …}` would keep all five green.
+- Where it renders is pinned separately, by the browser: the four cases at the end of
+  `tests/instrument.spec.ts` — one per arm, plus the control round. Each loads a pinned run, reads
+  the line with the disclosure still shut, and asserts no `.dm-supplied-body` is in the DOM at that
+  moment; the control-round case asserts no `.dm-attribution` at all. Those are what fail if the
+  paragraph moves back inside the panel, and they exist because #19 put a browser in the toolchain.
 
 ## What is not on this list yet
 
