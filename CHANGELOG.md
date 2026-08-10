@@ -186,6 +186,16 @@ This file is the surviving record of them.
   bullet above gave that row. The mirrored table and the test that holds it there put the word in the
   repository again. The row makes no claim about where the word appears now: counting occurrences was
   never what it was for, and the count is what kept going stale.
+- **The first screen says what one sitting cannot show, which closes #38.** The programme is named
+  for a longitudinal claim — a capacity weakening across repeated delegation — and a run is one
+  sitting. The sixty-second version on the intro did not say so, and it is what a reader who goes no
+  further leaves with. It now names the relationship and states the deflation with it: what a
+  sitting records is short-run behaviour under two conditions, which is at most the trace such a
+  weakening would leave and is equally consistent with there being no weakening at all. Section 6 of
+  the protocol screen gains the same limit stated plainly, in place of implying it through the note
+  about stakes and deadlines, which was a claim about how large an effect would be rather than about
+  what kind of thing a sitting can observe. `invariants.test.ts` asserts the two screens do not come
+  apart on it.
 
 **Why**
 
