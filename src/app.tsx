@@ -41,7 +41,7 @@ import { ordinalOf, screenKey } from './state/screen.js';
  * Whether the assisted round pre-selects the supplied recommendation.
  *
  * A run-level constant rather than a parameter, for now: both the round screen
- * and the debrief's trap verdict must read the same value, and the original's
+ * and the debrief's trap verdicts must read the same value, and the original's
  * name for the knob that set it did not survive. Pre-selection is what makes
  * "the recommendation you left standing" a reachable outcome, which is the
  * behaviour the instrument is built to observe.

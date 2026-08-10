@@ -9,6 +9,7 @@ import {
   CONFIDENCE_SCALE_MAX,
   metrics,
   sliderCount,
+  trappedCases,
 } from '../domain/metrics.js';
 import { freshRound, slateFor } from '../state/run.js';
 import { ARMS } from './arms.js';
@@ -19,8 +20,8 @@ import { SLATES } from './slates.js';
 /**
  * The protocol screen against the code it describes.
  *
- * This is the most on-thesis test in the suite. The screen prints six formulas
- * and the constants inside them, and those constants are transcribed rather than
+ * This is the most on-thesis test in the suite. The screen prints a formula per
+ * measure and the constants inside them, and those constants are transcribed rather than
  * interpolated — because a formula is a sentence a reader checks by eye, and
  * interpolating it would make this file vacuous. So the arithmetic is written out
  * once in prose and once in code, and this is what stops the two versions from
@@ -41,10 +42,20 @@ function specFor(key: (typeof MEASURE_SPECS)[number]['key']) {
   return found;
 }
 
-describe('the six measures', () => {
-  it('names six, with no repeats', () => {
-    expect(MEASURE_SPECS).toHaveLength(6);
+describe('the seven measures', () => {
+  it('names seven, with no repeats', () => {
+    expect(MEASURE_SPECS).toHaveLength(7);
     expect(new Set(MEASURE_SPECS.map((m) => m.key)).size).toBe(MEASURE_SPECS.length);
+  });
+
+  it('says in the heading how many it names', () => {
+    // A count in prose beside a list is the shape that goes stale silently, and this
+    // build has already published a landing page naming five measures when there
+    // were six. The word is written out rather than interpolated so this can fail.
+    const WORDS = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight'] as const;
+    const word = WORDS[MEASURE_SPECS.length];
+    expect(word, `no number word for ${String(MEASURE_SPECS.length)} measures`).toBeDefined();
+    expect(METHOD.measuresHeading).toContain(`The ${String(word)} measures`);
   });
 
   it('names only measures the instrument actually computes', () => {
@@ -61,15 +72,39 @@ describe('the six measures', () => {
   });
 
   it('uses the same words for a measure as the debrief does', () => {
-    // A reader meets five of these as bars on the debrief and then reads about
+    // A reader meets most of these as bars on the debrief and then reads about
     // them here. Two vocabularies for one measure would be the reader's problem
     // rather than the author's, which is the wrong way round.
     for (const bar of MEASURES) {
       expect(specFor(bar.key).label, bar.key).toBe(bar.label);
     }
-    // Only `gap` has no bar: it is a difference between two numbers rather than a
-    // pair of them.
-    expect(MEASURE_SPECS.filter((m) => !MEASURES.some((b) => b.key === m.key))).toHaveLength(1);
+  });
+
+  it('says in its own row why each measure with no bar has none', () => {
+    // Two measures are computed and not drawn: `gap`, because it is a difference
+    // rather than a pair, and `catchRate`, because one planted error per slate makes
+    // it one observation and a bar invites reading 0 or 100 as a rate. Naming them
+    // here rather than counting them means adding a third silently fails.
+    const unbarred = MEASURE_SPECS.filter((m) => !MEASURES.some((b) => b.key === m.key));
+    expect(unbarred.map((m) => m.key)).toEqual(['catchRate', 'gap']);
+    expect(specFor('gap').definition).toContain('signed difference');
+    expect(specFor('catchRate').threat).toContain('not drawn as a bar');
+  });
+
+  it('states the number of planted errors the slates actually carry', () => {
+    // The catch rate's weakness is a count, published in prose, and it is the count
+    // this whole issue is about. Written out as a word so that authoring a second
+    // planted error fails here and sends the author to the sentence.
+    const WORDS = ['no', 'one', 'two', 'three'] as const;
+    const perSlate = trappedCases(SLATES.A).length;
+    expect(trappedCases(SLATES.B).length).toBe(perSlate);
+    const word = WORDS[perSlate];
+    expect(word, `no number word for ${String(perSlate)} planted errors`).toBeDefined();
+    expect(specFor('catchRate').threat).toContain(`authors ${String(word)} planted error`);
+    // Lower-cased, because the same count opens a sentence in the limits list.
+    expect(METHOD.limits.join(' ').toLowerCase()).toContain(
+      `${String(word)} planted error is authored per slate`,
+    );
   });
 
   it('states a threat against every one of them', () => {

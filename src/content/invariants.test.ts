@@ -1,4 +1,5 @@
 import { MEASURES } from './debrief.js';
+import { trappedCases } from '../domain/metrics.js';
 import { describe, expect, it } from 'vitest';
 // The two paperwork files as text, through the bundler rather than through
 // `node:fs`. They are part of the artifact, and the two tables on the process
@@ -24,7 +25,7 @@ const { METHOD, PRED_ROWS } = methodModule;
 const { CHANGELOG_ROWS, PROCESS, PROVENANCE_ROWS, REVIEWER_ROWS, SOURCE_ROWS } = processModule;
 const { CONSENT, INTRO } = shellModule;
 const { otherSlate, SLATES } = slatesModule;
-const { TRAP, TRAP_HEADINGS } = trapModule;
+const { TRAP_FRAMES, TRAP_HEADINGS, trapParagraph } = trapModule;
 const ARM_KEYS_FOR_TEST = ['ai', 'human', 'unlabelled'] as const;
 
 /**
@@ -80,37 +81,72 @@ describe('slate shape', () => {
     }
   });
 
-  it('trap and Round 3 indices point at cases that exist', () => {
+  it('every trap slider points at an assumption of its own case', () => {
     for (const slate of slates) {
-      expect(slate.trapCase, slate.id).toBeGreaterThanOrEqual(0);
-      expect(slate.trapCase, slate.id).toBeLessThan(slate.cases.length);
-      expect(slate.trapSlider, slate.id).toBeGreaterThanOrEqual(0);
-      expect(slate.trapSlider, slate.id).toBeLessThan(slate.cases[slate.trapCase]!.a.length);
-      for (const i of slate.r3) {
-        expect(i, slate.id).toBeGreaterThanOrEqual(0);
-        expect(i, slate.id).toBeLessThan(slate.cases.length);
+      for (const trapped of trappedCases(slate)) {
+        const where = `${slate.id} / ${trapped.case.org}`;
+        expect(trapped.trap.slider, where).toBeGreaterThanOrEqual(0);
+        expect(trapped.trap.slider, where).toBeLessThan(trapped.case.a.length);
       }
     }
   });
 
-  it('Round 3 replays two distinct cases', () => {
+  it('Round 3 indices point at cases that exist, and replay two distinct ones', () => {
     for (const slate of slates) {
+      for (const i of slate.r3) {
+        expect(i, slate.id).toBeGreaterThanOrEqual(0);
+        expect(i, slate.id).toBeLessThan(slate.cases.length);
+      }
       expect(new Set(slate.r3).size, slate.id).toBe(2);
     }
   });
 
-  it('each slate carries exactly one planted error, and the two slates hide it differently', () => {
+  it('each slate carries at least one planted error, and the two slates hide it differently', () => {
+    // At least one rather than exactly one: a planted error is a property of a case
+    // since #31, so a slate may carry up to three. What must not happen is a slate
+    // carrying none — the assisted round would then have nothing with a right answer
+    // in it and the catch rate would be undefined for every reader who drew it.
+    //
     // Slate A misstates a cost; slate B misstates a rate. Same move, different
     // clothes — which is what makes the transfer check meaningful.
-    expect(SLATES.A.cases[SLATES.A.trapCase].a[SLATES.A.trapSlider].unit).toBe('$');
-    expect(SLATES.B.cases[SLATES.B.trapCase].a[SLATES.B.trapSlider].unit).toBe('%');
+    for (const slate of slates) {
+      expect(trappedCases(slate).length, slate.id).toBeGreaterThanOrEqual(1);
+    }
+    const units = (slate: (typeof slates)[number]) =>
+      trappedCases(slate).map((t) => t.case.a[t.trap.slider]?.unit);
+    expect(units(SLATES.A)).toContain('$');
+    expect(units(SLATES.B)).toContain('%');
   });
 
-  it('the evidence panel of each trap case contains the fact that undoes the headline', () => {
-    // If this ever stopped being true the trap would be unfair rather than
-    // instructive: the reader has to be able to find it.
-    expect(SLATES.A.cases[SLATES.A.trapCase].evidence).toContain('commodity cost');
-    expect(SLATES.B.cases[SLATES.B.trapCase].evidence).toContain('access and use');
+  it('a planted error sits where the evidence contradicts the label, and where nothing supports it yet', () => {
+    // Two halves of the same invariant.
+    //
+    // First, the reader has to be able to find it: the fact that undoes the headline
+    // is in the evidence panel, one click away, or the trap is unfair rather than
+    // instructive.
+    //
+    // Second, the issue's own definition — a trap is `provided ≠ supported` on a
+    // named slider (#31). Every `supported` is unauthored today, so the assertion is
+    // conditional and will start biting when one is written. The converse is
+    // deliberately not asserted: an assumption whose supported value differs from its
+    // supplied one is not thereby a planted error. A figure can be arguable without
+    // its label being a lie, and requiring every such slider to be a trap would
+    // forbid the ordinary case the accuracy measure exists to score.
+    expect(SLATES.A.cases[1].evidence).toContain('commodity cost');
+    expect(SLATES.B.cases[2].evidence).toContain('access and use');
+    expect(SLATES.A.cases[1].trap).not.toBeNull();
+    expect(SLATES.B.cases[2].trap).not.toBeNull();
+
+    for (const slate of slates) {
+      for (const trapped of trappedCases(slate)) {
+        const sp = trapped.case.a[trapped.trap.slider];
+        const where = `${slate.id} / ${trapped.case.org}`;
+        expect(sp, where).toBeDefined();
+        if (sp?.supported != null) {
+          expect(sp.provided, where).not.toBe(sp.supported);
+        }
+      }
+    }
   });
 
   it('otherSlate pairs the two slates', () => {
@@ -120,20 +156,43 @@ describe('slate shape', () => {
 });
 
 describe('trap copy', () => {
-  it('covers every branch for both slates with real prose', () => {
-    for (const id of ['A', 'B'] as const) {
-      for (const branch of ALL_BRANCHES) {
-        const copy = TRAP[id][branch];
-        expect(copy, `${id}/${branch}`).toBeTypeOf('string');
-        expect(copy.length, `${id}/${branch}`).toBeGreaterThan(80);
+  it('covers every branch with real prose, on every planted error that exists', () => {
+    // Composed since #31 — a frame per branch and the correction from the case — so
+    // the assertion is over the paragraph a reader is actually shown rather than over
+    // a stored string. That is also what keeps this honest as planted errors are
+    // added: a new one with an empty `whatTheFigureIs` fails here in six branches.
+    for (const slate of slates) {
+      for (const trapped of trappedCases(slate)) {
+        for (const branch of ALL_BRANCHES) {
+          const copy = trapParagraph(branch, trapped.trap);
+          const where = `${slate.id}/${trapped.case.org}/${branch}`;
+          expect(copy, where).toBeTypeOf('string');
+          expect(copy.length, where).toBeGreaterThan(80);
+          // Both halves of the correction reach the page. A frame that stopped
+          // interpolating one of them would still read as a sentence.
+          expect(copy, where).toContain(trapped.trap.whatTheLabelSays);
+          expect(copy, where).toContain(trapped.trap.whatTheFigureIs);
+        }
       }
     }
   });
 
-  it('names the right figure in each slate', () => {
-    for (const branch of ALL_BRANCHES) {
-      expect(TRAP.A[branch], `A/${branch}`).toMatch(/\$2|bednet/);
-      expect(TRAP.B[branch], `B/${branch}`).toMatch(/80%|chlorination/);
+  it('names the right figure in each slate, in every branch', () => {
+    const paragraphs = (slate: (typeof slates)[number]) =>
+      trappedCases(slate).flatMap((t) => ALL_BRANCHES.map((b) => trapParagraph(b, t.trap)));
+    for (const copy of paragraphs(SLATES.A)) expect(copy).toMatch(/\$2|bednet|net/);
+    for (const copy of paragraphs(SLATES.B)) expect(copy).toMatch(/80%|chlorinated/);
+  });
+
+  it('states the figure once per planted error rather than once per branch', () => {
+    // The reason for composing. Before #31 the bednet figures were written out six
+    // times and the chlorination figures six times, and `SOURCES.md` names the cost:
+    // pinning either to a source “rewrites all six branches of the trap copy”. The
+    // frames must therefore carry no figure of their own.
+    for (const frame of Object.values(TRAP_FRAMES)) {
+      for (const half of [frame.opening, frame.closing]) {
+        expect(half).not.toMatch(/\d/);
+      }
     }
   });
 
@@ -141,6 +200,23 @@ describe('trap copy', () => {
     for (const value of Object.values(TRAP_HEADINGS)) {
       expect(value.length).toBeGreaterThan(0);
     }
+  });
+
+  it('has a plural heading and lead, and they say something the singular does not', () => {
+    // Unreachable through the flow: one planted error is authored per slate, so every
+    // run takes the singular. That is exactly why it is asserted here — the browser
+    // suite pins the copy a reader sees, and pinning a string no run produces would
+    // be a test of this module rather than of the page. The day a second planted
+    // error is authored, this is the copy that ships without anyone having read it.
+    expect(DEBRIEF.trapHeading.many).not.toBe(DEBRIEF.trapHeading.one);
+    expect(DEBRIEF.trapLead.many).not.toBe(DEBRIEF.trapLead.one);
+    expect(DEBRIEF.trapHeading.one).toContain('case with');
+    expect(DEBRIEF.trapHeading.many).toContain('cases with');
+    // The plural has to tell the reader there is more than one panel below it, or the
+    // second panel arrives unannounced.
+    expect(DEBRIEF.trapLead.many).toContain('for each');
+    expect(DEBRIEF.trapLead.one.length).toBeGreaterThan(80);
+    expect(DEBRIEF.trapLead.many.length).toBeGreaterThan(80);
   });
 });
 
@@ -494,13 +570,17 @@ describe('the illustrative disclosure', () => {
     // interrogates the load-bearing figure unprompted, so a disclosure that
     // pointed at the slider would leave nothing to observe. The debrief is
     // exempt: by then the trap has been shown.
-    const spoilers = slates.flatMap((slate) => {
-      const c = slate.cases[slate.trapCase];
-      if (c === undefined) throw new Error(`${slate.id}: trapCase out of range`);
-      const sp = c.a[slate.trapSlider];
-      if (sp === undefined) throw new Error(`${slate.id}: trapSlider out of range`);
-      return [c.org, sp.label];
-    });
+    //
+    // Derived from the cases rather than from a slate-level index since #31, which
+    // also makes it cover a second planted error the day one is authored — the
+    // version that read `slate.trapCase` would have kept checking one of them.
+    const spoilers = slates.flatMap((slate) =>
+      trappedCases(slate).flatMap((trapped) => {
+        const sp = trapped.case.a[trapped.trap.slider];
+        if (sp === undefined) throw new Error(`${slate.id}: trap slider out of range`);
+        return [trapped.case.org, sp.label];
+      }),
+    );
 
     // Without this the loop below would pass on an empty list, which is the
     // failure mode this project keeps finding in its own tests.

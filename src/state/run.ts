@@ -78,7 +78,7 @@ interface RunBase {
   /**
    * Whether the assisted round pre-selects the supplied recommendation.
    *
-   * Read by `effRec` on the round screen and by `trapVerdict` on the debrief.
+   * Read by `effRec` on the round screen and by `trapVerdicts` on the debrief.
    * Both must read the same stored value: if they disagree, the debrief can
    * report a recommendation "left standing" on a run where nothing was ever
    * pre-selected.

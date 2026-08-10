@@ -84,12 +84,20 @@ The protocol screen states the same thing from the other side, in its stimulus p
 that the case figures are built for the exercise, that four rows here carry the grade saying so, and
 that the disclosure the reader met names no case and no slider.
 
+Then #31, which moved the planted error from the slate onto the case. No claim here changed and no
+grade moved: the two trap rows say where their figures live now, and each says that a figure once
+written out in six branches of the debrief copy is written out once. What the change adds to this
+table is an obligation rather than a row. A planted error is a constructed figure whose label is
+deliberately wrong, so it is the strongest illustrative claim this site makes, and the mechanism now
+allows more of them than the content has. Every additional one needs its own row before it ships.
+
 ---
 
 ### ILLUSTRATIVE — Bednet commodity cost near $2 against a delivered cost near $4.50
 
 - **Where:** Slate A, case 2 — `SLATES.A.cases[1]`, since this file numbers cases from one and the
-  array is indexed from zero; trap copy on the result screen.
+  array is indexed from zero; the case's own `trap` record, which the result screen's paragraph is
+  composed from.
 - **Status:** Illustrative. Carries the shape of a real, well-documented gap between commodity
   and delivered cost in net distribution. The specific figures are constructed for the task.
 - **Now published.** The v0.6 location pass found these figures in the case data and in all six
@@ -108,16 +116,25 @@ that the disclosure the reader met names no case and no slider.
   figure without being told which one it is, and a disclosure that pointed at it would leave nothing
   to observe. `invariants.test.ts` asserts both halves — that the three screens call the figures
   illustrative, and that neither pre-run screen names the trap case or its slider.
+- **Relocated, 10 Aug 2026 (#31).** Nothing about the claim changed and its cost to correct did. A
+  planted error is now a property of a case rather than of a slate, so these figures live on
+  `SLATES.A.cases[1].trap` and the debrief composes its paragraph from them. The sentence below used
+  to say that pinning a source “rewrites all six branches of the trap copy”; the figures were written
+  out once per branch and are now written out once. Pinning this row is a two-line edit rather than a
+  seven-place one, which is a reason to expect it to happen rather than a reason to think it has.
 - **Primary link:** TODO — a named campaign or evaluator report giving delivered cost per net
   including logistics and wastage. Still open, and now optional rather than blocking: pinning it
   would move this row to PRIMARY and would mean changing `$2.00` and `$4.50` to whatever the source
-  says, which rewrites all six branches of the trap copy and Round 3's threshold with them.
+  says, in the case's supplied value, in its `trap` record and in Round 3's threshold.
 - **Action before release:** none outstanding. The publication obligation is discharged by the
   disclosure, and the disclosure is the thing to protect: deleting it puts this row back to FLAGGED.
+  A second planted error authored on any case needs its own row here, on the same terms as this one:
+  the mechanism now allows one, and the disclosure that clears it is a row and not the mechanism.
 
 ### ILLUSTRATIVE — Chlorination access near 80% against sustained use roughly half that
 
-- **Where:** Slate B, case 3 — `SLATES.B.cases[2]`; trap copy on the result screen.
+- **Where:** Slate B, case 3 — `SLATES.B.cases[2]`; the case's own `trap` record, which the result
+  screen's paragraph is composed from.
 - **Status:** Illustrative. The access-versus-use distinction is real and is the reason the case
   exists; the numbers are constructed.
 - **Now published.** As above: recorded at the v0.6 pass as in the case data and the trap copy and on
@@ -128,9 +145,12 @@ that the disclosure the reader met names no case and no slider.
 - **Restated, 7 Aug 2026 (#7).** As above, and by the same three screens — the disclosure is written
   once and covers every case rather than being repeated per figure, which is also why it names
   neither this case nor its slider.
+- **Relocated, 10 Aug 2026 (#31).** As above, and for the same reason: the figures live on
+  `SLATES.B.cases[2].trap` and are written out once rather than once per branch.
 - **Primary link:** TODO — follow-up study reporting measured free chlorine residual against
   installation or access rates. Still open, and now optional rather than blocking, on the same terms.
-- **Action before release:** none outstanding, on the same terms as above.
+- **Action before release:** none outstanding, on the same terms as above, including the condition
+  that any additional planted error gets its own row.
 
 ### ILLUSTRATIVE — Cash transfers: the income gain decaying enough to roughly triple the cost per lasting doubling
 
