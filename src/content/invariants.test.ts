@@ -17,13 +17,14 @@ import * as transferModule from './transfer.js';
 import * as trapModule from './trap.js';
 import type { PredictionRow, Slate, SourceGrade, TrapBranch } from './types.js';
 
-const { ARM_NOTES, ARMS, recSentencePrefix, REC_LABELS } = armsModule;
+const { ARM_NOTES, ARMS, recSentencePrefix, REC_LABELS, standingAttribution } = armsModule;
 const { DEBRIEF } = debriefModule;
 const { METHOD, PRED_ROWS } = methodModule;
 const { CHANGELOG_ROWS, PROCESS, PROVENANCE_ROWS, REVIEWER_ROWS, SOURCE_ROWS } = processModule;
 const { CONSENT, INTRO } = shellModule;
 const { otherSlate, SLATES } = slatesModule;
 const { TRAP, TRAP_HEADINGS } = trapModule;
+const ARM_KEYS_FOR_TEST = ['ai', 'human', 'unlabelled'] as const;
 
 /**
  * Structural facts about the content, asserted so that editing it cannot quietly
@@ -350,6 +351,48 @@ describe('the process screen', () => {
     const where = PROCESS.mastheadRows.find((r) => r.label === 'Where it lives');
     expect(where?.value).toContain('vigilia-mz.github.io/drift-meter');
     expect(where?.value).toContain('One published copy');
+  });
+});
+
+describe('standing attribution', () => {
+  /**
+   * The source of the number is stated before any panel is opened, and it has to
+   * stay that way. If it moves back inside the disclosure, a reader who never
+   * opens the panel is told in the debrief which arm they were in without ever
+   * having been in it — and `engagement`, which P1 is a claim about, becomes both
+   * an outcome measure and the delivery mechanism for the manipulation P5 is a
+   * claim about.
+   */
+  it('names a source in every arm, including the unattributed one', () => {
+    for (const key of ARM_KEYS_FOR_TEST) {
+      const line = standingAttribution(ARMS[key]);
+      expect(line, key).toContain(ARMS[key].who);
+      expect(line.endsWith('.'), key).toBe(true);
+    }
+  });
+
+  it('distinguishes the three arms', () => {
+    const lines = Object.values(ARMS).map((a) => standingAttribution(a));
+    expect(new Set(lines).size).toBe(3);
+  });
+
+  it('names Claude in the AI arm and nowhere else', () => {
+    expect(standingAttribution(ARMS.ai)).toContain('Claude');
+    expect(standingAttribution(ARMS.human)).not.toContain('Claude');
+    expect(standingAttribution(ARMS.unlabelled)).not.toContain('Claude');
+  });
+
+  it('attributes the human arm to a person, with no AI in the sentence', () => {
+    const line = standingAttribution(ARMS.human);
+    expect(line).toContain('programme officer');
+    expect(line.toLowerCase()).not.toContain(' ai ');
+  });
+
+  it('withholds an identity in the unattributed arm without withholding the fact of a source', () => {
+    const line = standingAttribution(ARMS.unlabelled);
+    expect(line).toContain('unnamed');
+    expect(line).not.toContain('Claude');
+    expect(line).not.toContain('programme officer');
   });
 });
 

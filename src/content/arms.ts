@@ -53,6 +53,25 @@ export const ARM_NOTES = {
 } as const satisfies Record<ArmKey, string>;
 
 /**
+ * What the round screen says about the source, before anything is opened.
+ *
+ * The attribution used to live only inside the expanded estimate panel, which
+ * meant a reader who never opened that panel never learned where the number came
+ * from. That reader is not incidental: low engagement is the outcome this
+ * instrument is built to observe, and P1 is a claim about it. So the arm was
+ * undelivered for exactly the subgroup that P5 exists to distinguish, while the
+ * debrief still told them which arm they were in.
+ *
+ * Opening the panel was doing two jobs at once, measuring engagement and
+ * delivering the manipulation, and a measure cannot also be its own treatment.
+ * It is now a standing line above the disclosure. The panel still holds the
+ * reasoning and the recommendation; only the source moved out.
+ */
+export function standingAttribution(arm: Arm): string {
+  return `Estimate supplied by ${arm.who}.`;
+}
+
+/**
  * How the supplied recommendation is introduced.
  *
  * The unattributed arm gets a passive construction, because naming a source is

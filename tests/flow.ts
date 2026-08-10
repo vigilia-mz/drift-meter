@@ -63,6 +63,16 @@ export const COPY = {
     suppliedNote: 'Supplied value. Move the slider to use your own.',
     midpointNote: 'Starts at the midpoint of the range. Arbitrary, not a suggestion.',
     continue: 'Continue',
+    /**
+     * The standing attribution, one per arm. Written out rather than imported
+     * from `src/content/arms.ts`, so that this suite reads the sentence a reader
+     * sees rather than re-deriving it from the same function under test.
+     */
+    attribution: {
+      ai: 'Estimate supplied by Claude, an AI assistant.',
+      human: 'Estimate supplied by a senior programme officer on the grants team.',
+      unlabelled: 'Estimate supplied by an unnamed prior reviewer.',
+    },
   },
   rec: {
     fund: 'Direct funds here',

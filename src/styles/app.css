@@ -359,6 +359,14 @@ body {
   margin-bottom: 20px;
 }
 
+/* The source of the number, before anything is opened. Deliberately not behind
+ * the disclosure: see `standingAttribution` in `src/content/arms.ts`. */
+.dm-attribution {
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0 0 10px;
+}
+
 .dm-supplied-body {
   margin-top: 12px;
 }
