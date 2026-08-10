@@ -5,6 +5,10 @@ import { describe, expect, it } from 'vitest';
 // screen mirror them, so the mirror is checked against the record rather than
 // against a memory of it.
 import changelogFile from '../../CHANGELOG.md?raw';
+// The landing page as text, for the one claim on it that a source row depends on.
+// `index.html` is hand-written and carries no content module, so this is the only
+// way to hold its disclosure from here.
+import indexPage from '../../index.html?raw';
 import sourcesFile from '../../SOURCES.md?raw';
 import * as armsModule from './arms.js';
 import * as debriefModule from './debrief.js';
@@ -511,6 +515,50 @@ describe('the illustrative disclosure', () => {
         expect(text.toLowerCase(), `${path} names ${spoiler}`).not.toContain(spoiler.toLowerCase());
       }
     }
+  });
+});
+
+describe('the landing page says its specimen bars are invented', () => {
+  /**
+   * The specimen readout draws three pairs of bars at fixed widths. They are not a
+   * run and there is no cohort; the caption is the only thing on the page that says
+   * so, and a row in `SOURCES.md` is graded ILLUSTRATIVE on the strength of it.
+   *
+   * That grade is defined as holding only while the disclosure is live, so the
+   * disclosure has to be held by something. For the four case figures that is the
+   * disclosure test above, which reads the content modules. `index.html` has no
+   * content module — it is a finished hand-written document — so this reads the page
+   * itself. Without it the row rests on review, which is what the row said until
+   * this test existed.
+   *
+   * The word is asserted rather than the sentence. "Illustrative" is what the
+   * caption said until v0.7, and it is the same word an invented cohort dashboard
+   * could have carried on the page whose own method note explains why that
+   * dashboard was retracted; rule 6 asks for the plainer word, so the plainer word
+   * is what is pinned.
+   */
+  it('carries the word invented in the specimen caption', () => {
+    const caption = indexPage.match(/<p class="spec-caption">([\s\S]*?)<\/p>/)?.[1];
+    expect(caption, 'the specimen caption is in index.html').toBeDefined();
+    expect(caption).toContain('invented');
+  });
+
+  it('says n is zero and that nothing was collected, in the same caption', () => {
+    // The word alone would leave "invented" doing the work of a disclosure while
+    // the reader still had no idea whether a run stands behind the shape.
+    const caption = indexPage.match(/<p class="spec-caption">([\s\S]*?)<\/p>/)?.[1] ?? '';
+    expect(caption).toContain('n is zero');
+    expect(caption).toContain('nothing has been collected');
+  });
+
+  it('keeps a row in SOURCES.md graded ILLUSTRATIVE for those bars', () => {
+    // The other half: the caption without the row is an undisclosed figure as far
+    // as the table is concerned, and the row without the caption is a grade resting
+    // on nothing. Neither may be removed alone.
+    expect(sourcesFile).toContain('### ILLUSTRATIVE — Landing page specimen readout');
+    expect(SOURCE_ROWS.some((r) => r.grade === 'Illustrative' && /specimen/i.test(r.claim))).toBe(
+      true,
+    );
   });
 });
 
