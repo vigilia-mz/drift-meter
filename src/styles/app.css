@@ -864,3 +864,46 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ---------------------------------------------------------------------------
+ * The encoded screen
+ *
+ * Two kinds of text the other screens do not have: a system prompt shown in full,
+ * and answers written by a model rather than by the author.
+ * ------------------------------------------------------------------------- */
+
+/* The prompt, displayed rather than described. Monospaced and wrapped: it is a
+ * document to read, not a code sample to scroll sideways through, and a horizontal
+ * scrollbar inside a panel is how a reader stops reading. */
+.dm-prompt {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--dm-ink-body);
+  background: none;
+  border-left: 2px solid var(--orange-rule);
+  padding: 0 0 0 16px;
+  margin: 0 0 12px;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+
+/* A model's answer. Serif, because it is prose someone is meant to read and weigh
+ * against the prose beside it, and `pre-wrap` because the model's own paragraph
+ * breaks are part of what is being judged. */
+.dm-answer {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--dm-ink-serif);
+  max-width: var(--measure-body);
+  margin: 0 0 16px;
+  white-space: pre-wrap;
+}
+
+/* The served model ID. Mono, so a reader can tell it apart from prose about it. */
+.dm-served {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--dm-ink);
+}

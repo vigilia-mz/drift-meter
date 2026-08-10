@@ -50,10 +50,15 @@ describe('the screen union', () => {
     expect(LINEAR_PATH[LINEAR_PATH.length - 1]).toEqual({ name: 'encoded' });
   });
 
-  it('has one screen left to rebuild, and it is the one that needs the endpoint', () => {
-    // Twelve of thirteen. `encoded` arrives with the endpoint in #18; until then it
-    // renders a stub that says so rather than an empty frame.
-    expect(ALL_SCREENS.filter((s) => !isBuilt(s))).toEqual([{ name: 'encoded' }]);
+  it('has nothing left to rebuild', () => {
+    // All thirteen render. `encoded` was the last one outstanding and arrived with
+    // the endpoint in #18 — shipped dark, so it renders its "available on request"
+    // copy rather than calling a model. Built and switched off is still built.
+    //
+    // This assertion is worth keeping now that it is empty: it fails the moment a
+    // screen is added to the union without being added to BUILT, which would put a
+    // stub back into the flow silently.
+    expect(ALL_SCREENS.filter((s) => !isBuilt(s))).toEqual([]);
   });
 });
 

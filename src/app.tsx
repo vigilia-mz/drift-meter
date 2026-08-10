@@ -23,6 +23,7 @@ import { screenFromEntry, syncHistory } from './platform/history.js';
 import { parseRunConfig, rngFor, runConfigFromLocation } from './platform/runConfig.js';
 import { Consent } from './screens/Consent.js';
 import { Debrief } from './screens/Debrief.js';
+import { Encoded } from './screens/Encoded.js';
 import { Intro } from './screens/Intro.js';
 import { Method } from './screens/Method.js';
 import { Process } from './screens/Process.js';
@@ -309,6 +310,21 @@ export function App() {
             containerRef={containerRef}
             onContinue={() => {
               dispatch({ type: 'goto', screen: { name: 'encoded' } });
+            }}
+            onRestart={() => {
+              dispatch({ type: 'restart' });
+            }}
+          />
+        );
+      }
+
+      if (screen.name === 'encoded') {
+        return (
+          <Encoded
+            containerRef={containerRef}
+            encoded={run.encoded}
+            onEncoded={(encoded) => {
+              dispatch({ type: 'setEncoded', encoded });
             }}
             onRestart={() => {
               dispatch({ type: 'restart' });
