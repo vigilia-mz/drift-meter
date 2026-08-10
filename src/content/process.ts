@@ -140,7 +140,7 @@ export const CHANGELOG_ROWS = [
     version: 'v0.6',
     date: 'In progress',
     title: 'Rebuilt from source, and a model re-baseline',
-    what: 'The instrument runs again from editable source, with one pure reducer, typed content modules and a test suite; the previous build shipped as a single generated bundle whose source existed nowhere. Twelve of the thirteen screens render. The case figures are restated on the page as illustrative. Six claims this project made about its own work are corrected, five of them claims about its own tests. The model is re-baselined.',
+    what: 'The instrument runs again from editable source, with one pure reducer, typed content modules and a test suite; the previous build shipped as a single generated bundle whose source existed nowhere. All thirteen screens render, and the endpoint that two of them call ships switched off. The case figures are restated on the page as illustrative. Six claims this project made about its own work are corrected, five of them claims about its own tests. The model is re-baselined.',
     why: 'A build that cannot be corrected with confidence is the wrong property for something whose whole claim is that it measures something. The corrections are the uncomfortable part: a claimed test is worse than a missing one, because it stops anyone looking for the gap. The model change is a re-baseline rather than maintenance — rubric pass rates from v0.4 and v0.5 are not comparable to runs after it, and the series restarts here.',
   },
   {

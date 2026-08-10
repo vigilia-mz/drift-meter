@@ -130,8 +130,9 @@ This file is the surviving record of them.
   the module itself, and whether a snapshot test earns its keep on top of that is left open. The
   invariants test named in the same sentence is real, and the convention now describes what it
   actually asserts.
-- The protocol and the publication-process screens are back. Twelve of the thirteen screens now
-  render; only the live-Claude screen is outstanding, and it arrives with the endpoint. The protocol
+- The protocol and the publication-process screens are back. That took the count to twelve of the
+  thirteen, with only the live-Claude screen outstanding; it arrived with the endpoint later in this
+  same version, and the bullet above records it. The protocol
   screen states the design, the four arms, the five measures with their formulas and their threats,
   the six registered predictions, the stimulus and model provenance, and what this build cannot do.
   The process screen carries the masthead, the changelog, the readers, the caveats, the production
@@ -250,6 +251,23 @@ This file is the surviving record of them.
   bullet above gave that row. The mirrored table and the test that holds it there put the word in the
   repository again. The row makes no claim about where the word appears now: counting occurrences was
   never what it was for, and the count is what kept going stale.
+- **Corrected: three counts of how many screens render, one of them on a published page.** The
+  publication-process screen's own v0.6 row said twelve of the thirteen render; `SOURCES.md` said ten,
+  in the present tense, in its account of the location pass; and the changelog bullet that took the
+  count to twelve read as though the twelfth were still the last. All three are now accurate, and the
+  changelog's is fixed by clarifying its tense rather than by editing what it recorded at the time.
+  This is the fourth time in this version that a count in prose has gone stale behind the code, which
+  is an argument for deriving them rather than writing them: `invariants.test.ts` already holds the
+  source table against its mirror, and nothing yet holds a screen count against `BUILT`.
+- **#39 is closed as substantially discharged rather than as asked.** It asked for a v0.7 entry
+  covering the attribution fix, the protocol screen, the README correction, the two `index.html`
+  corrections, the primary measure and the reference-screen history. There is no v0.7: v0.6 is still
+  open, and every one of those items except the attribution fix was already recorded under it. So the
+  entry it asked for would have split one version's record across two headings for no reader's
+  benefit. What was genuinely owed was the attribution fix — which turned out not to be paperwork at
+  all but an unreproduced change, and is the bullet above — and the `docs/deliberate-quirks.md` entry
+  naming the test that holds it. Both are here. The `SOURCES.md` pass it asked for found one row
+  claiming a screen did not render, and #18 had already corrected it.
 - **The attribution now stands on every assisted case instead of hiding inside the estimate panel,
   which removes a confound that made one click both the treatment and the outcome.** The arm is the
   manipulation: the number, the prose and the recommendation are identical in all three arms and only
