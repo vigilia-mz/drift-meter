@@ -13,9 +13,10 @@ import {
 } from '../domain/metrics.js';
 import { freshRound, slateFor } from '../state/run.js';
 import { ARMS } from './arms.js';
-import { MEASURES } from './debrief.js';
+import { DEBRIEF, MEASURES } from './debrief.js';
 import { armRows, MEASURE_SPECS, METHOD } from './method.js';
 import { SLATES } from './slates.js';
+import type { DebriefMeasure } from './types.js';
 
 /**
  * The protocol screen against the code it describes.
@@ -46,6 +47,66 @@ describe('the seven measures', () => {
   it('names seven, with no repeats', () => {
     expect(MEASURE_SPECS).toHaveLength(7);
     expect(new Set(MEASURE_SPECS.map((m) => m.key)).size).toBe(MEASURE_SPECS.length);
+  });
+
+  it('marks exactly one measure as the primary outcome', () => {
+    // Two would be no declaration at all, and none is the forking path the
+    // declaration exists to close: five bars drawn as peers means whichever moved
+    // most reads afterwards as the result. Counted off the array rather than
+    // asserted of one entry, so marking a second one fails here.
+    const primary = (MEASURES as readonly DebriefMeasure[]).filter((m) => m.primary === true);
+    expect(primary).toHaveLength(1);
+    expect(primary[0]?.key).toBe('engagement');
+  });
+
+  it('names the same measure on the protocol screen as the debrief marks', () => {
+    // The two screens are the two places a reader meets the hierarchy, and nothing
+    // in the type system holds them together. This does.
+    const primary = (MEASURES as readonly DebriefMeasure[]).find((m) => m.primary === true);
+    expect(primary).toBeDefined();
+    expect(METHOD.primaryOutcome).toContain(primary?.label.toLowerCase() ?? 'no primary measure');
+  });
+
+  it('says the secondary measures are worth reading rather than worthless', () => {
+    // Secondary has two senses and only one of them is true here. A reader who
+    // takes it as a demotion would stop reading four of the five bars, so both
+    // screens have to say which sense they mean.
+    for (const copy of [DEBRIEF.primaryNote, METHOD.primaryOutcomeWhy]) {
+      expect(copy).toContain('secondary');
+      expect(copy).toContain('worth reading rather than set aside');
+    }
+  });
+
+  it('counts both remainders against the arrays rather than from memory', () => {
+    // Two remainder counts are published, on two screens, against two different
+    // sets: five bars on the debrief and seven measures here. Both are held, because
+    // holding one of them is how the other goes stale — this version has already
+    // corrected a measure count twice, and the comment above MEASURES said four from
+    // the commit that added the fifth bar until the one that declared the primary.
+    const WORDS = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven'] as const;
+
+    const bars = WORDS[MEASURES.length - 1];
+    expect(bars, `no number word for ${String(MEASURES.length - 1)} secondary bars`).toBeDefined();
+    expect(DEBRIEF.primaryNote).toContain(`The other ${String(bars)} are secondary`);
+
+    const specs = WORDS[MEASURE_SPECS.length - 1];
+    expect(
+      specs,
+      `no number word for ${String(MEASURE_SPECS.length - 1)} secondary measures`,
+    ).toBeDefined();
+    expect(METHOD.primaryOutcomeWhy).toContain(`The other ${String(specs)} are secondary`);
+  });
+
+  it('states in the module that no run computes the primary outcome', () => {
+    // Titled for what it checks: these are constants, not a page. That the limit
+    // actually renders, and renders after the statement it qualifies, is held in the
+    // browser suite — a paragraph deleted from Method.tsx would leave this green.
+    expect(METHOD.primaryOutcomeLimit).toContain('one arm');
+    expect(METHOD.primaryOutcomeLimit).toContain('cohort that does not exist');
+    // And the general case is still in the limits, not replaced by the specific one.
+    expect(METHOD.limits.join(' ')).toContain('needs a cohort');
+    // The debrief cannot name the primary outcome and drop the limit on its own.
+    expect(DEBRIEF.primaryNote).toContain('one run draws one arm');
   });
 
   it('says in the heading how many it names', () => {
