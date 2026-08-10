@@ -67,7 +67,7 @@ export const SPEC_RULES = [
     pedagogy:
       'Calibration. A point estimate carries no information about its own uncertainty, so a reader has nothing to be appropriately unsure with; an interval hands them the uncertainty along with the number.',
     targets:
-      'Confidence calibration, and the confidence gap the debrief reports. A reader who has seen the width of the range is harder to make certain than one who has seen only its middle.',
+      'Confidence calibration, and the two figures the debrief prints beside each other — what the reader said about a round against what they did in it. A reader who has seen the width of the range is harder to make certain than one who has seen only its middle.',
     cost: 'Ranges are less useful for deciding and much less quotable. An interval wide enough to be honest is often wide enough to be unhelpful, and saying so is part of following the rule rather than a failure of it.',
     falsified:
       'If readers given an interval report the same confidence as readers given a point estimate, the interval is decoration and the rule is not earning its place.',

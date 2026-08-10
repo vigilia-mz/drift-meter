@@ -191,7 +191,9 @@ export const METHOD = {
  * shares its label with the entry here, which a test asserts.
  *
  * The reverse does not hold, and two entries prove it. The confidence gap has no bar
- * because it is a difference rather than a pair. The catch rate has none because it
+ * because since #37 it is two figures printed beside each other rather than one value
+ * per round — drawing them as a pair of bars would restate as a single shape the
+ * commensurability the change exists to stop asserting. The catch rate has none because it
  * is one observation per reader while one planted error is authored per slate, and a
  * bar is a shape that invites reading 0 or 100 as a rate; the debrief gives it a
  * paragraph per planted error instead. Both exclusions are stated in their own rows,
@@ -258,12 +260,12 @@ export const MEASURE_SPECS = [
   },
   {
     key: 'gap',
-    label: 'Confidence calibration',
+    label: 'Confidence against behaviour',
     definition:
-      'The reader’s own confidence rating for a round, against a composite of what they actually did in it. Reported as a signed difference, because the direction is the interesting part.',
-    formula: '(rating ÷ 5 × 100) − mean(engagement, revision, ambiguity)',
+      'The reader’s own confidence rating for a round, reported beside a composite of what they actually did in it. The two are printed side by side and are not subtracted on the page: one is a five-point self-report rescaled and the other is a mean of three unlike process measures, and their difference would be a quantity in units that do not exist.',
+    formula: 'rating ÷ 5 × 100, printed beside mean(engagement, revision, ambiguity)',
     threat:
-      'The composite it is measured against is three process measures averaged with equal weights, and those weights are an authorial choice rather than a result. Calling the difference a calibration gap presumes that composite is the right yardstick for confidence, which is precisely what has not been established.',
+      'The composite is three process measures averaged with equal weights, and those weights are an authorial choice rather than a result. Taking the magnitude off the page does not retire that choice: the sign of the difference still selects which of three paragraphs the debrief prints, so the subtraction has left the screen and not the instrument. What would settle the weights is a pilot showing whether the three load together, which is not yet run.',
   },
 ] as const satisfies readonly MeasureSpec[];
 

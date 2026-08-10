@@ -84,6 +84,27 @@ This file is the surviving record of them.
   `trapBranches`, a list bounded at one per case, rebuilt from the known label set like everything
   else in `sanitizeReflect`. Nothing populates it yet — no screen builds a summary — so this is a
   contract that stopped describing the mechanism rather than a behaviour that changed.
+- **The confidence gap is no longer reported as a quantity.** It subtracted a five-point self-report,
+  rescaled to 0–100, from a mean of three unlike process measures carrying equal weights. Both halves
+  are authorial choices, so the difference inherited both and declared neither, and it was the figure
+  in the instrument that most looked like a measurement and least was one. The debrief now prints the
+  two components side by side, each named with the scale it came from, and says on the page that they
+  are not subtracted and why. The protocol screen's row stops calling the difference a calibration
+  measure and states the same thing in the measure's own words. What the change does not do is retire
+  the composite or reweight it: there is no basis for other weights, and picking some would be worse
+  than equal weights honestly labelled, so the question waits on a pilot showing whether the three load
+  together. The subtraction itself survives in one narrower place, which the row now says: `gapBand`
+  reads the sign of the difference to choose which of three paragraphs the debrief prints. Direction is
+  a claim this design can make and distance is not, so the sign stayed and the magnitude came off the
+  screen. The count of measures does not move — the measure is still reported, and what changed is what
+  it reports.
+- Found while scoping the above, and worth recording because the record was the thing that was wrong:
+  the issue asking for this said the magnitude was printed on screen and named `closingKey()` as the
+  function that reads the gap. Neither was true. The debrief printed only a qualitative band, and
+  `closingKey()` takes framing autonomy and never sees the gap; the reader of the gap is `gapBand()`,
+  and it uses a threshold on the difference rather than only its sign. A plan for a correction that
+  misdescribes the thing it is correcting is the same defect as a stale claim on the page, one file
+  further out, and it is the second such case in this version.
 - **The landing page said the review is completed once with AI assistance and once without it.** It
   is completed with and without a supplied estimate, with the attribution randomised across it, which
   is what the protocol screen's arm table and P5 are both about. The front door was asserting the

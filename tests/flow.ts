@@ -106,6 +106,19 @@ export const COPY = {
     undefinedBar: 'n/a',
     undefinedCaption: 'Undefined without a supplied frame. Reported rather than imputed.',
     estimateAccuracy: 'Estimate accuracy',
+    /**
+     * The confidence comparison, since #37.
+     *
+     * The two components are printed side by side and their difference is not. The
+     * sign of that difference still chooses the paragraph above them, which is why
+     * the heading survives unchanged while the number underneath it does not.
+     */
+    gapHeading: 'Confidence against behaviour',
+    gapSaid: 'What you said: your confidence rating, as a share of the five-point scale',
+    gapDid:
+      'What you did: the mean of evidence engagement, revision behaviour and ambiguity tolerance',
+    gapNote:
+      'These two are not subtracted here. One is what you said about a round and the other summarises what you did in it, and a difference between them would be a figure in units that do not exist. The paragraph above reads which way they part rather than how far.',
     /** Accuracy's own reason, which is not framing autonomy's. */
     accuracyCaption:
       'No assumption here carries a supported value yet, so accuracy is undefined rather than perfect. Reported rather than imputed.',

@@ -346,6 +346,49 @@ test('estimate accuracy is undefined in both rounds, for its own stated reason',
 });
 
 /**
+ * 7c. The confidence comparison prints its two components and never their difference.
+ *
+ * #37. The difference was a five-point self-report rescaled to 0–100 minus a mean of
+ * three unlike process measures carrying equal weights, and it was the quantity on
+ * this screen that most looked like a measurement and least was one. Both halves are
+ * authorial choices, so the difference inherited both and declared neither.
+ *
+ * What is held here is the shape rather than the wording: exactly two rows, exactly
+ * two figures in each, so a third figure has nowhere to be printed. A difference row
+ * added later fails this, which is the point — the unit suite still computes the gap,
+ * because `gapBand` reads its sign to choose the paragraph above, and the sign is a
+ * claim this design can make where the distance is not.
+ */
+test('the confidence section prints two components and never their difference', async ({
+  page,
+}) => {
+  await reachDebrief(page, SLATE_A);
+
+  const section = page.getByRole('region', { name: COPY.debrief.gapHeading });
+
+  const rows = section.locator('tbody tr');
+  await expect(rows).toHaveCount(2);
+  await expect(rows.nth(0).locator('th')).toHaveText(COPY.debrief.gapSaid);
+  await expect(rows.nth(1).locator('th')).toHaveText(COPY.debrief.gapDid);
+
+  // Two figures per row, one per round, and no third column to hold a difference.
+  for (const i of [0, 1]) {
+    const cells = rows.nth(i).locator('td');
+    await expect(cells).toHaveCount(2);
+
+    for (const j of [0, 1]) {
+      const value = Number(await cells.nth(j).innerText());
+      expect(Number.isInteger(value)).toBe(true);
+      expect(value).toBeGreaterThanOrEqual(0);
+      expect(value).toBeLessThanOrEqual(100);
+    }
+  }
+
+  // The reason, on the page rather than in a comment beside the data.
+  await expect(section).toContainText(COPY.debrief.gapNote);
+});
+
+/**
  * 8. Unconfigured degradation.
  *
  * `VITE_REFLECT_ENDPOINT` is empty in the committed `.env`, so every clone and

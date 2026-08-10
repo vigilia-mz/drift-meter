@@ -81,13 +81,15 @@ describe('the seven measures', () => {
   });
 
   it('says in its own row why each measure with no bar has none', () => {
-    // Two measures are computed and not drawn: `gap`, because it is a difference
-    // rather than a pair, and `catchRate`, because one planted error per slate makes
-    // it one observation and a bar invites reading 0 or 100 as a rate. Naming them
-    // here rather than counting them means adding a third silently fails.
+    // Two measures are computed and not drawn: `gap`, because since #37 it is two
+    // figures reported beside each other rather than one value per round, and
+    // `catchRate`, because one planted error per slate makes it one observation and a
+    // bar invites reading 0 or 100 as a rate. Naming them here rather than counting
+    // them means adding a third silently fails.
     const unbarred = MEASURE_SPECS.filter((m) => !MEASURES.some((b) => b.key === m.key));
     expect(unbarred.map((m) => m.key)).toEqual(['catchRate', 'gap']);
-    expect(specFor('gap').definition).toContain('signed difference');
+    // The row has to carry the refusal, not merely omit the number.
+    expect(specFor('gap').definition).toContain('not subtracted');
     expect(specFor('catchRate').threat).toContain('not drawn as a bar');
   });
 
