@@ -469,3 +469,37 @@ describe('the illustrative disclosure', () => {
     }
   });
 });
+
+describe('what one sitting cannot show', () => {
+  /**
+   * #38. The programme is named for a claim about change over repeated
+   * delegation, and a run is one sitting — so the name on the masthead reaches
+   * further than the instrument under it does. Section 6 of the protocol screen
+   * carries that limit. The intro screen did not, and the intro screen is what a
+   * reader who takes the sixty-second path leaves with.
+   *
+   * Both carry it now, and the reason to assert it on both is that either could
+   * lose it alone without anything else here going red: this is prose, and the
+   * two screens are edited by different errands.
+   */
+  const CARRIERS: ReadonlyArray<readonly [string, string]> = [
+    ['INTRO.short', INTRO.short.join(' ')],
+    ['METHOD.limits', METHOD.limits.join(' ')],
+  ];
+
+  it('names the hypothesis as longitudinal and the run as one sitting, on both screens', () => {
+    for (const [path, text] of CARRIERS) {
+      expect(text, path).toContain('longitudinal');
+      expect(text, path).toContain('one sitting');
+    }
+  });
+
+  it('says on both screens that the trace is equally consistent with no drift', () => {
+    // The deflation is the disclosure. Naming the horizon and leaving the reader
+    // to work out what follows would be a limit that reads as rigour while
+    // costing the claim nothing, which is the failure this project is about.
+    for (const [path, text] of CARRIERS) {
+      expect(text, path).toContain('equally consistent');
+    }
+  });
+});
