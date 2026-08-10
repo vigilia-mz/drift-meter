@@ -152,6 +152,35 @@ export function Debrief({ containerRef, run, onContinue, onMethod, onProcess }: 
           {DEBRIEF.gapHeading}
         </h2>
         <p class="dm-body">{DEBRIEF.gap[gapBand(a.gap)]}</p>
+        {/*
+          The two components, never their difference. `gapBand` above reads the sign
+          of `a.gap`; nothing here prints its magnitude, which is the whole of #37.
+        */}
+        <table class="dm-table">
+          <thead>
+            <tr>
+              {/* Empty on the page, named to a screen reader. See `countsRowAxis`. */}
+              <th scope="col">
+                <span class="dm-sr-only">{DEBRIEF.gapComponentsRowAxis}</span>
+              </th>
+              <th scope="col">{DEBRIEF.legendAssisted}</th>
+              <th scope="col">{DEBRIEF.legendUnassisted}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">{DEBRIEF.gapComponents.perceived}</th>
+              <td>{a.perceived}</td>
+              <td>{u.perceived}</td>
+            </tr>
+            <tr>
+              <th scope="row">{DEBRIEF.gapComponents.actual}</th>
+              <td>{a.actual}</td>
+              <td>{u.actual}</td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="dm-note">{DEBRIEF.gapComponentsNote}</p>
       </section>
 
       {verdicts.length === 0 ? null : (

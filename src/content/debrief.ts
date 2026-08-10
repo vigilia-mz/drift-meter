@@ -145,6 +145,28 @@ export const DEBRIEF = {
       'Your confidence and your working came out in roughly the same place. That is what calibration looks like on a task this short, and it is worth noticing that it is a description of one task rather than a property of you.',
   },
 
+  /**
+   * The two halves of the comparison, printed side by side and never subtracted.
+   *
+   * The difference used to be reported as the measure, and it was the quantity on
+   * this screen that most looked like a number and least was one: a five-point
+   * self-report rescaled to 0–100, minus a mean of three unlike process measures
+   * carrying equal weights. Both halves are authorial choices, so the difference
+   * inherits both and states neither.
+   *
+   * What survives of it is direction. `gapBand` reads the sign to choose the
+   * paragraph above, which is a claim this design can make; the distance is not,
+   * and the note says so on the page rather than in this comment.
+   */
+  gapComponentsRowAxis: 'Figure',
+  gapComponents: {
+    perceived: 'What you said: your confidence rating, as a share of the five-point scale',
+    actual:
+      'What you did: the mean of evidence engagement, revision behaviour and ambiguity tolerance',
+  },
+  gapComponentsNote:
+    'These two are not subtracted here. One is what you said about a round and the other summarises what you did in it, and a difference between them would be a figure in units that do not exist. The paragraph above reads which way they part rather than how far.',
+
   closingHeading: 'What this run can and cannot say',
   /**
    * The third statement of #7's disclosure, after the work rather than before it.
