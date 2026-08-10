@@ -100,3 +100,49 @@ test('every page declares a favicon that resolves', async ({ page, baseURL }) =>
     expect(response.headers()['content-type']).toContain('svg');
   }
 });
+
+/**
+ * The landing page names every measure the instrument actually has.
+ *
+ * This is the one cross-check in the suite that reads a label out of `src/content/`
+ * rather than writing it out, and the exception is the point: `index.html` is
+ * hand-authored prose and `MEASURE_SPECS` is the typed module the instrument
+ * computes from. They are two independently maintained sources for one list, which
+ * is the shape that goes out of sync silently — the page said five for as long as
+ * there were five, and kept saying five after a sixth arrived. Nothing in the
+ * repository noticed; a hand count did. So this is not a constant equalling itself,
+ * it is the front door held against the thing behind it.
+ *
+ * It checks presence, not phrasing. The page is free to introduce a measure however
+ * it likes, and free to say — as it now does — that the sixth reports as undefined.
+ * What it is not free to do is leave one out.
+ */
+test('the landing page names every measure the protocol screen defines', async ({ page }) => {
+  const { MEASURE_SPECS } = await import('../src/content/method.js');
+
+  await page.goto('index.html');
+  const section = page.locator('section', { hasText: 'What it measures' });
+  const prose = uk(((await section.innerText()) || '').toLowerCase());
+
+  for (const measure of MEASURE_SPECS) {
+    // `gap` is the signed difference between two of the others and the page calls it
+    // confidence calibration, which is the vocabulary a reader arrives with.
+    const named = measure.key === 'gap' ? 'confidence calibration' : measure.label.toLowerCase();
+    expect(prose, `the landing page does not name ${measure.key}`).toContain(uk(named));
+  }
+});
+
+/**
+ * The prose pages spell in American English and the content modules in British.
+ *
+ * `index.html` has “revision behavior” and “programme” in the same sentence;
+ * `essay.html` has “organize”. The instrument's modules are consistently British.
+ * This test is not the place to settle that — it is here to catch a measure the
+ * front door leaves out, and failing over one letter would make it a spelling
+ * checker that occasionally notices a missing measure. So both sides are normalised
+ * on the one variant that actually collides, and the divergence is left standing
+ * where the author can see it rather than corrected by a test's side effect.
+ */
+function uk(text: string): string {
+  return text.replace(/behavior/g, 'behaviour');
+}

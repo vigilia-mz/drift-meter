@@ -140,12 +140,25 @@ paid here.
 - The instrument is being rebuilt from source, in this repository, and it runs again. v0.1 through
   v0.5 shipped it as a single generated file with no editable source on disk, no tests, no types, no
   linting and no continuous integration; the last of them weighed 894 KB. Rebuilt and under test so
-  far: the case data, the cost model, the derived measures, and twelve of the instrument's thirteen
+  far: the case data, the cost model, the derived measures, and all thirteen of the instrument's
   screens — the intro, the consent step, both rounds with their confidence gates, the debrief, the
-  transfer check, Round 3, the four design rules, and the protocol and publication-process screens.
-  The remaining one renders a page saying it is not finished rather than an empty frame. Not
-  rebuilt: the endpoint, and the live-Claude screen that needs it. The remaining steps are tracked
-  in the open rather than described as finished.
+  transfer check, Round 3, the four design rules, the protocol and publication-process screens, and
+  the encoded-rules screen. Nothing renders a stub any longer, and the axe exemption the stub needed
+  was deleted rather than left standing. The endpoint exists too, and is dark by default: the key
+  lives in its own environment and `VITE_REFLECT_ENDPOINT` is empty in the committed `.env`, so every
+  clone is off and cannot spend the author's credit. The remaining steps are tracked in the open
+  rather than described as finished.
+- Corrected four claims this build made about itself, all of them overtaken by work in this same
+  version. The landing page named five measures and there are six; the process screen said twelve of
+  the thirteen screens render and all thirteen do; `SOURCES.md` said ten of the thirteen; and this
+  entry itself said the endpoint and the live-Claude screen were not rebuilt, which stopped being
+  true when they were. The landing page now also says the sixth measure reports as undefined, because
+  naming a measure on the front door without saying it has no values yet is the overclaim this
+  project exists to argue against. Recorded rather than quietly fixed: a version whose own changelog
+  described the version before it is exactly the failure this file is meant to catch, and it went
+  three merges without being caught by anything but a hand count. One of the four, the landing page's
+  measure count, turns on the sixth measure, which is recorded under v0.7; the other three are this
+  version's own state.
 - One reducer holds the whole flow, and it is pure: no DOM, no clock, no entropy. The assignment is
   drawn outside it and handed in, which is what lets the thirteen-screen flow be exercised in tests
   with no browser. The previous build kept the two rounds in loose arrays and read them through
@@ -539,14 +552,19 @@ screen of the build that has since been deleted, which is the screen where a rea
 whether to trust the page about data handling. Nothing in this repository records the sentence
 itself, only that it was made.
 
-Eight of the bullets above are corrections. Seven are claims this project made about its own work: a
-contrast ratio, four claims about its own tests, three of which described tests that did not exist, a
-claim about where a word appears in the repository, and a source row that reported three files as
-missing when all three existed. The eighth is a scale qualifier on a
-published figure, which the source table already existed to prevent. This paragraph said seven and six
-until the v0.7 paperwork pass counted them: the endpoint pass added the eighth correction later in this
-same version and did not come back to the tally, which is a count going stale between one pass and the
-next inside a single version. That they survived until
+Nine of the bullets above are corrections, and between them they correct twelve claims. Eleven are
+claims this project made about its own work: a contrast ratio; four claims about its own tests, three
+of which described tests that did not exist; a claim about where a word appears in the repository; a
+source row that reported three files as missing when all three existed; and four claims about how much
+of itself was built, caught in one pass by a hand count. The twelfth is a scale qualifier on a
+published figure, which the source table already existed to prevent. That they survived until someone
+checked the paperwork against the code is the uncomfortable part.
+
+This tally has now been wrong twice, both times in the same direction. It read seven and six, which was
+right when it was written, and neither the endpoint pass nor the self-claims pass came back to it after
+each added a correction. A count of this project's own corrections went stale twice inside one version.
+That is the failure this file exists to catch, turned on the file itself, and it is recorded here for
+the same reason everything else in this paragraph is. That they survived until
 someone checked the paperwork against the code is the uncomfortable part. The withdrawal of
 “reference standard” in the Clio bullet is a correction too, and the largest of the pass; it is
 filed as a change rather than counted here because what it corrects is a claim about the world, not
