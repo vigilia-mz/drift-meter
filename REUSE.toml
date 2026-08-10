@@ -107,6 +107,23 @@ SPDX-License-Identifier = "Apache-2.0"
 # self-hosted rather than loaded from a third party, because the consent screen
 # promises that nothing leaves the browser and a CDN font request would make that
 # false on every page load.
+#
+# The identifier below went four versions with no `LICENSES/OFL-1.1.txt` beside
+# it, which is the one thing REUSE asks of a declared licence. The file is there
+# now, and it is the generic licence rather than either font's copy of it: both
+# `public/fonts/LICENSE-*.txt` open with a font-specific copyright naming a
+# particular .ttf, and serving one of those as the licence for the other font
+# would be wrong in both directions. What those two files carry from their ninth
+# line to their last is byte-identical to each other, contains no font name, and
+# is the OFL text proper — heading, preamble, definitions, conditions,
+# termination, disclaimer. `LICENSES/OFL-1.1.txt` is that, copied rather than
+# retyped, so it can be re-derived and checked:
+#
+#   diff <(tail -n +9 public/fonts/LICENSE-IBM-Plex.txt) LICENSES/OFL-1.1.txt
+#
+# Nothing enforces the presence of that file. There is no `reuse lint` in CI or
+# in `npm run check`, so this comment is what stands between the declaration and
+# the text it points at.
 
 [[annotations]]
 path = ["public/fonts/**"]

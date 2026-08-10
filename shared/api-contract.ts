@@ -113,8 +113,14 @@ export interface ReflectSummary {
   readonly assisted: ReflectRound;
   readonly unassisted: ReflectRound;
   readonly assignment: ReflectAssignment;
-  /** Which branch of the trap debrief the run earned. A label, never its prose. */
-  readonly trapBranch: string | null;
+  /**
+   * One branch label per planted error the run met, in slate order.
+   *
+   * A list rather than one label since #31: a planted error is a property of a case
+   * and any case may carry one, so a run earns a verdict per trapped case rather than
+   * a verdict per run. Empty where the round carried none. Labels only, never prose.
+   */
+  readonly trapBranches: readonly string[];
   /** The transfer check's pick. One of four option keys, or null. */
   readonly transfer: string | null;
 }
@@ -232,14 +238,43 @@ function labelOrNull<T extends string>(value: unknown, allowed: readonly T[]): T
   return allowed.find((a) => a === value) ?? null;
 }
 
+/**
+ * A bounded list of known labels, with everything else dropped.
+ *
+ * Truncated before it is mapped rather than after, so a caller cannot make the
+ * endpoint walk an array of any length it likes on the way to a short result.
+ */
+function labelList<T extends string>(
+  value: unknown,
+  allowed: readonly T[],
+  max: number,
+): readonly T[] {
+  if (!Array.isArray(value)) return [];
+  return value
+    .slice(0, max)
+    .map((item) => labelOrNull(item, allowed))
+    .filter((item): item is T => item !== null);
+}
+
 function record(value: unknown): Record<string, unknown> {
   return typeof value === 'object' && value !== null ? (value as Record<string, unknown>) : {};
 }
 
-/** The counts a three-case round can produce. Nine sliders, three cases. */
+/**
+ * The counts a three-case round can produce. Nine sliders, three cases.
+ *
+ * Written out here and derived from the slate everywhere else, because `shared/` is
+ * imported by the endpoint as well as by the front end and cannot reach
+ * `src/content/`. These are the outer bound a sanitiser clamps to rather than the
+ * denominator a measure divides by — nothing here computes a figure, so nothing here
+ * can get one wrong. The one measured against a slate is `MAX_MOVED`, and
+ * `src/content/invariants.test.ts` asserts both slates carry nine sliders.
+ */
 const MAX_OPENS = 3;
 const MAX_MOVED = 9;
 const MAX_FLAGS = 3;
+/** At most one planted error per case, and there are three cases. */
+const MAX_TRAPS = MAX_OPENS;
 
 function round(value: unknown): ReflectRound {
   const r = record(value);
@@ -299,7 +334,7 @@ export function sanitizeReflect(input: unknown): ReflectSummary {
       forcedSlate: assignment.forcedSlate === true,
       forcedArm: assignment.forcedArm === true,
     },
-    trapBranch: labelOrNull(raw.trapBranch, TRAP_BRANCHES),
+    trapBranches: labelList(raw.trapBranches, TRAP_BRANCHES, MAX_TRAPS),
     transfer: labelOrNull(raw.transfer, TRANSFER_OPTIONS),
   };
 }

@@ -11,11 +11,11 @@ small, reasonable acts of delegation.
 **Status: prototype. n = 0.** No data has been collected from anyone. This is an instrument and a
 design argument, not a finding, and every screen that could be mistaken for a result says so.
 
-**This repository is mid-rebuild, and the rebuild has reached every screen.** In place and under
-test: the three prose pages, the design system, the case data, the cost model, the derived measures,
-all thirteen screens, the pinned model and the endpoint that calls it. The endpoint ships **switched
-off** — see below — so nothing here can spend anyone's API credit. The rebuild is recorded as v0.6 in
-[`CHANGELOG.md`](CHANGELOG.md).
+**The rebuild is complete, and it reached every screen.** In place and under test: the three prose
+pages, the design system, the case data, the cost model, the derived measures, all thirteen screens,
+the pinned model and the endpoint that calls it. The endpoint ships **switched off** — see below — so
+nothing here can spend anyone's API credit. The rebuild is recorded as v0.6 in
+[`CHANGELOG.md`](CHANGELOG.md); v0.7, the version in progress, is what has changed since.
 
 ## What is here
 

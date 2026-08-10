@@ -5,10 +5,11 @@
  * `REUSE.toml` says this repository holds two kinds of thing and licenses them
  * differently, and it says so in six paragraphs of reasoning. What it had no way
  * of saying is whether the reasoning still described the repository. It did not:
- * two of the three licences it names had no text in `LICENSES/`, and six tracked
- * files matched no annotation at all — one of them a `docs/` page added in the
- * same version as this script, by someone who had read the file and still missed
- * that `docs/` was not in it.
+ * two of the three licences it names had no text in `LICENSES/` when this was
+ * written — one of them closed earlier in the same version, by a reading that left
+ * the other standing — and six tracked files matched no annotation at all, one of
+ * them a `docs/` page added in the same version as this script, by someone who had
+ * read the file and still missed that `docs/` was not in it.
  *
  * That is the same failure as the contrast ratios that lived in a comment, and it
  * gets the same fix. Two assertions, both run on every push:

@@ -21,7 +21,7 @@ panel never clears it. Opening both does not count twice. `engagement` asks whet
 at, not for how long or how often, so `metrics()` counts the flag and never the live panel state.
 
 - Where: `read` and its two panel flags in `CaseState`; `opens` in `metrics()`, both in
-  `src/domain/metrics.ts`. The other consumer is the `missOpened` branch of `trapVerdict()`.
+  `src/domain/metrics.ts`. The other consumer is the `missOpened` branch of `trapVerdicts()`.
 - Tests: `read is sticky: closing a panel does not un-read the case` and `read is set by either
 panel, and opening both still counts once`, in `src/domain/metrics.test.ts`.
 - **Also pinned at the reducer, since v0.6.** The two tests above set `read` by hand, because when
@@ -220,12 +220,60 @@ does not count. The one thing that counts is moving the figure the headline rest
 checking, and declining to decide protects you from acting on a bad number without telling you the
 number was bad — so those get their own branches rather than credit.
 
-- Where: `trapVerdict()` in `src/domain/trap.ts`.
+- Where: `caughtTrap()` in `src/domain/metrics.ts`, read by both consumers — the branch logic in
+  `trapVerdicts()` in `src/domain/trap.ts`, and the `catchRate` measure. One definition on purpose:
+  two would let the paragraph a reader is shown disagree with the number they are counted in.
 - Tests: `moving a different slider is not catching it`, `flagged without checking: a real move, and
 not the same as checking`, `missOpened is checked before miss` and `missFund is checked before
 missAccepted`, in `src/domain/trap.test.ts` — with `missAccepted is unreachable whenever the
 recommendation was not pre-selected`, an exhaustive pass over all thirty-two state combinations,
-  beside them.
+  beside them. `counts only the misstated slider, and not the others on the same case`, in
+  `src/domain/metrics.test.ts`, is the same rule held on the measure.
+
+### The catch rate is computed and is not drawn as a bar
+
+Every other measure on the debrief gets a paired bar. This one gets one prose panel per planted
+error instead, and the protocol screen states the omission in the measure's own row.
+
+The reason is the denominator. One planted error is authored per slate, so for a single reader the
+catch rate takes exactly two values, 0 and 100. A bar is a shape that reads as a rate, and a bar at
+either end off one observation would look like a finding. The paragraph says what was actually done,
+which is the most the run supports.
+
+This is the one place where `MeasureSpec.key` being a field of `Metrics` does not run both ways: the
+screen cannot name a measure the instrument does not compute, and the instrument may compute one the
+debrief does not draw. `gap` is the other, for an unrelated reason — it is a difference rather than a
+pair.
+
+- Where: `catchRate` in `Metrics`, `src/domain/metrics.ts`; the `catchRate` row in `MEASURE_SPECS`,
+  `src/content/method.ts`; `MEASURES` in `src/content/debrief.ts`, which is the bar list and does not
+  contain it.
+- Test: `says in its own row why each measure with no bar has none`, in
+  `src/content/method.test.ts`. It names the two rather than counting them, so adding a third
+  unbarred measure fails rather than passing quietly.
+
+### A planted error is per case, and one per slate is the authoring rather than the mechanism
+
+`Case.trap` is nullable and any case may carry one. The content carries one per slate, which is why
+every real run produces exactly one trap panel and a catch rate of 0 or 100.
+
+Reading that as "the mechanism only handles one" is the mistake this entry exists to prevent, and it
+is the state the slate-level `trapCase`/`trapSlider` fields actually were in before #31. The unit
+suite runs the branch logic and the catch rate against synthetic slates carrying two and three,
+because the published content cannot exercise the general case.
+
+- Where: `Trap` and `Case.trap` in `src/content/types.ts`; `trappedCases()` in
+  `src/domain/metrics.ts`, which is the walk everything else uses.
+- Tests: `returns one verdict per trapped case, in slate order, and none for the others` and `reads
+the supplied recommendation off the case it is scoring, not off the slate`, in
+  `src/domain/trap.test.ts`; `holds against slates carrying one, two and three planted errors`, in
+  `src/domain/metrics.test.ts`.
+- The plural copy is held by `has a plural heading and lead, and they say something the singular does
+not`, in `src/content/invariants.test.ts`, and not by the browser suite — no run reaches it, and
+  `tests/flow.ts` says why it pins the singular only.
+- **What the tests do not pin.** How a second planted error reads on the page. Nothing here has seen
+  two panels rendered, because the content cannot produce them; the assertion is that the copy exists
+  and is plural, not that the section is well laid out with two of them in it.
 
 ### A four-point difference is not a difference, and the two headlines are not symmetric
 

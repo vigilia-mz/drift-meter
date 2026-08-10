@@ -15,11 +15,11 @@ import type { RefObject } from 'preact';
 import { ARM_NOTES, ARMS } from '../content/arms.js';
 import { DEBRIEF, MEASURES } from '../content/debrief.js';
 import { SCREENS } from '../content/shell.js';
-import { TRAP, TRAP_HEADINGS } from '../content/trap.js';
+import { TRAP_HEADINGS, trapParagraph } from '../content/trap.js';
 import type { Metrics } from '../domain/metrics.js';
 import { metrics } from '../domain/metrics.js';
 import { closingKey, gapBand, headlineFor } from '../domain/reveal.js';
-import { trapVerdict } from '../domain/trap.js';
+import { trapVerdicts } from '../domain/trap.js';
 import type { Run } from '../state/run.js';
 import { slateFor } from '../state/run.js';
 import { PairedBar } from '../ui/PairedBar.js';
@@ -58,21 +58,20 @@ export function Debrief({ containerRef, run, onContinue, onMethod, onProcess }: 
   const headline = headlineFor(a, u);
   const arm = ARMS[run.assign.armKey];
 
-  // The trap lives in the assisted round. Every branch of its copy names a
-  // supplied figure or a supplied recommendation, neither of which exists in the
+  // The planted errors live in the assisted round. Every branch of their copy names
+  // a supplied figure or a supplied recommendation, neither of which exists in the
   // control round — running it against that round would print prose about a
   // number the reader was never shown.
-  const trapState = run.rounds.assisted.data[assistedSlate.trapCase];
-  const trapCase = assistedSlate.cases[assistedSlate.trapCase];
-  const verdict =
-    trapState === undefined || trapCase === undefined
-      ? null
-      : trapVerdict({
-          st: trapState,
-          trapSlider: assistedSlate.trapSlider,
-          suppliedRec: trapCase.rec,
-          prefill: run.prefill,
-        });
+  //
+  // One verdict per planted error the slate carries, so the count is read off the
+  // result rather than assumed: the section is absent when a slate carries none, and
+  // takes its plural form when it carries more than one.
+  const verdicts = trapVerdicts({
+    data: run.rounds.assisted.data,
+    slate: assistedSlate,
+    prefill: run.prefill,
+  });
+  const plurality = verdicts.length > 1 ? 'many' : 'one';
 
   const caseCount = assistedSlate.cases.length;
 
@@ -155,14 +154,19 @@ export function Debrief({ containerRef, run, onContinue, onMethod, onProcess }: 
         <p class="dm-body">{DEBRIEF.gap[gapBand(a.gap)]}</p>
       </section>
 
-      {verdict === null ? null : (
-        <section class="dm-panel" data-accent={verdict.accent} aria-labelledby="dm-trap">
-          <p class="dm-panel-heading">{DEBRIEF.trapHeading}</p>
-          <p class="dm-note">{DEBRIEF.trapLead}</p>
-          <h2 class="dm-trap-heading" id="dm-trap">
-            {TRAP_HEADINGS[verdict.heading]}
+      {verdicts.length === 0 ? null : (
+        <section aria-labelledby="dm-traps">
+          <h2 class="dm-section-heading" id="dm-traps">
+            {DEBRIEF.trapHeading[plurality]}
           </h2>
-          <p class="dm-body">{TRAP[assistedSlate.id][verdict.branch]}</p>
+          <p class="dm-note">{DEBRIEF.trapLead[plurality]}</p>
+          {verdicts.map((verdict) => (
+            <div class="dm-panel" data-accent={verdict.accent} key={verdict.trapped.index}>
+              <p class="dm-panel-heading">{verdict.trapped.case.org}</p>
+              <h3 class="dm-trap-heading">{TRAP_HEADINGS[verdict.heading]}</h3>
+              <p class="dm-body">{trapParagraph(verdict.branch, verdict.trapped.trap)}</p>
+            </div>
+          ))}
         </section>
       )}
 

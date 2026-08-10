@@ -109,7 +109,24 @@ export const COPY = {
     /** Accuracy's own reason, which is not framing autonomy's. */
     accuracyCaption:
       'No assumption here carries a supported value yet, so accuracy is undefined rather than perfect. Reported rather than imputed.',
+    /**
+     * The singular forms, which are the ones a reader currently sees.
+     *
+     * A planted error is a property of a case since #31 and any case may carry one,
+     * so the debrief has a plural heading and lead as well. The content authors one
+     * per slate, so the plural is unreachable through the flow today and is asserted
+     * in the unit suite instead — a browser test pinning a string no run produces
+     * would be a test of the content module, which is the shape this file exists to
+     * avoid.
+     */
     trapHeading: 'The case with something wrong in it',
+    trapLead:
+      'One case in the round with the supplied estimate carried a planted error: a figure that was not what its label said it was. What follows depends on what you did, not on whether you got the answer right.',
+    /** The organisation each slate's planted error sits on, as the panel names it. */
+    trapCase: {
+      bednets: 'Insecticide-treated bednets',
+      chlorination: 'Safe-water chlorination',
+    },
     continue: 'Continue',
     method: 'Read the method',
   },

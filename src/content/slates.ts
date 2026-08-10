@@ -5,13 +5,20 @@
  * supplied estimate is randomised independently of condition order, so case
  * difficulty cannot be mistaken for a condition effect.
  *
- * Each slate contains exactly one planted error, named by `trapCase` and
- * `trapSlider`. In both cases the error is the same move in different clothes: a
+ * A planted error is a property of a case rather than of a slate (#31): any case
+ * may carry one, and `trap` is `null` on the ones that do not. One is authored per
+ * slate today, and in both the error is the same move in different clothes — a
  * proxy wearing the name of the thing it stands in for. Slate A supplies the
  * commodity cost of a bednet as though it were the delivered cost. Slate B
  * supplies the chlorination access rate as though it were measured use. In both,
  * the fact that undoes the headline is sitting in the evidence panel, one click
  * away.
+ *
+ * One per slate is the authoring, not the mechanism. It is also the limitation the
+ * catch rate carries and states on the protocol screen: one planted error is one
+ * observation per reader, which is a coin flip rather than a rate. A second one
+ * arrives the way a `supported` value does — with its own figures, its own
+ * `SOURCES.md` row, and the disclosure that says they are constructed.
  *
  * The figures are illustrative and carry the shape of real, documented disputes.
  * They are not traced to named studies. Do not quote them.
@@ -42,8 +49,6 @@ export const SLATES = {
   A: {
     id: 'A',
     name: 'Slate A',
-    trapCase: 1,
-    trapSlider: 0,
     r3: [0, 1],
     cases: [
       {
@@ -59,6 +64,7 @@ export const SLATES = {
           'the persistence question is not a detail at the edge of this estimate, it is most of the estimate. If the income gain decays fast, the cost per lasting doubling roughly triples, and the five-year evidence is exactly where the studies stop agreeing.',
         changeMind:
           'a well-powered follow-up at five years or later showing the consumption gain holding above half its year-one level.',
+        trap: null,
         a: [
           {
             label: 'Cost per household reached',
@@ -109,6 +115,12 @@ export const SLATES = {
           'the headline rests on a cost figure that is not the cost of the intervention. Two dollars buys the net; it does not deliver it, hang it, or replace it. Delivered cost has run around double that, which moves this off the top line without touching the mortality evidence at all.',
         changeMind:
           'a delivered-cost figure from a recent campaign, including wastage and campaign overhead, that comes in materially under three dollars a net.',
+        trap: {
+          slider: 0,
+          whatTheLabelSays: 'the delivered cost of a net',
+          whatTheFigureIs:
+            'the commodity cost of the net alone — $2 against a delivered cost, once logistics, distribution and wastage are counted, nearer $4.50, which roughly doubles the cost per death averted',
+        },
         a: [
           {
             label: 'Cost per net delivered',
@@ -158,6 +170,7 @@ export const SLATES = {
           'the cheapness is not in dispute and it is also not the question. The whole case turns on a single long-run income result whose replication is contested, which means the honest output here is a range spanning two orders of magnitude, not a number.',
         changeMind:
           'an independent replication of the long-run income effect at a comparable effect size in a different setting.',
+        trap: null,
         a: [
           {
             label: 'Cost per child treated',
@@ -200,8 +213,6 @@ export const SLATES = {
   B: {
     id: 'B',
     name: 'Slate B',
-    trapCase: 2,
-    trapSlider: 1,
     r3: [0, 2],
     cases: [
       {
@@ -217,6 +228,7 @@ export const SLATES = {
           'the mortality effect is not a property of the supplement, it is a property of the population’s deficiency rate. Where deficiency has fallen, the same programme buys much less, and the summary quietly assumes the deficiency levels of the trials rather than of the target region.',
         changeMind:
           'recent serum-retinol or dietary-deficiency data from the specific target districts, rather than a national average carried over from trial-era populations.',
+        trap: null,
         a: [
           {
             label: 'Cost per child supplemented per year',
@@ -266,6 +278,7 @@ export const SLATES = {
           '‘locally trusted’ is doing rhetorical work that the outcome data cannot support yet. The mechanism is plausible and the uptake figure is the whole ballgame, and uptake in referral-linkage programmes has a long history of coming in far below the pilot number.',
         changeMind:
           'administrative uptake data from a full year at scale, rather than from the pilot cohort.',
+        trap: null,
         a: [
           {
             label: 'Cost per birth covered',
@@ -316,6 +329,12 @@ export const SLATES = {
           'the 80% figure is access, not use. Chlorine detectable in stored water is the thing that averts a death, and measured consistent use has run around half the access rate, which roughly doubles the cost per death averted.',
         changeMind:
           'household water-testing data, not installation counts, showing sustained free chlorine residual above 70% at twelve months.',
+        trap: {
+          slider: 1,
+          whatTheLabelSays: 'the rate at which households consistently use chlorinated water',
+          whatTheFigureIs:
+            'the access rate — 80% against measured consistent use, meaning chlorine actually detectable in stored household water, nearer half that, which roughly doubles the cost per death averted',
+        },
         a: [
           {
             label: 'Cost per person-year of clean water',
