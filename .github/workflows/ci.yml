@@ -47,6 +47,12 @@ jobs:
       - name: Contrast budget
         run: npm run check:contrast
 
+      # REUSE.toml carries six paragraphs of reasoning about how this repository
+      # licenses two kinds of thing, and had no way of saying whether that still
+      # described the repository. It did not. This is that reasoning, run.
+      - name: Licensing budget
+        run: npm run check:licensing
+
       - name: Build
         run: npm run build
 

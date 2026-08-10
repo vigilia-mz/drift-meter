@@ -19,6 +19,7 @@ import {
   REVIEWER_ROWS,
   SOURCE_ROWS,
 } from '../content/process.js';
+import type { ReviewerRow } from '../content/types.js';
 import { SCREENS } from '../content/shell.js';
 import { gradeTone, statusTone } from '../domain/tone.js';
 import { ScreenFrame } from '../ui/ScreenFrame.js';
@@ -96,7 +97,12 @@ export function Process({ containerRef, onBack, onMethod }: Props) {
               </tr>
             </thead>
             <tbody>
-              {REVIEWER_ROWS.map((row) => (
+              {/*
+                Read as the interface rather than as the literal tuple: `noteGloss`
+                is optional and only one row carries it, so the tuple's union does
+                not have the property on every member.
+              */}
+              {(REVIEWER_ROWS as readonly ReviewerRow[]).map((row) => (
                 <tr key={row.role}>
                   <th scope="row">{row.role}</th>
                   <td>
@@ -107,6 +113,10 @@ export function Process({ containerRef, onBack, onMethod }: Props) {
                   <td>
                     {row.brief}
                     <span class="dm-cell-note">{row.note}</span>
+                    {/* Outside the note, never inside it: the note is verbatim. */}
+                    {row.noteGloss !== undefined && (
+                      <span class="dm-cell-note">{row.noteGloss}</span>
+                    )}
                   </td>
                 </tr>
               ))}

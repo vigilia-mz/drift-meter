@@ -127,6 +127,27 @@ This file is the surviving record of them.
   it warns against being folded into. A file that exists to stop a later reader tidying something away
   is worth less for every version it spends describing a repository that has moved on, and this one had
   spent one.
+- **The reviewers table asked a methods reader whether the registered analysis plan can test the
+  predictions. There is no analysis plan.** What is registered is six predictions and the condition
+  that would falsify each one — no test named per prediction, no target `n`, no stopping rule, and no
+  correction for testing six things at once. Calling that an analysis plan overstated the paperwork to
+  the one reader recruited to find exactly that kind of overstatement, and it was the shortest
+  overclaim on the site. The row now says what is registered and says what is not. `CONTRIBUTING.md`
+  carried the same phrase and, separately, still asked about five predictions after P6 was registered
+  in v0.5; both corrected there.
+- The gloss on the methods reader's note moved outside the note. The note is surviving copy used
+  verbatim, and it dates the confound to v0.1 where this file dates the objection to v0.2. The
+  correction was first appended inside the note's own string, marked as a gloss; it is now a separate
+  field rendered beside it, because a passage marked verbatim that carries editorial text inside it is
+  not verbatim, and the shortest way to say which is which is to keep them in different fields. A test
+  holds the note free of the gloss's dates rather than trusting the arrangement to stay.
+- **The three asks are written out rather than described.** `docs/review-briefs.md` holds each of them
+  at the length it would be sent, with the known defects handed over first and the naive reader's brief
+  asking its reader not to prepare, plus a draft of the public design review the process screen says is
+  the cheaper substitute. There is a route in for someone offering to be one of the three, which there
+  was not. None of this recruits anyone: nothing has been sent, the reviewers table still reads “Not
+  recruited” and “Not assigned”, and a briefs file that made the screen look busier than the project is
+  would be this project's own failure mode in its own documentation.
 
 - **A declared licence has its text.** `REUSE.toml` has named `OFL-1.1` for the self-hosted fonts since
   they arrived, with no `LICENSES/OFL-1.1.txt` beside it — the one thing REUSE asks of a declared
@@ -138,8 +159,25 @@ This file is the surviving record of them.
   other, name no font, and are the OFL text proper. That is what was copied — copied rather than
   retyped, because a licence transcribed by hand is a licence with a typo in it — and the one-line
   `diff` that re-derives it is written beside the declaration.
-- Found and not fixed: nothing checks that a licence this repository declares has its text on disk. The
-  gap above was found by reading, and the same reading would be needed to find the next one.
+- **`REUSE.toml` explained at length how this repository licenses two kinds of thing, and had stopped
+  describing the repository.** `Apache-2.0` was named with no text in `LICENSES/`, so the file asserted
+  terms the repository did not carry — the same defect as the OFL gap above, found in the same reading,
+  and left standing when that one was closed. Six tracked files matched no annotation at all:
+  `CLAUDE.md`, `CONTRIBUTING.md`, `SECURITY.md`, `docs/`, `drift-meter.html` and `wrangler.toml`, plus
+  the config files. One of the six is a `docs/` page added in this same version by someone who had read
+  `REUSE.toml` and still missed that `docs/` was not in it. The prose documentation now has its own
+  block at CC BY 4.0, listed separately from the artifact rather than folded into it, because notes
+  about the work and the work are different standings at the same terms. The missing text is copied from
+  the copy this repository already shipped — the root `LICENSE` — rather than retyped, because a licence
+  transcribed by hand is a licence with a typo in it.
+- Found by reading, and closed in the same version: nothing checked that a licence this repository
+  declares has its text on disk, which is how the gap above survived four versions.
+  `scripts/check-licensing.mjs` now asserts that every tracked file is covered by an annotation, that
+  every licence named in one has its text in `LICENSES/`, and that every text in `LICENSES/` is named by
+  an annotation. It runs in `npm run check` and on every push, and it states in its own header what it
+  does not check — which of two overlapping annotation blocks wins, which is REUSE's question and not a
+  script's. What the line recording this as found and not fixed had recorded is worth keeping: the gap
+  was found by reading rather than by a check, which is the fact that made the check worth writing.
 
 **Why**
 
