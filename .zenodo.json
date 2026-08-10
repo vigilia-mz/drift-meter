@@ -1,0 +1,27 @@
+{
+  "title": "The Drift Meter",
+  "description": "<p>Experiment 01 of the Agential Drift Research Program. Three essay pages and one interactive instrument that asks a reader to complete the same evaluation task twice — once with an estimate supplied and once without — and reports a trace of how they worked rather than a score of whether they were right.</p><p>This is a design argument rather than a finding. <strong>n is zero:</strong> no data has been collected from anyone, every case figure is written for the exercise and disclosed as constructed on the page, and the six registered predictions carry the conditions that would falsify them. The changelog records a retraction — an invented cohort dashboard, published in v0.1 and removed in v0.2 — which is why a citation should name a version.</p><p>Licensing is split and deliberate: the code under Apache-2.0, and the prose — the essays, every word of screen copy, the system prompts, the changelog and the source table — under CC BY 4.0. REUSE.toml in the repository explains why.</p>",
+  "upload_type": "software",
+  "access_right": "open",
+  "license": "Apache-2.0",
+  "creators": [
+    {
+      "name": "Pishtari, Megi"
+    }
+  ],
+  "keywords": [
+    "research artifact",
+    "human-AI interaction",
+    "automation bias",
+    "deskilling",
+    "pre-registration"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://vigilia-mz.github.io/drift-meter/",
+      "relation": "isIdenticalTo",
+      "resource_type": "software",
+      "scheme": "url"
+    }
+  ]
+}
