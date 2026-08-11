@@ -62,6 +62,39 @@ This file is the surviving record of them.
 - Corrected in passing: the masthead said the site was v0.7. It is v0.8 in progress, on the v0.7.0
   release, and the row now says which version is the one with a DOI. `package.json` moved to `0.8.0`
   with it.
+- **The reader briefs handed over a URL that does not go where the brief says it goes.** Both asks that
+  send a reviewer to the protocol screen cited its sections 3, 4 and 6 and then linked
+  `vigilia-mz.github.io/drift-meter/`, which is the landing page. The protocol screen is inside the
+  prototype and has no URL of its own — deliberately, and `src/platform/history.ts` says why: a URL that
+  does not survive a reload is not honest. So a methodologist who agreed to one bounded pass began with
+  a hunt through a site whose landing page links three documents, none of them the screen named. Both
+  asks now link `drift-meter.html` and name the button to press, `Read the method first`, rather than
+  `Begin`. The naive-reader brief had the mirror image of the same fault: it asked the reader to follow
+  the link into the prototype and then not to follow the link to the protocol, and on the landing page
+  those are the same link. It now names the button not to press, which is where the two actually part.
+- **A message sent under the author's name ended in a dead end.** The briefs and the masthead's Contact
+  row both said that anyone who would rather not file in public can come through the GitHub profile
+  linked from the repository. The profile is linked from the three prose-page footers and was linked
+  nowhere in the README, which is the repository as a reader on GitHub meets it. The README now links it,
+  the briefs name it outright rather than describing a link, and a test holds the two together for as
+  long as the row makes the promise.
+- **The methods brief broke the rule this file opens with.** The file argues that an unbounded request
+  gets a polite yes followed by nothing, and asks each reader for exactly one thing; the methods brief
+  then ran to 733 words and five question marks — one ask, four further questions, and three known-wrong
+  items with a fourth appended after them. The four questions are gone, and the appended item is now the
+  fourth entry in the list rather than an afterthought, which was the other half of the same fault: 733
+  words to 610, and five question marks to the one the ask is. It is still the longest of the four,
+  because handing over what is already known to be wrong is the file's own first principle and that is
+  what the length now is.
+- Corrected: the briefs said five of the seven measures are traces of how the work was done and the
+  protocol screen says four of the six, with the seventh bracketed as a signed difference. Both readings
+  were defensible and a methods reader holding both stops at the disagreement. The briefs now say what
+  the screen says, and the split is derived in `invariants.test.ts` from `MEASURE_SPECS` rather than
+  written in either place — the three exceptions are named, the two counts fall out of them, and #55
+  pinned the counts while leaving the split between them to be typed twice.
+- The design-review post gave no route for the attack it asks for: a site URL, a DOI, and no repository
+  or issue link. On a venue with threaded comments that is enough; anywhere else it is a dead drop. The
+  post now carries the repository and names the `Challenge a claim` form.
 - This entry exists because v0.7 was closed and dated before any of the above happened. Nothing in the
   toolchain would have stopped these bullets being appended to a released version's entry, and the
   version boundary is drawn on comparability rather than on convenience: the deposited archive is what

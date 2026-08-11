@@ -29,8 +29,10 @@ Three things hold across all three briefs, and each brief says them rather than 
 
 The route in is [an issue](https://github.com/vigilia-mz/drift-meter/issues/new/choose) — the
 **Offer to read it** form, which asks which of the three and nothing much else. Anyone who would
-rather not file in public can go through the GitHub profile linked from the repository. The wording
-below is written to be pasted into a message; the bracketed parts are the only ones that change.
+rather not file in public can message the author through
+[github.com/vigilia-mz](https://github.com/vigilia-mz), which is the profile the masthead's Contact row
+means and the README now links. The wording below is written to be pasted into a message; the bracketed
+parts are the only ones that change.
 
 ---
 
@@ -55,48 +57,36 @@ now, while `n` is zero, because after collection starts the answer is worth much
 > reviewer — the figure, the reasoning and the recommendation are identical in all three, and only the
 > authority attached to them changes. One case per slate carries a planted error: a figure that is not
 > what its label says it is. A transfer case afterwards asks about the same pattern in a case the
-> reader has not seen. Seven measures come out of a run. Five are traces of how the work was done, one
-> of which is the primary outcome; the other two ask whether the answer was right — an accuracy score
-> that is undefined at present, and a planted-error catch rate that is one observation per reader. The
-> whole thing takes about three minutes.
+> reader has not seen. Seven measures come out of a run. Four are traces of how the work was done, one
+> of which is the primary outcome; a fifth is the signed difference between two of the others; the last
+> two ask whether the answer was right — an accuracy score that is undefined at present, and a
+> planted-error catch rate that is one observation per reader. The whole thing takes about three
+> minutes.
 >
-> The six predictions and their falsification conditions are in section 4 of the protocol screen. The
-> measures, each with its formula and the objection to it, are in section 3. Both are here:
-> https://vigilia-mz.github.io/drift-meter/
+> Both of those are on the protocol screen, which is inside the prototype and has no URL of its own:
+> open https://vigilia-mz.github.io/drift-meter/drift-meter.html and press “Read the method first”
+> rather than “Begin”. The six predictions and their falsification conditions are section 4; the
+> measures, each with its formula and the objection to it, are section 3.
 >
 > That URL serves whatever version is current. The one I am asking about is v0.7.0, archived at
 > https://doi.org/10.5281/zenodo.21887595, so that your objection stays attached to what you read.
 >
-> Three things I already think are wrong, so that you do not spend the pass finding them:
+> Four things I already think are wrong, so that you do not spend the pass finding them:
 >
 > 1. The two rounds do not start from the same place. The control round's sliders open at an arbitrary
->    midpoint and the assisted round's open at a supplied figure, so moving a slider is a smaller act
->    in one round than in the other — and the bias runs in the same direction as P2. The screen calls
->    this the largest single threat on it. I do not know whether it is repairable by measurement or
->    only by redesign.
+>    midpoint and the assisted round's open at a supplied figure, so moving a slider is a smaller act in
+>    one round than in the other, and the bias runs in the same direction as P2. The screen calls this
+>    the largest single threat on it, and I do not know whether it is repairable by measurement or only
+>    by redesign.
 > 2. Within a single reader, the condition and the cases move together: the assisted round runs one
->    slate and the control round the other. Drawing the slate independently balances that across
->    readers and does not remove it from one.
+>    slate and the control round the other. Drawing the slate independently balances that across readers
+>    and does not remove it from one.
 > 3. Readers arrive from an essay that states the expected result, which puts a demand characteristic
 >    directly upstream of the measurement.
->
-> And one thing I would rather you told me than had me discover: what is registered is six predictions
-> with falsification conditions and one element of an analysis plan — a primary outcome, fixed before
-> any data exists. There is still no test named per prediction, no target `n`, no stopping rule and no
-> correction for testing six predictions at once. I do not know whether that gap is the first thing to
-> fix or a detail next to the two above, and the primary outcome as stated describes a between-arm
-> comparison the build cannot perform, which may be its own problem.
->
-> Four questions, if it helps to have them as questions:
->
-> - Which of the six predictions cannot be tested by this design at any `n`, as opposed to needing a
->   larger one?
-> - Is the starting-point asymmetry in the assisted round a confound that a covariate can absorb, or
->   does it make the revision measure uninterpretable?
-> - Are the three attribution arms enough to separate a claim about AI from a claim about handed
->   answers, or does the AI arm carry something the other two do not?
-> - What would you have to see before you would treat any single number from this as a measurement of
->   a person rather than of the instrument?
+> 4. What is registered is six predictions with falsification conditions and one element of an analysis
+>    plan — a primary outcome, fixed before any data exists. There is no test named per prediction, no
+>    target `n`, no stopping rule and no correction for testing six at once, and the primary outcome as
+>    stated describes a between-arm comparison this build cannot perform.
 >
 > Whatever form is cheapest for you is the right form: an issue on the repository, a reply to this, or
 > four lines. If you tell me a prediction cannot be tested, it comes off the screen and the changelog
@@ -168,10 +158,10 @@ incomprehensible. That is why the brief below asks someone not to prepare.
 
 > Would you look at something for me for about five minutes, without reading up on it first?
 >
-> https://vigilia-mz.github.io/drift-meter/ — read the front page, then follow the link into the
-> prototype and use it. It takes about three minutes. Then stop. Please do not read the two essays
-> first, and do not follow the link to the protocol and its measures at all; both of those would tell
-> you what you are supposed to conclude, and then you would be no use to me.
+> https://vigilia-mz.github.io/drift-meter/ — read the front page, then follow “Launch the Drift Meter”
+> and use it. It takes about three minutes. Then stop. Please do not read the two essays first, and when
+> the prototype offers you “Read the method first”, do not take it; both of those would tell you what
+> you are supposed to conclude, and then you would be no use to me.
 >
 > One question: where did you stop understanding it, and at which sentence?
 >
@@ -217,10 +207,11 @@ below, and the draft is written to be posted as it stands.
 > the figure, the reasoning and the recommendation identical in all three. One case per slate carries
 > a planted error. A transfer case afterwards asks whether the reader generalised the pattern.
 >
-> https://vigilia-mz.github.io/drift-meter/ — the predictions and their falsifiers are section 4 of
-> the protocol screen; the seven measures, each with its formula and the objection to it, are section 3,
-> and one of them is named as the primary outcome; section 6 is the nine things this build cannot do,
-> written before anyone asked.
+> https://vigilia-mz.github.io/drift-meter/drift-meter.html, then “Read the method first” rather than
+> “Begin” — the protocol screen is inside the prototype and has no URL of its own. The predictions and
+> their falsifiers are section 4; the seven measures, each with its formula and the objection to it,
+> are section 3, and one of them is named as the primary outcome. Section 6 is
+> the nine things this build cannot do, written before anyone asked.
 >
 > The version this post is about is v0.7.0, archived at https://doi.org/10.5281/zenodo.21887595. The
 > site serves whatever is current, so if you attack something and I change it, that DOI is what your
@@ -235,6 +226,10 @@ below, and the draft is written to be posted as it stands.
 > The two objections I already hold: the two rounds do not start from the same place, which biases the
 > revision measure in the direction the prediction expects; and within one reader the condition and
 > the cases move together. Objections beyond those two are what I am asking for.
+>
+> Wherever is easiest: a reply here, or the repository at
+> https://github.com/vigilia-mz/drift-meter, where **Challenge a claim** is a form that asks which
+> claim and why. Whatever comes back is answered in the changelog under the name of whoever said it.
 >
 > This post is also a timestamp, and a weak one. The predictions are registered in a git repository,
 > and v0.7.0 is deposited with a DOI and a date, which is better than commit history and still not a
