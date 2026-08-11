@@ -102,6 +102,11 @@ wrong, [say which one and why](../../issues/new/choose) — the changelog shows 
 valuable input this project has received was an outside reader pointing out a confound. See
 [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
+Anything you would rather not put in a public issue can go to the author's profile,
+[github.com/vigilia-mz](https://github.com/vigilia-mz). The publication-process screen's Contact row
+says to come through the profile linked from this repository, and until this line existed there was no
+such link.
+
 ## Licence
 
 Two licences, because this repository holds two kinds of thing.

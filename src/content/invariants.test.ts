@@ -23,6 +23,9 @@ import atrophyPage from '../../atrophy.html?raw';
 // three counts back at the reader. Same reason as `index.html`: no content module, so
 // the file itself is what a test has to read.
 import readerBriefs from '../../docs/review-briefs.md?raw';
+// The README, for one claim the masthead makes about it: that the repository links the
+// author's profile. It did not, for as long as the row has said so.
+import readmeFile from '../../README.md?raw';
 import sourcesFile from '../../SOURCES.md?raw';
 import * as armsModule from './arms.js';
 import * as debriefModule from './debrief.js';
@@ -449,6 +452,40 @@ describe('the process screen', () => {
     expect(readerBriefs).toContain(`lists ${String(caveats)} more`);
   });
 
+  it('splits the seven measures the way the protocol screen splits them', () => {
+    // The counts above were pinned and the split between them was not, so the briefs
+    // could say five measures are traces of how the work was done while section 3 said
+    // four, and they did. A methodologist reading both stops at the disagreement, and
+    // both readings were defensible — the briefs were counting the confidence gap as a
+    // trace, the screen brackets it as the seventh and a signed difference.
+    //
+    // Neither number is written here. The three exceptions are, because each is
+    // documented as an exception in the docstring above `MEASURE_SPECS`, and the counts
+    // fall out of them: a measure added to the array moves both numbers, and a measure
+    // added that is not a trace fails here until it is named below.
+    const NOT_TRACES = ['accuracy', 'catchRate']; // ask whether the answer was right
+    const SIGNED = ['gap']; // a difference between two of the others, on its own scale
+    const keys = MEASURE_SPECS.map((m) => m.key);
+    for (const key of [...NOT_TRACES, ...SIGNED]) expect(keys, key).toContain(key);
+
+    const WORDS = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven'];
+    const word = (n: number) => {
+      const w = WORDS[n];
+      expect(w, `no number word for ${String(n)}`).toBeDefined();
+      return String(w);
+    };
+    const scaled = MEASURE_SPECS.length - SIGNED.length;
+    const traces = scaled - NOT_TRACES.length;
+    const Traces = word(traces).charAt(0).toUpperCase() + word(traces).slice(1);
+
+    // The screen is the record and the briefs are the mirror, so both are read against
+    // the arrays rather than against each other.
+    expect(METHOD.measuresLead).toContain(
+      `${Traces} of the ${word(scaled)} are traces of how the work was done`,
+    );
+    expect(readerBriefs).toContain(`${Traces} are traces of how the work was done`);
+  });
+
   it('sends the reader briefs against a version rather than a moving URL', () => {
     // The site serves whatever is current, so a critique of "the Drift Meter" is a
     // critique of nothing in particular. Both asks that go to a reviewer name the
@@ -458,6 +495,24 @@ describe('the process screen', () => {
     expect(citationFile).toContain(`doi: ${versioned}`);
     const mentions = readerBriefs.split(versioned).length - 1;
     expect(mentions, 'the methods brief and the design-review post').toBe(2);
+  });
+
+  it('links the profile the Contact row sends a reader to', () => {
+    const contact = PROCESS.mastheadRows.find((r) => r.label === 'Contact');
+    expect(contact?.value, 'the masthead has no Contact row').toBeDefined();
+    // The row says to come through the GitHub profile linked from the repository, and
+    // there was no such link: the profile appears in the three prose-page footers and
+    // appeared nowhere in the README, which is the repository as a reader on GitHub
+    // meets it. The reader briefs repeated the same instruction, so a published route
+    // for anyone who would rather not file in public was a dead end in both.
+    //
+    // Conditional on the promise, deliberately: a row rewritten to name the profile
+    // outright would not need the README link, and this should not fail for that.
+    if (/linked from the repository/.test(contact?.value ?? '')) {
+      expect(readmeFile, 'README.md links no profile').toMatch(
+        /\]\(https:\/\/github\.com\/vigilia-mz\)/,
+      );
+    }
   });
 
   it('names the newest version on the masthead, and not the one below it', () => {
