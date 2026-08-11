@@ -5,10 +5,14 @@
 # visible process is what makes a claim checkable — and then lists a citable
 # identifier as one of the three things the screen was failing to provide.
 #
-# There is no `doi:` field here yet, and adding one before an archive exists would
-# be the kind of unearned claim this project is about. When a DOI is minted the
-# field goes in, in its own commit, and the caveat on the process screen changes
-# with it.
+# The `doi:` below is the DOI for *this version*, not the concept DOI that Zenodo
+# also mints. The concept DOI resolves to whatever the newest version is, which is
+# what the bare URL already did; the whole reason this artifact wanted an archived
+# identifier was to distinguish one version from another, so the versioned one is
+# the one recorded here and the concept DOI is listed under `identifiers` as what
+# it is. The field was absent until an archive existed, on the grounds that claiming
+# a DOI before one is minted is the kind of unearned confidence this project is
+# about; it was added in its own commit, with the caveat on the process screen.
 #
 # The version and date below are the closed v0.7 entry in CHANGELOG.md. A citation
 # of this artifact should name a version: the changelog records a retraction, so
@@ -33,6 +37,14 @@ repository-code: https://github.com/vigilia-mz/drift-meter
 url: https://vigilia-mz.github.io/drift-meter/
 version: 0.7.0
 date-released: '2026-08-10'
+doi: 10.5281/zenodo.21887595
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.21887595
+    description: This version, v0.7.0.
+  - type: doi
+    value: 10.5281/zenodo.21887594
+    description: The concept DOI, which always resolves to the newest version.
 # Two licences, deliberately, and REUSE.toml explains the split at length: the code
 # under Apache-2.0, and the prose — the essays, every word of screen copy, the
 # system prompts, the changelog and the source table — under CC BY 4.0.
