@@ -98,7 +98,17 @@ export const PROCESS = {
   reviewersNaming:
     'Reviewers are acknowledged by name once they have read a version, because a name is someone who can be asked what they actually said.',
   reviewersNote:
-    'A public design review would substitute for the first of these imperfectly, and would timestamp the predictions at the same time — two obligations discharged by one post. That may be the cheaper path, and it is the one currently planned.',
+    'A public design review would substitute for the first of these imperfectly, and would timestamp the predictions at the same time — two obligations discharged by one post. That may be the cheaper path.',
+  /**
+   * The route in, as text. There is no anchor element anywhere in `src/screens/`
+   * or `src/ui/`, so the URL is printed rather than linked; making this the first
+   * link in the app is a decision about the app, not about this paragraph.
+   *
+   * A capability, not a status. Nothing has been sent to anyone, and no row in
+   * `REVIEWER_ROWS` moves until a reader answers.
+   */
+  reviewersOffer:
+    'Offering to be one of these three is a form on the repository at github.com/vigilia-mz/drift-meter, called “Offer to read it”. It asks which of the three, and little else.',
 
   caveatsHeading: 'What to distrust here',
   caveatsLead:
