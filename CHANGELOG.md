@@ -94,7 +94,34 @@ This file is the surviving record of them.
   pinned the counts while leaving the split between them to be typed twice.
 - The design-review post gave no route for the attack it asks for: a site URL, a DOI, and no repository
   or issue link. On a venue with threaded comments that is enough; anywhere else it is a dead drop. The
-  post now carries the repository and names the `Challenge a claim` form.
+  post now carries the repository and names the `Challenge a claim` form. That paragraph then promised,
+  in public and about other people, that whatever comes back is answered in the changelog under the name
+  of whoever said it — which is not the author's to promise. Both forms it routes a reader to make being
+  named an opt-in, each with its own unticked checkbox. It now says the changelog answers under your
+  name if you want it there.
+- **The screen stopped saying a public design review is the path currently planned.** It was the one
+  sentence on the publication-process screen claiming a future action, and it is no longer the route
+  being taken first: the three briefs and the two issue forms are. The clause is deleted rather than
+  replaced, so the sentence ends where what is settled ends, at `That may be the cheaper path`. Nothing
+  moves with it. The reviewers table still reads “Not recruited”, “Not assigned” and “Planned
+  before collection”, the design-review row's own note still hedges the same thing correctly as
+  planned rather than scheduled, and nothing has been sent to anyone.
+- **A reader who would volunteer had nowhere on the screen to say so.** The reviewers section says
+  nobody has read this, names three readers, and says what each would be asked for — and then stopped.
+  The README and both briefs got their route in earlier in this version, which left the screen making
+  the case as the last place without one. It now names the form and prints the repository as text:
+  `github.com/vigilia-mz/drift-meter`, and the `Offer to read it` form on it, which asks which of the
+  three and little else. Printed rather than linked, deliberately. There is no anchor element anywhere
+  in `src/screens/` or `src/ui/` — the application renders no links at all — and making this the first
+  one is a decision about the application rather than a fix to one paragraph. It is a capability and not
+  a status: no row in the table moves until a reader answers.
+- The briefs quote three button labels back at a stranger — `Read the method first`, `Begin` and
+  `Launch the Drift Meter`, at six places between them — and nothing held either half to the other. Two
+  of the three are `INTRO` fields in `shell.ts` and the third is markup in `index.html`, so renaming one
+  would have left a document sent under the author's name telling a reader to press a control that does
+  not exist. `invariants.test.ts` now reads all three out of their sources and asserts each is quoted in
+  the briefs, which puts the failure on the rename rather than on the edit to the briefs that would
+  follow it.
 - This entry exists because v0.7 was closed and dated before any of the above happened. Nothing in the
   toolchain would have stopped these bullets being appended to a released version's entry, and the
   version boundary is drawn on comparability rather than on convenience: the deposited archive is what

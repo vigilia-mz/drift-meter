@@ -497,6 +497,28 @@ describe('the process screen', () => {
     expect(mentions, 'the methods brief and the design-review post').toBe(2);
   });
 
+  it('quotes the buttons the briefs tell a reader to press by their real labels', () => {
+    // Three of the four asks name a control and quote its label. Two of those labels
+    // are screen copy in `shell.ts` and the third is markup in a hand-written page, so
+    // a rename in either place turns a document sent under the author's name into an
+    // instruction to press something that does not exist. Nothing read the two
+    // together, and the briefs are the half nobody would think to update.
+    //
+    // Read out of the source rather than written here, on the same terms as the counts
+    // above: this goes red on the rename, which is the edit that breaks the document,
+    // rather than on the edit to the briefs that would fix it.
+    const cta = /<a class="cta"[^>]*>([^<]*)<\/a>/.exec(indexPage)?.[1] ?? '';
+    const launch = cta.replace(/&#?\w+;/g, '').trim();
+    // Guards the pattern. Without it, a landing page whose call to action moved or was
+    // rewritten would leave the loop below looking for an empty pair of quotes, and the
+    // failure would name the briefs rather than the page that changed.
+    expect(launch, 'index.html has no call to action').not.toBe('');
+
+    for (const label of [INTRO.methodLink, INTRO.begin, launch]) {
+      expect(readerBriefs, label).toContain(`“${label}”`);
+    }
+  });
+
   it('links the profile the Contact row sends a reader to', () => {
     const contact = PROCESS.mastheadRows.find((r) => r.label === 'Contact');
     expect(contact?.value, 'the masthead has no Contact row').toBeDefined();

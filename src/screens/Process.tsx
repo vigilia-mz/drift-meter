@@ -125,6 +125,8 @@ export function Process({ containerRef, onBack, onMethod }: Props) {
         </div>
         <p class="dm-body">{PROCESS.reviewersNaming}</p>
         <p class="dm-note">{PROCESS.reviewersNote}</p>
+        {/* Printed, not linked. The reason is in the docstring beside the copy. */}
+        <p class="dm-note">{PROCESS.reviewersOffer}</p>
       </section>
 
       <section aria-labelledby="dm-caveats">
