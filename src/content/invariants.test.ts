@@ -6,17 +6,23 @@ import { describe, expect, it } from 'vitest';
 // screen mirror them, so the mirror is checked against the record rather than
 // against a memory of it.
 import changelogFile from '../../CHANGELOG.md?raw';
+// The citation metadata, and the record for two things rather than one: the version
+// and DOI the three prose pages tell a reader to cite, and the DOI the reader briefs
+// quote at a reviewer. GitHub and Zenodo read this file, so a version it names and the
+// pages do not is a citation pointing at a build the reader was never shown.
+import citationFile from '../../CITATION.cff?raw';
 // The landing page as text, for the one claim on it that a source row depends on.
 // `index.html` is hand-written and carries no content module, so this is the only
 // way to hold its disclosure from here.
 import indexPage from '../../index.html?raw';
+// The other two prose pages, for the version line their footers now carry. Each is a
+// hand-written document with no content module, so the file is what a test can read.
+import essayPage from '../../essay.html?raw';
+import atrophyPage from '../../atrophy.html?raw';
 // The reader briefs are prose about the site rather than prose in it, and they quote
 // three counts back at the reader. Same reason as `index.html`: no content module, so
 // the file itself is what a test has to read.
 import readerBriefs from '../../docs/review-briefs.md?raw';
-// The citation record, so the DOI the briefs quote is the one the artifact declares
-// rather than a second copy of it typed out here.
-import citationFile from '../../CITATION.cff?raw';
 import sourcesFile from '../../SOURCES.md?raw';
 import * as armsModule from './arms.js';
 import * as debriefModule from './debrief.js';
@@ -454,6 +460,20 @@ describe('the process screen', () => {
     expect(mentions, 'the methods brief and the design-review post').toBe(2);
   });
 
+  it('names the newest version on the masthead, and not the one below it', () => {
+    // The same gap as the test above, one row higher. That one closed the case
+    // where the file dated a version and the table under it still called the
+    // version unfinished; this one closes the case where the table opens a version
+    // and the masthead above it still names the closed one. Both are a mirror
+    // agreeing about the rows and disagreeing about what they say.
+    const version = PROCESS.mastheadRows.find((r) => r.label === 'Version');
+    expect(version?.value, 'the masthead has no Version row').toBeDefined();
+    // `CHANGELOG_ROWS` is a non-empty `as const` tuple, so the first entry is not
+    // possibly undefined and guarding it is what the linter calls an unnecessary
+    // conditional. The type carries the guarantee here.
+    expect(version?.value).toContain(CHANGELOG_ROWS[0].version);
+  });
+
   it('grades the same claims the source file grades', () => {
     // The screen is a mirror of `SOURCES.md` at the length a screen can carry. If
     // a row is added to the file and not to the screen, the page is quietly
@@ -709,6 +729,71 @@ describe('the landing page says its specimen bars are invented', () => {
     expect(SOURCE_ROWS.some((r) => r.grade === 'Illustrative' && /specimen/i.test(r.claim))).toBe(
       true,
     );
+  });
+});
+
+describe('the prose pages name the version to cite', () => {
+  /**
+   * Citability reached the masthead inside the instrument, the changelog heading,
+   * `CITATION.cff`, the README and the first git tag — and not the three pages a
+   * reader arrives on, reads the argument from, and would quote. The footers carry
+   * it now, and this holds it there.
+   *
+   * `CITATION.cff` is the record rather than `CHANGELOG.md`, because it is the file
+   * GitHub and Zenodo read: a version and a DOI it names and the pages do not is a
+   * citation pointing at metadata the reader was never shown. The pages name the
+   * version to cite and not the version in progress, deliberately — that keeps one
+   * number from one source, changes the line only when a version closes, and leaves
+   * nothing on the page that a test cannot check.
+   *
+   * Looped over all three for the reason the CARRIERS loop above exists: any one of
+   * them could lose the line alone without anything else here going red.
+   */
+  const PAGES: ReadonlyArray<readonly [string, string]> = [
+    ['index.html', indexPage],
+    ['essay.html', essayPage],
+    ['atrophy.html', atrophyPage],
+  ];
+  const cited = /^version:\s*(\S+)/m.exec(citationFile)?.[1] ?? '';
+  const doi = /^doi:\s*(\S+)/m.exec(citationFile)?.[1] ?? '';
+  const footOf = (page: string) => /<div class="foot">([\s\S]*?)<\/div>/.exec(page)?.[1] ?? '';
+
+  it('reads a version and a DOI out of the citation file', () => {
+    // Guards the two patterns above. If either stops matching, every assertion below
+    // would pass against an empty string and this whole block would assert nothing.
+    expect(cited, 'CITATION.cff has no version:').toMatch(/^\d+\.\d+\.\d+$/);
+    expect(doi, 'CITATION.cff has no doi:').toMatch(/^10\.\d{4,}\//);
+  });
+
+  it('names that version, with its DOI, in every prose page footer', () => {
+    for (const [name, page] of PAGES) {
+      const foot = footOf(page);
+      expect(foot, `${name} has no .foot block`).not.toBe('');
+      expect(foot, name).toContain(`v${cited}`);
+      expect(foot, name).toContain(doi);
+    }
+  });
+
+  it('dates the cited version the way the changelog dates it', () => {
+    const closed = [...changelogFile.matchAll(/^## (v\d+\.\d+) — ([^—]+) — /gm)]
+      .map((m) => ({ version: (m[1] ?? '').trim(), date: (m[2] ?? '').trim() }))
+      .find((h) => !/in progress/i.test(h.date));
+    expect(closed, 'CHANGELOG.md records no closed version').toBeDefined();
+    // The cited version and the newest closed one are the same thing. If they part,
+    // the pages are pointing a citer at a version the record has not closed.
+    expect(`v${cited}`).toContain(closed?.version ?? 'no closed version');
+    for (const [name, page] of PAGES) {
+      expect(footOf(page), name).toContain(closed?.date ?? 'no date');
+    }
+  });
+
+  it('adds no script to a page that is meant to carry none', () => {
+    // The line is a sentence and two links. `scripts/check-size.mjs` and
+    // `tests/prose.spec.ts` hold this from the built output and from a browser; this
+    // holds it in the source, where the edit is actually made.
+    for (const [name, page] of PAGES) {
+      expect(footOf(page), name).not.toContain('<script');
+    }
   });
 });
 

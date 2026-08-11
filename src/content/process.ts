@@ -141,9 +141,9 @@ export const CHANGELOG_ROWS = [
   {
     version: 'v0.8',
     date: 'In progress',
-    title: 'The artifact has an archived identifier',
-    what: 'v0.7.0 is deposited and carries a DOI of its own, recorded in CITATION.cff and on the repository. The caveat that said there was no citable identifier is replaced rather than deleted: the identifier exists, and what it does not fix is that this URL still serves whatever version is current.',
-    why: 'A citation that cannot name a version is worth little here specifically, because the changelog records a retraction — so “the Drift Meter” could mean the build that shipped an invented cohort dashboard or the build that removed it. The concept DOI does not fix that either, since it resolves to the newest version; only the versioned DOI does, which is why it is the one in the citation file.',
+    title: 'The artifact has an archived identifier, and the front door names it',
+    what: 'v0.7.0 is deposited and carries a DOI of its own, recorded in CITATION.cff and on the repository. The caveat that said there was no citable identifier is replaced rather than deleted: the identifier exists, and what it does not fix is that this URL still serves whatever version is current. The three prose pages now say so in their own footers and name the version to cite, and an invariant reads that line out of each page and checks it against the citation file rather than against a memory of it.',
+    why: 'A citation that cannot name a version is worth little here specifically, because the changelog records a retraction — so “the Drift Meter” could mean the build that shipped an invented cohort dashboard or the build that removed it. The concept DOI does not fix that either, since it resolves to the newest version; only the versioned DOI does, which is why it is the one in the citation file and the one on the pages. Making it citable had reached the masthead, the changelog, the citation file and the first git tag, and not the pages a reader actually arrives on and quotes from.',
   },
   {
     version: 'v0.7',
