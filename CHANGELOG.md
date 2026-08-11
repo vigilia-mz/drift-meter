@@ -8,7 +8,7 @@ Every release records what changed and why. Retractions are recorded, not delete
 Versions v0.1 through v0.5 were published from a separate repository, which has since been deleted.
 This file is the surviving record of them.
 
-## v0.8 — In progress — The artifact has an archived identifier
+## v0.8 — In progress — The artifact has an archived identifier, and the front door names it
 
 **What changed**
 
@@ -39,6 +39,26 @@ This file is the surviving record of them.
   quote is the one `CITATION.cff` declares — the versioned one, not the concept DOI. The draft's
   timestamp paragraph is also narrowed: a deposit with a date is better than commit history and is
   still not a registry that would refuse to let the author alter it.
+- **The three prose pages name the version to cite, which is the last place citability had not
+  reached.** Closing v0.7 and depositing it reached the masthead inside the instrument, the changelog
+  heading, `CITATION.cff`, the README and the first git tag — and not `index.html`, `essay.html` or
+  `atrophy.html`, which are the pages a reader arrives on, reads the argument from, and would quote.
+  Each footer now carries one sentence: cite v0.7.0, dated, with its versioned DOI as a link, and this
+  URL serves whatever version is current.
+- **The line states the version to cite and not the version in progress, deliberately.** An earlier
+  draft of it named both, which meant two numbers from two sources — `CITATION.cff` says `0.7.0` and
+  `package.json` says `0.8.0` — so only half of it could be held, and every version bump would then have
+  to edit three hand-written HTML files. In a repository whose recurring defect is a count in prose that
+  nothing checks, that adds three places to go stale in order to fix one. What is on the pages is the
+  one string a reader can act on, it changes only when a version closes, and it is checked in full.
+- **That line is held against the citation file rather than typed four times and trusted.** The three
+  pages are hand-written documents with no content module, so an invariant reads the footer out of each
+  one and the version and DOI out of `CITATION.cff` — the file GitHub and Zenodo read — and requires all
+  three pages to agree with it. The same test holds the masthead row against the newest version in the
+  changelog mirror, which is the neighbouring gap: the row above the table could name the closed version
+  while the table below it opened a new one. This follows the pattern the sweep already uses for a
+  sentence carried on two screens, because either page could lose the line alone without anything else
+  going red.
 - Corrected in passing: the masthead said the site was v0.7. It is v0.8 in progress, on the v0.7.0
   release, and the row now says which version is the one with a DOI. `package.json` moved to `0.8.0`
   with it.
@@ -55,6 +75,11 @@ had to be authorised against the account before a release could mint anything. T
 citation file shipped one version without a `doi:` field: writing one before the deposit existed would
 have been a claim about an archive that did not exist, on the page whose argument is about exactly that
 kind of confidence.
+
+Citability was the whole point of closing v0.7 and it stopped at the door most readers come through. The
+version was already in the masthead, the changelog, the citation file, the README and the tag; the three
+pages a reader actually lands on were not among them, and those are the pages the argument is on. The
+unflattering half is that this was noticed twice in one session and not acted on either time.
 
 What deserves stating is how little the DOI fixes. It makes one version of this artifact permanently
 addressable, which matters because the changelog records a retraction and an unversioned reference cannot
