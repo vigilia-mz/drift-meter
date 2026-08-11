@@ -207,7 +207,7 @@ export const CHANGELOG_ROWS = [
 ] as const satisfies readonly ChangelogEntry[];
 
 /**
- * The three readers, and the substitute currently planned in place of the first.
+ * The three readers, and the public design review that would substitute for the first.
  *
  * Each is asked for one thing. The methods reader's note is surviving copy and is
  * used verbatim: it is the strongest argument in the project for why this section
