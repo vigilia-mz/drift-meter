@@ -1,5 +1,7 @@
 # The Drift Meter
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21887594.svg)](https://doi.org/10.5281/zenodo.21887594)
+
 **Evaluating the evaluator under AI assistance.** Experiment 01 of the Agential Drift Research
 Program, by Megi Pishtari.
 
@@ -73,6 +75,25 @@ record of those versions.
 
 The rebuild's own rationale is in [`CLAUDE.md`](CLAUDE.md), which is the working agreement for anyone
 — human or model — editing this repository.
+
+## Citing this
+
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21887594.svg)](https://doi.org/10.5281/zenodo.21887594)
+
+Archived on Zenodo, with [`CITATION.cff`](CITATION.cff) in the repository for GitHub's own citation
+box. **Cite the version you read, not the badge.** The badge above is the concept DOI, which always
+resolves to whatever the newest version is — useful for pointing at the project, and no better than
+the bare URL for pointing at a claim.
+
+| What you mean                      | DOI                                                                |
+| ---------------------------------- | ------------------------------------------------------------------ |
+| This version, v0.7.0 (10 Aug 2026) | [10.5281/zenodo.21887595](https://doi.org/10.5281/zenodo.21887595) |
+| The project, all versions          | [10.5281/zenodo.21887594](https://doi.org/10.5281/zenodo.21887594) |
+
+The distinction is the reason this artifact wanted a DOI at all. [`CHANGELOG.md`](CHANGELOG.md)
+records a retraction — an invented cohort dashboard, published in v0.1 and removed in v0.2 — so “the
+Drift Meter” without a version cannot distinguish the build that shipped it from the build that took
+it out. A version DOI can.
 
 ## Contributing
 

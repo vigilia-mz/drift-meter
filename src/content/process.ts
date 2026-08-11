@@ -45,7 +45,7 @@ export const PROCESS = {
     {
       label: 'Version',
       value:
-        'v0.7, on the v0.6 rebuild. The changelog below records every version and what it changed.',
+        'v0.8, in progress. v0.7.0 is the last closed version and the one with a DOI; the changelog below records every version and what it changed.',
     },
     {
       label: 'Status',
@@ -73,9 +73,10 @@ export const PROCESS = {
    * Surviving copy, used verbatim.
    *
    * It is the argument for this whole screen, and it is the standard the rest of
-   * the screen is failing to meet in three places — no named readers, three
-   * unpinned figures, and no archived identifier. The third narrowed when v0.7 was
-   * closed and tagged: a reader can now cite a dated version, and not an archive.
+   * the screen is failing to meet in two places — no named readers, and three
+   * unpinned figures. The third, an archived identifier, was met in v0.8: v0.7.0 is
+   * tagged and deposited, and the caveat now says what a DOI does and does not fix
+   * rather than that there is none.
    */
   whyLead:
     'Anyone can publish a prototype. Without an institution behind it, the visible process is what makes a claim checkable: a version, a record of what changed and why, named readers who tried to break it, stated conditions of defeat, and every external claim traced to where it came from.',
@@ -107,7 +108,7 @@ export const PROCESS = {
     'The argument and the instrument were built by the same person, in that order. An instrument built to find a pattern by someone who expects the pattern is not neutral about what it counts, and no amount of care inside the code fixes that.',
     'Parts of this site were drafted with Claude, which is the subject of the argument being made. The provenance table below says which parts, including the ones that were cut for being exactly the kind of thing the argument warns about.',
     'Every figure in every case is written for the exercise, and the instrument says so before the run and again after it. What that disclosure does not do is verify anything: the figures are still not traced to any source, and the reason they are cleared is that the page no longer presents them as findings. It is the weaker of the two exits, taken deliberately, and it is worth reading as such.',
-    'There is no archived identifier. A reader can now point at a dated version — v0.7 is closed in the changelog below and tagged in the repository — but not at a DOI, which needs an archive outside this repository and has not been minted. Until it is, this URL still serves whatever version is current, so a citation of the page cannot distinguish the version that shipped the retracted dashboard from the version that removed it.',
+    'This URL serves whatever version is current, so citing the page still says nothing about which version was read. What fixes that is the archived version rather than the page: v0.7.0 is tagged and deposited, and its own DOI is 10.5281/zenodo.21887595. The concept DOI that the repository’s badge carries is not a substitute — it resolves to whatever the newest version is, which is the same thing this URL does. So the identifier exists and the obligation moves rather than closing: anyone citing a claim from this site should name the version they read, and the changelog records a retraction precisely so that the distinction matters.',
   ],
 
   provenanceHeading: 'How this page was produced',
@@ -137,6 +138,13 @@ export const PROCESS = {
  * it looks like one.
  */
 export const CHANGELOG_ROWS = [
+  {
+    version: 'v0.8',
+    date: 'In progress',
+    title: 'The artifact has an archived identifier',
+    what: 'v0.7.0 is deposited and carries a DOI of its own, recorded in CITATION.cff and on the repository. The caveat that said there was no citable identifier is replaced rather than deleted: the identifier exists, and what it does not fix is that this URL still serves whatever version is current.',
+    why: 'A citation that cannot name a version is worth little here specifically, because the changelog records a retraction — so “the Drift Meter” could mean the build that shipped an invented cohort dashboard or the build that removed it. The concept DOI does not fix that either, since it resolves to the newest version; only the versioned DOI does, which is why it is the one in the citation file.',
+  },
   {
     version: 'v0.7',
     date: '10 Aug 2026',

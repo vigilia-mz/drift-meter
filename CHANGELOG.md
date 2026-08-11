@@ -8,6 +8,46 @@ Every release records what changed and why. Retractions are recorded, not delete
 Versions v0.1 through v0.5 were published from a separate repository, which has since been deleted.
 This file is the surviving record of them.
 
+## v0.8 — In progress — The artifact has an archived identifier
+
+**What changed**
+
+- **v0.7.0 is deposited, and the artifact has a DOI for the first time.** Zenodo archives the tagged
+  release and mints two identifiers: one for this version, `10.5281/zenodo.21887595`, and a concept DOI,
+  `10.5281/zenodo.21887594`, which always resolves to whatever the newest version is. `CITATION.cff`
+  records the versioned one as its `doi:` and lists the concept DOI under `identifiers` as what it is,
+  because the reason this artifact wanted an archived identifier was to distinguish one version from
+  another and the concept DOI does what the bare URL already did. The README carries the badge and a
+  table saying which of the two to cite for which purpose.
+- **The caveat that said there is no citable identifier is replaced rather than deleted, and it does not
+  simply close.** The identifier exists; what it does not fix is that the published URL still serves
+  whatever version is current, so citing the page still says nothing about which version was read. The
+  caveat now says that, names the versioned DOI, and states plainly that the concept DOI is not a
+  substitute for it. The docstring above the section that lists the three places this screen fails its
+  own standard drops from three to two — named readers and three unpinned figures remain.
+- Corrected in passing: the masthead said the site was v0.7. It is v0.8 in progress, on the v0.7.0
+  release, and the row now says which version is the one with a DOI. `package.json` moved to `0.8.0`
+  with it.
+- This entry exists because v0.7 was closed and dated before any of the above happened. Nothing in the
+  toolchain would have stopped these bullets being appended to a released version's entry, and the
+  version boundary is drawn on comparability rather than on convenience: the deposited archive is what
+  v0.7.0 contains, and the site has changed since.
+
+**Why**
+
+The DOI is the last item on the publication-process screen's own list of what makes a claim checkable
+without an institution behind it, and it is the one that took a step outside the repository — an archive
+had to be authorised against the account before a release could mint anything. That is also why the
+citation file shipped one version without a `doi:` field: writing one before the deposit existed would
+have been a claim about an archive that did not exist, on the page whose argument is about exactly that
+kind of confidence.
+
+What deserves stating is how little the DOI fixes. It makes one version of this artifact permanently
+addressable, which matters because the changelog records a retraction and an unversioned reference cannot
+distinguish the build that shipped an invented cohort dashboard from the build that removed it. It does
+not make the instrument better, it does not add a reader, and it does not close any of the three FLAGGED
+source rows. A citable prototype is still a prototype, and n is still zero.
+
 ## v0.7 — 10 Aug 2026 — The attribution reaches every reader, and a measure that can lose
 
 **What changed**
