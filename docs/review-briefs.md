@@ -18,7 +18,7 @@ Three things hold across all three briefs, and each brief says them rather than 
 
 - **What is already known to be wrong is handed over first.** A reader who spends their pass finding
   something the author has already published is a reader who has been wasted. Section 6 of the
-  protocol screen, `What this build cannot do`, lists eight of those. `What to distrust here` on the
+  protocol screen, `What this build cannot do`, lists nine of those. `What to distrust here` on the
   publication-process screen lists five more. Both are on the site before either reader arrives.
 - **Reviewers are named once they have read a version**, because a name is someone who can be asked
   what they actually said. A reader who would rather not be named is recorded as having read it
@@ -63,6 +63,9 @@ now, while `n` is zero, because after collection starts the answer is worth much
 > The six predictions and their falsification conditions are in section 4 of the protocol screen. The
 > measures, each with its formula and the objection to it, are in section 3. Both are here:
 > https://vigilia-mz.github.io/drift-meter/
+>
+> That URL serves whatever version is current. The one I am asking about is v0.7.0, archived at
+> https://doi.org/10.5281/zenodo.21887595, so that your objection stays attached to what you read.
 >
 > Three things I already think are wrong, so that you do not spend the pass finding them:
 >
@@ -215,8 +218,13 @@ below, and the draft is written to be posted as it stands.
 > a planted error. A transfer case afterwards asks whether the reader generalised the pattern.
 >
 > https://vigilia-mz.github.io/drift-meter/ — the predictions and their falsifiers are section 4 of
-> the protocol screen; the six measures, each with its formula and the objection to it, are section 3;
-> section 6 is the eight things this build cannot do, written before anyone asked.
+> the protocol screen; the seven measures, each with its formula and the objection to it, are section 3,
+> and one of them is named as the primary outcome; section 6 is the nine things this build cannot do,
+> written before anyone asked.
+>
+> The version this post is about is v0.7.0, archived at https://doi.org/10.5281/zenodo.21887595. The
+> site serves whatever is current, so if you attack something and I change it, that DOI is what your
+> objection was against.
 >
 > I am not a methodologist and this design has been reviewed by nobody. The last time that was true, a
 > reader pointed out that the previous version could not distinguish AI degrading judgment from handed
@@ -228,8 +236,9 @@ below, and the draft is written to be posted as it stands.
 > revision measure in the direction the prediction expects; and within one reader the condition and
 > the cases move together. Objections beyond those two are what I am asking for.
 >
-> This post is also the timestamp. The predictions are registered in a git repository and its history
-> is the only date on them, which is weaker than a registry and is said here rather than left to be
+> This post is also a timestamp, and a weak one. The predictions are registered in a git repository,
+> and v0.7.0 is deposited with a DOI and a date, which is better than commit history and still not a
+> preregistration on a registry that would not let me alter it. Said here rather than left to be
 > assumed.
 
 **What posting it commits to.** Two things, and they should be true before it goes out. The

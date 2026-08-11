@@ -10,6 +10,13 @@ import changelogFile from '../../CHANGELOG.md?raw';
 // `index.html` is hand-written and carries no content module, so this is the only
 // way to hold its disclosure from here.
 import indexPage from '../../index.html?raw';
+// The reader briefs are prose about the site rather than prose in it, and they quote
+// three counts back at the reader. Same reason as `index.html`: no content module, so
+// the file itself is what a test has to read.
+import readerBriefs from '../../docs/review-briefs.md?raw';
+// The citation record, so the DOI the briefs quote is the one the artifact declares
+// rather than a second copy of it typed out here.
+import citationFile from '../../CITATION.cff?raw';
 import sourcesFile from '../../SOURCES.md?raw';
 import * as armsModule from './arms.js';
 import * as debriefModule from './debrief.js';
@@ -25,7 +32,7 @@ import type { PredictionRow, Slate, SourceGrade, TrapBranch } from './types.js';
 
 const { ARM_NOTES, ARMS, recSentencePrefix, REC_LABELS, standingAttribution } = armsModule;
 const { DEBRIEF } = debriefModule;
-const { METHOD, PRED_ROWS } = methodModule;
+const { MEASURE_SPECS, METHOD, PRED_ROWS } = methodModule;
 const { CHANGELOG_ROWS, PROCESS, PROVENANCE_ROWS, REVIEWER_ROWS, SOURCE_ROWS } = processModule;
 const { CONSENT, INTRO } = shellModule;
 const { otherSlate, SLATES } = slatesModule;
@@ -412,6 +419,39 @@ describe('the process screen', () => {
       expect(heading, `no dated heading for ${entry.version}`).not.toBeNull();
       expect(entry.date, entry.version).toBe(heading?.[1]?.trim());
     }
+  });
+
+  it('quotes the counts in the reader briefs correctly', () => {
+    // `docs/review-briefs.md` is written to be pasted into a message and sent, and it
+    // tells the recipient how many limits, measures and caveats the site publishes. All
+    // three counts were wrong at once when the DOI landed — nine limits described as
+    // eight, twice, and seven measures described as six — in the document whose first
+    // reader is the one recruited to find exactly that. Nothing read this file, because
+    // it is documentation rather than screen copy, and rule 5 covers what the site
+    // asserts. It is sent under the author's name, so it is held here anyway.
+    const WORDS = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+
+    const limits = WORDS[METHOD.limits.length];
+    expect(limits, `no number word for ${String(METHOD.limits.length)} limits`).toBeDefined();
+    expect(readerBriefs).toContain(`lists ${String(limits)} of those`);
+    expect(readerBriefs).toContain(`the ${String(limits)} things this build cannot do`);
+
+    const measures = WORDS[MEASURE_SPECS.length];
+    expect(readerBriefs).toContain(`the ${String(measures)} measures`);
+
+    const caveats = WORDS[PROCESS.caveats.length];
+    expect(readerBriefs).toContain(`lists ${String(caveats)} more`);
+  });
+
+  it('sends the reader briefs against a version rather than a moving URL', () => {
+    // The site serves whatever is current, so a critique of "the Drift Meter" is a
+    // critique of nothing in particular. Both asks that go to a reviewer name the
+    // archived version, and the DOI they name is the one in CITATION.cff — the
+    // versioned one, not the concept DOI that resolves to the newest release.
+    const versioned = '10.5281/zenodo.21887595';
+    expect(citationFile).toContain(`doi: ${versioned}`);
+    const mentions = readerBriefs.split(versioned).length - 1;
+    expect(mentions, 'the methods brief and the design-review post').toBe(2);
   });
 
   it('grades the same claims the source file grades', () => {
