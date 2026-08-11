@@ -229,7 +229,8 @@ below, and the draft is written to be posted as it stands.
 >
 > Wherever is easiest: a reply here, or the repository at
 > https://github.com/vigilia-mz/drift-meter, where **Challenge a claim** is a form that asks which
-> claim and why. Whatever comes back is answered in the changelog under the name of whoever said it.
+> claim and why. Whatever comes back is answered in the changelog, under your name if you want it
+> there.
 >
 > This post is also a timestamp, and a weak one. The predictions are registered in a git repository,
 > and v0.7.0 is deposited with a DOI and a date, which is better than commit history and still not a
