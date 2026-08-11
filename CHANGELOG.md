@@ -25,6 +25,20 @@ This file is the surviving record of them.
   caveat now says that, names the versioned DOI, and states plainly that the concept DOI is not a
   substitute for it. The docstring above the section that lists the three places this screen fails its
   own standard drops from three to two — named readers and three unpinned figures remain.
+- Corrected: the reader briefs quoted three of the site's counts back at the recipient and two were
+  wrong. `docs/review-briefs.md` said the protocol screen lists eight things this build cannot do, in
+  two places, and there are nine; the public design-review draft said six measures, and there are seven.
+  The file is written to be pasted into a message and sent under the author's name, and the first
+  recipient of the first brief is the reader recruited to find exactly this. Nothing read the file,
+  because rule 5 governs what the site asserts and this is documentation about it; two cases in
+  `invariants.test.ts` now hold all three counts against the arrays they count, on the same grounds as
+  the cases that read `index.html`.
+- Both asks that go to a reviewer now name the archived version rather than only the URL. A critique of
+  a page that serves whatever is current is a critique of nothing in particular, so the methods brief
+  and the design-review draft both cite `10.5281/zenodo.21887595`, and a test holds that the DOI they
+  quote is the one `CITATION.cff` declares — the versioned one, not the concept DOI. The draft's
+  timestamp paragraph is also narrowed: a deposit with a date is better than commit history and is
+  still not a registry that would refuse to let the author alter it.
 - Corrected in passing: the masthead said the site was v0.7. It is v0.8 in progress, on the v0.7.0
   release, and the row now says which version is the one with a DOI. `package.json` moved to `0.8.0`
   with it.
