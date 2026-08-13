@@ -370,7 +370,12 @@ describe('the protocol screen', () => {
     // project's own outstanding debt — the exact failure the source table exists
     // to prevent, committed by the pages describing it. The words are written out
     // rather than interpolated, so this can fail.
-    const WORDS = ['none', 'one', 'two', 'three', 'four', 'five', 'six'] as const;
+    //
+    // The zero word is `no` rather than `none` because the flagged count reached zero
+    // in v0.8 and the sentence carrying it has to stay grammatical at both ends: `no
+    // rows still carry it` and `three rows still carry it` are the same template. That
+    // is also what stops the count going quietly stale in the direction it just moved.
+    const WORDS = ['no', 'one', 'two', 'three', 'four', 'five', 'six'] as const;
     const countOf = (grade: SourceGrade) => {
       const n = SOURCE_ROWS.filter((r) => r.grade === grade).length;
       const word = WORDS[n];
@@ -385,14 +390,26 @@ describe('the protocol screen', () => {
     );
   });
 
-  it('says what the rows still graded flagged actually are', () => {
-    // They are no longer case figures. Restating those as illustrative cleared
-    // them; what is left are the essays' empirical claims, which a disclosure
-    // cannot clear because they are either true and uncited or they are not true.
-    for (const row of SOURCE_ROWS.filter((r) => r.grade === 'Flagged')) {
+  it('keeps saying what the flagged grade means, and where the rows that carried it went', () => {
+    // Nothing carries it since v0.8, and thoroughly enough that the compiler knows:
+    // the rows are `as const`, so the filter this case used to run — grade equals
+    // Flagged — is now a type error rather than a loop that returns nothing. It is
+    // deleted rather than cast around, which is the right end for a check that can no
+    // longer fail. The count is held next door, where the lead states it in words
+    // derived from this same array, so the absence is asserted rather than assumed.
+    //
+    // What is kept is the reasoning and the destination. The essays' three empirical
+    // claims were the last rows to carry the grade, and a disclosure could not clear
+    // them — they are either true and uncited or they are not true — so they were
+    // corrected against their sources and cited instead. Both halves stay published:
+    // the sentence saying why a disclosure is not an exit, and three rows still
+    // located on the page the claims are made on.
+    expect(PROCESS.sourcesLead).toContain('no disclosure can clear them');
+    const essayRows = SOURCE_ROWS.filter((r) => r.where.includes('empirical section'));
+    expect(essayRows, 'the three claims that were flagged').toHaveLength(3);
+    for (const row of essayRows) {
       expect(row.where, row.claim).toContain('essay');
     }
-    expect(PROCESS.sourcesLead).toContain('no disclosure can clear them');
   });
 });
 
@@ -427,6 +444,25 @@ describe('the process screen', () => {
       const heading = new RegExp(`^## ${entry.version} — ([^—]+) — `, 'm').exec(changelogFile);
       expect(heading, `no dated heading for ${entry.version}`).not.toBeNull();
       expect(entry.date, entry.version).toBe(heading?.[1]?.trim());
+    }
+  });
+
+  it('titles every version the same way the changelog file titles it', () => {
+    // The third segment of the heading, and the last part of this mirror that nothing
+    // was reading. The two cases above compare the version strings, their order and
+    // their dates, so `CHANGELOG.md` and the screen could name the same version on the
+    // same date and describe it as two different releases.
+    //
+    // Which is exactly what happened. v0.8 opened as an archived-identifier release,
+    // became the source pass on the essays' three empirical claims, and was retitled in
+    // both places by hand — with nothing that would have gone red had it been retitled
+    // in one. On a file whose purpose is telling a reader which build they are citing,
+    // a heading that describes a release by a different item than the screen does is
+    // the same defect as a stale date, one line higher.
+    for (const entry of CHANGELOG_ROWS) {
+      const heading = new RegExp(`^## ${entry.version} — [^—]+ — (.+)$`, 'm').exec(changelogFile);
+      expect(heading, `no titled heading for ${entry.version}`).not.toBeNull();
+      expect(entry.title, entry.version).toBe(heading?.[1]?.trim());
     }
   });
 
@@ -806,6 +842,265 @@ describe('the landing page says its specimen bars are invented', () => {
     expect(SOURCE_ROWS.some((r) => r.grade === 'Illustrative' && /specimen/i.test(r.claim))).toBe(
       true,
     );
+  });
+});
+
+describe('the long essay states its three empirical claims the way their studies do', () => {
+  /**
+   * The empirical section of `atrophy.html`, one case per claim.
+   *
+   * These three were graded FLAGGED in `SOURCES.md` from the v0.6 pass until v0.8:
+   * findings about students, endoscopists and developers, stated with a population
+   * and a direction and cited nowhere. Writing each one against its study found that
+   * all three were also wrong, in three different ways. Then two of the three papers
+   * were actually read, and that found the corrections wrong twice more — a working
+   * paper's title cited against the retitled journal version, and a true sentence
+   * deleted for being unverifiable — plus a fault nobody had gone looking for, which
+   * is that the developer trial measures a season that has since passed and whose
+   * authors have published a reversed sign.
+   *
+   * The lesson these cases exist to hold is that order. A citation attached to a
+   * misstated claim is worse than no citation, because the source then contradicts
+   * the sentence in a reader's hands rather than in a file nobody outside this
+   * repository reads — and correcting a sentence against a summary of a paper is not
+   * the same as correcting it against the paper.
+   *
+   * So what each case pins is the specific error its sentence used to make, not the
+   * presence of a citation. `atrophy.html` is a finished hand-written document with
+   * no content module, so these read the page itself — the same reason the specimen
+   * cases above read `index.html`.
+   *
+   * The last case holds all three rows at PRIMARY AVAILABLE. Two have been read and
+   * all three were then read by the author and all three are PRIMARY. The last case
+   * holds them there, so a row cannot slide back to cited-but-unread without saying so.
+   */
+  const paragraphsWith = (needle: string): string[] =>
+    [...atrophyPage.matchAll(/<p>([\s\S]*?)<\/p>/g)]
+      .map((m) => m[1] ?? '')
+      .filter((p) => p.includes(needle));
+
+  const paragraphWith = (needle: string): string => {
+    const found = paragraphsWith(needle);
+    // Exactly one, not at least one. A pattern that stopped matching would otherwise
+    // hand every assertion below an empty string to pass against.
+    expect(found, `atrophy.html has no single paragraph containing ${needle}`).toHaveLength(1);
+    return found[0] ?? '';
+  };
+
+  const rowFor = (fragment: string) =>
+    SOURCE_ROWS.find((r) => r.claim.includes(fragment) && r.where.includes('essay'));
+
+  it('gives the students result to the arm it belongs to, under the title the journal gave it', () => {
+    // Two errors, one on top of the other. The sentence published until v0.8 said
+    // students “with access to ChatGPT” did better in practice and worse on the exam,
+    // which is one arm's result given as the study's. The correction to it then cited
+    // the 2024 working paper's title against the 2025 journal version — which had been
+    // retitled to name the guardrails distinction the correction was about.
+    const p = paragraphWith('Generative AI without guardrails');
+    expect(p).toContain('Bastani');
+    expect(p).toContain('PNAS');
+    // The working-paper title may not come back anywhere on the page.
+    expect(atrophyPage).not.toContain('Generative AI Can Harm Learning');
+    // All three conditions named, and the result attached to the right two.
+    expect(p).toContain('mimic ChatGPT');
+    expect(p).toContain('withhold the answer');
+    expect(p).toContain('no access at all');
+    expect(p).toContain('17% below the control');
+    expect(p).toContain('statistically indistinguishable');
+    expect(p).toContain('randomized controlled trial');
+    // The perception result, cut from the page as unsupported and restored by the
+    // reading: the paper reports it, and reports something stronger than what was cut.
+    expect(p).toContain('did not perceive');
+
+    // The practice figures, which are the other half of the contrast: enormous gains
+    // while assisted, nothing or worse when the assistance goes.
+    expect(p).toContain('48%');
+    expect(p).toContain('127%');
+
+    expect(sourcesFile).toContain('### PRIMARY — Students given a ChatGPT-like interface');
+    expect(rowFor('ChatGPT-like interface')?.grade).toBe('Primary');
+  });
+
+  it('names adenoma detection, keeps the two falls one result, and never says the tool was withdrawn', () => {
+    // Three ways to get this claim wrong, and the page had made all three. The study
+    // measures adenoma detection; colorectal cancer detection did not significantly
+    // change, so a sentence about cancer would be wrong rather than merely imprecise.
+    // The fall is six percentage points absolute and about a fifth relative — one
+    // result said twice, and not a relative figure printable as though it were the
+    // absolute one. And the design is a before-and-after against AI-off procedures:
+    // AI was adopted at those four centres and never withdrawn, which is what the
+    // sentence published until v0.8 implied and what only the reading caught.
+    const p = paragraphWith('adenoma detection rate');
+    expect(p).toContain('Budzy');
+    expect(p).toContain('28.4%');
+    expect(p).toContain('22.4%');
+    expect(p).toContain('six percentage points');
+    expect(p).toContain('a fifth');
+    expect(p).toContain('one result stated twice');
+    expect(p).toContain('Cancer detection did not significantly change');
+    expect(p).toContain('observational');
+    // The design, and the word that must not come back with it.
+    expect(p).toContain('before-and-after');
+    expect(p).toContain('AI-off colonoscopies');
+    expect(atrophyPage).not.toMatch(/tool was removed|when the tool was withdrawn/);
+    // The awareness clause, with the nuance the reading added: unblinded, so they knew
+    // when the system was on; what went unmeasured is whether they saw the fall.
+    expect(p).toContain('not a question the study asked');
+    // And the qualification, which stops the paragraph reading as “AI made colonoscopy
+    // worse”. The tool raises detection while it is active; the finding is about the
+    // same endoscopists working without it afterwards. It takes no row of its own
+    // because the paper discusses those earlier trials directly.
+    expect(p).toContain('not evidence that AI simply made colonoscopy worse');
+    expect(p).toContain('improves adenoma detection while active');
+
+    expect(sourcesFile).toContain('### PRIMARY — Adenoma detection in unassisted');
+    expect(rowFor('Adenoma detection')?.grade).toBe('Primary');
+  });
+
+  it('reports the developers measurement and the two beliefs as three figures, never combined', () => {
+    // The finding is 19% slower against a 24% forecast beforehand and a 20% estimate
+    // afterwards. The tempting error is to add a slowdown to a perceived speedup and
+    // publish the sum as a percentage-point gap, which is a figure no study reports.
+    const p = paragraphWith('19% longer');
+    expect(p).toContain('METR');
+    expect(p).toContain('246');
+    expect(p).toContain('sixteen experienced developers');
+    expect(p).toContain('24%');
+    expect(p).toContain('20%');
+    expect(p).toContain('must not be combined');
+    // One study, tasks randomised inside the same developers, rather than a literature
+    // setting two groups of people against each other. Both halves were wrong until v0.8.
+    expect(atrophyPage).not.toContain('studies of software developers');
+    // The eligibility rule the phrase rests on: six months as an active maintainer.
+    expect(p).toContain('repository they had maintained');
+
+    // 39 is a real figure here — the upper bound of the trial's 95% interval — and it
+    // is also what the forbidden sum comes to. Banning the digits would forbid the
+    // honest use, so the guard is that wherever it appears, it appears as a bound.
+    for (const para of paragraphsWith('39%')) {
+      expect(para, 'a 39% that is not a confidence bound').toContain('confidence interval');
+    }
+
+    expect(sourcesFile).toContain('### PRIMARY — Tasks took 19% longer with AI tools');
+    expect(rowFor('19% longer')?.grade).toBe('Primary');
+  });
+
+  it('dates the developers trial, carries the follow-up, and does not call it a retraction', () => {
+    // The claim this project came closest to getting wrong in the direction it is
+    // about. The trial measures the tools of February to June 2025; its authors ran a
+    // second experiment and published opposite-signed raw estimates in February 2026,
+    // alongside their own judgment that it is too compromised to trust. An essay dated
+    // 2026 citing the first as a present fact would be making the argument's own
+    // mistake, so the season and the follow-up are both on the page.
+    // Anchored on the interval itself rather than on the words “confidence interval”,
+    // which two paragraphs now carry: the endoscopy result states one too.
+    const p = paragraphWith('roughly 1% to 39%');
+    expect(p).toContain('February and June 2025');
+    expect(p).toContain('February 2026');
+    expect(p).toContain('18% speedup');
+    expect(p).toContain('too compromised');
+    expect(p).toContain('very weak evidence');
+
+    // The other half, and the correction to a correction. An acknowledged-unreliable
+    // experiment cannot supersede a clean one, so the page must not read as though the
+    // follow-up overturns the trial. An earlier draft said the sign “had reversed” and
+    // that only the calibration gap survived; both gave the follow-up authority it
+    // disclaims of itself.
+    const q = paragraphWith('not a retraction');
+    expect(q).toContain('stands');
+    expect(q).toContain('calibration');
+    expect(atrophyPage).not.toMatch(/overturn|supersed|the sign had reversed/i);
+
+    expect(sourcesFile).toContain('metr.org/blog/2026-02-24-uplift-update');
+  });
+
+  it('pins all three rows to a paper and a date the author read it on', () => {
+    // What PRIMARY means here, held against the rows that claim it. All three were
+    // read on 13 Aug 2026, and the file carries a dated `Checked:` line for each and a
+    // resolvable address in the `Primary link:` above it. The screen mirrors the date.
+    //
+    // This is the case that goes red if a row is ever added to this section without a
+    // reading behind it, or if one of these is edited back to cited-but-unread — which
+    // is the state they held for a few hours and the state the grade below exists for.
+    const rows = SOURCE_ROWS.filter((r) => r.where.includes('empirical section'));
+    expect(rows, 'the three essay claims').toHaveLength(3);
+    for (const row of rows) {
+      expect(row.grade, row.claim).toBe('Primary');
+      expect(row.checked, row.claim).toMatch(/^\d{1,2} [A-Z][a-z]{2} \d{4}$/);
+    }
+    // Derived rather than written, on the same terms as the counts elsewhere here: a
+    // fourth row read on the same date must appear in both places or neither.
+    const readByAuthor = SOURCE_ROWS.filter((r) => r.checked === '13 Aug 2026').length;
+    const dated = sourcesFile.split('- **Checked:** 13 Aug 2026, by the author').length - 1;
+    expect(dated, 'SOURCES.md rows read by the author on that date').toBe(readByAuthor);
+    // No row in this section may go back to promising a source it has not opened.
+    expect(sourcesFile).not.toContain('**Checked:** TODO');
+  });
+});
+
+describe('the long essay claims a mechanism rather than a finding about experienced users', () => {
+  /**
+   * The claim that outlived the pass that should have caught it.
+   *
+   * Until v0.8 the essay said experienced users “already show signs of shifting from
+   * sustained evaluative engagement to something more passive”. That is a population,
+   * a direction and a present tense — the sentence form of a finding — and what stood
+   * behind it was a theoretical synthesis arguing the mechanism and calling for the
+   * research that would test it. It is the same fault as the three empirical claims,
+   * and it survived their correction because it names no study, so it did not read as
+   * a citation waiting to happen.
+   *
+   * The row is SECONDARY and says it can be secondary for the argument and not primary
+   * for the behaviour. That grade rests entirely on the hedge in the sentence, which is
+   * why the hedge is asserted here rather than trusted — the same shape as the
+   * illustrative-disclosure cases above.
+   */
+  it('hedges the shift and does not assert it as observed', () => {
+    const p = [...atrophyPage.matchAll(/<p>([\s\S]*?)<\/p>/g)]
+      .map((m) => m[1] ?? '')
+      .filter((x) => x.includes('cognitive offloading'));
+    expect(p, 'atrophy.html has no single paragraph claiming the mechanism').toHaveLength(1);
+    expect(p[0]).toContain('may shift');
+    expect(p[0]).toContain('difficult to notice from inside the task');
+    // The finding-shaped version may not come back anywhere on the page.
+    expect(atrophyPage).not.toContain('already show signs of shifting');
+  });
+
+  it('says what agents make possible rather than what users do, and marks the transfer as inference', () => {
+    // The same claim, made a second time in the paragraph on autonomous agents, and
+    // the one that outlived the pass which rewrote the first. It read that “in
+    // practice, users often begin by reviewing each action and gradually shift toward
+    // a looser posture” — a frequency and a trajectory, asserted.
+    //
+    // The rewrite does two things and both are held here. It states what the design
+    // makes available instead of what people are observed to do. And it marks its own
+    // step across: the source is about performing a task with assistance, supervising
+    // a system that performs it is a different activity, and carrying the mechanism
+    // over is an inference. That marker is the load-bearing part — applying a cited
+    // mechanism to an uncited setting is how a sourced page quietly acquires an
+    // unsourced claim, and nothing else on the page would catch it.
+    const p = [...atrophyPage.matchAll(/<p>([\s\S]*?)<\/p>/g)]
+      .map((m) => m[1] ?? '')
+      .filter((x) => x.includes('exception-handling'));
+    expect(p, 'atrophy.html has no single paragraph on supervisory posture').toHaveLength(1);
+    expect(p[0]).toContain('looser supervisory posture');
+    expect(p[0]).toContain('wait for an obvious failure before intervening');
+    expect(p[0]).toContain('an inference rather than a finding');
+    expect(p[0]).toContain('nobody has studied the second directly');
+    // The frequency claim may not come back anywhere on the page.
+    expect(atrophyPage).not.toContain('In practice, users often');
+  });
+
+  it('keeps a SECONDARY row for it, in the file and in the screen mirror', () => {
+    // Neither half may be removed alone: the row without the hedge is a grade resting
+    // on nothing, and the hedge without the row is an uncovered claim as far as the
+    // table is concerned.
+    expect(sourcesFile).toContain(
+      '### SECONDARY — Repeated assistance may shift experienced users',
+    );
+    const row = SOURCE_ROWS.find((r) => r.claim.includes('monitoring and approval'));
+    expect(row, 'the mirrored row for the mechanism claim').toBeDefined();
+    expect(row?.grade).toBe('Secondary');
   });
 });
 

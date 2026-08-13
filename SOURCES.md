@@ -20,8 +20,11 @@ here was wrong. It was undisclosed, which is a different failure with a differen
 
 Last location-and-state pass: 10 Aug 2026 (#39). Last source pass: 30 Jul 2026 (v0.3). First source
 pinned: 7 Aug 2026 (#8). No row's source was re-verified in the v0.6 pass, and #7 did not verify one
-either; #8 verified one, and the ten `Primary link: TODO` lines that remain below are as open as they
-were. Restating a figure as illustrative closes the publication obligation and closes nothing else.
+either; #8 verified one, and the seven `Primary link: TODO` lines that remain below are as open as
+they were. Three more were open on the same terms until 13 Aug 2026, when the essay claims were
+cited, read against their papers by the author, and pinned. That is the second source pass this
+table has had and the first to cover more than one row. Restating a figure as illustrative closes the
+publication obligation and closes nothing else.
 
 The v0.6 pass was run against the rebuild rather than against the deleted build these rows were
 written for, which changed two things. Several rows locate a claim on a screen the rebuild has not
@@ -78,7 +81,21 @@ saying so here is cheaper than implying this file is now complete.
 
 What no pass has covered: the essays' attributions of position to Beauvoir and Murdoch, and their
 generalisations about how experienced users behave. Those are the next tranche, and naming them here
-is cheaper than implying the sweep was exhaustive. The accessibility sweep is not exhaustive either,
+is cheaper than implying the sweep was exhaustive.
+
+The second of those closed on 13 Aug 2026, in both the places it was made. The long essay made the
+generalisation twice: in the paragraph on what deteriorates, that experienced users already show signs
+of shifting to something more passive; and in the paragraph on autonomous agents, that users in
+practice begin by reviewing each action and gradually step in only when something looks obviously
+wrong. Both were frequency claims resting on a theoretical synthesis, and neither named a study, which
+is why they outlived the pass that corrected the three claims that did. One row below covers both, at
+SECONDARY. The first sentence now states the mechanism and hedges it. The second states what agents
+make possible rather than what users do, and then marks the step it takes: the source is about
+performing a task with assistance, supervising a system that performs it is a different activity, and
+the page says the transfer is an inference nobody has studied. That last sentence is the one worth
+keeping, because applying a cited mechanism to an uncited setting is how a sourced page quietly
+acquires an unsourced claim. What remains uncovered is the Beauvoir and Murdoch attributions.
+The accessibility sweep is not exhaustive either,
 and says where it stops: two axe rules off on one selector each with the clause they stand on, and one
 non-text pair under its threshold and left to the author.
 
@@ -101,6 +118,63 @@ written out in six branches of the debrief copy is written out once. What the ch
 table is an obligation rather than a row. A planted error is a constructed figure whose label is
 deliberately wrong, so it is the strongest illustrative claim this site makes, and the mechanism now
 allows more of them than the content has. Every additional one needs its own row before it ships.
+
+Then the three that were left. The essays' claims about students, endoscopists and developers now
+name the studies they come from, and the more useful finding is that all three sentences were wrong
+before they were uncited. Writing each one against what its study reports turned up one arm's result
+stated as the study's result, a fall stated with neither its measure nor its size, a within-subject
+comparison described as one group of people against another, and two sentences asserting things no
+study on this list measured — what students felt about their own competence, and whether clinicians
+noticed a decline. A citation attached to any of those would have been worse than none, because the
+source would then contradict the sentence in a reader's hands rather than in this file.
+
+So all three move to PRIMARY AVAILABLE and none of them to PRIMARY. That distinction is the point of
+this pass rather than a technicality about it: PRIMARY means the source is pinned here and was read on
+a stated date, and nobody has read these. Each row carries a citation and `Checked: TODO`, and says
+which of its figures came from the issue that asked for the correction and which from an unverified
+account of the paper. The paragraph above saying these three stay FLAGGED is overtaken; the reasoning
+in it is not. A disclosure could not have cleared them, which is precisely why they were corrected and
+cited instead. What has closed is the obligation that a reader has nothing to check the sentence
+against. What has opened is the narrower one of checking the sentence against the thing it now names,
+and until someone does, three of this table's rows describe the author's memory of three papers.
+
+That happened the same day, for two of the three. The author supplied the papers and they were read
+against the rows, which is the first time any claim here has been checked against a source since #8.
+The reading found four things, and the order is the point. Two of the corrections written that morning
+were themselves wrong: the students row cited the 2024 working paper's title against the 2025 journal
+version, which had been retitled to name the very distinction the correction was about; and the pass
+had deleted a sentence about what students believed, on the ground that nothing supported it, when the
+paper devotes a section to it and reports something stronger. One claim was stale rather than wrong —
+the developer trial measures February to June 2025, its own authors ran it again and published a
+reversed sign in February 2026, and an essay dated 2026 was citing the first as a present fact. And
+one point estimate was standing in for an interval: the 19% has a 95% interval of roughly 1% to 39%,
+re-derived here by running the published regression against the published data rather than by trusting
+the abstract. The endoscopy article was not among the papers supplied and is now the only one of the
+three whose figures rest on no reading at all; its row says so at length rather than borrowing the
+standing of the two beside it.
+
+Then the author read all three, on 13 Aug 2026, and the rows are PRIMARY. That is the first time this
+table has held more than one pinned-and-read row, and it is worth being exact about what earned it,
+because the sequence is the argument. An uncited assertion was corrected from an unverified account of
+its study; correcting it that way introduced a wrong citation and deleted a true sentence; reading the
+papers caught both, and caught a third thing neither wording pass could have — that one of the three
+findings had stopped being current. The endoscopy article, which was the last to be read because it
+was the last to be obtained, then corrected the design description as well: the page had called it a
+before-and-after comparison, which is right, and had implied a withdrawal, which is not. AI was
+adopted at those four centres and never withdrawn; the comparison is against AI-off procedures
+performed afterwards.
+
+Two of the three rows are now stronger than PRIMARY asks for and say so where they are. The developer
+row's central figure was recomputed here from the published data rather than accepted from the
+abstract, and the endoscopy row's counts were checked against each other. Neither is a grade this
+table offers, and both are cheaper to state in the row than to invent a grade for.
+
+What this pass does not do is make the sweep complete. It covered three rows. The seven
+`Primary link: TODO` lines above are untouched, the Project Deal figures both essays open on are still
+held from a write-up rather than a pinned page, and the claims named below as uncovered — Beauvoir,
+Murdoch, and the generalisations about how experienced users behave — are still uncovered. What the
+pass changes is the standard the rest of them will be held to, which is that a row saying `Checked`
+means somebody opened the paper.
 
 ---
 
@@ -225,29 +299,214 @@ allows more of them than the content has. Every additional one needs its own row
   one without the other. For one version this row rested on review, and it said so rather than leaving
   that to be inferred from the absence of a test name.
 
-### FLAGGED — Students with ChatGPT practised better and scored worse on exams taken without it
+### PRIMARY — Students given a ChatGPT-like interface scored 17% below the control on an unassisted exam, the safeguarded tutor arm did not, and neither arm perceived its own result
 
-- **Where:** `atrophy.html`, the empirical section. Added at the v0.6 pass.
-- **Status:** Stated on the page as a finding, with a population and a direction, and no citation
-  anywhere on the site. A reader who wants to check it has nothing to check it against.
-- **Primary link:** TODO — the study, with its design and the size of the reversal.
-- **Action before release:** pin it, or restate it on the page as reported rather than established.
+- **Where:** `atrophy.html`, the empirical section. Added at the v0.6 pass, FLAGGED until 13 Aug 2026,
+  PRIMARY AVAILABLE for the few hours between the citation and the reading.
+- **Primary link:** Bastani H, Bastani O, Sungu A, Ge H, Kabakcı Ö, Mariman R. “Generative AI without
+  guardrails can harm learning: Evidence from high school mathematics.” _PNAS_ 2025; 122(26):
+  e2422633122. <https://doi.org/10.1073/pnas.2422633122>. Received 3 Nov 2024, accepted 5 May 2025,
+  published 25 Jun 2025. CC BY-NC-ND 4.0.
+- **Checked:** 13 Aug 2026, by the author, against the article.
+- **What the page states, and where it comes from:** a randomized controlled trial, nearly a thousand
+  students, three arms — a GPT-4 interface built to mimic ChatGPT (“GPT Base”), a version prompted
+  with teacher-designed hints and instructed not to give the solution away (“GPT Tutor”), and no
+  access. Practice problems: 48% and 127% better than control. Unassisted exam: GPT Base
+  “statistically significantly worse than students in the control arm by 17%”, GPT Tutor
+  “statistically indistinguishable” from control, its point estimate an order of magnitude smaller
+  (−0.004 against −0.054 out of 1). Perception, from the paper's own section on it: GPT Base students
+  “did not perceive that they performed worse or learned less”, and GPT Tutor students, who did no
+  better than control, “perceived that they performed significantly better”.
+- **Scope, which the page carries because the authors state it first:** one subject, one high school in
+  Turkey, autumn 2023, on GPT-4, short-term outcomes only.
+- **Correction on the record, read 13 Aug 2026:** PNAS 2025; 122(34): e2518204122, published 20 Aug
+  2025 — <https://doi.org/10.1073/pnas.2518204122>. It restates one author's affiliation, which had
+  appeared incorrectly through a production error, and reprints the author and affiliation lines
+  entire. No figure, arm, or claim is touched, and the row says so: a source row that lists a
+  correction without saying which kind implies the finding was revised.
+- **What the reading changed, which is the reason this row is long.** Two things, and both were
+  introduced by the pass that was correcting this claim rather than by the original sentence.
+  - _The citation named the wrong paper._ It cited “Generative AI Can Harm Learning”, PNAS 2025 —
+    the 2024 SSRN working paper's title attached to the journal version, which PNAS retitled to name
+    the guardrails distinction the correction was itself about. Nothing about that sentence looks
+    wrong, which is this table's whole subject.
+  - _A true sentence had been deleted for being unverifiable._ The pass cut the claim that students
+    “felt more capable while the underlying competence failed to consolidate”, on the ground that
+    nothing supported a claim about belief. The paper devotes a section to it and reports something
+    stronger, which is now on the page. Deleting an unverified claim is cheap; deleting a true one
+    costs the argument, and both happened in the same hour.
+- **Action before release:** none outstanding.
 
-### FLAGGED — Endoscopists' independent detection rates declined after AI-assisted screening was withdrawn
+### PRIMARY — Adenoma detection in unassisted colonoscopy fell from 28.4% to 22.4% after the centres adopted AI, while cancer detection did not significantly change
 
-- **Where:** `atrophy.html`, the empirical section. Added at the v0.6 pass.
-- **Status:** As above — stated as a finding about experts, uncited. It carries more weight than the
-  others, because the essay uses it to move the argument from students to practitioners.
-- **Primary link:** TODO.
-- **Action before release:** as above.
+- **Where:** `atrophy.html`, the empirical section. Added at the v0.6 pass, FLAGGED until 13 Aug 2026.
+  The last of the three to be read, and the one the essay leans on hardest.
+- **Primary link:** Budzyń K, Romańczyk M, Kitala D, et al. “Endoscopist deskilling risk after
+  exposure to artificial intelligence in colonoscopy: a multicentre, observational study.” _Lancet
+  Gastroenterol Hepatol_ 2025; 10: 896–903, published 12 Aug 2025 —
+  <https://doi.org/10.1016/S2468-1253(25)00133-5>. That is the canonical record and the thing to cite.
+- **Checked:** 13 Aug 2026, by the author, against the eight-page Article.
+- **Full text checked via:** a third-party reproduction of the published Article, hosted on Scribd.
+  The bibliographic identity was verified separately and does not rest on that copy — title, authors,
+  journal, volume, pages and publication date were confirmed against the DOI and the journal's own
+  record. The host is named rather than described, because a row saying only “the full text” would be
+  claiming the publisher's version. No author manuscript, institutional-repository deposit or preprint
+  of this Article was found: the publisher's page and ScienceDirect both serve an abstract, and
+  ResearchGate offers only a request. So this is a disclosed access route of last resort. It is not the
+  authoritative source and is not offered as one; the DOI above is, and a reader checking this row
+  should go there.
+- **What is pinned here is the Article, and not the correspondence around it.** Four Lancet items share
+  this claim's subject and are easy to confuse, which is why they are separated here rather than left
+  to a reader to untangle: the Article at `00133-5`; its correction notice at `00294-8`, which is a
+  single page covering several unrelated papers; the editorial at 10: 871; and post-publication
+  correspondence with an authors' reply, which has not been read here and is recorded as an open item
+  rather than as support. Only the first is the study.
+- **The result:** adenoma detection rate — the proportion of colonoscopies finding at least one
+  adenoma — in standard non-AI colonoscopies, 28.4% before routine AI exposure (226/795) against 22.4%
+  after (145/648). An absolute change of −6.0 percentage points, 95% CI −10.5 to −1.6, p=0.0089;
+  adjusted odds ratio 0.69, 95% CI 0.53–0.89. This is the headline comparison and not a subgroup.
+  Colorectal cancer detection did not change significantly: six cases before against eight after, 0.8%
+  against 1.2%, p=0.35. The counts are internally consistent — 226/795 is 28.4%, 145/648 is 22.4%,
+  795 + 648 is the 1,443 unassisted procedures, and those with the 734 assisted ones make 2,177.
+- **The design, in the words the page now uses.** Retrospective, multicentre, observational, nested
+  within the ACCEPT trial: non-AI colonoscopies before routine AI adoption against AI-off
+  colonoscopies performed after the endoscopists had begun using AI regularly. AI arrived at the four
+  Polish centres late in 2021, and examination dates were then randomised AI-on or AI-off, so
+  endoscopists went on doing both. The deployment was never withdrawn. “AI was withdrawn” is true only
+  of individual post-adoption procedures and is misleading as a description of the study, which is why
+  the sentence published until v0.8 was wrong in a way that no figure would have exposed.
+- **Sample and window:** 8 Sep 2021 to 9 Mar 2022, roughly three months either side of implementation
+  at each centre; 2,177 colonoscopies in all, 1,443 without AI and 734 with; the primary analysis on
+  the 1,443, being 795 before and 648 after. Nineteen experienced endoscopists at four centres — 16
+  physicians and 3 general surgeons, each with more than 2,000 prior colonoscopies, mean experience
+  27.6 years, range 8 to 39. The first 100 post-introduction colonoscopies at each centre were
+  excluded as familiarisation.
+- **Awareness, and the nuance the page keeps.** The study asked no question about it: no interview, no
+  survey, no awareness measure. So “not a question the study asked” is correct. The nuance is that it
+  was unblinded and endoscopists necessarily knew when the system was active — what went unstudied is
+  whether they recognised the change in their own detection rate, and the page says that rather than
+  the shorter and slightly wrong version.
+- **Correction on the record, read 13 Aug 2026:** <https://doi.org/10.1016/S2468-1253(25)00294-8>,
+  published 11 Sep 2025. A covariate, indication for colonoscopy, was omitted from the multivariable
+  analysis in supplementary table 6; the appendix is updated, the affected variables are “After AI
+  introduction (using AI in colonoscopy)” and “Age >60 years”, and the notice states the changes do
+  not affect the interpretation of the data. Unlike the PNAS correction on the row above, this one
+  touches an analysis rather than a byline, which is a distinction a reader of this table should not
+  have to go and discover.
+- **What the editorial supports, and no more.** “Making AI work for patients in gastroenterology”,
+  _Lancet Gastroenterol Hepatol_ 2025; 10: 871, describes the finding as exposure “associated with
+  decreased ADR in non-AI-assisted procedures, a finding that might be explained at least in part by
+  endoscopist deskilling and complacency”. Association, and a mechanism offered in part and hedged
+  twice. That is the weight the page gives it.
+- **Qualified on the page, 13 Aug 2026.** The paragraph reported only the decline, and a reader could
+  have finished it believing the finding is that AI makes colonoscopy worse. It now says that it is
+  not: trials have found AI improves adenoma detection while it is active, and Budzyń's narrower
+  finding is that once AI became routine the same endoscopists detected fewer adenomas when working
+  without it. That qualification takes no row of its own, because the paper discusses those earlier
+  trials directly and this row is pinned to the paper and read. It is recorded here so the decision is
+  visible rather than inferred from the absence of a row.
+- **Considered and not cited:** Areia M, Mori Y, Correale L, et al., “Cost-effectiveness of artificial
+  intelligence for screening colonoscopy: a modelling study”, _Lancet Digit Health_ 2022; 4: e436–44 —
+  <https://doi.org/10.1016/S2589-7500(22)00042-5>. A Markov microsimulation over a hypothetical cohort
+  of 100,000, and therefore the wrong support for the sentence above: it models forward from an
+  assumed detection gain rather than measuring one. It would belong here only if the essay discussed
+  projected costs or downstream health benefits, and it discusses neither. Recorded because a source
+  read and set aside is a decision, and because the tempting use of it — modelled benefit set against
+  measured cost — is an argument this table's author would be constructing rather than citing.
+- **Action before release:** none outstanding.
 
-### FLAGGED — Developers using AI coding assistants took longer while believing they were faster
+### PRIMARY — Tasks took 19% longer with AI tools, on a wide interval, and the same developers had forecast and then reported a speedup
 
-- **Where:** `atrophy.html`, the empirical section. Added at the v0.6 pass.
-- **Status:** As above, uncited. The belief-versus-outcome gap is the essay's own thesis in
-  miniature, which is a reason to be more careful with it rather than less.
-- **Primary link:** TODO.
-- **Action before release:** as above.
+- **Where:** `atrophy.html`, the empirical section. Added at the v0.6 pass, FLAGGED until 13 Aug 2026.
+- **Primary link:** Becker J, Rush N, Barnes B, Rein D. “Measuring the Impact of Early-2025 AI on
+  Experienced Open-Source Developer Productivity.” METR, arXiv:2507.09089v2, 25 Jul 2025 —
+  <https://arxiv.org/abs/2507.09089>. Data and replication code:
+  <https://github.com/METR/Measuring-Early-2025-AI-on-Exp-OSS-Devs>.
+- **Checked:** 13 Aug 2026, by the author, against the paper.
+- **Also re-derived rather than taken on the paper's word.** Running the published `regression.py`
+  over the published `data_complete.csv` returns a speedup of 0.188 with a 95% interval of
+  (0.013, 0.394) under HC3 and (0.016, 0.390) clustered by developer, matching the repository's stated
+  output. So the page's 19% is a point estimate on an interval of roughly 1% to 39%, and the page says
+  so. This is the only claim in this table whose central figure has been recomputed here from the
+  source data, which is a stronger thing than PRIMARY asks for and is worth the sentence.
+- **Verified with it:** 16 developers, 246 tasks, task-level randomisation, tools of the
+  February–June 2025 frontier, a 24% speedup forecast before the tasks and a 20% speedup estimated
+  after them, and the eligibility rule that “repositories they maintain” rests on — six months as an
+  active maintainer of the repository worked in.
+- **The claim was stale, and this is the finding of the pass.** METR ran a second experiment from
+  August 2025, on later tools and a larger, only partly overlapping group, and published “We are
+  Changing our Developer Productivity Experiment Design” on 24 Feb 2026 —
+  <https://metr.org/blog/2026-02-24-uplift-update/>, data at
+  <https://github.com/METR/Measuring-Late-2025-AI-on-OSS-Devs>. Its raw estimates have the opposite
+  sign: an 18% speedup among returning developers and 4% among newly recruited ones, both on intervals
+  that cross zero. METR judges the experiment too compromised to support a confident estimate —
+  developers increasingly declined to work without AI, 30–50% of those participating withheld tasks
+  they did not want to attempt unassisted, the pay rate was lower, and time is unreliable for anyone
+  running several agents at once — and calls the result very weak evidence.
+- **What the page says about that, and what it deliberately does not.** It is not a retraction and the
+  essay does not treat it as one. The 19% stands within its measured setting: those sixteen
+  developers, those tasks, those tools. What does not stand is carrying it forward as a current or
+  portable estimate, which is what citing it in 2026 unqualified would have done. An earlier draft of
+  this correction said the sign “had reversed” and that only the calibration gap survived; both
+  overstated the follow-up, which is an acknowledged-unreliable experiment and cannot supersede a
+  clean one. The wording was fixed before publication by the author's reading, and the earlier version
+  is recorded here rather than quietly replaced.
+- **Not on the page, and deliberately:** METR's AI usage survey of 11 May 2026 —
+  <https://metr.org/blog/2026-05-11-ai-usage-survey/> — reports a self-reported median 3× speed change
+  across 349 technical workers, and says in the same post that its earlier study found people
+  overestimated AI's effect on their time by 40 percentage points. Convenience sample, roughly 2%
+  response rate, and self-report, which is the exact instrument this essay's argument says is
+  unreliable. Citing it as a finding would be the failure; it is context.
+- **Action before release:** none outstanding. One standing condition, which is a property of the
+  claim rather than a defect in the sentence: this is the only row here that names a season, and it
+  will go stale again. The paragraph names the season for that reason.
+
+### SECONDARY — Repeated assistance may shift experienced users from judgment toward monitoring and approval
+
+- **Where:** `atrophy.html`, in two places. The paragraph beginning “People will keep choosing”, which
+  states the mechanism; and the paragraph on autonomous agents, which applies it to supervising a
+  system rather than performing a task. Added 13 Aug 2026. The claim has been on the page since the
+  essay was written and was named in the paragraphs above as one of the things no pass had covered.
+- **Status:** Secondary, and the grade carries more weight here than usual. The source is a
+  theoretical perspective and synthesis rather than a study: it argues a mechanism and calls for the
+  research that would test it. So this row can be secondary for the argument and cannot be primary for
+  the behaviour, and the page is written to claim no more than that — “may shift”, not “already show
+  signs of shifting”.
+- **What the page used to say, and why it changed.** Until 13 Aug 2026 it read that experienced users
+  “already show signs of shifting from sustained evaluative engagement to something more passive: they
+  approve, supervise lightly, interrupt only when something visibly goes wrong.” That is the sentence
+  form of a finding — a population, a direction, a present tense — resting on a theoretical argument.
+  It is the same fault as the three empirical claims above and it survived the pass that fixed those,
+  because it names no study and so did not read as a citation waiting to happen. The rewritten
+  sentence states a mechanism, hedges it, and says the offloading is hard to notice from inside the
+  task, which is the part the source is actually about.
+- **Source:** Macnamara BN, Berber I, Çavuşoğlu MC, Krupinski EA, Nallapareddy N, Nelson NE, Smith PJ,
+  Wilson-Delfosse AL, Ray S. “Does using artificial intelligence assistance accelerate skill decay and
+  hinder skill development without performers’ awareness?” _Cognitive Research: Principles and
+  Implications_ 2024; 9(1): 46 — <https://doi.org/10.1186/s41235-024-00572-8>. PMID 38992285. Open
+  access, and indexed by its own journal as a Review.
+- **Checked:** 13 Aug 2026, by the author.
+- **What it supports, and what it does not.** It argues that AI assistants may accelerate skill decay
+  among experts and hinder acquisition among learners, and that they may also prevent both from
+  recognising it — which is the second half of the page's sentence and the reason the sentence has a
+  second half. What it does not do is measure any of it. Its own conclusion is that multidisciplinary
+  research is needed to establish these effects, so a page citing it as evidence that the effects
+  exist would be citing a call for evidence as evidence.
+- **The second location is an inference, and the page says so in those words.** The agents paragraph
+  used to read that “in practice, users often begin by reviewing each action and gradually shift
+  toward a looser posture, stepping in only when something looks obviously wrong” — a frequency claim
+  and a trajectory, asserted. It now says what agents make possible rather than what users do: that a
+  looser supervisory posture is available, that the user can wait for an obvious failure before
+  intervening, and that the risk is exception-handling gradually substituting for active judgment.
+  Then it marks its own standing. The source concerns performing a task with assistance; supervising
+  a system that performs it is a different activity, and carrying the mechanism across is a step this
+  essay takes and nobody has studied. Applying a cited mechanism to an uncited setting is the quiet
+  way a sourced page acquires an unsourced claim, and the sentence exists so that it happens in the
+  open.
+- **Action before release:** none outstanding while the hedge and the inference marker stand, and
+  those two are the whole of what this grade rests on. `invariants.test.ts` holds both, on the same
+  terms as the illustrative disclosures: a version that restores the present tense in either place
+  needs a study, not a rewrite.
 
 ### SECONDARY — The long-run income effect of deworming is contested
 
