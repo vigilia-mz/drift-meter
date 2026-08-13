@@ -72,16 +72,22 @@ export const PROCESS = {
   /**
    * Surviving copy, used verbatim.
    *
-   * It is the argument for this whole screen, and it is the standard the rest of
-   * the screen is failing to meet in two places — no named readers, and three
-   * unpinned figures. The third, an archived identifier, was met in v0.8: v0.7.0 is
-   * tagged and deposited, and the caveat now says what a DOI does and does not fix
-   * rather than that there is none.
+   * It is the argument for this whole screen, and the list it sets is now failed in
+   * one place rather than three. Named readers is the one left, and it is the one that
+   * cannot be closed by working harder alone.
+   *
+   * The other two closed in v0.8, at different costs. An archived identifier was a
+   * deposit: v0.7.0 is tagged, and the caveat now says what a DOI does and does not
+   * fix rather than that there is none. Tracing every external claim took four passes
+   * over the same three sentences — uncited, then cited from an unverified account of
+   * the studies, then cited wrongly because of it, then read. Each step looked like
+   * the last one at the time, which is the reason this paragraph is worth keeping
+   * rather than shortening to say the list is nearly done.
    */
   whyLead:
     'Anyone can publish a prototype. Without an institution behind it, the visible process is what makes a claim checkable: a version, a record of what changed and why, named readers who tried to break it, stated conditions of defeat, and every external claim traced to where it came from.',
   whyFollow:
-    'Four of those five are in place below. The third is absent — nobody has read this yet, and the section that says so is the most important one on the page. The fifth is in place and three of its rows are not: the essays state three findings about students, endoscopists and developers with nothing on the site to check them against.',
+    'Four of those five are in place below, and the fifth closed in v0.8: the essays’ findings about students, endoscopists and developers were the last uncited assertions here, and all three now name the study they come from and have been read against it. Reading them corrected the sentences a second time, which is the more useful half of that. The third is what is still absent — nobody has read this yet, and the section that says so is the most important one on the page.',
 
   changelogHeading: 'What changed, and why',
   changelogLead:
@@ -127,12 +133,12 @@ export const PROCESS = {
 
   sourcesHeading: 'Every external claim',
   sourcesLead:
-    'The claims on this site that come from somewhere other than the site itself, with how well each is pinned. Illustrative is not a weaker grade than pinned — it means the figure was built for the exercise and the page says so, which is a different object from a figure taken from a study. Flagged is the one grade that means not cleared for publication, and three rows still carry it: the essays’ empirical claims about students, endoscopists and developers. Those are assertions about the world stated as findings, and no disclosure can clear them.',
+    'The claims on this site that come from somewhere other than the site itself, with how well each is pinned. Illustrative is not a weaker grade than pinned — it means the figure was built for the exercise and the page says so, which is a different object from a figure taken from a study. Flagged is the one grade that means not cleared for publication, and no rows still carry it. The last three were the essays’ empirical claims about students, endoscopists and developers: assertions about the world stated as findings, and no disclosure can clear them, so in v0.8 they were corrected against their sources, cited, and then read. All three sentences turned out to be wrong before they were uncited, and correcting them without the papers in hand introduced two further errors that only the reading caught. That sequence is why Primary here means read on a stated date and not cited on one.',
   sourcesColumns: { claim: 'Claim', grade: 'Grade', standing: 'Standing' },
   /** Prefixed to a row's `checked` value. Screen copy, so it lives here. */
   sourcesCheckedLabel: 'Checked: ',
   sourcesFullNote:
-    'The full table, with the primary source each row still needs and what each pass did not cover, is SOURCES.md in the repository. One row is pinned to its source and was read on the date beside it: the Clio row, whose wording that reading narrowed. No source was re-verified when the figures were restated as illustrative, and every other primary link that was open is still open.',
+    'The full table, with the primary source each row still needs and what each pass did not cover, is SOURCES.md in the repository. One row is pinned to its source and was read on the date beside it: the Clio row, whose wording that reading narrowed. Three more were pinned and read in v0.8, and the file records per row what each reading changed — including that the developer figure was recomputed from the published data rather than accepted from the abstract. No source was re-verified when the figures were restated as illustrative, and every other primary link that was open is still open.',
   sourcesOrigin:
     'The table exists because of the last row in it. Correct figures with a missing qualifier is the class of error a source table catches and a careful read does not, because nothing in the sentence looks wrong.',
 
@@ -152,8 +158,8 @@ export const CHANGELOG_ROWS = [
     version: 'v0.8',
     date: 'In progress',
     title: 'The artifact has an archived identifier, and the front door names it',
-    what: 'v0.7.0 is deposited and carries a DOI of its own, recorded in CITATION.cff and on the repository. The caveat that said there was no citable identifier is replaced rather than deleted: the identifier exists, and what it does not fix is that this URL still serves whatever version is current. The three prose pages now say so in their own footers and name the version to cite, and an invariant reads that line out of each page and checks it against the citation file rather than against a memory of it.',
-    why: 'A citation that cannot name a version is worth little here specifically, because the changelog records a retraction — so “the Drift Meter” could mean the build that shipped an invented cohort dashboard or the build that removed it. The concept DOI does not fix that either, since it resolves to the newest version; only the versioned DOI does, which is why it is the one in the citation file and the one on the pages. Making it citable had reached the masthead, the changelog, the citation file and the first git tag, and not the pages a reader actually arrives on and quotes from.',
+    what: 'v0.7.0 is deposited and carries a DOI of its own, recorded in CITATION.cff and on the repository. The caveat that said there was no citable identifier is replaced rather than deleted: the identifier exists, and what it does not fix is that this URL still serves whatever version is current. The three prose pages now say so in their own footers and name the version to cite, and an invariant reads that line out of each page and checks it against the citation file rather than against a memory of it. The long essay’s three empirical claims are corrected and cited, and all three were misstated as well as uncited. They move to Primary available rather than Primary because nobody here has read the three papers, and no row is graded Flagged now.',
+    why: 'A citation that cannot name a version is worth little here specifically, because the changelog records a retraction — so “the Drift Meter” could mean the build that shipped an invented cohort dashboard or the build that removed it. The concept DOI does not fix that either, since it resolves to the newest version; only the versioned DOI does, which is why it is the one in the citation file and the one on the pages. Making it citable had reached the masthead, the changelog, the citation file and the first git tag, and not the pages a reader actually arrives on and quotes from. The essay claims were the older debt and the worse one: they had been described here and on the page as findings with nothing to check them against, and the more useful finding was that the sentences were wrong before they were uncited. Citing any of them as written would have turned a fluent sentence into a checkable false one.',
   },
   {
     version: 'v0.7',
@@ -289,11 +295,17 @@ export const PROVENANCE_ROWS = [
  *
  * Two things this table says that are easy to misread. `Illustrative` is not a
  * weaker `Primary`: it means the figure was built for the exercise and the page
- * says so, which is the other exit from `Flagged` and not a pin. And the three
- * rows still graded `Flagged` are not case figures — they are the essays'
- * empirical claims about students, endoscopists and developers, stated as findings
- * with nothing to check them against. A disclosure cannot clear those, because
- * they are either true and uncited or they are not true.
+ * says so, which is the other exit from `Flagged` and not a pin. And no row is
+ * graded `Flagged` any more. The three that were are the essays' empirical claims
+ * about students, endoscopists and developers, and a disclosure could not clear
+ * those — they are either true and uncited or they are not true — so v0.8
+ * corrected the sentences against their sources, cited them, and then read the
+ * papers. The reading is what earns `Primary`, and it earned it by finding that
+ * correcting a claim from a summary of its study had introduced a wrong citation,
+ * deleted a true sentence, misdescribed a design, and left one finding standing
+ * that its own authors had since revisited. `Primary available` is what those rows
+ * held in between, for a few hours, and it is the right grade for exactly that
+ * state rather than a formality on the way to this one.
  *
  * The Clio row is a claim the rebuild stopped making: it was cited on the consent
  * screen and in protocol section 1 from memory, and neither screen carries it now.
@@ -342,26 +354,37 @@ export const SOURCE_ROWS = [
     note: 'Invented, and the caption says so in those words: no run produced them, n is zero, nothing has been collected from anyone. Unlike the case figures these approximate nothing — they are a drawing of the readout, for a reader who will not start the instrument. The last claim on the site to get a row, because every earlier pass ran against the instrument and these six numbers are markup in a hand-written page. The caption they rest on is tested by reading the page itself, since it has no content module to read instead.',
   },
   {
-    claim: 'Students with ChatGPT practised better and scored worse on exams taken without it.',
+    claim:
+      'Students given a ChatGPT-like interface scored 17% below the control on an unassisted exam; the safeguarded tutor arm did not.',
     where: 'The long essay, in its empirical section.',
-    grade: 'Flagged',
-    checked: '7 Aug 2026',
-    note: 'Stated as a finding, with a population and a direction, and cited nowhere on this site. A reader who wants to check it has nothing to check it against. Not illustrative: it is either true and uncited, or it is not true.',
+    grade: 'Primary',
+    checked: '13 Aug 2026',
+    note: 'The study has three arms and the page gave one arm’s result as the study’s. It now names all three and says which carries the harm. Reading the paper then corrected the correction twice: the citation had the 2024 working paper’s title on the 2025 journal version, which was retitled to name the guardrails distinction; and a sentence about what students believed had been cut as unsupported, where the paper reports something stronger — the students who did worse did not perceive it, and the tutor arm, which did no better than the control, believed it had done significantly better. Bastani et al., PNAS 2025, with a published correction that touches only an author’s affiliation.',
   },
   {
     claim:
-      'Endoscopists’ independent detection rates declined after AI-assisted screening was withdrawn.',
+      'Adenoma detection in unassisted colonoscopy fell from 28.4% to 22.4% after the centres adopted AI, while cancer detection did not significantly change.',
     where: 'The long essay, in its empirical section.',
-    grade: 'Flagged',
-    checked: '7 Aug 2026',
-    note: 'As above, and carrying more weight than the others: it is the claim the essay uses to move the argument from students to practitioners.',
+    grade: 'Primary',
+    checked: '13 Aug 2026',
+    note: 'The direction was right and everything around it was missing: no measure, no magnitude, no design, and an added sentence saying practitioners did not notice the decline, which the study did not measure. Reading it corrected the design as well — the page had implied the tool was withdrawn, where AI was adopted at four Polish centres and never withdrawn, and the comparison is against AI-off procedures afterwards. Nineteen endoscopists, 1,443 unassisted colonoscopies, six percentage points on an interval of 10.5 to 1.6, and colorectal cancer detection unchanged. Budzyń et al., 2025, with a published correction restoring a covariate to a supplementary analysis.',
   },
   {
-    claim: 'Developers using AI coding assistants took longer while believing they were faster.',
+    claim:
+      'Tasks took 19% longer with AI tools, on a wide interval, and the same developers had forecast and then reported a speedup.',
     where: 'The long essay, in its empirical section.',
-    grade: 'Flagged',
-    checked: '7 Aug 2026',
-    note: 'As above. The belief-versus-outcome gap is this project’s own thesis in miniature, which is a reason to be more careful with it rather than less.',
+    grade: 'Primary',
+    checked: '13 Aug 2026',
+    note: 'It is one study rather than a literature, it randomises tasks inside the same sixteen developers, and the page quoted no figure. Reading it found worse: 19% is a point estimate on a 95% interval of roughly 1% to 39%, re-derived by running the published regression against the published data, and the trial measures February to June 2025 — whose authors ran a second experiment and published opposite-signed raw estimates in February 2026, on intervals crossing zero and with their own judgment that it is too compromised to trust. That is not a retraction and the page does not treat it as one: the 19% stands in its setting, and what fails is carrying it forward as current. An essay dated 2026 was doing exactly that.',
+  },
+  {
+    claim:
+      'Repeated assistance may shift experienced users from judgment toward monitoring and approval.',
+    where:
+      'The long essay, in its paragraph on what deteriorates and again in its paragraph on autonomous agents.',
+    grade: 'Secondary',
+    checked: '13 Aug 2026',
+    note: 'The source is a theoretical perspective rather than a study — it argues the mechanism and calls for the research that would test it — so this can be secondary for the argument and cannot be primary for the behaviour. The page made the claim twice as a frequency claim, that experienced users already show signs of shifting to something more passive and that in practice they begin by reviewing each action and stop. Both are rewritten. The first states the mechanism and hedges it, and its second half, that the offloading is hard to notice from inside the task, is the part the source is actually about. The second says what agents make possible rather than what users do, and marks its own step: the source concerns performing a task with assistance, supervising a system that performs it is a different activity, and the page says so. Applying a cited mechanism to an uncited setting is how a sourced page quietly acquires an unsourced claim. Macnamara et al., Cognitive Research: Principles and Implications, 2024.',
   },
   {
     claim: 'The long-run income effect of deworming is contested.',

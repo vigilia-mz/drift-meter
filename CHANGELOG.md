@@ -122,6 +122,174 @@ This file is the surviving record of them.
   not exist. `invariants.test.ts` now reads all three out of their sources and asserts each is quoted in
   the briefs, which puts the failure on the rename rather than on the edit to the briefs that would
   follow it.
+- **Corrected: all three of the long essay's empirical claims were wrong, and were also uncited.** The
+  three rows `SOURCES.md` has graded FLAGGED since the v0.6 pass are the essay's findings about
+  students, endoscopists and developers. The obvious debt was the missing citation. The debt that
+  mattered was that the sentences misstated the studies, so citing them as they stood would have been
+  worse than leaving them bare: the source would then contradict the sentence in a reader's hands
+  rather than in a file nobody outside this repository reads.
+  - _Students._ The page said students “with access to ChatGPT did markedly better during practice but
+    scored worse on exams taken without it.” The trial has more than one assisted arm and the reversal
+    belongs to one of them — the students given a standard ChatGPT interface. The students given a
+    tutor version built with pedagogical safeguards are not reported as harmed. One arm's result was
+    published as the study's, and no reader could have found the distinction from the page. It now
+    names all three conditions, says which one carries the harm, and says the design was randomised.
+    The sentence after it, that students “felt more capable while the underlying competence failed to
+    consolidate,” is gone: it is a claim about what students believed and nothing here supports one.
+  - _Endoscopists._ The closest of the three to accurate, which is worth saying rather than implying
+    three equal faults. The direction held, and it did not make the error this correction went looking
+    for — it said detection rates, not cancer detection. What it did not say was anything else. No
+    measure, so a reader could not know it was adenoma detection; no magnitude; and no design, which
+    for this claim is most of what decides its weight, because the study is an observational
+    before-and-after comparison rather than a trial. It also described the tool being “removed”, where
+    the comparison is of unassisted procedures before and after those centres adopted it. And the
+    sentence after it, that “many practitioners did not register the decline as it occurred”, is gone:
+    the study measured detection, not what clinicians noticed. The page now gives 28.4% to 22.4%, says
+    that six percentage points and about a fifth are one result rather than two, and says that whether
+    the endoscopists noticed is not a question the study asked.
+  - _Developers._ The worst of the three, on the claim closest to this project's own thesis. The page
+    said “studies of software developers: those using AI coding assistants took longer to complete
+    tasks than those working unaided”. It is one study rather than a literature. It randomises tasks
+    inside the same sixteen developers rather than setting one group of people against another, so the
+    sentence described a design nobody ran. And it quoted no figure at all. The page now names the
+    report, gives 246 tasks across sixteen developers working in repositories they maintain, states the
+    slowdown as 19% and the developers' own after-the-fact estimate of a 20% speedup separately, and
+    says in terms that the two are a measurement and a belief about it — adding them would produce a
+    percentage-point gap the report does not contain, which is the error this claim was most likely to
+    acquire next. It also says that sixteen developers is a small study to rest an argument on.
+- **The three rows move to PRIMARY AVAILABLE and not to PRIMARY, and that difference is the point of
+  the change rather than a technicality about it.** `SOURCES.md` defines PRIMARY as pinned here and read
+  on a stated date, and nobody has read these papers. Each row carries its citation, `Checked: TODO`,
+  and a note saying which figures came from the issue that asked for the correction and which from an
+  unverified account of the study; each also lists what a reading has to confirm, including a DOI, an
+  author list and three sample sizes that are deliberately absent from the page, because a count is the
+  kind of detail that reads as verified. No row is graded FLAGGED now, for the first time since the
+  grade existed, and the table's preamble says what that does and does not close.
+- **Four invariants read `atrophy.html`, one per claim and one for the state of the rows.** They pin the
+  error each sentence used to make rather than the presence of a citation: that the students paragraph
+  names all three arms and attaches the harm to the unrestricted one, that the endoscopy paragraph says
+  adenoma and not cancer and keeps the absolute and relative falls as one result, and that the developer
+  paragraph carries both figures and never their sum. The fourth asserts all three rows still read
+  unread, in the file and in the screen's mirror of it, so a promotion to PRIMARY has to be a deliberate
+  edit here rather than a quiet one. The pages are hand-written and have no content module, so these read
+  the file, on the same grounds as the cases that read `index.html`.
+- The mirrored source table moved with the grade, and so did four sentences around it that were
+  statements about these three rows: the table's lead, the line saying which of the five checkable things
+  this screen still fails, the note under the table, and the docstring explaining what `Flagged` is for.
+  Leaving them would have published a screen contradicting its own table. `docs/review-briefs.md` told
+  the editor the empirical section “cites none of them”, in the one document written to be sent to a
+  reader recruited to find exactly that; it now says what is true and asks the harder question, which is
+  whether the rewritten sentences still claim more than the studies support.
+- **Then the papers were read, and two of the three corrections above were themselves wrong.** The
+  author supplied the articles the same day. This is the first time any claim in `SOURCES.md` has been
+  checked against a source since #8, and it is the most useful bullet in this entry, because what it
+  documents is a correction pass being corrected by the act of doing properly what it had done from a
+  summary.
+  - _The citation named the wrong paper._ The students row cited “Generative AI Can Harm Learning”,
+    PNAS 2025. That is the 2024 SSRN working paper's title attached to the journal version, which PNAS
+    published as “Generative AI without guardrails can harm learning: Evidence from high school
+    mathematics” — retitled, that is, to name the exact distinction the correction had been made to
+    draw. The page and the row now carry the published title, its DOI, and the article's own published
+    correction, which fixes an author affiliation and touches no result.
+  - _A true sentence had been deleted for being unverifiable._ The pass cut the claim that students
+    “felt more capable while the underlying competence failed to consolidate”, on the ground that
+    nothing here supported a claim about belief. The paper has a section on precisely this, and reports
+    something stronger: the students who did worse “did not perceive that they performed worse or
+    learned less”, and the tutor arm, which did no better than the control, “perceived that they
+    performed significantly better”. The finding is back on the page in the paper's terms. Deleting an
+    unverified claim costs nothing and deleting a true one costs the argument, and both happened here.
+  - _The remaining figures held._ Randomised controlled trial, nearly a thousand students, three arms,
+    48% and 127% gains on the practice problems, and on the unassisted exam GPT Base 17% below the
+    control while GPT Tutor was “statistically indistinguishable” from it. The page now states the 17%
+    and the scope the authors themselves state: one subject, one high school in Turkey, autumn 2023,
+    on GPT-4.
+- **The developer claim was stale, which no amount of care about its wording would have caught.** The
+  METR trial measures the tools available February to June 2025. Its own authors ran the experiment
+  again from August 2025 and published on 24 Feb 2026 that among returning developers the sign had
+  reversed, to an estimated 18% speedup — on intervals that contain zero, and alongside their own
+  reasons not to trust the number: developers increasingly declined to take part rather than work
+  without AI, and 30–50% of those who did held back the tasks they least wanted to attempt unassisted.
+  An essay dated 2026 was citing the early-2025 slowdown as a present fact, which is the argument's own
+  mistake performed by the argument. The page now names the season the trial measured and carries the
+  follow-up with METR's own verdict on it.
+- **And then the correction to that correction, which is the one worth reading twice.** The first draft
+  of the paragraph above said the sign “had reversed” and that only the calibration gap survived. Both
+  gave the follow-up an authority it disclaims of itself. An acknowledged-unreliable experiment does not
+  supersede a clean one: the 19% still stands for those sixteen developers, those 246 tasks and those
+  tools, and what fails is carrying it forward as a current or portable estimate. The page says that in
+  those terms, and says what does last — the calibration failure, which the follow-up cannot repair by
+  being wrong in the other direction. Getting this wrong would have been the more interesting failure of
+  the two: correcting a stale confident number by overstating the thing that unsettled it.
+- **A point estimate was standing in for an interval, and the regression was re-run rather than
+  believed.** 19% is the point estimate; running METR's published `regression.py` against its published
+  `data_complete.csv` returns a speedup of 0.188 on a 95% interval of (0.013, 0.394). So the trial
+  establishes that these sixteen developers were slowed, not by how much, and the page says so. Also
+  verified from the paper: 246 tasks, task-level randomisation, the 24% forecast made before the tasks
+  and the 20% estimate made after them — the page had one of those two — and the eligibility rule that
+  the phrase “repositories they maintain” rests on, which is six months as an active maintainer.
+- **The endoscopy article was read last, because it was obtained last, and it corrected the design.**
+  Budzyń et al., _Lancet Gastroenterol Hepatol_ 2025; 10: 896–903, with a correction of 11 Sep 2025
+  restoring a covariate to a supplementary analysis and stated not to affect interpretation. The
+  numbers hold: adenoma detection rate in standard non-AI colonoscopies 28·4% before routine AI
+  exposure (226/795) against 22·4% after (145/648), −6·0 percentage points, 95% CI −10·5 to −1·6,
+  p=0·0089, adjusted OR 0·69. Two things the reading added. Colorectal cancer detection did _not_
+  change significantly — six cases against eight, p=0·35 — which turns the page's cautious “not cancer
+  detection” into a positive finding worth stating. And the design was misdescribed: AI was adopted at
+  the four centres and never withdrawn, examination dates being randomised AI-on or AI-off afterwards,
+  so the comparison is pre-adoption non-AI procedures against post-adoption AI-off ones. “When the tool
+  was removed”, the wording published until v0.8, is true only of individual procedures and misleading
+  of the study. The page now carries the design, the nineteen endoscopists, the 1,443 unassisted
+  procedures, and the interval.
+- **The endoscopy paragraph now says what the finding is not.** It reported only the decline, which
+  left a reader able to finish it believing the study found that AI makes colonoscopy worse. It does
+  not: trials have found AI improves adenoma detection while it is active, and the narrower finding is
+  that once AI became routine the same endoscopists detected fewer adenomas working without it. The
+  qualification takes no source row of its own, because the paper discusses those earlier trials
+  directly and the row is pinned to the paper and read. Areia et al.'s 2022 cost-effectiveness
+  modelling study was read and set aside for the same sentence: it projects forward from an assumed
+  detection gain rather than measuring one, and would belong here only if the essay discussed costs or
+  downstream health benefits. The row records the decision, because a source read and rejected is a
+  decision and the absence of a row does not say so.
+- **A fourth claim was found in the same class as the three, and it had outlived the pass that should
+  have caught them.** The essay said experienced users “already show signs of shifting from sustained
+  evaluative engagement to something more passive” — a population, a direction, a present tense, and
+  the sentence form of a finding — with a theoretical synthesis behind it rather than a study. It
+  survived the correction of the other three precisely because it named no study, so it did not read
+  as a citation waiting to happen. The sentence now claims a mechanism and hedges it, and says the
+  offloading is hard to notice from inside the task, which is what the source is actually about. It
+  has a SECONDARY row: Macnamara et al., _Cognitive Research: Principles and Implications_ 2024;
+  9(1): 46, labelled a theoretical perspective and not primary evidence for the behaviour, since its
+  own conclusion is that the research to establish these effects still needs doing. Two invariants
+  hold the hedge and the row together, on the same terms as the illustrative disclosures.
+- **The essay made that generalisation twice, and the second one is rewritten rather than hedged.**
+  The paragraph on autonomous agents said users “in practice” begin by reviewing each action and
+  gradually step in only when something looks obviously wrong: a frequency and a trajectory, asserted.
+  Attaching the same hedge as the first would have put two near-identical qualifications in adjacent
+  sections, which is how stating one's limits turns into a register rather than a disclosure. So the
+  sentence now says what the design makes available instead of what people are observed to do —
+  agents make a looser supervisory posture possible, the user can wait for an obvious failure before
+  intervening, and the risk is that exception-handling gradually substitutes for active judgment.
+- **And it marks the step it takes, which is the part worth keeping.** Macnamara is about performing
+  a task with assistance. Supervising a system that performs it is a different activity, and carrying
+  the mechanism across is an inference nobody has studied. The page says that in those words. Applying
+  a cited mechanism to an uncited setting is how a page that has just cited everything quietly
+  acquires a new unsourced claim, and it is the one move this version was in the best position to make
+  by accident. One row covers both locations, and an invariant holds the marker and bans the frequency
+  claim from returning.
+- **All three rows are PRIMARY, read by the author on 13 Aug 2026.** That is the first time this table
+  has held more than one pinned-and-read row, and the grade was earned rather than assumed: the
+  readings changed four things the wording passes had not. Two rows record more than the grade asks
+  for — the developer figure was recomputed here from METR's published data rather than taken from the
+  abstract, and the endoscopy counts were checked against each other — and both say so in the row
+  instead of inventing a grade for it. An invariant now holds all three to a dated `Checked:` line and
+  fails if any of them returns to promising a source nobody opened.
+- Two invariants added and one rewritten to match. The developer cases now pin the interval, the
+  season and the follow-up, and the guard against publishing a slowdown added to a perceived speedup
+  had to change shape: it banned the digits `39`, and 39% is the honest upper bound of the trial's own
+  interval. It now requires that wherever 39% appears on the page it appears as a confidence bound.
+  The last case asserts all three rows are still short of pinned, which is the one that will go red on
+  the day the author reads the papers and promotes them — deliberately, since that edit should not be
+  possible to make by accident.
 - This entry exists because v0.7 was closed and dated before any of the above happened. Nothing in the
   toolchain would have stopped these bullets being appended to a released version's entry, and the
   version boundary is drawn on comparability rather than on convenience: the deposited archive is what
@@ -144,8 +312,44 @@ unflattering half is that this was noticed twice in one session and not acted on
 What deserves stating is how little the DOI fixes. It makes one version of this artifact permanently
 addressable, which matters because the changelog records a retraction and an unversioned reference cannot
 distinguish the build that shipped an invented cohort dashboard from the build that removed it. It does
-not make the instrument better, it does not add a reader, and it does not close any of the three FLAGGED
-source rows. A citable prototype is still a prototype, and n is still zero.
+not make the instrument better, it does not add a reader, and it did not close any of the three FLAGGED
+source rows — a later item in this same version did, and not by adding an identifier. A citable prototype
+is still a prototype, and n is still zero.
+
+The three FLAGGED rows were the oldest open item on this site and the easiest to describe as a paperwork
+gap, which is how this file and the process screen described them: three findings with nothing to check
+them against. That framing was wrong in the direction this project is meant to notice. The sentences were
+not accurate claims missing a footnote. They were one arm's result generalised into a study's, a design
+described as its opposite, and two assertions about what people felt or noticed that no study on the list
+measured. Every one of them read as careful. Nothing in the prose looked wrong, which is the condition the
+source table exists for and the one a careful read does not catch — the same shape as the omitted
+seven-point scale that put the table here in the first place. Citing them as written would have been the
+worse outcome, because a citation turns an unsupported sentence into a checkable false one.
+
+What this does not fix is the thing the new grade says out loud. Three rows now name a paper nobody here
+has opened. The figures came from the issue that asked for the correction and from an unverified account
+of each study, which is better provenance than memory and is not a reading. Until someone reads all three,
+the page is more precise than it is verified — and being more precise is exactly what makes an unverified
+sentence easier to trust, which is the argument the essay is making about everything else. That is the
+risk this version takes on deliberately, and it is why the sample sizes that would have made the sentences
+sound authoritative are not on the page.
+
+The papers arrived the same afternoon, and the paragraph above turned out to be the most accurate thing
+in the pass. Reading them found that the correction had introduced a wrong citation, deleted a sentence
+that was true, misdescribed a study's design, and left standing a figure that had stopped being current —
+four faults in work done carefully, in one morning, by someone who had just written at length about the
+cost of citing what one has not read. It is worth being exact about which part of the process caught
+which. The wording discipline caught the arm generalisation, the missing design and the invented
+percentage-point gap, and it could not have caught any of the other four: nothing about the sentence
+“Generative AI Can Harm Learning, PNAS 2025” looks wrong, a withdrawal and an adoption read the same at
+the length the essay was giving it, and a stale finding reads exactly like a current one. Only the reading
+caught those, which is the whole argument for the grade this table reserves for having done it.
+
+The pass also did the thing it was warning about, in miniature and in the other direction. It deleted a
+claim about what students believed because it could not verify one — and the paper reports it, in a
+section of its own, more strongly than the sentence that was cut. Caution is not neutral. A page that
+removes what it cannot check ends up shaped by what was easy to check, and that is a bias with better
+manners than the one this project usually looks for.
 
 ## v0.7 — 10 Aug 2026 — The attribution reaches every reader, and a measure that can lose
 

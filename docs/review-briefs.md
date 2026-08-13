@@ -122,11 +122,14 @@ answer, and the author cannot read it as one.
 >
 > Three places to start, though the useful answer may be somewhere else:
 >
-> - The empirical section of the long essay states three findings — about students, endoscopists and
->   developers — with a population and a direction, and cites none of them. I know these are the worst
->   sentences on the site and they are graded as such in `SOURCES.md`. What I want from you is the
->   weaker sentence that would be defensible, if there is one, rather than agreement that they are
->   weak.
+> - The empirical section of the long essay states three findings, about students, endoscopists and
+>   developers. Until v0.8 they cited nothing, and all three also misstated their studies: one arm's
+>   result given as the study's, a decline with neither its measure nor its design attached, and a
+>   single trial described as a literature. They are rewritten, cited and read now, and the rewriting
+>   was wrong twice more before the reading caught it. So the useful question is not whether the old
+>   sentences were weak. It is whether the new ones now claim their accuracy too loudly — three
+>   paragraphs that recite designs, intervals and sample sizes carry an authority the rest of the essay
+>   does not, and I cannot tell from inside whether that reads as rigour or as armour.
 > - Whether “it is a trace, not a finding” is doing work by the fourth time it appears, or providing
 >   cover.
 > - Whether the opening earns the reader's attention or spends the argument's credibility to get it.
