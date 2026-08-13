@@ -447,6 +447,25 @@ describe('the process screen', () => {
     }
   });
 
+  it('titles every version the same way the changelog file titles it', () => {
+    // The third segment of the heading, and the last part of this mirror that nothing
+    // was reading. The two cases above compare the version strings, their order and
+    // their dates, so `CHANGELOG.md` and the screen could name the same version on the
+    // same date and describe it as two different releases.
+    //
+    // Which is exactly what happened. v0.8 opened as an archived-identifier release,
+    // became the source pass on the essays' three empirical claims, and was retitled in
+    // both places by hand — with nothing that would have gone red had it been retitled
+    // in one. On a file whose purpose is telling a reader which build they are citing,
+    // a heading that describes a release by a different item than the screen does is
+    // the same defect as a stale date, one line higher.
+    for (const entry of CHANGELOG_ROWS) {
+      const heading = new RegExp(`^## ${entry.version} — [^—]+ — (.+)$`, 'm').exec(changelogFile);
+      expect(heading, `no titled heading for ${entry.version}`).not.toBeNull();
+      expect(entry.title, entry.version).toBe(heading?.[1]?.trim());
+    }
+  });
+
   it('quotes the counts in the reader briefs correctly', () => {
     // `docs/review-briefs.md` is written to be pasted into a message and sent, and it
     // tells the recipient how many limits, measures and caveats the site publishes. All

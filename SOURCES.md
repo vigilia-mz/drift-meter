@@ -344,8 +344,23 @@ means somebody opened the paper.
 - **Primary link:** Budzyń K, Romańczyk M, Kitala D, et al. “Endoscopist deskilling risk after
   exposure to artificial intelligence in colonoscopy: a multicentre, observational study.” _Lancet
   Gastroenterol Hepatol_ 2025; 10: 896–903, published 12 Aug 2025 —
-  <https://doi.org/10.1016/S2468-1253(25)00133-5>.
-- **Checked:** 13 Aug 2026, by the author, against the article.
+  <https://doi.org/10.1016/S2468-1253(25)00133-5>. That is the canonical record and the thing to cite.
+- **Checked:** 13 Aug 2026, by the author, against the eight-page Article.
+- **Full text checked via:** a third-party reproduction of the published Article, hosted on Scribd.
+  The bibliographic identity was verified separately and does not rest on that copy — title, authors,
+  journal, volume, pages and publication date were confirmed against the DOI and the journal's own
+  record. The host is named rather than described, because a row saying only “the full text” would be
+  claiming the publisher's version. No author manuscript, institutional-repository deposit or preprint
+  of this Article was found: the publisher's page and ScienceDirect both serve an abstract, and
+  ResearchGate offers only a request. So this is a disclosed access route of last resort. It is not the
+  authoritative source and is not offered as one; the DOI above is, and a reader checking this row
+  should go there.
+- **What is pinned here is the Article, and not the correspondence around it.** Four Lancet items share
+  this claim's subject and are easy to confuse, which is why they are separated here rather than left
+  to a reader to untangle: the Article at `00133-5`; its correction notice at `00294-8`, which is a
+  single page covering several unrelated papers; the editorial at 10: 871; and post-publication
+  correspondence with an authors' reply, which has not been read here and is recorded as an open item
+  rather than as support. Only the first is the study.
 - **The result:** adenoma detection rate — the proportion of colonoscopies finding at least one
   adenoma — in standard non-AI colonoscopies, 28.4% before routine AI exposure (226/795) against 22.4%
   after (145/648). An absolute change of −6.0 percentage points, 95% CI −10.5 to −1.6, p=0.0089;

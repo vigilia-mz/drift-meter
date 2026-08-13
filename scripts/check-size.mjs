@@ -42,8 +42,25 @@ const BUDGETS = {
    * a reader waits for is `jsGzipBytes`, which is at 43 KB of 60 and untouched;
    * this total is dominated by the self-hosted fonts, which are a promise on the
    * consent screen rather than an optimisation to revisit.
+   *
+   * Raised again from 416 KB in v0.8, by the source pass on the essays' three
+   * empirical claims, and for the same reason as the first time. The build came in
+   * at 421.0 KB, five kilobytes over. What grew is prose: the long essay now states
+   * each study's design, sample and interval where it used to state a direction,
+   * and the mirrored source table carries what each reading changed. Both are the
+   * thing this artifact is, and the margin the note above asked for turned out to be
+   * a version and a half rather than a long time.
+   *
+   * The proportions are worth writing down, since this is the second raise and a
+   * third would be a pattern rather than an event. The build is 48% self-hosted
+   * fonts and 35% the instrument's own JavaScript and CSS; the three prose pages
+   * together are under 10%, and `atrophy.html` is the largest of them at 25.7 KB.
+   * `jsGzipBytes` is what a reader actually waits for and it is at 48 KB of 60,
+   * so nothing here is a performance decision yet. If this number is hit a third
+   * time by content, the honest response is to say what the fonts are costing
+   * rather than to move the line again.
    */
-  totalBytes: 416 * 1024,
+  totalBytes: 440 * 1024,
 };
 
 /**

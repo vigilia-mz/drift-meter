@@ -8,7 +8,7 @@ Every release records what changed and why. Retractions are recorded, not delete
 Versions v0.1 through v0.5 were published from a separate repository, which has since been deleted.
 This file is the surviving record of them.
 
-## v0.8 — In progress — The artifact has an archived identifier, and the front door names it
+## v0.8 — In progress — The page now says what the papers say
 
 **What changed**
 
@@ -290,12 +290,49 @@ This file is the surviving record of them.
   The last case asserts all three rows are still short of pinned, which is the one that will go red on
   the day the author reads the papers and promotes them — deliberately, since that edit should not be
   possible to make by accident.
+- The total-size budget is raised from 416 KB to 440 KB, and this is the second time it has been moved
+  by prose rather than by code. The build came in at 421.0 KB. What grew is the long essay, which now
+  states each study's design, sample and interval where it used to state a direction, and the mirrored
+  source table, which carries what each reading changed. The note beside the number at #30 says that
+  shaving a published sentence to fit a round number is the wrong trade here, and that reasoning holds
+  unchanged. What the note also asked for was enough margin that the next content change would be a
+  decision about content — that margin lasted a version and a half. The comment now records the
+  proportions, because a third raise would be a pattern and not an event: 48% of the build is
+  self-hosted fonts, 35% is the instrument's JavaScript and CSS, and the three prose pages together are
+  under 10%. What a reader actually waits for is the gzipped JavaScript, which is at 48 KB of a 60 KB
+  budget and untouched.
+- **The version is retitled, which is itself a correction.** It opened as “The artifact has an archived
+  identifier, and the front door names it” and that was accurate for about a day. What the version
+  became is the source pass, and a heading naming the deposit would have left the changelog describing
+  a release by its smallest true item — on the file whose whole purpose is that a reader can tell which
+  build they are citing. The DOI keeps its bullets and loses the headline. The mirrored row on the
+  process screen is retitled with it and its summary reordered to match, since that row is the short
+  form a reader actually sees.
+- The Budzyń row now separates bibliographic identity from the copy that was inspected. The DOI is the
+  canonical record; the full text was read through a third-party reproduction hosted on Scribd, and the
+  row says so and names the host. No author manuscript, repository deposit or preprint of the Article
+  exists to prefer — the publisher's page and ScienceDirect serve abstracts, ResearchGate serves a
+  request — so a disclosed route of last resort is what there is, and describing it vaguely would have
+  been the same move as citing a paper one had not opened. The row also separates the four Lancet items
+  that share this subject: the Article, its correction notice, the editorial, and post-publication
+  correspondence that has not been read here. Only the first is the study, and a row that let the
+  correspondence pass for it would have been claiming a reading nobody did.
+- Recorded because it was caught by CI rather than before it: `npm run check` does not run the size
+  budget. `check:size` needs a build and is a separate job, so the local gate can be green on a change
+  that fails the remote one. That is a property of the split rather than a defect in it — the fast gate
+  is meant to fail in seconds — but it is worth knowing that the gate does not cover everything, and
+  the two commits it took to land this are the record of not knowing it.
 - This entry exists because v0.7 was closed and dated before any of the above happened. Nothing in the
   toolchain would have stopped these bullets being appended to a released version's entry, and the
   version boundary is drawn on comparability rather than on convenience: the deposited archive is what
   v0.7.0 contains, and the site has changed since.
 
 **Why**
+
+This version was opened to record a deposit and closed having rewritten the three sentences the site is
+least able to defend. The title says the second thing, because that is what the version became: the
+DOI is an item on the list below rather than the argument of the release. What follows is the reasoning
+for both, in the order they happened.
 
 The DOI is the last item on the publication-process screen's own list of what makes a claim checkable
 without an institution behind it, and it is the one that took a step outside the repository — an archive
