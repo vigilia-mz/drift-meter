@@ -17,7 +17,7 @@ design argument, not a finding, and every screen that could be mistaken for a re
 pages, the design system, the case data, the cost model, the derived measures, all thirteen screens,
 the pinned model and the endpoint that calls it. The endpoint ships **switched off** — see below — so
 nothing here can spend anyone's API credit. The rebuild is recorded as v0.6 in
-[`CHANGELOG.md`](CHANGELOG.md); v0.7, dated 10 Aug 2026 and tagged `v0.7.0`, is what has changed
+[`CHANGELOG.md`](CHANGELOG.md); v0.8, dated 14 Aug 2026 and tagged `v0.8.0`, is what has changed
 since.
 
 ## What is here
@@ -87,7 +87,7 @@ the bare URL for pointing at a claim.
 
 | What you mean                      | DOI                                                                |
 | ---------------------------------- | ------------------------------------------------------------------ |
-| This version, v0.7.0 (10 Aug 2026) | [10.5281/zenodo.21887595](https://doi.org/10.5281/zenodo.21887595) |
+| This version, v0.8.0 (14 Aug 2026) | [10.5281/zenodo.21935816](https://doi.org/10.5281/zenodo.21935816) |
 | The project, all versions          | [10.5281/zenodo.21887594](https://doi.org/10.5281/zenodo.21887594) |
 
 The distinction is the reason this artifact wanted a DOI at all. [`CHANGELOG.md`](CHANGELOG.md)

@@ -14,10 +14,17 @@
 # a DOI before one is minted is the kind of unearned confidence this project is
 # about; it was added in its own commit, with the caveat on the process screen.
 #
-# The version and date below are the closed v0.7 entry in CHANGELOG.md. A citation
-# of this artifact should name a version: the changelog records a retraction, so
-# "the Drift Meter" without a version cannot distinguish the build that shipped an
-# invented cohort dashboard from the build that removed it.
+# The version and date below are the closed v0.8 entry in CHANGELOG.md, which names
+# the same release in a shorter form. The changelog heads an entry with a series —
+# two parts, because a series is what the entry narrates — and the git tag, the
+# Zenodo deposit and the `version:` below all carry three, because that is what a
+# reader cites. The difference is deliberate rather than a drift, and
+# `src/content/invariants.test.ts` holds the two against each other so it cannot
+# quietly become one.
+#
+# A citation of this artifact should name a version: the changelog records a
+# retraction, so "the Drift Meter" without a version cannot distinguish the build
+# that shipped an invented cohort dashboard from the build that removed it.
 cff-version: 1.2.0
 message: If you cite this artifact, please cite the version you read.
 title: The Drift Meter
@@ -35,13 +42,13 @@ authors:
     website: https://github.com/vigilia-mz
 repository-code: https://github.com/vigilia-mz/drift-meter
 url: https://vigilia-mz.github.io/drift-meter/
-version: 0.7.0
-date-released: '2026-08-10'
-doi: 10.5281/zenodo.21887595
+version: 0.8.0
+date-released: '2026-08-14'
+doi: 10.5281/zenodo.21935816
 identifiers:
   - type: doi
-    value: 10.5281/zenodo.21887595
-    description: This version, v0.7.0.
+    value: 10.5281/zenodo.21935816
+    description: This version, v0.8.0.
   - type: doi
     value: 10.5281/zenodo.21887594
     description: The concept DOI, which always resolves to the newest version.

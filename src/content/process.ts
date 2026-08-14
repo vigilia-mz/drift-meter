@@ -45,7 +45,7 @@ export const PROCESS = {
     {
       label: 'Version',
       value:
-        'v0.8, in progress. v0.7.0 is the last closed version and the one with a DOI; the changelog below records every version and what it changed.',
+        'v0.8.0, released 14 Aug 2026. It is the newest closed version, the one deposited with a DOI, and the one to cite; the changelog below records every version and what it changed.',
     },
     {
       label: 'Status',
@@ -139,7 +139,7 @@ export const PROCESS = {
     'The argument and the instrument were built by the same person, in that order. An instrument built to find a pattern by someone who expects the pattern is not neutral about what it counts, and no amount of care inside the code fixes that.',
     'Parts of this site were drafted with Claude, which is the subject of the argument being made. The provenance table below says which parts, including the ones that were cut for being exactly the kind of thing the argument warns about.',
     'Every figure in every case is written for the exercise, and the instrument says so before the run and again after it. What that disclosure does not do is verify anything: the figures are still not traced to any source, and the reason they are cleared is that the page no longer presents them as findings. It is the weaker of the two exits, taken deliberately, and it is worth reading as such.',
-    'This URL serves whatever version is current, so citing the page still says nothing about which version was read. What fixes that is the archived version rather than the page: v0.7.0 is tagged and deposited, and its own DOI is 10.5281/zenodo.21887595. The concept DOI that the repository’s badge carries is not a substitute — it resolves to whatever the newest version is, which is the same thing this URL does. So the identifier exists and the obligation moves rather than closing: anyone citing a claim from this site should name the version they read, and the changelog records a retraction precisely so that the distinction matters.',
+    'This URL serves whatever version is current, so citing the page still says nothing about which version was read. What fixes that is the archived version rather than the page: v0.8.0 is tagged and deposited, and its own DOI is 10.5281/zenodo.21935816. The concept DOI that the repository’s badge carries is not a substitute — it resolves to whatever the newest version is, which is the same thing this URL does. So the identifier exists and the obligation moves rather than closing: anyone citing a claim from this site should name the version they read, and the changelog records a retraction precisely so that the distinction matters.',
   ],
 
   /**
@@ -183,7 +183,7 @@ export const PROCESS = {
 export const CHANGELOG_ROWS = [
   {
     version: 'v0.8',
-    date: 'In progress',
+    date: '14 Aug 2026',
     title: 'The page now says what the papers say',
     what: 'The long essay’s three empirical claims — students, endoscopists, developers — are corrected, cited, and read against their papers. All three were misstated as well as uncited, and correcting them from summaries introduced four more faults that only the reading caught: a working paper’s title cited against the retitled journal version, a true sentence deleted as unverifiable, a study’s design described as its opposite, and a finding whose authors had since revisited it. A fourth claim in the same class was found and rewritten, and no row is graded Flagged now. Also in this version: v0.7.0 is deposited and carries a DOI of its own, recorded in CITATION.cff and on the repository; the caveat that said there was no citable identifier is replaced rather than deleted, because the identifier exists and what it does not fix is that this URL still serves whatever version is current; and the three prose pages name the version to cite in their own footers, held against the citation file by an invariant rather than by memory.',
     why: 'A citation that cannot name a version is worth little here specifically, because the changelog records a retraction — so “the Drift Meter” could mean the build that shipped an invented cohort dashboard or the build that removed it. The concept DOI does not fix that either, since it resolves to the newest version; only the versioned DOI does, which is why it is the one in the citation file and the one on the pages. Making it citable had reached the masthead, the changelog, the citation file and the first git tag, and not the pages a reader actually arrives on and quotes from. The essay claims were the older debt and the worse one: they had been described here and on the page as findings with nothing to check them against, and the more useful finding was that the sentences were wrong before they were uncited. Citing any of them as written would have turned a fluent sentence into a checkable false one.',

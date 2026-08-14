@@ -70,8 +70,8 @@ now, while `n` is zero, because after collection starts the answer is worth much
 > the prototype behind “Read the protocol first”, rendered from the same source, if you would rather
 > meet it there.
 >
-> That URL serves whatever version is current. The one I am asking about is v0.7.0, archived at
-> https://doi.org/10.5281/zenodo.21887595, so that your objection stays attached to what you read.
+> That URL serves whatever version is current. The one I am asking about is v0.8.0, archived at
+> https://doi.org/10.5281/zenodo.21935816, so that your objection stays attached to what you read.
 >
 > Four things I already think are wrong, so that you do not spend the pass finding them:
 >
@@ -139,6 +139,11 @@ answer, and the author cannot read it as one.
 > What is most useful back: the sentence, and either the weaker sentence you would put in its place or
 > the reason there is not one. A list of sentences with nothing proposed is still useful; a general
 > verdict on the tone is not.
+>
+> Where to send it: a reply to this, or the repository at https://github.com/vigilia-mz/drift-meter,
+> where **Challenge a claim** is a form that asks which claim and why. A sentence claiming more than it
+> has is what that form is for. Whatever comes back is recorded in the changelog whether or not it is
+> flattering — under your name if you want it there, and without one if you would rather.
 >
 > What I am not asking for: a copyedit, house style, or the typography. The pages are hand-written and
 > the line breaks are deliberate. If you also find a typo I will take it, but that is not the ask.
@@ -226,7 +231,7 @@ below, and the draft is written to be posted as it stands.
 > primary outcome. Section 6 is the nine things this build cannot do, written before anyone asked.
 > Every section has a fragment identifier, so quote the one you mean.
 >
-> The version this post is about is v0.7.0, archived at https://doi.org/10.5281/zenodo.21887595. The
+> The version this post is about is v0.8.0, archived at https://doi.org/10.5281/zenodo.21935816. The
 > site serves whatever is current, so if you attack something and I change it, that DOI is what your
 > objection was against.
 >
@@ -246,7 +251,7 @@ below, and the draft is written to be posted as it stands.
 > there.
 >
 > This post is also a timestamp, and a weak one. The predictions are registered in a git repository,
-> and v0.7.0 is deposited with a DOI and a date, which is better than commit history and still not a
+> and v0.8.0 is deposited with a DOI and a date, which is better than commit history and still not a
 > preregistration on a registry that would not let me alter it. Said here rather than left to be
 > assumed.
 

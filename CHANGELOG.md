@@ -8,7 +8,7 @@ Every release records what changed and why. Retractions are recorded, not delete
 Versions v0.1 through v0.5 were published from a separate repository, which has since been deleted.
 This file is the surviving record of them.
 
-## v0.8 — In progress — The page now says what the papers say
+## v0.8 — 14 Aug 2026 — The page now says what the papers say
 
 **What changed**
 
