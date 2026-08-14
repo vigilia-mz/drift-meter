@@ -301,7 +301,7 @@ ${limits}
     </div>
 
     <div class="foot">
-      Built by Megi Pishtari as part of a larger research and editorial project on AI, oversight, and the fate of human judgment.<br>
+      Built by Megi Pishtari as part of a larger research and editorial project on AI, oversight, and what becomes of human judgment.<br>
       <a href="https://github.com/vigilia-mz">github.com/vigilia-mz</a><br>
       Cite the version you read: v${escape(citation.version)}, ${escape(citation.date)} &mdash; <a href="https://doi.org/${escape(citation.doi)}">doi:${escape(citation.doi)}</a>. This URL serves whatever version is current; <a href="https://github.com/vigilia-mz/drift-meter/blob/main/CHANGELOG.md">the changelog</a> records every version and what changed.
     </div>
