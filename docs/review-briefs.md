@@ -140,6 +140,11 @@ answer, and the author cannot read it as one.
 > the reason there is not one. A list of sentences with nothing proposed is still useful; a general
 > verdict on the tone is not.
 >
+> Where to send it: a reply to this, or the repository at https://github.com/vigilia-mz/drift-meter,
+> where **Challenge a claim** is a form that asks which claim and why. A sentence claiming more than it
+> has is what that form is for. Whatever comes back is recorded in the changelog whether or not it is
+> flattering — under your name if you want it there, and without one if you would rather.
+>
 > What I am not asking for: a copyedit, house style, or the typography. The pages are hand-written and
 > the line breaks are deliberate. If you also find a typo I will take it, but that is not the ask.
 
