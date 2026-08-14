@@ -73,7 +73,12 @@ const CONTENT = {
   arms: [{ arm: 'AI-attributed', supplied: 'A figure.', isolates: 'The AI condition.' }],
   title: 'Method',
   pinnedModel: 'claude-opus-5',
-  citation: { version: '0.7.0', doi: '10.5281/zenodo.21887595', date: '10 Aug 2026' },
+  // Deliberately unresolvable. What this file checks is that the renderer prints the
+  // citation it was handed, so the value is arbitrary by design — but a real DOI for a
+  // superseded version sitting in the repo reads as a stale citation to anyone grepping
+  // for one, and went quietly out of date at v0.8. These cannot resolve and cannot age,
+  // so the fixture never has to track a release.
+  citation: { version: '0.0.0-fixture', doi: '10.5281/zenodo.0000000', date: '1 Jan 1970' },
 };
 
 function render(overrides = {}) {
@@ -118,8 +123,8 @@ describe('the page carries the content it was given', () => {
   it('names the pinned model and the citation it was given', () => {
     const html = render();
     expect(html).toContain('claude-opus-5');
-    expect(html).toContain('v0.7.0');
-    expect(html).toContain('10.5281/zenodo.21887595');
+    expect(html).toContain('v0.0.0-fixture');
+    expect(html).toContain('10.5281/zenodo.0000000');
   });
 });
 

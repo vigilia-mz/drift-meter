@@ -41,7 +41,7 @@ import type { PredictionRow, Slate, SourceGrade, TrapBranch } from './types.js';
 
 const { ARM_NOTES, ARMS, recSentencePrefix, REC_LABELS, standingAttribution } = armsModule;
 const { DEBRIEF } = debriefModule;
-const { MEASURE_SPECS, METHOD, PRED_ROWS } = methodModule;
+const { armRows, MEASURE_SPECS, METHOD, PRED_ROWS } = methodModule;
 const { CHANGELOG_ROWS, PROCESS, PROVENANCE_ROWS, REVIEWER_ROWS, SOURCE_ROWS } = processModule;
 const { CONSENT, INTRO } = shellModule;
 const { otherSlate, SLATES } = slatesModule;
@@ -486,6 +486,43 @@ describe('the process screen', () => {
 
     const caveats = WORDS[PROCESS.caveats.length];
     expect(readerBriefs).toContain(`lists ${String(caveats)} more`);
+  });
+
+  it('counts the measures, the arms and the predictions the way the arrays do', () => {
+    // The same defect as the case above, one surface further in. That one holds the
+    // briefs, which are documentation; this holds the headings a reader actually
+    // arrives at and the landing page's summary of what the protocol contains. The
+    // measure count has been corrected twice in this record — five to six to seven —
+    // and a CV drafted outside the repository said five again. Adding a measure
+    // renumbers nothing and would quietly contradict three sentences.
+    //
+    // Each array is held against the prose that states its count, which is not the
+    // same page in all three: the protocol's own headings count the measures and the
+    // arms, and the predictions are counted on the landing page, because
+    // `predictionsHeading` deliberately carries no number.
+    //
+    // `armRows()` and not `ARMS`: the page says four arms and means three attribution
+    // arms against the no-estimate control round, which is one more than `arms.ts`
+    // models. Holding that heading against `ARMS` would fail on a true sentence.
+    const WORDS = ['no', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+    const stale: string[] = [];
+
+    const held = (what: string, n: number, text: string, phrase: (word: string) => string) => {
+      const word = WORDS[n];
+      if (word === undefined) {
+        stale.push(`no number word for ${String(n)} ${what}`);
+        return;
+      }
+      if (!text.includes(phrase(word))) stale.push(`${what}: nothing says “${phrase(word)}”`);
+    };
+
+    held('measures', MEASURE_SPECS.length, METHOD.measuresHeading, (w) => `The ${w} measures`);
+    held('arms', armRows().length, METHOD.armsHeading, (w) => `The ${w} arms`);
+    held('predictions', PRED_ROWS.length, indexPage, (w) => `the ${w} registered predictions`);
+
+    // Accumulated, on the same grounds as the release case: a run that names the first
+    // stale sentence sends someone round the loop once per sentence.
+    expect(stale.join(' | '), 'a count in prose has parted from the array it counts').toBe('');
   });
 
   it('splits the seven measures the way the protocol screen splits them', () => {

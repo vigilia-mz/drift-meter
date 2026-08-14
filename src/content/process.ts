@@ -45,7 +45,7 @@ export const PROCESS = {
     {
       label: 'Version',
       value:
-        'v0.8.0, released 14 Aug 2026. It is the newest closed version, the one deposited with a DOI, and the one to cite; the changelog below records every version and what it changed.',
+        'v0.9, in progress. v0.8.0, released 14 Aug 2026, is the newest closed version and the one to cite; the changelog below records every version and what it changed.',
     },
     {
       label: 'Status',
@@ -181,6 +181,13 @@ export const PROCESS = {
  * it looks like one.
  */
 export const CHANGELOG_ROWS = [
+  {
+    version: 'v0.9',
+    date: 'In progress',
+    title: 'The counts are derived, and the release records what it shipped unfinished',
+    what: 'v0.8.0 is deposited and its DOI is 10.5281/zenodo.21935816. Two facts that were maintained by hand-copying are now read from their source instead: a script reads the minted DOI off Zenodo and writes it into the eight documents that name it, refusing to write at all unless the record it fetched is the version being released; and npm run counts derives the measures, the arms, the predictions, both test counts and the citation pair, with no fallback for a number it cannot derive. Three counts written in prose are held against the arrays they count. The protocol page links the source table for the first time. The landing-page footer no longer offers a live-Claude demonstration, and the provenance table that says which parts were drafted with Claude is untouched.',
+    why: 'The deposited v0.8.0 archive permanently contains a changelog saying the version it archives is unfinished, because the DOI cannot be written before the deposit that mints it and the heading was closed one commit later. That cannot be fixed in the archive, so it is recorded here. It is also this repository’s own pattern found in its own release procedure: the closing step was known, written down, and skipped because nothing enforced it — which is the argument for mechanising the counts in the same version rather than resolving to be more careful.',
+  },
   {
     version: 'v0.8',
     date: '14 Aug 2026',
