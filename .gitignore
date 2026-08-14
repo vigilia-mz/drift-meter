@@ -3,6 +3,14 @@ node_modules/
 dist/
 *.tsbuildinfo
 
+# The protocol page is generated from src/content/method.ts by
+# `npm run build:protocol`, which the build and the dev server both run. It sits at
+# the repository root rather than somewhere tidier because Vite names an HTML output
+# after its path relative to the root, and dist/protocol.html is the URL that has to
+# exist. It is build output like anything in dist/ and is not committed: hard rule 1
+# forbids a file that a tool produces and a hand then edits. Edit the content module.
+/protocol.html
+
 # Test output
 coverage/
 test-results/

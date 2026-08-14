@@ -19,7 +19,7 @@ export default defineConfig({
     // them and no reason to pay for the polyfill.
     modulePreload: { polyfill: false },
     rollupOptions: {
-      // One entry per page. The three prose pages carry no <script>, so Rollup
+      // One entry per page. The four prose pages carry no <script>, so Rollup
       // emits no JavaScript chunk for them. Two checks hold that now, and they
       // hold different halves of it: `scripts/check-size.mjs` asserts the built
       // pages carry no script tag and reference no .js, per page rather than as a
@@ -27,10 +27,19 @@ export default defineConfig({
       // from each — which is the only way to catch JavaScript arriving through
       // something other than a script tag. It is the reason the essays can be read
       // with scripting disabled.
+      //
+      // `protocol.html` is the one entry with no hand-written source: it is
+      // generated from `src/content/method.ts` by `npm run build:protocol`, which
+      // runs ahead of the build, and it is gitignored. It is an input like the
+      // others so that it is built like the others — stylesheet hashed, base path
+      // applied — rather than copied in afterwards with URLs that would have to be
+      // rewritten by hand. If the build fails here saying the file is missing, the
+      // generator did not run; `npm run build` runs it.
       input: {
         index: resolve(import.meta.dirname, 'index.html'),
         essay: resolve(import.meta.dirname, 'essay.html'),
         atrophy: resolve(import.meta.dirname, 'atrophy.html'),
+        protocol: resolve(import.meta.dirname, 'protocol.html'),
         driftMeter: resolve(import.meta.dirname, 'drift-meter.html'),
       },
     },
@@ -50,7 +59,17 @@ export default defineConfig({
     // runs in `npm test`, Playwright drives a built site and runs in
     // `npm run test:e2e`. A Playwright spec collected here would fail on its
     // first `page` fixture, which is a confusing way to find out.
-    include: ['src/**/*.test.ts', 'shared/**/*.test.ts', 'api/**/*.test.ts'],
+    // `scripts/` is in the glob for one file: the protocol page's renderer is the
+    // only script here that produces something a reader sees, and its escaping and
+    // its structure are unit concerns. The three budget scripts have no tests and
+    // are not meant to grow any — they are assertions, and a test of an assertion
+    // is a second assertion.
+    include: [
+      'src/**/*.test.ts',
+      'shared/**/*.test.ts',
+      'api/**/*.test.ts',
+      'scripts/**/*.test.mjs',
+    ],
     restoreMocks: true,
     // Vitest replaces CSS with an empty string by default, which is right for
     // every stylesheet here except one. `tokens.css` is the only file allowed to

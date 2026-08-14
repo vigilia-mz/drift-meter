@@ -191,11 +191,20 @@ test('the sweep covers every screen in the union', () => {
  */
 const DECORATIVE_TEXT = { page: 'atrophy.html', rule: 'color-contrast', selector: '.sep' };
 
-/** The three prose pages, which carry no script and are swept as documents. */
+/**
+ * The four prose pages, which carry no script and are swept as documents.
+ *
+ * `protocol.html` is generated rather than hand-written and is swept on the same
+ * terms as the other three. It is also the only one of them with tables in it, so it
+ * is the only one where the sweep is checking header association and not just
+ * contrast — and the one page here whose markup nobody will read before it ships,
+ * since the diff a reviewer sees is `scripts/render-protocol.mjs`.
+ */
 for (const [path, name] of [
   ['index.html', 'the landing page'],
   ['essay.html', 'Evaluating the Evaluator'],
   ['atrophy.html', 'The Atrophy of Judgment'],
+  ['protocol.html', 'the protocol page'],
 ] as const) {
   test(`${name} is free of axe violations`, async ({ page }) => {
     await page.goto(path);

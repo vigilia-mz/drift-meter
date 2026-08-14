@@ -63,13 +63,36 @@ export const SCREENS = {
     title: 'The rules, encoded',
     announce: 'The four rules run as a system prompt, and scored.',
   },
+  /**
+   * `Protocol` rather than `Method`, since v0.8, and the key stays `method`.
+   *
+   * The screen is now also published as `protocol.html`, which gave one artifact
+   * three names: a file called protocol, a landing-page link that says protocol, and
+   * a heading that said Method. A reader following the link had to stop and confirm
+   * they were in the right place. The file name is the one already citable, so it is
+   * the one the other two moved to. The key, the module and the component keep the
+   * old name: they are code, nobody cites them, and renaming them would put a large
+   * diff in front of a small decision.
+   */
   method: {
-    title: 'Method',
+    title: 'Protocol',
     announce: 'The protocol: what is measured, how, and what threatens it.',
   },
+  /**
+   * “Produced” in all six places, since v0.8, and they are meant to match.
+   *
+   * `PROCESS.provenanceHeading` moved from “How this page was produced” to “How this
+   * was produced” when the deictic pass neutralised it, and the buttons that lead here
+   * still said “How this was made” — so a reader clicked *made* and landed on
+   * *produced*. That is the same defect as clicking a link labelled protocol and
+   * landing on a page headed Method, which is what renamed this screen's neighbour one
+   * decision earlier. Six strings carry it: this announcement, `INTRO.processLink`,
+   * `METHOD.processLabel`, `DEBRIEF.processLabel` and two mirrors in `tests/flow.ts`.
+   * They are not meant to differ from the heading; if one is edited, edit the set.
+   */
   process: {
     title: 'Process',
-    announce: 'How this was made, reviewed, and what is still missing.',
+    announce: 'How this was produced, reviewed, and what is still missing.',
   },
 } as const satisfies Record<ScreenName, ScreenCopy>;
 
@@ -115,8 +138,11 @@ export const INTRO = {
     'Drift, the thing this programme is named for, is longitudinal: a capacity weakening across repeated delegation. That is the hypothesis, and it is not what a run here observes. What one sitting records is short-run behaviour under two conditions — at most the trace such a weakening would leave on its way through, and equally consistent with there being no weakening at all. Only returning to the same readers over time could tell those apart.',
   ],
   begin: 'Begin',
-  methodLink: 'Read the method first',
-  processLink: 'How this was made',
+  // Follows the screen's own heading — see the note on `SCREENS.method`. A button
+  // saying "method" leading to a screen headed "Protocol" would reintroduce, one
+  // surface further in, exactly the beat of hesitation the rename removed.
+  methodLink: 'Read the protocol first',
+  processLink: 'How this was produced',
 } as const;
 
 /**

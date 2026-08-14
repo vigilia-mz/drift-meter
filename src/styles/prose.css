@@ -73,6 +73,18 @@ body.page-atrophy .wrap {
   padding: 88px 32px 96px;
 }
 
+/*
+ * Wider than the essays, and for a reason that is not taste: this page carries two
+ * three-column tables, and a 660px measure turns both of them into a scroller on a
+ * desktop screen. The measure is set by the widest thing on the page rather than by
+ * the reading line, which is the trade a reference document makes and an essay
+ * does not.
+ */
+body.page-protocol .wrap {
+  max-width: 840px;
+  padding: 88px 32px 96px;
+}
+
 .topline {
   display: flex;
   align-items: center;
@@ -131,6 +143,12 @@ body.page-atrophy h1 {
   font-size: 52px;
   line-height: 1.04;
   margin: 0 0 18px;
+}
+
+body.page-protocol h1 {
+  font-size: 50px;
+  line-height: 1.05;
+  margin: 0 0 24px;
 }
 
 /* The landing page's one-line thesis. */
@@ -649,6 +667,255 @@ body.page-atrophy .foot {
 }
 
 /* ---------------------------------------------------------------------------
+ * The protocol page
+ *
+ * protocol.html is generated from src/content/method.ts and is the only prose page
+ * that is not hand-authored — see scripts/render-protocol.mjs for why it exists at
+ * all. What it needs from this stylesheet that the essays do not: definition lists,
+ * two data tables, and a monospaced treatment for the seven formulas.
+ *
+ * It renders the same text as the instrument's protocol screen and deliberately not
+ * the same design. The instrument is --dm-* on #1F1B16 and this is --prose-* on
+ * #F0EEE6, because a reader arriving here from a citation is reading a document and
+ * not standing inside an instrument. The two palettes stay apart, as everywhere else.
+ * ------------------------------------------------------------------------- */
+
+body.page-protocol .byline {
+  margin: 0;
+  padding-bottom: 32px;
+}
+
+.protocol-note {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: var(--prose-muted);
+  margin: 26px 0 0;
+  padding: 18px 20px;
+  background: var(--prose-card);
+  border-left: 2px solid var(--prose-rule);
+}
+
+.protocol {
+  margin-top: 44px;
+}
+
+.protocol section {
+  margin-bottom: 58px;
+}
+
+.section-heading {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: 27px;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--prose-ink-strong);
+  margin: 0 0 20px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--prose-rule);
+}
+
+/*
+ * The lead paragraphs have no rule of their own: they are `p.body`, the landing
+ * page's sans body copy, on purpose. Same role, same 54ch measure, and the measure
+ * is why — this page is 840px wide for the sake of two tables, and running its
+ * prose to that width would be a reading line nobody wants. What is shared is
+ * shared deliberately, here as with .kicker, .byline, .standfirst and .endnav; the
+ * rules below are only the structures the essays have no equivalent of.
+ */
+
+/*
+ * The notes, which are the sentences that qualify what precedes them: the primary
+ * outcome's limit, the caveat under the predictions, the note about denominators.
+ * Set apart rather than run on, because on this page a qualification is not an aside.
+ */
+.protocol .note {
+  font-size: 14.5px;
+  line-height: 1.66;
+  color: var(--prose-muted);
+  margin: 0 0 18px;
+  padding-left: 16px;
+  border-left: 1px solid var(--prose-rule);
+}
+
+/* --- Label/value rows --- */
+
+.rows {
+  margin: 0 0 24px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 190px 1fr;
+  gap: 22px;
+  padding: 14px 0;
+  border-top: 1px solid var(--prose-rule-soft);
+}
+
+.row:last-child {
+  border-bottom: 1px solid var(--prose-rule-soft);
+}
+
+.row-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.03em;
+  line-height: 1.5;
+  color: var(--prose-muted-soft);
+}
+
+.row-value {
+  margin: 0;
+  font-size: 15.5px;
+  line-height: 1.62;
+  color: var(--prose-ink-body);
+}
+
+/* --- The seven measures --- */
+
+.specs {
+  list-style: none;
+  margin: 0 0 24px;
+  padding: 0;
+  counter-reset: spec;
+}
+
+.spec-item {
+  margin: 0 0 34px;
+  counter-increment: spec;
+}
+
+.spec-heading {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 17px;
+  line-height: 1.3;
+  color: var(--prose-ink-strong);
+  margin: 0 0 12px;
+}
+
+.spec-item .spec-heading::before {
+  content: counter(spec) '. ';
+  color: var(--prose-muted-soft);
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 14px;
+}
+
+.rows-tight .row {
+  padding: 11px 0;
+}
+
+/*
+ * The formulas, which are the reason the ÷6-versus-÷9 error is publishable rather
+ * than buried. Monospaced so that a denominator is legible as a denominator, and
+ * allowed to wrap: several of them are longer than this column and none of them
+ * should need a horizontal scroll to read.
+ */
+.formula {
+  /*
+   * inline-block rather than inline, which matters for exactly two of the seven:
+   * framing autonomy and estimate accuracy are longer than the column and wrap. An
+   * inline box wraps into two ragged fragments each carrying their own padding,
+   * which reads as two formulas. This wraps inside one box.
+   */
+  display: inline-block;
+  max-width: 100%;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--prose-ink-strong);
+  background: var(--prose-card);
+  padding: 5px 9px;
+  overflow-wrap: break-word;
+}
+
+/* --- The two tables --- */
+
+/*
+ * The scroller is the fallback rather than the plan. The page is wide enough that
+ * neither table needs it above roughly 800px; below that a table scrolls inside its
+ * own box instead of pushing the whole document sideways.
+ */
+.table-scroll {
+  overflow-x: auto;
+  margin: 0 0 20px;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14.5px;
+  line-height: 1.58;
+  text-align: left;
+}
+
+.data-table th,
+.data-table td {
+  padding: 13px 16px 13px 0;
+  border-bottom: 1px solid var(--prose-rule-soft);
+  vertical-align: top;
+  color: var(--prose-ink-body);
+}
+
+.data-table thead th {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 11.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--prose-muted-soft);
+  border-bottom: 1px solid var(--prose-rule);
+}
+
+.data-table tbody th {
+  font-family: var(--font-sans);
+  font-weight: 600;
+  color: var(--prose-ink-strong);
+  min-width: 132px;
+}
+
+.data-table tbody th.pred-id {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  min-width: 0;
+  color: var(--prose-muted-soft);
+}
+
+/* --- What this build cannot do --- */
+
+.limits {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.limit {
+  font-size: 15.5px;
+  line-height: 1.64;
+  color: var(--prose-ink-body);
+  padding: 13px 0 13px 26px;
+  border-top: 1px solid var(--prose-rule-soft);
+  position: relative;
+}
+
+.limit:last-child {
+  border-bottom: 1px solid var(--prose-rule-soft);
+}
+
+.limit::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--prose-decor);
+}
+
+body.page-protocol .foot {
+  margin-top: 56px;
+}
+
+/* ---------------------------------------------------------------------------
  * Narrow screens
  * ------------------------------------------------------------------------- */
 
@@ -658,7 +925,8 @@ body.page-atrophy .foot {
   }
 
   body.page-essay .wrap,
-  body.page-atrophy .wrap {
+  body.page-atrophy .wrap,
+  body.page-protocol .wrap {
     padding: 60px 22px 64px;
   }
 
@@ -667,8 +935,19 @@ body.page-atrophy .foot {
   }
 
   body.page-essay h1,
-  body.page-atrophy h1 {
+  body.page-atrophy h1,
+  body.page-protocol h1 {
     font-size: 38px;
+  }
+
+  /* The label stacks over its value rather than taking half the line for itself. */
+  .row {
+    grid-template-columns: 1fr;
+    gap: 7px;
+  }
+
+  .section-heading {
+    font-size: 23px;
   }
 
   .spine {

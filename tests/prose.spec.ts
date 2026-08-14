@@ -26,6 +26,11 @@ const PAGES = [
   { path: 'index.html', heading: 'The Drift Meter' },
   { path: 'essay.html', heading: 'Evaluating the Evaluator' },
   { path: 'atrophy.html', heading: 'The Atrophy of Judgment' },
+  // Generated from src/content/method.ts, and held to the property for the reason it
+  // was generated: it exists because the protocol inside the instrument cannot be
+  // read without JavaScript, and a static copy that needed JavaScript would be a
+  // joke at its own expense.
+  { path: 'protocol.html', heading: 'Protocol' },
 ] as const;
 
 for (const { path, heading } of PAGES) {

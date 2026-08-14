@@ -74,7 +74,7 @@ export const ENCODED = {
 
   refusedHeading: 'The model declined',
   refused:
-    'The model declined this request rather than answering it. That is a real outcome of asking a model something and it is reported rather than routed around: there is deliberately no fallback to a different model here, because the answer would then come from a model other than the pinned one and the comparison this screen exists to make would be quietly gone.',
+    'The model declined this request rather than answering it. That is a real outcome of asking a model something and it is reported rather than routed around: there is deliberately no fallback to a different model here, because the answer would then come from a model other than the pinned one and the comparison being made here would be quietly gone.',
 
   errorHeading: 'That did not work',
   retry: 'Try again',

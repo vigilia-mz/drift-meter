@@ -15,8 +15,9 @@
     "node": ">=22"
   },
   "scripts": {
-    "dev": "vite",
-    "build": "npm run typecheck && vite build",
+    "dev": "npm run build:protocol && vite",
+    "build": "npm run typecheck && npm run build:protocol && vite build",
+    "build:protocol": "node scripts/build-protocol.mjs",
     "preview": "vite preview",
     "typecheck": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p tsconfig.node.json",
     "lint": "eslint .",

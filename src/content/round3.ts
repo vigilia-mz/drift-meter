@@ -23,7 +23,7 @@ export const ROUND3 = {
     'The same cases, worked the other way round. You commit a view first, and the estimate answers you.',
 
   excluded:
-    'Nothing on this screen is measured. The debrief you have already seen is final, and no slider here changes it — this round exists to show what the four rules feel like from the inside, not to score you again.',
+    'Nothing here is measured. The debrief you have already seen is final, and no slider changes it — this round exists to show what the four rules feel like from the inside, not to score you again.',
 
   /** Rule 1. The commit gate, before any figure exists on the page. */
   commitHeading: 'Your read, before the number',

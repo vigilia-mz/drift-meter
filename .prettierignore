@@ -14,3 +14,8 @@ index.html
 essay.html
 atrophy.html
 drift-meter.html
+
+# protocol.html is generated and gitignored. Prettier would reformat a build
+# artifact into a diff nobody reads, and the formatting that matters is in
+# scripts/render-protocol.mjs, which is checked like any other source file.
+protocol.html

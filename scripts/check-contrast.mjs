@@ -94,8 +94,14 @@ const TEXT = [
   { fg: '--prose-ink-index', bg: '--prose-bg', size: 15, where: 'body.page-index' },
   { fg: '--prose-ink-article', bg: '--prose-bg', size: 17, where: 'article p' },
   { fg: '--prose-ink-essay', bg: '--prose-bg', size: 17, where: 'p.essay' },
-  { fg: '--prose-ink-body', bg: '--prose-bg', size: 15, where: 'sans body copy' },
-  { fg: '--prose-ink-strong', bg: '--prose-bg', size: 15, where: 'strong' },
+  // 14.5 rather than 15 since v0.8: protocol.html sets its two data tables a half
+  // point smaller than the sans body copy the essays use, and the table is the
+  // smaller consumer of the two.
+  { fg: '--prose-ink-body', bg: '--prose-bg', size: 14.5, where: 'sans body copy, .data-table' },
+  { fg: '--prose-ink-strong', bg: '--prose-bg', size: 15, where: 'strong, .section-heading' },
+  // The seven formulas on protocol.html, which are 13px monospace on the card. The
+  // smallest text on that page and the least skippable thing on it.
+  { fg: '--prose-ink-strong', bg: '--prose-card', size: 13, where: '.formula' },
   { fg: '--prose-series-ink', bg: '--prose-bg', size: 11, where: 'the unassisted series label' },
   { fg: '--prose-muted', bg: '--prose-bg', size: 10.5, where: '.kicker, captions, footer' },
   { fg: '--prose-muted', bg: '--prose-card', size: 10.5, where: 'captions on .prose-card' },

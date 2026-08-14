@@ -33,8 +33,20 @@ import type { ArmKey, ArmRow, LabelledRow, MeasureSpec, PredictionRow } from './
 import { ARM_KEYS } from '../domain/assignment.js';
 
 export const METHOD = {
+  /**
+   * “Here” rather than “this screen”, in four places on this module, since v0.8.
+   *
+   * The protocol is published twice — this screen and `protocol.html` — so a
+   * sentence that says *screen* is false on the page and one that says *page* is
+   * false on the screen. “Here” is the only word that stays true on both, which
+   * makes it the correct fix rather than the neutral one. The four are this
+   * standfirst, `measuresNote`, and the threats on revision behaviour and the catch
+   * rate. Two other sentences in this module keep the word: they name the debrief
+   * and the encoded screen as objects, where *screen* is referential and accurate.
+   * The distinction is deictic against referential, and only the deictic ones break.
+   */
   standfirst:
-    'What this instrument does, what it counts, and what each of those counts would fail to mean. Nothing here has been run on anyone: n is zero, and this screen describes a design rather than a result.',
+    'What this instrument does, what it counts, and what each of those counts would fail to mean. Nothing here has been run on anyone: n is zero, and what is described here is a design rather than a result.',
 
   designHeading: '1 · The design, and what it controls for',
   designLead:
@@ -136,7 +148,7 @@ export const METHOD = {
     threat: 'What threatens it',
   },
   measuresNote:
-    'The denominators above are derived in code from the slate being scored, never written as literals. A previous version divided the evaluative range by six sliders when there are nine — an arithmetic error in a published figure, found by a reader rather than by the code. Every formula on this screen is cross-checked against the constant the code uses by a test that fails if the two disagree.',
+    'The denominators above are derived in code from the slate being scored, never written as literals. A previous version divided the evaluative range by six sliders when there are nine — an arithmetic error in a published figure, found by a reader rather than by the code. Every formula here is cross-checked against the constant the code uses by a test that fails if the two disagree.',
 
   predictionsHeading: '4 · The registered predictions',
   predictionsLead:
@@ -202,11 +214,33 @@ export const METHOD = {
     'The saturation point, the two autonomy weights and the three debrief thresholds were all chosen by eye. They need calibrating against how experienced evaluators actually work these slates before any of them means anything.',
     'The control round’s sliders open at an arbitrary midpoint and the assisted round’s open at an authoritative number. Moving off those two starting points is not the same act, and the difference inflates the control round on one measure.',
     'One reader, one arm, one slate, one order per run. Every between-subject comparison this design is built to support needs a cohort, and there is not one.',
-    'One planted error is authored per slate, so the catch rate — the only measure here with a right answer behind it — is one observation per reader. A single observation is a coin flip, and two of the six registered predictions rest on it. The instrument now records a planted error per case rather than per slate, so more can be authored; until they are, this is the weakest denominator on the screen.',
+    'One planted error is authored per slate, so the catch rate — the only measure here with a right answer behind it — is one observation per reader. A single observation is a coin flip, and two of the six registered predictions rest on it. The instrument now records a planted error per case rather than per slate, so more can be authored; until they are, this is the weakest denominator here.',
   ],
 
+  /**
+   * The address this screen does not have.
+   *
+   * `src/platform/history.ts` declines to write `?screen=method`, on the grounds
+   * that a URL which shows the intro when reloaded is a URL that lies. That is the
+   * right call and it left the protocol uncitable: a reviewer reading this project
+   * with a text-based tool got `drift-meter.html`, which is a script tag, and one
+   * said so. `protocol.html` is this screen rendered from this module at build time,
+   * so the two cannot disagree, and it is what a citation, a crawler or an archive
+   * can actually hold. Said here rather than left for a reader to discover, because
+   * a reader who wants to cite a protocol should not have to guess whether they may.
+   *
+   * These two fields say “this screen” where the standfirst says “here”, and the
+   * difference is deliberate: `render-protocol.mjs` does not render them. They are
+   * the screen telling a reader about the page, which is a sentence the page has no
+   * use for. A field added here that the renderer does pick up takes the “here” rule
+   * with it.
+   */
+  permalinkLead:
+    'This protocol is also published as a page of its own, rendered from the same source as this screen. The screen has no address — the instrument keeps where you are in memory rather than in the URL — so a citation, a fetch or an archive needs the page.',
+  permalinkLabel: 'The protocol as a page',
+
   backLabel: 'Back',
-  processLabel: 'How this was made',
+  processLabel: 'How this was produced',
 } as const;
 
 /**
@@ -243,7 +277,7 @@ export const MEASURE_SPECS = [
       'How many of the assumptions underneath the estimates the reader moved. A slider dragged and returned to where it started still counts, because the act being observed is the interrogation rather than the disagreement.',
     formula: 'sliders moved ÷ 9 sliders × 100',
     threat:
-      'The two rounds do not start from the same place. The control round opens at an arbitrary midpoint and the assisted round opens at a supplied figure, so moving a slider is a smaller act in one round than in the other — and the effect inflates this measure in the control round, in the same direction as the prediction. This is the largest single threat on the screen.',
+      'The two rounds do not start from the same place. The control round opens at an arbitrary midpoint and the assisted round opens at a supplied figure, so moving a slider is a smaller act in one round than in the other — and the effect inflates this measure in the control round, in the same direction as the prediction. This is the largest single threat listed here.',
   },
   {
     key: 'amb',
