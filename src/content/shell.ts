@@ -100,6 +100,31 @@ export const SCREENS = {
 export const KICKER = 'Agential Drift Research Program · Experiment 01';
 
 /**
+ * The footer, on every screen.
+ *
+ * The instrument had none, and the three prose pages have carried one since v0.6. Two
+ * consequences, and the second is the one that mattered. A reader inside the run had no
+ * way back to the site it belongs to — the app owns the whole page, no screen has an
+ * address, and the only anchor out led to `protocol.html`. And the publication-process
+ * screen's Contact row tells a reader to come “through the GitHub profile linked from
+ * the repository”, which is a promise the README keeps and this screen did not: the
+ * profile was named nowhere a reader inside the instrument could click.
+ *
+ * So the row was asking someone to leave, find the repository, and look for a link,
+ * having been told the link exists. An invariant holds the README end of that promise
+ * and nothing held this one, because nothing here was a link at all.
+ *
+ * Both are anchors rather than dispatches, for the reason `METHOD.permalinkLead` gives
+ * about the protocol link: they address documents that exist outside the run, and a
+ * dispatch would have to invent a screen for something that is not one.
+ */
+export const FOOT = {
+  homeLabel: '← Back to the index',
+  profileLabel: 'github.com/vigilia-mz',
+  profileUrl: 'https://github.com/vigilia-mz',
+} as const;
+
+/**
  * The intro screen.
  *
  * `short` is the sixty-second path added in v0.4, for readers who will not reach

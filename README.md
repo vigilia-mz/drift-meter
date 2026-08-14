@@ -103,9 +103,7 @@ valuable input this project has received was an outside reader pointing out a co
 [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 Anything you would rather not put in a public issue can go to the author's profile,
-[github.com/vigilia-mz](https://github.com/vigilia-mz). The publication-process screen's Contact row
-says to come through the profile linked from this repository, and until this line existed there was no
-such link.
+[github.com/vigilia-mz](https://github.com/vigilia-mz).
 
 ## Licence
 

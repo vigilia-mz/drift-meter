@@ -86,6 +86,26 @@ This file is the surviving record of them.
   otherwise. All six now say “what becomes of human judgment”, including the renderer, which would
   otherwise have drifted from the three hand-written pages.
 
+- **The instrument has a footer, and until now it had no way out of itself.** The three prose pages
+  have carried one since v0.6; the app carried none. Two consequences, and the second is the one that
+  mattered. A reader inside a run could not get back to the site the run belongs to — the app owns the
+  whole page, no screen has an address, and the single anchor out led to `protocol.html`. And the
+  publication-process screen's Contact row tells a reader to come through the GitHub profile linked
+  from the repository, which is a promise the README keeps and this screen did not: the profile was
+  named nowhere a reader inside the instrument could click. The row was asking someone to leave, find
+  the repository, and look for a link, having been told the link exists. An invariant holds the README
+  end of that promise; nothing held this one, because nothing here was a link at all.
+- The footer is a sibling of `<main>` rather than a child, which is not a style preference: a
+  `contentinfo` landmark may not sit inside another landmark, and the axe sweep failed on every
+  reachable screen when it did. As a top-level `<footer>` it carries the role implicitly, so a screen
+  reader can reach it by landmark from anywhere in a run — which is the point, given no screen here
+  has an address to return to. Both links borrow the existing `::before` hit area rather than padding,
+  on the grounds the sliders and the back link already established: 22px of visible ink, measured at
+  44 × 44 live in a browser at 390px.
+- Removed from the README: a sentence explaining that the Contact row's promise had no link until that
+  line existed. The link is the thing that keeps the promise; the note about its own history was
+  telling a reader something only the repository's author had any use for.
+
 **Why**
 
 The two facts this version mechanises — the version-and-DOI pairing, and the repository's own counts

@@ -49,7 +49,7 @@ body {
 .dm-screen {
   max-width: 680px;
   margin: 0 auto;
-  padding: 72px 32px 96px;
+  padding: 72px 32px 40px;
 }
 
 /* The container is focused on every screen change. It is not a control, so it
@@ -331,7 +331,8 @@ body {
  * width.
  */
 .dm-disclosure::before,
-.dm-back::before {
+.dm-back::before,
+.dm-foot-link::before {
   content: '';
   position: absolute;
   top: 50%;
@@ -1027,4 +1028,47 @@ body {
   font-family: var(--font-mono);
   font-size: 13px;
   color: var(--dm-ink);
+}
+
+/* ---------------------------------------------------------------------------
+ * The footer, on every screen
+ *
+ * The instrument owns the whole page and no screen has an address, so this is
+ * the only way out of a run that is not the browser's back button: home, and
+ * the profile the publication-process screen's Contact row promises.
+ *
+ * Both links borrow the 44px pseudo-element hit area above rather than padding,
+ * for the reason given there — padding would drop the rule under the label with
+ * it, and the ink should stay where the design put it. `position: relative` is
+ * what the absolutely positioned overlay is measured against.
+ * ------------------------------------------------------------------------- */
+
+.dm-foot {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 32px 72px;
+}
+
+.dm-foot-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 28px;
+  padding-top: 20px;
+  border-top: 1px solid var(--dm-rule);
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+.dm-foot-link {
+  position: relative;
+  display: inline-block;
+  color: var(--green-deep);
+  text-decoration: none;
+  border-bottom: 1px solid var(--green-rule);
+  padding-bottom: 1px;
+}
+
+.dm-foot-link:hover {
+  color: var(--green);
+  border-color: var(--green);
 }
