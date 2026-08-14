@@ -39,8 +39,8 @@ export const COPY = {
   intro: {
     heading: 'The Drift Meter',
     begin: 'Begin',
-    method: 'Read the method first',
-    process: 'How this was made',
+    method: 'Read the protocol first',
+    process: 'How this was produced',
   },
   consent: {
     heading: 'Before you begin',
@@ -185,9 +185,9 @@ export const COPY = {
    * rather than a dispatch, and the walk below uses it as one.
    */
   method: {
-    heading: 'Method',
+    heading: 'Protocol',
     back: 'Back',
-    process: 'How this was made',
+    process: 'How this was produced',
     /**
      * The primary outcome, and the limit that has to travel with it.
      *

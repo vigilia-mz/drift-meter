@@ -63,10 +63,12 @@ now, while `n` is zero, because after collection starts the answer is worth much
 > planted-error catch rate that is one observation per reader. The whole thing takes about three
 > minutes.
 >
-> Both of those are on the protocol screen, which is inside the prototype and has no URL of its own:
-> open https://vigilia-mz.github.io/drift-meter/drift-meter.html and press “Read the method first”
-> rather than “Begin”. The six predictions and their falsification conditions are section 4; the
-> measures, each with its formula and the objection to it, are section 3.
+> Both of those are on the protocol, which is a page:
+> https://vigilia-mz.github.io/drift-meter/protocol.html. The six predictions and their falsification
+> conditions are section 4, at `#predictions`; the measures, each with its formula and the objection to
+> it, are section 3, at `#measures`, and each measure has a fragment of its own. The same text is inside
+> the prototype behind “Read the protocol first”, rendered from the same source, if you would rather
+> meet it there.
 >
 > That URL serves whatever version is current. The one I am asking about is v0.7.0, archived at
 > https://doi.org/10.5281/zenodo.21887595, so that your objection stays attached to what you read.
@@ -159,12 +161,20 @@ who arrives has usually already been told what to think, which makes them the re
 be confused by it. A reader who arrives cold is the only one who can find where the thing is
 incomprehensible. That is why the brief below asks someone not to prepare.
 
+The link goes to the prototype rather than to the landing page, which is the whole of how this brief
+protects itself. The landing page carries both essays and, since v0.8, two links to the protocol; a
+brief that routed a reader past all four and asked them not to look was asking for compliance it had
+no way to check afterwards, and naming the protocol in order to forbid it told the reader that
+registered predictions exist — which is a piece of the frame this reader is recruited not to have.
+Removing the temptation is better than asking someone to resist it, which is the argument this
+project makes about everything else. One negative instruction survives, because the design cannot
+remove it: the prototype's own intro offers the protocol, and no URL skips that screen.
+
 > Would you look at something for me for about five minutes, without reading up on it first?
 >
-> https://vigilia-mz.github.io/drift-meter/ — read the front page, then follow “Launch the Drift Meter”
-> and use it. It takes about three minutes. Then stop. Please do not read the two essays first, and when
-> the prototype offers you “Read the method first”, do not take it; both of those would tell you what
-> you are supposed to conclude, and then you would be no use to me.
+> https://vigilia-mz.github.io/drift-meter/drift-meter.html — it takes about three minutes. Then stop.
+> When it offers you “Read the protocol first”, do not take it; that would tell you what you are
+> supposed to conclude, and then you would be no use to me.
 >
 > One question: where did you stop understanding it, and at which sentence?
 >
@@ -210,11 +220,11 @@ below, and the draft is written to be posted as it stands.
 > the figure, the reasoning and the recommendation identical in all three. One case per slate carries
 > a planted error. A transfer case afterwards asks whether the reader generalised the pattern.
 >
-> https://vigilia-mz.github.io/drift-meter/drift-meter.html, then “Read the method first” rather than
-> “Begin” — the protocol screen is inside the prototype and has no URL of its own. The predictions and
-> their falsifiers are section 4; the seven measures, each with its formula and the objection to it,
-> are section 3, and one of them is named as the primary outcome. Section 6 is
-> the nine things this build cannot do, written before anyone asked.
+> https://vigilia-mz.github.io/drift-meter/protocol.html — the protocol, as a page you can read
+> without running anything. The predictions and their falsifiers are section 4; the seven measures,
+> each with its formula and the objection to it, are section 3, and one of them is named as the
+> primary outcome. Section 6 is the nine things this build cannot do, written before anyone asked.
+> Every section has a fragment identifier, so quote the one you mean.
 >
 > The version this post is about is v0.7.0, archived at https://doi.org/10.5281/zenodo.21887595. The
 > site serves whatever is current, so if you attack something and I change it, that DOI is what your

@@ -12,6 +12,247 @@ This file is the surviving record of them.
 
 **What changed**
 
+- **Corrected, and this is the third time on the same clause: the Project Deal fairness scale was
+  described wrongly on both essays.** They gave the 4.05 and 4.06 ratings as being "on a seven-point
+  scale", which names the point count and implies the wrong kind of scale. Unqualified, that reads as
+  a goodness scale where 4 is mediocre — so the sentence said both groups found their deals middling,
+  and the finding became one about shared indifference. Anthropic's scale is bipolar: 1 is unfair to
+  one party, 7 is unfair to the other, and 4 means fair to both. The two groups reported the midpoint,
+  and the midpoint is the good outcome. The actual finding is that the disadvantaged group could not
+  feel the disadvantage, which is the sentence the whole argument opens on. Both pages now give the
+  poles and the midpoint. The history matters more than the fix: this clause had the scale missing
+  (corrected at v0.6), then stated on one page only (corrected in the same pass), and then stated
+  wrongly on both. A wrong qualifier is worse than a missing one, because a sentence with a qualifier
+  in it looks checked — and this one had an open row on it throughout.
+- **Corrected: the long essay dated the marketplace experiment to "late 2025" and no source supports
+  that.** The write-up is 2026 and describes a week-long experiment. The page now says "In a week-long
+  experiment published in 2026" and says nothing about when the experiment ran, because the row is
+  still `PRIMARY AVAILABLE` with a `TODO` on the link and nothing pins it. An unsourced date in the
+  first clause of the first paragraph is the strongest position an unchecked claim can hold: it sets
+  when the reader thinks this happened before they have read anything else.
+- **Corrected: the developer trial's sample was reported by its eligibility floor rather than by the
+  sample.** The essay said the developers had maintained their repositories "for at least six months",
+  which is METR's inclusion rule and true of everyone who qualified. The paper reports an average of
+  five years of prior experience on those repositories. Seniority is load-bearing in the argument —
+  the finding is that experienced maintainers of code they know well were slowed, which is a different
+  and stronger claim than one about anyone eligible. The six-month rule stays in `SOURCES.md`, because
+  it is what the phrase "repositories they maintain" rests on; the two are not alternatives.
+- **The confidence interval on the 19% is now METR's published figure rather than this project's
+  re-derivation of it.** The page previously reported the lower bound of an in-house HC3
+  re-derivation — 1.3%, rounded to 1% — where METR publishes 2%; the upper bound agrees at 39%. The
+  change is one of attribution rather than magnitude: a figure a reader can only check by rerunning a
+  regression nobody showed them is a citation in appearance and not in fact, and the published figure
+  is checkable by following a link. The re-derivation stays in `SOURCES.md`, where `regression.py` and
+  `data_complete.csv` are named and a reader can repeat it, which is the only form in which it earns a
+  place.
+- Corrected before it shipped, in the record of the change above: a draft of this entry and of the row
+  behind it said the three figures were "the same interval at different precisions". They are not.
+  HC3 gives 1.3–39.4%, clustering by developer gives 1.6–39.0%, and METR publishes 2.0–39.0% — they
+  agree on the upper bound and differ on the lower by 0.7 and 0.4 percentage points, which is what
+  different estimators do rather than what rounding does. The correction matters because the wrong
+  version was the more flattering one: it implied nothing had been reported that a reader could have
+  been misled by, when what is actually true is narrower and still sufficient — the old page was a
+  faithful report of the re-derivation, which is why this is an attribution correction and not a
+  numerical one. Saying two figures agree because it would be convenient is the failure this table
+  exists for, in the entry announcing that it caught three of them.
+- **Four claims corrected, and the gap that let them run is that nothing held any of them.** The
+  Project Deal clause has now been wrong three times and had no test at all; the interval and the
+  tenure had one apiece, anchored on the exact strings that turned out to be wrong. Three cases are
+  added: both essays must give the poles and the midpoint rather than a point count, the long essay
+  must not date the experiment beyond what the write-up supports, and the sample must be stated as the
+  five-year average with the six-month floor absent from the page. The pattern is the one this
+  repository keeps rediscovering — a claim checked by reading is checked once, on the day someone
+  reads it.
+- **The mirror between the process screen's source table and `SOURCES.md` is checked rather than kept
+  by hand.** Three sitings drifted in this version alone, and a fourth was still wrong when the check
+  was written: `SOURCES.md` carried `protocol.html#design` and the screen did not. The check compares
+  the set of siting markers — the `protocol.html#…` fragments and the `protocol section N` references
+  — on each side, and fails when one record names a location the other does not. It compares the union
+  rather than pairing row by row, because pairing needs a hand-written key per row and that is the
+  thing being replaced; the limit is written into the case rather than left to be found.
+- **A rendered field that refers to "this screen" now fails the build.** The four deictic sentences
+  were found by reading, and reading is not repeatable: the docstring this version falsified had been
+  true when written and was invalidated by a link added three files away, with nothing to catch it.
+  The check runs over the rendered HTML rather than over a list of field names, which scopes it for
+  free — `permalinkLead` and `permalinkLabel` keep "this screen" legally, because they are the screen
+  telling a reader about the page and the renderer does not pick them up, and a field that starts
+  being rendered starts being checked. The failure names the offending field and restates the
+  deictic-against-referential rule.
+- The docstring on the printed-not-linked offer URL states an affirmative reason rather than the
+  absence of the old one. A decision whose only recorded ground is that its previous ground expired
+  gives the next reader nothing to weigh. The reason is that a printed URL is still a route when the
+  screen is a screenshot, a PDF, a printout or a text-mode reader — which is the failure mode this
+  version exists to fix, one paragraph over.
+- The instrument's first anchor is now covered by a test that follows it. v0.8 is the first version in
+  which the app can have a broken link at all, and the link is on the one screen whose subject is
+  whether this project's claims can be checked. Three things now stop the anchor shipping without its
+  target: `vite build` fails to resolve the entry, `check-size` fails saying the build no longer emits
+  the page, and the browser suite clicks the link and asserts where it lands.
+- **The button that reaches the process screen said "How this was made" and the heading it reaches
+  says "How this was produced".** The heading changed in the deictic pass; the six strings that lead
+  to it did not. A reader clicked _made_ and landed on _produced_ — the same defect as clicking a link
+  labelled protocol and landing on a page headed Method, which is what renamed the neighbouring screen
+  earlier in this version. All six now say _produced_, and the docstring says they are meant to match
+  so that a later pass does not read the agreement as an accident.
+- `round3.ts` and `encoded.ts` are neutralised to "here" on the same grounds as `process.ts`: both
+  said "this screen" deictically, both are correct today, and both would silently become wrong the day
+  their content is published as a page. The four occurrences in code comments are left — they are not
+  reader-facing and carry no truth condition on a page.
+- The scope limit of the deictic check is printed on every build rather than recorded in a comment.
+  It covers `src/content/method.ts`, because it reads the rendered page and that is the only module
+  the renderer renders; `process.ts` is neutralised by hand and unenforced until a second caller
+  exists. That limit is stated where it cannot be missed, for the reason this version keeps finding:
+  the last scope note that lived only in a docstring was true when written, was falsified by a change
+  three files away, and was caught because a human happened to re-read the file.
+
+- **The local gate disagreed with CI, which is how a gate stops being used.** The deictic check lives
+  in `scripts/build-protocol.mjs` and therefore ran inside `npm run build` — which CI runs and
+  `npm run check` did not. So the gate a person runs before pushing went green on a violation that
+  turned CI red after. A check that only the server runs teaches people to trust the push rather than
+  the gate, and this repository already spends a version at a time on the cost of trusting the wrong
+  thing. `npm run check` now ends with `build:protocol`.
+- **Counting what a release has to touch found nine places for a two-value fact, of which four were
+  checked.** The version and its DOI are named in the three prose-page footers — held since v0.7 — and
+  also in the README twice, in the process screen's masthead row, in its caveat about what a DOI does
+  not fix, and in the two reader briefs. A release that updated the citation file and the three
+  footers and stopped would leave five documents telling a reader to cite the previous version, which
+  is a worse failure than saying nothing, because each of those documents exists to answer that exact
+  question. All of them are now held against `CITATION.cff`, and the case accumulates rather than
+  failing on the first one, so a single run prints every stale document instead of sending someone
+  round the loop once per file.
+- The reader-brief DOI check stopped writing the DOI down and started reading it out of
+  `CITATION.cff`. It was a literal, which made it a case a release had to remember to edit — and a
+  test that must be updated to keep passing is a test that stops being evidence at the moment it
+  matters. It also now fails if the citation file names the concept DOI as its own, which is the one
+  substitution that would look right and cite nothing in particular.
+- The README badge is asserted to keep the concept DOI. The two identifiers do different jobs, the
+  repository has said so since v0.7, and nothing checked it: a release that conscientiously updated
+  every DOI it found would break the one that is supposed to move on its own.
+
+**What the enforcement work proved**
+
+This is the strongest evidence this project has produced about its own thesis, and it was produced
+against itself.
+
+- **The mirror had already drifted again.** `SOURCES.md` carried `protocol.html#design` and the
+  process screen did not — from a hand-sync three files and one turn old, performed by someone who had
+  just verified that mirror by inspection and reported it correct. The check caught it on its first
+  run. The inspection was not careless; it was confident, and it was wrong within a turn.
+- **The claim that has been wrong three times had no test.** The Project Deal fairness clause — scale
+  missing, then on one page only, then described wrongly — was held by nothing. The two claims that
+  did have tests had them anchored on the exact strings that turned out to be wrong, so a test can
+  encode the error it was written to prevent.
+
+Both are instances of the argument these essays make, observed in the repository that makes it: the
+failure was not carelessness but confidence in a check nobody had watched fail.
+
+- **The protocol is published as a page, because a reviewer could not read it.** A reader working
+  through this project with a text-based tool reported that they could not read the instrument at all:
+  `drift-meter.html` is a 986-byte shell with a script tag in it, so a fetch returns a title and a
+  `<noscript>` paragraph. Their account of the seven measures and the six predictions was assembled
+  from elsewhere, and they said so and marked it as the weakest part of their review. They were right,
+  and about something worse than they described. The protocol screen has no address at all —
+  `src/platform/history.ts` declines to write `?screen=method`, on the correct grounds that a URL which
+  shows the intro when reloaded is a URL that lies — so the seven measures with their arithmetic, the
+  six predictions with their falsification conditions and the nine limits were not merely unfetchable
+  but uncitable, uncrawlable and unarchivable. The most reviewable thing on this site was the one part
+  a reviewer could not link to. `protocol.html` is now published at
+  `vigilia-mz.github.io/drift-meter/protocol.html`, carries no JavaScript, and is the fourth prose page.
+- **It is generated from `src/content/method.ts` rather than written, and that is the whole design.**
+  The obvious fix was a fourth hand-written page. That is the ÷6-versus-÷9 bug with a new address: two
+  copies of a published formula, maintained apart, disagreeing quietly until a reader finds the
+  disagreement. So the page and the screen are one text with two renderings, from the module the
+  instrument itself computes against, and what `method.test.ts` already guaranteed about the screen it
+  now guarantees about the page — every printed constant cross-checked against the constant the code
+  uses. The page says this about itself in its own second paragraph, because two renderings of one
+  source is only an honest arrangement if a reader is told which they are holding.
+- **Generated, and therefore not committed.** `scripts/build-protocol.mjs` writes `protocol.html` at
+  the repository root before every build and before the dev server, and the file is gitignored like
+  `dist/`. Hard rule 1 forbids committing build output and forbids a step producing a file that a hand
+  then edits; this is neither, and the rule is the reason the page is generated rather than typed. It
+  is a Vite input like the other three pages so that it is built like them, and the content is loaded
+  through Vite's own resolver because the module imports `./arms.js` and no such file exists on disk —
+  the same resolution the application relies on, rather than a second toolchain that behaves differently.
+- **Every section and every measure carries a fragment identifier.** This is the capability the screen
+  could not have, and it is most of what a methods reader wants: `#measures`, `#predictions`,
+  `#measure-range` and `#limits` address a paragraph of a protocol rather than a document. The section
+  numbers `SOURCES.md` has been using since v0.6 are now addresses, and the two reader briefs that send
+  a reviewer to sections 3, 4 and 6 now hand over a link that goes there. Both briefs previously
+  instructed the reader to open the prototype and press a named button, which was the honest workaround
+  available at the time and is no longer necessary. The fact that the page is addressable this way is
+  recorded in `SOURCES.md`, where a reader can check it against everything else the table sites, rather
+  than under the byline where it would spend a cold reviewer's attention on how the page was built
+  before they know what it claims.
+- **The protocol screen is now called the protocol, in all four places it is named.** Publishing the
+  page gave one artifact three names: a file called `protocol.html`, a landing-page link reading "The
+  protocol, its measures and its registered predictions", and a heading that said "Method". A reader
+  following a link labelled protocol and landing on a page headed Method has to stop and confirm they
+  are in the right place, which is a small tax charged to exactly the reader least able to afford it.
+  The file name was the one already committed and citable, so the other two moved to it: the screen and
+  the page are both headed `Protocol`, and the intro's button is "Read the protocol first" rather than
+  "Read the method first" — a fourth surface, and leaving it would have reintroduced the same beat of
+  hesitation one screen further in. The key, the module and the component keep the name `method`: they
+  are code, nobody cites them, and renaming them would put a large diff in front of a small decision.
+- **Four sentences said "screen" and are dual-published, so they say "here".** The protocol is now one
+  text on two surfaces, which makes _screen_ false on the page and _page_ false on the screen. "Here"
+  is the only word that stays true on both, so it is the correct fix rather than the neutral one. The
+  four are the standfirst, the note under the measures, and the threats on revision behaviour and the
+  catch rate. Two other sentences in the same module keep the word, because they name the debrief and
+  the encoded screen as objects: the distinction is deictic against referential, and only the deictic
+  ones break under dual publishing.
+- **`src/content/process.ts` is neutralised the same way, ahead of the page rather than with it.**
+  Nothing renders that module twice yet, so _screen_ is accurate there today — which is exactly what
+  makes it easy to forget. Publishing the process screen later would silently turn correct prose into
+  wrong prose, and no check here reads for deixis. Two sentences moved: the note that its most
+  important section is "the most important one here", and the provenance heading, now "How this was
+  produced". The cost is one edit and it removes a failure that has no test to catch it.
+- Corrected: a docstring in `src/content/process.ts` said there is no anchor element anywhere in
+  `src/screens/` or `src/ui/`, and gave that as the reason the offer-to-read URL is printed rather than
+  linked. It was true and this version made it false — the protocol screen now links `protocol.html`,
+  because that page addresses something no dispatch can. The URL is still printed, but on its own
+  merits rather than by default, and the docstring says so. This is the class of claim rule 5 exists
+  for: a statement about the repository's own work that a change quietly invalidated.
+- **The naive-reader brief links the prototype directly and drops its negative instructions.** It used
+  to route a cold reader through the landing page and ask them not to read the essays, not to follow
+  the link to the protocol, and not to press the button offering the method. Three problems, and the
+  landing page's second protocol link made all of them worse: the instruction was ambiguous about which
+  link it meant, compliance was unverifiable afterwards, and naming the protocol in order to forbid it
+  told the reader that registered predictions exist — which is a piece of the frame this reader is
+  recruited not to have. The brief now sends them to `drift-meter.html`, so keeping them away from the
+  essays and the protocol is a property of the URL rather than a request the author has to trust. One
+  negative instruction survives, because no URL skips the intro screen and the intro offers the
+  protocol; the brief says which one and why. Removing the temptation beats asking a human to resist it,
+  which is the argument this project makes about everything else.
+- **The footer is read from `CITATION.cff` rather than typed.** The three hand-written pages carry their
+  version and DOI by hand and can go stale — an invariant holds them together, which is the fix
+  available for a page nothing generates. This one is generated, so it reads the version, date and DOI
+  out of the citation file at build time and cannot disagree with it. The regex is anchored to the top
+  level so that the concept DOI nested under `identifiers` cannot match: a citation of a specific
+  version must not resolve to whatever is newest.
+- The size budget is raised a third time, from 440 KB to 480 KB, and the note under the second raise
+  said what a third one owed. `protocol.html` is 31.3 KB and the largest page in the build. Paying it,
+  measured: fonts 203 KB (44%), JavaScript and CSS 179 KB (39%), the four pages 69 KB (15%). Newsreader's
+  two axes are 120 KB between them — 59% of the font weight and 26% of the whole build — for one serif
+  on four pages, and nothing is subsetted beyond latin. What the accounting also shows is that the total
+  is the wrong number to act on: no page requests all six faces, so it is a disk figure rather than a
+  wait, and the figure that is a wait is `jsGzipBytes`, unchanged at 48 KB of 60 because a generated page
+  adds no JavaScript. The fonts are self-hosted to keep a promise on the consent screen, and the cheap
+  way to serve them is the one thing that would make that promise false. The next raise should subset a
+  font or drop a face.
+- The three checks that hold the prose pages now hold four. `scripts/check-size.mjs` asserts the built
+  page carries no script and references no `.js`; `tests/prose.spec.ts` counts what a browser requests
+  from it and reads it with scripting disabled; `tests/axe.spec.ts` sweeps it, and it is the only prose
+  page with tables in it, so it is the only one where the sweep is checking header association.
+  `tests/protocol.spec.ts` is new and holds the built page against the content module — every measure
+  with its formula and its threat, every prediction with its falsifier, every limit, every arm, the
+  pinned model, the citation, and that each fragment resolves to something visible. It also asserts P6
+  still prints before P5, which the module guarantees and a rendering could quietly tidy away.
+  `scripts/render-protocol.test.mjs` is the fast half, run against synthetic content so that what is
+  asserted is the rendering rather than the protocol, and it is where the escaping is checked.
+- The instrument's protocol screen gains one sentence and the site's only anchor out of the app, saying
+  that the protocol is also a page and that this screen has no address. A reader who wants to cite a
+  protocol should not have to work out whether they may.
+
 - **v0.7.0 is deposited, and the artifact has a DOI for the first time.** Zenodo archives the tagged
   release and mints two identifiers: one for this version, `10.5281/zenodo.21887595`, and a concept DOI,
   `10.5281/zenodo.21887594`, which always resolves to whatever the newest version is. `CITATION.cff`

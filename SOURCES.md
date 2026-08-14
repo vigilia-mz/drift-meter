@@ -18,6 +18,17 @@ through the content modules, and the landing page's specimen readout by reading 
 it is hand-written and has no module. It is not CORRECTED — nothing
 here was wrong. It was undisclosed, which is a different failure with a different fix.
 
+Every row below that sites a claim on "protocol section N" is sited on two things as of v0.8, and
+they are one text. The protocol screen inside the instrument is now also published as
+`protocol.html`, rendered from `src/content/method.ts` at build time by the same module the screen
+renders — so a row locating a claim in section 3 locates it in both, and neither can carry a version
+of it the other does not. The section numbers these rows already used are unchanged and are now also
+fragment identifiers, so a row that says section 4 can be followed to `protocol.html#predictions`.
+This closes a gap the table did not record because it was a property of the medium rather than of a
+claim: a row could say exactly where a claim appears and a reader still could not get there, because
+the screen it named needs JavaScript and has no URL. Nothing in the table was wrong, and nothing in
+it is restated here. What changed is that the locations are now addresses.
+
 Last location-and-state pass: 10 Aug 2026 (#39). Last source pass: 30 Jul 2026 (v0.3). First source
 pinned: 7 Aug 2026 (#8). No row's source was re-verified in the v0.6 pass, and #7 did not verify one
 either; #8 verified one, and the seven `Primary link: TODO` lines that remain below are as open as
@@ -426,13 +437,35 @@ means somebody opened the paper.
 - **Also re-derived rather than taken on the paper's word.** Running the published `regression.py`
   over the published `data_complete.csv` returns a speedup of 0.188 with a 95% interval of
   (0.013, 0.394) under HC3 and (0.016, 0.390) clustered by developer, matching the repository's stated
-  output. So the page's 19% is a point estimate on an interval of roughly 1% to 39%, and the page says
-  so. This is the only claim in this table whose central figure has been recomputed here from the
+  output. This is the only claim in this table whose central figure has been recomputed here from the
   source data, which is a stronger thing than PRIMARY asks for and is worth the sentence.
+- **What the page carries is METR's figure, not this one, since v0.8.** The page previously reported
+  the lower bound of an in-house HC3 re-derivation — 1.3%, rounded to 1% — where METR publishes 2%;
+  the upper bound agrees at 39%. The change is one of attribution rather than magnitude: a figure a
+  reader can only check by rerunning a regression nobody showed them is a citation in appearance and
+  not in fact, and the published figure is checkable by following a link.
+- **They are not the same interval, and saying they were would be the same failure again.** Three
+  intervals are in play: HC3 at 1.3–39.4%, clustered by developer at 1.6–39.0%, and METR's published
+  2.0–39.0%. They agree on the upper bound and differ on the lower by 0.7 and 0.4 percentage points.
+  Different estimators produce different intervals; this is not one interval reported to different
+  precisions, and an earlier draft of this row said it was. What the old page reported was therefore
+  a faithful report of the HC3 re-derivation rather than a wrong number — which is why this is an
+  attribution correction — and the honest way to say that does not require the three to be identical.
+  The re-derivation stays here, where the script and the data file are named and a reader can repeat
+  it, which is the only form in which it earns its place.
 - **Verified with it:** 16 developers, 246 tasks, task-level randomisation, tools of the
   February–June 2025 frontier, a 24% speedup forecast before the tasks and a 20% speedup estimated
   after them, and the eligibility rule that “repositories they maintain” rests on — six months as an
   active maintainer of the repository worked in.
+- **The page reported the floor and not the sample, until v0.8.** It said the developers had
+  maintained their repositories “for at least six months”, which is the eligibility rule above and is
+  true of everyone who qualified. What the paper reports about the people actually recruited is an
+  average of five years of prior experience on those repositories. Stating the threshold where the
+  sample was available understates it by an order of magnitude, and sample seniority is load-bearing
+  in the argument the essay makes: the finding is that experienced maintainers of code they know well
+  were slowed, which is a different claim from one about anyone eligible. The page now says an average
+  of five years. The six-month rule is kept in this row because it is what the phrase “repositories
+  they maintain” rests on, and the two are not alternatives.
 - **The claim was stale, and this is the finding of the pass.** METR ran a second experiment from
   August 2025, on later tools and a larger, only partly overlapping group, and published “We are
   Changing our Developer Productivity Experiment Design” on 24 Feb 2026 —
@@ -545,7 +578,7 @@ means somebody opened the paper.
 
 ### PRIMARY — Clio as Anthropic's published system for privacy-preserving analysis of real-world usage
 
-- **Where:** Consent screen; protocol section 1.
+- **Where:** Consent screen; protocol section 1, on the screen and at `protocol.html#design`.
 - **Status:** Anthropic has published on this directly, and the publication is now pinned below.
 - **State in this build:** withdrawn as an assertion. Both screens this row locates the claim on
   have now been rebuilt, and neither makes it. The consent screen dropped it first; protocol section
@@ -587,7 +620,7 @@ means somebody opened the paper.
 - **The row is kept rather than deleted.** A claim the site used to make and no longer makes is part
   of the record.
 
-### PRIMARY AVAILABLE — Project Deal: 186 transactions worth just over $4,000, and fairness rated 4.05 against 4.06 on a seven-point scale
+### PRIMARY AVAILABLE — Project Deal: 186 transactions worth just over $4,000, and fairness rated 4.05 against 4.06 on a 1-to-7 scale whose midpoint is fair to both parties
 
 - **Where:** `atrophy.html`, the opening two paragraphs of the article; `essay.html`, the paragraph
   beginning "Anthropic's Project Deal makes the problem concrete". Added at the v0.6 pass, which
@@ -595,13 +628,24 @@ means somebody opened the paper.
 - **Status:** Anthropic's own published experiment, and the empirical anchor both essays open on.
   Held from the write-up rather than from a pinned page, which is the condition that produced the
   CORRECTED row below.
+- **The date was the site's and not the source's, until v0.8.** `atrophy.html` opened “In late 2025,
+  Anthropic built a marketplace”, and nothing supports that date: the write-up is 2026 and describes a
+  week-long experiment. A date nobody sourced, in the first clause of the first paragraph of the long
+  essay, is the strongest possible position for an unchecked claim — it sets when the reader thinks
+  this happened before they have read anything else. The page now says “In a week-long experiment
+  published in 2026”, which is what the write-up supports, and says nothing about when the experiment
+  ran, because the row below has still not pinned a source that would settle it.
 - **Primary link:** TODO — pin Anthropic's published account. Do not paraphrase from memory.
-- **Action before release:** pin it. Two pages lean on these figures, and this is the one claim on
-  the site that has already been got wrong once.
+- **Action before release:** pin it. Two pages lean on these figures, this is the one claim on the
+  site that has already been got wrong three times, and the row has now corrected a date and a scale
+  off an unpinned source, which is the condition that produces exactly these errors.
 
 ### PRIMARY — The reflection was served by the pinned model, and the served ID is printed
 
-- **Where:** Result screen and the encoded screen; protocol section 5, which names both call sites.
+- **Where:** Result screen and the encoded screen; protocol section 5, which names both call sites,
+  on the screen and at `protocol.html#provenance`. The pinned ID is printed on the page as well as on
+  the screen, which puts the constant in front of a reader who never runs the instrument; the served
+  ID, which is the actual provenance record, is still only printable where a call is made.
 - **Status:** Verified per request, in the builds that had an endpoint. The model ID is returned by
   the API in the response body and printed verbatim on the page.
 - **Checked:** every request, in v0.3 through v0.5. Nothing has been checked in this build.
@@ -677,14 +721,25 @@ means somebody opened the paper.
 - **Status:** The error that caused this table to exist. Correct numbers with a missing qualifier
   is the exact class of mistake a source table catches and a careful read does not, because
   nothing in the sentence looks wrong. Both pages now state the scale explicitly.
-- **Action:** corrected twice; kept here as the standing reason for the process. That the same
-  omission was live on a page of this build, with the row already written, is the more useful half of
-  the record.
+- **Corrected a third time, in v0.8, and this is the worst of the three.** Stating the scale is what
+  the second correction was for, and what both pages then stated was “a seven-point scale” — which
+  names the number of points and implies the wrong kind of scale. A seven-point scale, unqualified,
+  reads as a goodness scale on which 4 is mediocre, so a reader taking the sentence at face value
+  concluded that both groups rated their deals as middling and that the finding is about shared
+  indifference. Anthropic's scale is bipolar: 1 is unfair to one party, 7 is unfair to the other, and
+  4 means fair to both. The two groups did not report mediocrity, they reported the midpoint, and the
+  midpoint is the good outcome. That is the opposite reading of the sentence the whole argument opens
+  on, and it survived a correction that was specifically about this clause. Both pages now give the
+  poles and the midpoint rather than the point count.
+- **Action:** corrected three times; kept here as the standing reason for the process. The first
+  omission was a missing qualifier and the second was a wrong one, which is the harder failure: a
+  sentence with a qualifier in it looks checked. That the same clause has now been wrong in two
+  different ways, with a row open on it throughout, is the most useful half of the record.
 
 ### PRIMARY AVAILABLE — Accuracy: the eighteen supported values are unauthored
 
 - **Where:** `src/content/slates.ts`, `supported` on every `AssumptionSpec`; the accuracy row on the
-  protocol screen (`src/content/method.ts`).
+  protocol screen (`src/content/method.ts`), and at `protocol.html#measure-accuracy`.
 - **Status:** Nothing is asserted. All eighteen are `null`, so the measure is undefined in every run
   and the debrief bar reads `n/a` with a caption saying why. This row exists because the _absence_ is
   the thing worth tracking: the machinery to score a reader against the evidence landed in v0.7

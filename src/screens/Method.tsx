@@ -192,6 +192,18 @@ export function Method({ containerRef, onBack, onProcess }: Props) {
         </ul>
       </section>
 
+      {/*
+        The one link on this screen that leaves the instrument. It is a plain anchor
+        rather than a dispatch because it addresses a document that exists outside
+        the run — see `METHOD.permalinkLead` for why the document exists at all.
+      */}
+      <p class="dm-note">
+        {METHOD.permalinkLead}{' '}
+        <a class="dm-link" href="protocol.html">
+          {METHOD.permalinkLabel}
+        </a>
+      </p>
+
       <div class="dm-actions">
         <button type="button" class="dm-button dm-button-solid" onClick={onBack}>
           {METHOD.backLabel}

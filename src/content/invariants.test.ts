@@ -527,32 +527,85 @@ describe('the process screen', () => {
     // critique of nothing in particular. Both asks that go to a reviewer name the
     // archived version, and the DOI they name is the one in CITATION.cff — the
     // versioned one, not the concept DOI that resolves to the newest release.
-    const versioned = '10.5281/zenodo.21887595';
-    expect(citationFile).toContain(`doi: ${versioned}`);
-    const mentions = readerBriefs.split(versioned).length - 1;
+    //
+    // Read out of the citation file rather than written down here, since v0.8. It used
+    // to be a literal, which made this case a thing a release had to remember to edit —
+    // and a test that has to be updated to keep passing is a test that stops being
+    // evidence at exactly the moment it matters. The changelog entry beside this one
+    // records the same shape found twice in this version: two claim tests anchored on
+    // the strings that turned out to be wrong. This one anchors on the file that
+    // GitHub and Zenodo read, so a release edits the record and the check follows.
+    //
+    // Anchored to the start of a line, so the `value:` entries nested under
+    // `identifiers:` cannot match — one of them is the concept DOI, which is the wrong
+    // one, and matching it here would let the briefs cite the moving identifier while
+    // this case went green.
+    const versioned = /^doi:\s*(\S+)\s*$/m.exec(citationFile)?.[1];
+    expect(versioned, 'CITATION.cff has no top-level doi:').toBeDefined();
+    expect(versioned, 'the citation file names the concept DOI as its own').not.toBe(
+      '10.5281/zenodo.21887594',
+    );
+
+    const mentions = readerBriefs.split(String(versioned)).length - 1;
     expect(mentions, 'the methods brief and the design-review post').toBe(2);
   });
 
-  it('quotes the buttons the briefs tell a reader to press by their real labels', () => {
-    // Three of the four asks name a control and quote its label. Two of those labels
-    // are screen copy in `shell.ts` and the third is markup in a hand-written page, so
-    // a rename in either place turns a document sent under the author's name into an
-    // instruction to press something that does not exist. Nothing read the two
-    // together, and the briefs are the half nobody would think to update.
+  it('quotes the button the briefs tell a reader to press by its real label', () => {
+    // The one ask that still names a control quotes its label, and the label is screen
+    // copy in `shell.ts`, so a rename there turns a document sent under the author's
+    // name into an instruction to press something that does not exist. Nothing read
+    // the two together, and the briefs are the half nobody would think to update.
     //
     // Read out of the source rather than written here, on the same terms as the counts
     // above: this goes red on the rename, which is the edit that breaks the document,
-    // rather than on the edit to the briefs that would fix it.
-    const cta = /<a class="cta"[^>]*>([^<]*)<\/a>/.exec(indexPage)?.[1] ?? '';
-    const launch = cta.replace(/&#?\w+;/g, '').trim();
-    // Guards the pattern. Without it, a landing page whose call to action moved or was
-    // rewritten would leave the loop below looking for an empty pair of quotes, and the
-    // failure would name the briefs rather than the page that changed.
-    expect(launch, 'index.html has no call to action').not.toBe('');
+    // rather than on the edit to the briefs that would fix it. It has already caught
+    // one — `methodLink` became “Read the protocol first” in v0.8 and this named the
+    // brief that still quoted the old label.
+    //
+    // Two labels came off this list in v0.8, and neither was dropped to make a test
+    // pass. `INTRO.begin` was never a button a brief asked anyone to press: it was the
+    // button two asks named in order to say press the other one, because the protocol
+    // was inside the prototype and routing a reviewer past the run was the only way to
+    // reach it. `protocol.html` is that route now. The landing page's call to action
+    // went with it, because the naive-reader brief stopped routing through the landing
+    // page at all — it links the prototype directly, so that keeping the reader away
+    // from the essays and the protocol is a property of the URL rather than a request
+    // the author has to trust and cannot check. An assertion that a document mentions a
+    // string it has no reason to mention is a rule against editing the document.
+    expect(readerBriefs, INTRO.methodLink).toContain(`“${INTRO.methodLink}”`);
+  });
 
-    for (const label of [INTRO.methodLink, INTRO.begin, launch]) {
-      expect(readerBriefs, label).toContain(`“${label}”`);
-    }
+  /**
+   * And the naive-reader brief does not route through the landing page.
+   *
+   * The protection is the URL. If that link ever becomes the landing page again, the
+   * brief is back to asking a cold reader to walk past both essays and two links to
+   * the protocol, and to be believed about it afterwards — which is the arrangement
+   * this project argues against everywhere else. Asserted because it reads as a
+   * formatting detail and is the whole of the design.
+   */
+  it('sends the naive reader to the prototype rather than past the essays', () => {
+    const brief = readerBriefs.slice(readerBriefs.indexOf('without reading up on it first'));
+    const link = /https:\/\/vigilia-mz\.github\.io\/drift-meter\/(\S*)/.exec(brief)?.[1];
+    expect(link, 'the naive-reader brief links nothing').toBeDefined();
+    expect(link, 'the naive-reader brief routes through the landing page').toBe('drift-meter.html');
+  });
+
+  /**
+   * And the briefs send a reviewer to the protocol at an address that exists.
+   *
+   * The two asks that cite sections of the protocol used to route a reviewer through
+   * the prototype, because the screen had no URL. `protocol.html` is generated by
+   * `scripts/build-protocol.mjs` and is the address they now hand over.
+   *
+   * This checks the briefs' half. The page's half — that the build still emits it — is
+   * `scripts/check-size.mjs`, which lists the page among the scriptless four and fails
+   * saying the build no longer emits it. Between them, a page that stopped being built
+   * cannot leave two documents linking to a 404 under the author's name.
+   */
+  it('sends a reviewer to the protocol at an address rather than through the prototype', () => {
+    const mentions = readerBriefs.split('drift-meter/protocol.html').length - 1;
+    expect(mentions, 'the methods brief and the design-review post').toBe(2);
   });
 
   it('links the profile the Contact row sends a reader to', () => {
@@ -890,6 +943,51 @@ describe('the long essay states its three empirical claims the way their studies
   const rowFor = (fragment: string) =>
     SOURCE_ROWS.find((r) => r.claim.includes(fragment) && r.where.includes('essay'));
 
+  /**
+   * The mirror is checked rather than maintained.
+   *
+   * The process screen's source table and `SOURCES.md` are two records of one thing, and
+   * the sitings in them drifted three times in v0.8 alone — protocol sections 1 and 5 and
+   * the accuracy row all gained a second location on the page, and each had to be carried
+   * across by hand. The third one was still wrong when this case was written: `SOURCES.md`
+   * had `protocol.html#design` and the screen did not. A mirror kept aligned by diligence
+   * drifts, and this repository has now demonstrated that on itself twice in one version.
+   *
+   * What is compared is the set of siting markers, not the prose. The two records phrase a
+   * location differently on purpose — the table is a summary and the file is the record —
+   * so requiring identical strings would fail on the first honest edit. What must not
+   * differ is *which places a claim is said to appear in*, and that is exactly what a
+   * hand-sync misses: a fragment added to one file and not the other.
+   *
+   * The limit, stated rather than discovered: this compares the union across all rows and
+   * not row by row, because the two records key their rows differently and pairing them
+   * needs a hand-written fragment per row, which is the thing being replaced. So a marker
+   * moved to the wrong row inside one file passes. A marker present in one file and absent
+   * from the other does not, and that is the failure that has actually happened.
+   */
+  const sitingMarkers = (text: string): string[] =>
+    [...text.matchAll(/protocol\.html#[a-z-]+/g), ...text.matchAll(/protocol section \d+/g)]
+      .map((m) => m[0])
+      .sort();
+
+  it('sites a claim in the same places on the process screen and in SOURCES.md', () => {
+    const fromScreen = new Set(sitingMarkers(SOURCE_ROWS.map((r) => r.where).join(' ')));
+    // Only the `- **Where:**` lines, so that the file's prose about a siting — the
+    // preamble explaining that section numbers are now fragments — is not read as one.
+    const whereLines = [...sourcesFile.matchAll(/^- \*\*Where:\*\*[\s\S]*?(?=\n- \*\*)/gm)]
+      .map((m) => m[0])
+      .join(' ');
+    const fromFile = new Set(sitingMarkers(whereLines));
+
+    const onlyScreen = [...fromScreen].filter((m) => !fromFile.has(m));
+    const onlyFile = [...fromFile].filter((m) => !fromScreen.has(m));
+
+    expect(onlyScreen, 'sited on the process screen and not in SOURCES.md').toEqual([]);
+    expect(onlyFile, 'sited in SOURCES.md and not on the process screen').toEqual([]);
+    // Guards the patterns. Two records that both matched nothing would agree perfectly.
+    expect(fromFile.size, 'no sitings found — the patterns have gone stale').toBeGreaterThan(0);
+  });
+
   it('gives the students result to the arm it belongs to, under the title the journal gave it', () => {
     // Two errors, one on top of the other. The sentence published until v0.8 said
     // students “with access to ChatGPT” did better in practice and worse on the exam,
@@ -971,8 +1069,15 @@ describe('the long essay states its three empirical claims the way their studies
     // One study, tasks randomised inside the same developers, rather than a literature
     // setting two groups of people against each other. Both halves were wrong until v0.8.
     expect(atrophyPage).not.toContain('studies of software developers');
-    // The eligibility rule the phrase rests on: six months as an active maintainer.
+    // The sample, not the eligibility rule. The paper's floor is six months as an active
+    // maintainer and the page said exactly that until v0.8, which is true of everyone who
+    // qualified and understates the people actually recruited by an order of magnitude:
+    // they averaged five years on those repositories. Seniority is load-bearing here —
+    // the finding is that experienced maintainers of code they know well were slowed, and
+    // a reader who thinks the floor is the sample is reading a weaker claim.
     expect(p).toContain('repository they had maintained');
+    expect(p).toContain('an average of five years');
+    expect(atrophyPage).not.toContain('at least six months');
 
     // 39 is a real figure here — the upper bound of the trial's 95% interval — and it
     // is also what the forbidden sum comes to. Banning the digits would forbid the
@@ -985,6 +1090,51 @@ describe('the long essay states its three empirical claims the way their studies
     expect(rowFor('19% longer')?.grade).toBe('Primary');
   });
 
+  /**
+   * The Project Deal fairness clause, on both essays, which nothing held until v0.8.
+   *
+   * This is the claim that caused `SOURCES.md` to exist and it has now been wrong three
+   * times: the scale was missing, then supplied on one page only, then supplied on both
+   * as “a seven-point scale”. The third is the worst. Unqualified, that names the point
+   * count and implies a goodness scale where 4 is mediocre, so the sentence said both
+   * groups found their deals middling. Anthropic's scale is bipolar — 1 unfair to one
+   * party, 7 unfair to the other, 4 fair to both — so what the two groups reported is the
+   * midpoint, and the midpoint is the good outcome. The finding is not that everyone was
+   * lukewarm; it is that the disadvantaged group could not feel the disadvantage. That is
+   * the sentence the whole argument opens on, and it had survived a correction aimed at
+   * this exact clause because a sentence with a qualifier in it looks checked.
+   *
+   * So the guard is the pair rather than the phrase: wherever these numbers appear, the
+   * page must say what the midpoint means. Both essays, because the last correction
+   * reached one of them and the row said “both pages” anyway.
+   */
+  it('gives the Project Deal fairness scale as bipolar, on both essays', () => {
+    for (const [name, page] of [
+      ['atrophy.html', atrophyPage],
+      ['essay.html', essayPage],
+    ] as const) {
+      expect(page, `${name} has lost the fairness figures`).toContain('4.05');
+      expect(page, `${name} has lost the fairness figures`).toContain('4.06');
+      // The point count without the poles is the failure this row records twice.
+      expect(page, `${name} calls it a seven-point scale`).not.toContain('seven-point');
+      expect(page, `${name} does not say what 4 means`).toContain('fair to both parties');
+      expect(page, `${name} does not say what the poles mean`).toContain('unfair to one side');
+    }
+  });
+
+  /**
+   * And the date on the marketplace experiment, which was the site's rather than a source's.
+   *
+   * “In late 2025” opened the long essay and nothing supported it — the write-up is 2026
+   * and describes a week-long experiment. The row it belongs to is still `PRIMARY
+   * AVAILABLE` with a `TODO` on the link, so the page is held to saying only what the
+   * write-up supports and nothing about when the experiment ran.
+   */
+  it('does not date the marketplace experiment beyond what the write-up supports', () => {
+    expect(atrophyPage).not.toContain('late 2025');
+    expect(atrophyPage).toContain('week-long experiment published in 2026');
+  });
+
   it('dates the developers trial, carries the follow-up, and does not call it a retraction', () => {
     // The claim this project came closest to getting wrong in the direction it is
     // about. The trial measures the tools of February to June 2025; its authors ran a
@@ -994,7 +1144,20 @@ describe('the long essay states its three empirical claims the way their studies
     // mistake, so the season and the follow-up are both on the page.
     // Anchored on the interval itself rather than on the words “confidence interval”,
     // which two paragraphs now carry: the endoscopy result states one too.
-    const p = paragraphWith('roughly 1% to 39%');
+    //
+    // The interval is METR's published +2% to +39% since v0.8, not the roughly 1% to 39%
+    // the page carried before. Those are not the same interval: the author's HC3
+    // re-derivation returns (0.013, 0.394) and clustering by developer returns
+    // (0.016, 0.390), so the three agree on the upper bound and differ on the lower by
+    // under a percentage point. Different estimators, not different precisions. The old
+    // figure was a faithful report of the re-derivation rather than a wrong number, which
+    // is why the change is one of attribution: a number a reader can only check by
+    // rerunning a regression nobody showed them is a citation in appearance and not in
+    // fact. The re-derivation is kept in SOURCES.md, where the script and the data file
+    // are named and it can be repeated.
+    const p = paragraphWith('+2% to +39%');
+    expect(p).toContain('METR');
+    expect(atrophyPage).not.toContain('roughly 1% to 39%');
     expect(p).toContain('February and June 2025');
     expect(p).toContain('February 2026');
     expect(p).toContain('18% speedup');
@@ -1165,6 +1328,75 @@ describe('the prose pages name the version to cite', () => {
     // holds it in the source, where the edit is actually made.
     for (const [name, page] of PAGES) {
       expect(footOf(page), name).not.toContain('<script');
+    }
+  });
+
+  /**
+   * Everywhere else that names the citable version, which is more places than a release
+   * remembers.
+   *
+   * The three footers above were held from v0.8; nothing held the rest. Counting them
+   * for the v0.8 release found the version-and-DOI pairing written out in the README
+   * twice, in the process screen's masthead row, in its caveat about what a DOI does not
+   * fix, and in the reader briefs — nine places for a two-value fact, of which four were
+   * checked. A release that updates the citation file and the three footers and stops
+   * leaves five documents citing the previous version, and every one of them is a
+   * document telling a reader which version to cite.
+   *
+   * Held against `CITATION.cff` rather than against each other, on the same grounds as
+   * the footer case above: that file is what GitHub and Zenodo read, so it is the record
+   * and the rest are copies. The check is presence, not phrasing — each of these
+   * introduces the version differently and should keep being free to.
+   */
+  it('names the cited version everywhere a citable version is named', () => {
+    const carriers: ReadonlyArray<readonly [string, string, boolean]> = [
+      // [what, text, must also carry the DOI]
+      ['README.md', readmeFile, true],
+      [
+        'the masthead Version row',
+        PROCESS.mastheadRows.find((r) => r.label === 'Version')?.value ?? '',
+        false,
+      ],
+      ['the caveat about the moving URL', PROCESS.caveats.join(' '), true],
+      ['docs/review-briefs.md', readerBriefs, true],
+    ];
+
+    // Accumulated rather than asserted one at a time, because the failure this exists
+    // for is a release that updated some places and not others — and a run that names
+    // the first stale document sends someone round the loop once per document. One run
+    // should print the whole list.
+    const stale: string[] = [];
+    for (const [name, text, alsoDoi] of carriers) {
+      expect(text, `${name} is empty — the lookup above has gone stale`).not.toBe('');
+      if (!text.includes(`v${cited}`)) stale.push(`${name} does not name v${cited}`);
+      if (alsoDoi && !text.includes(doi)) stale.push(`${name} does not name ${doi}`);
+    }
+    // Joined into one string rather than compared as an array: vitest prints a long
+    // array as `[ …(7) ]`, and a list nobody can read is the same as no list.
+    expect(stale.join(' | '), 'documents left citing a previous version').toBe('');
+  });
+
+  /**
+   * And the badge keeps the concept DOI, which is the one thing here that must not move.
+   *
+   * The two identifiers do different jobs and the repository says so at length in
+   * `CITATION.cff`: the versioned DOI names one release, and the concept DOI resolves to
+   * whatever is newest — which is what the published URL already does, and is the thing
+   * an archived identifier was wanted in order to stop doing. So the badge carries the
+   * concept DOI on purpose, and a release that "updated all the DOIs" would break it by
+   * being thorough.
+   */
+  it('leaves the concept DOI on the badge and keeps it out of every citation line', () => {
+    const concept = [...citationFile.matchAll(/^\s+value:\s*(\S+)/gm)]
+      .map((m) => m[1] ?? '')
+      .find((value) => value !== doi);
+    expect(concept, 'CITATION.cff lists no second identifier').toBeDefined();
+    expect(readmeFile, 'the README badge has lost the concept DOI').toContain(
+      `zenodo.org/badge/DOI/${String(concept)}.svg`,
+    );
+    // Wherever a reader is told which version to cite, it is the versioned one.
+    for (const [name, page] of PAGES) {
+      expect(footOf(page), `${name} cites the concept DOI`).not.toContain(String(concept));
     }
   });
 });

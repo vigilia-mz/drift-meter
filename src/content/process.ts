@@ -87,7 +87,7 @@ export const PROCESS = {
   whyLead:
     'Anyone can publish a prototype. Without an institution behind it, the visible process is what makes a claim checkable: a version, a record of what changed and why, named readers who tried to break it, stated conditions of defeat, and every external claim traced to where it came from.',
   whyFollow:
-    'Four of those five are in place below, and the fifth closed in v0.8: the essays’ findings about students, endoscopists and developers were the last uncited assertions here, and all three now name the study they come from and have been read against it. Reading them corrected the sentences a second time, which is the more useful half of that. The third is what is still absent — nobody has read this yet, and the section that says so is the most important one on the page.',
+    'Four of those five are in place below, and the fifth closed in v0.8: the essays’ findings about students, endoscopists and developers were the last uncited assertions here, and all three now name the study they come from and have been read against it. Reading them corrected the sentences a second time, which is the more useful half of that. The third is what is still absent — nobody has read this yet, and the section that says so is the most important one here.',
 
   changelogHeading: 'What changed, and why',
   changelogLead:
@@ -106,9 +106,24 @@ export const PROCESS = {
   reviewersNote:
     'A public design review would substitute for the first of these imperfectly, and would timestamp the predictions at the same time — two obligations discharged by one post. That may be the cheaper path.',
   /**
-   * The route in, as text. There is no anchor element anywhere in `src/screens/`
-   * or `src/ui/`, so the URL is printed rather than linked; making this the first
-   * link in the app is a decision about the app, not about this paragraph.
+   * The route in, as text, because a printed URL survives being read outside a browser.
+   *
+   * This is the reason, and it is not the reason this docstring used to give. It said
+   * there was no anchor element anywhere in `src/screens/` or `src/ui/` — true when
+   * written, and falsified in v0.8 by the link the protocol screen now carries to
+   * `protocol.html`. A decision resting on an expired ground is a decision nobody can
+   * weigh, so the ground is restated as an affirmative one.
+   *
+   * An anchor is a route only in a browser. A printed URL is still a route when the
+   * screen is a screenshot in someone's slide, a PDF, a printout, or a text-mode reader
+   * — and this repository has just spent a version learning what the last of those costs
+   * when it goes wrong: the protocol was unreadable to a reviewer using a text-based tool
+   * for exactly as long as reaching it required a live page. This is the one paragraph
+   * on the site whose whole purpose is that a stranger acts on it later, somewhere else,
+   * and the form that survives the most contexts is the one it should take.
+   *
+   * That is a reason to print it and not a reason against also linking it. Both is
+   * available and unexamined; what is settled is that printing it is the floor.
    *
    * A capability, not a status. Nothing has been sent to anyone, and no row in
    * `REVIEWER_ROWS` moves until a reader answers.
@@ -127,7 +142,19 @@ export const PROCESS = {
     'This URL serves whatever version is current, so citing the page still says nothing about which version was read. What fixes that is the archived version rather than the page: v0.7.0 is tagged and deposited, and its own DOI is 10.5281/zenodo.21887595. The concept DOI that the repository’s badge carries is not a substitute — it resolves to whatever the newest version is, which is the same thing this URL does. So the identifier exists and the obligation moves rather than closing: anyone citing a claim from this site should name the version they read, and the changelog records a retraction precisely so that the distinction matters.',
   ],
 
-  provenanceHeading: 'How this page was produced',
+  /**
+   * “How this was produced”, not “How this page was produced”, since v0.8.
+   *
+   * Nothing renders this module twice yet. `src/content/method.ts` is rendered as a
+   * screen and as `protocol.html`, and the four sentences there that said *screen*
+   * had to be neutralised to *here* when the second rendering arrived. The word is
+   * accurate in this module today, which is exactly what makes it easy to forget:
+   * publishing this screen as a page would silently turn correct prose into wrong
+   * prose, and no check in this repository reads for deixis. Neutralising ahead of
+   * the page makes that later change a pure addition. This heading and `whyFollow`
+   * are the two that were deictic.
+   */
+  provenanceHeading: 'How this was produced',
   provenanceLead:
     'A page arguing about AI-assisted work that will not say which parts of itself were AI-assisted is asking for a trust it has not earned. This table is the answer, including the part that is unflattering.',
 
@@ -375,7 +402,7 @@ export const SOURCE_ROWS = [
     where: 'The long essay, in its empirical section.',
     grade: 'Primary',
     checked: '13 Aug 2026',
-    note: 'It is one study rather than a literature, it randomises tasks inside the same sixteen developers, and the page quoted no figure. Reading it found worse: 19% is a point estimate on a 95% interval of roughly 1% to 39%, re-derived by running the published regression against the published data, and the trial measures February to June 2025 — whose authors ran a second experiment and published opposite-signed raw estimates in February 2026, on intervals crossing zero and with their own judgment that it is too compromised to trust. That is not a retraction and the page does not treat it as one: the 19% stands in its setting, and what fails is carrying it forward as current. An essay dated 2026 was doing exactly that.',
+    note: 'It is one study rather than a literature, it randomises tasks inside the same sixteen developers, and the page quoted no figure. Reading it found worse: 19% is a point estimate on a wide interval, which the page now gives as METR’s own published +2% to +39% rather than as the interval re-derived here from the published regression and data. The re-derivation returned a lower bound of 1.3% where METR publishes 2.0%, on an upper bound both agree is 39% — a different estimator rather than a different answer, and a faithful report either way. What changed is whose figure it is: one a reader can check by following a link, rather than by rerunning a regression nobody showed them. The trial measures February to June 2025 — whose authors ran a second experiment and published opposite-signed raw estimates in February 2026, on intervals crossing zero and with their own judgment that it is too compromised to trust. That is not a retraction and the page does not treat it as one: the 19% stands in its setting, and what fails is carrying it forward as current. An essay dated 2026 was doing exactly that.',
   },
   {
     claim:
@@ -403,14 +430,15 @@ export const SOURCE_ROWS = [
   {
     claim:
       'Clio as Anthropic’s published system for privacy-preserving analysis of real-world usage.',
-    where: 'Nowhere in this build. It was on the consent screen and in protocol section 1.',
+    where:
+      'Nowhere in this build. It was on the consent screen and in protocol section 1 — now published as a page as well, at protocol.html#design, and carrying it in neither.',
     grade: 'Primary',
     checked: '7 Aug 2026',
-    note: 'Anthropic has published on this directly and the row went unpinned for three versions. Rather than cite from memory on the screen where a reader is deciding whether to trust the page about data handling, the rebuild stopped making the claim; the paper is now pinned as well, so both of the exits the issue offered are taken. Reading it narrowed the claim. The row used to say reference standard, and the paper says the technologies underneath Clio are not fundamentally new and that it builds on differential privacy and k-anonymity. Neither the paper nor the research page calls Clio a standard: that word was this site’s, not the source’s.',
+    note: 'Anthropic has published on this directly and the row went unpinned for three versions. Rather than cite from memory on the consent screen, where a reader is deciding whether to trust the page about data handling, the rebuild stopped making the claim; the paper is now pinned as well, so both of the exits the issue offered are taken. Reading it narrowed the claim. The row used to say reference standard, and the paper says the technologies underneath Clio are not fundamentally new and that it builds on differential privacy and k-anonymity. Neither the paper nor the research page calls Clio a standard: that word was this site’s, not the source’s.',
   },
   {
     claim:
-      'Project Deal: 186 transactions worth just over $4,000, and fairness rated 4.05 against 4.06.',
+      'Project Deal: 186 transactions worth just over $4,000, and fairness rated 4.05 against 4.06 on a scale whose midpoint is fair to both parties.',
     where: 'The opening of the long essay, and the companion essay’s paragraph on it.',
     grade: 'Primary available',
     checked: '7 Aug 2026',
@@ -418,7 +446,8 @@ export const SOURCE_ROWS = [
   },
   {
     claim: 'The reflection was served by the pinned model, and the served ID is printed.',
-    where: 'The debrief’s reflection, the encoded screen, and protocol section 5.',
+    where:
+      'The debrief’s reflection, the encoded screen, and protocol section 5 — in the instrument and at protocol.html#provenance.',
     grade: 'Primary',
     checked: 'Every request, once there is an endpoint',
     note: 'The only claim here that verifies itself: the ID comes back in the response body and is printed verbatim beside the response. The whole mechanism now exists — the pin, the endpoint that reads the served ID, and the screen that prints it. None of it has run: the endpoint URL is empty in this build, so nothing has been spent and nothing has been verified. What is left is a one-line change, not more code.',
@@ -439,16 +468,17 @@ export const SOURCE_ROWS = [
   },
   {
     claim: 'Accuracy: the eighteen supported values are unauthored, so the measure is undefined.',
-    where: 'The case data, and the accuracy row on the protocol screen.',
+    where:
+      'The case data, and the accuracy row on the protocol screen — at protocol.html#measure-accuracy on the page.',
     grade: 'Primary available',
     checked: '10 Aug 2026',
     note: 'A row for an absence. The machinery to score a reader against what the evidence supports arrived without the values it would score against, and grading the gap here is what makes authoring one a change that comes through this table. Some should stay unauthored — cash-transfer persistence at five years is disputed, and the case’s own evidence panel says so — so the measure reports its coverage rather than waiting to be complete.',
   },
   {
-    claim: 'Project Deal: figures right, the seven-point scale omitted.',
-    where: 'The companion essay, corrected. Originally a separate document.',
+    claim: 'Project Deal: figures right, the scale first omitted and then described wrongly.',
+    where: 'Both essays, corrected. Originally a separate document.',
     grade: 'Corrected',
-    checked: '7 Aug 2026',
-    note: 'The error that caused this table to exist, and then reproduced on a page of this build: correct numbers with a missing qualifier, which is exactly what a careful read does not catch, because nothing in the sentence looks wrong. Kept as the standing reason for the process.',
+    checked: '14 Aug 2026',
+    note: 'The error that caused this table to exist, corrected three times. Correct numbers with a missing qualifier is exactly what a careful read does not catch, because nothing in the sentence looks wrong. Supplying the qualifier is what the second correction was for, and what both pages then said was “a seven-point scale” — which gives the point count and implies the wrong kind of scale. Unqualified, that reads as a goodness scale where 4 is mediocre, so the sentence said both groups found their deals middling. Anthropic’s scale is bipolar: 1 unfair to one party, 7 unfair to the other, 4 fair to both. They reported the midpoint, and the midpoint is the good outcome — the opposite reading of the sentence this argument opens on. A wrong qualifier is worse than a missing one, because a sentence with a qualifier in it looks checked.',
   },
 ] as const satisfies readonly SourceRow[];

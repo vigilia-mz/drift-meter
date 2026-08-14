@@ -111,6 +111,29 @@ body {
   margin: 8px 0 0;
 }
 
+/*
+ * The instrument's only anchor.
+ *
+ * Every other control here dispatches — the run is state and not a URL, which is
+ * the whole of `src/platform/history.ts`. This one leaves for `protocol.html`,
+ * because that page addresses something the protocol screen cannot address: itself.
+ * Styled after the essays' .essaylink so that a link out of the instrument reads
+ * like a link into the documents, and on --green-deep, which the contrast table
+ * already clears against --dm-bg.
+ */
+.dm-link {
+  color: var(--green-deep);
+  text-decoration: none;
+  border-bottom: 1px solid var(--green-rule);
+  padding-bottom: 1px;
+  white-space: nowrap;
+}
+
+.dm-link:hover {
+  color: var(--green);
+  border-color: var(--green);
+}
+
 .dm-question {
   font-family: var(--font-serif);
   font-size: 21px;
