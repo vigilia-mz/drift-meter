@@ -31,7 +31,7 @@
     "check:size": "node scripts/check-size.mjs",
     "check:contrast": "node scripts/check-contrast.mjs",
     "check:licensing": "node scripts/check-licensing.mjs",
-    "check": "npm run typecheck && npm run lint && npm run format:check && npm test && npm run check:contrast && npm run check:licensing"
+    "check": "npm run typecheck && npm run lint && npm run format:check && npm test && npm run check:contrast && npm run check:licensing && npm run build:protocol"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.116.0",

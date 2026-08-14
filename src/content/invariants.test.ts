@@ -527,9 +527,26 @@ describe('the process screen', () => {
     // critique of nothing in particular. Both asks that go to a reviewer name the
     // archived version, and the DOI they name is the one in CITATION.cff — the
     // versioned one, not the concept DOI that resolves to the newest release.
-    const versioned = '10.5281/zenodo.21887595';
-    expect(citationFile).toContain(`doi: ${versioned}`);
-    const mentions = readerBriefs.split(versioned).length - 1;
+    //
+    // Read out of the citation file rather than written down here, since v0.8. It used
+    // to be a literal, which made this case a thing a release had to remember to edit —
+    // and a test that has to be updated to keep passing is a test that stops being
+    // evidence at exactly the moment it matters. The changelog entry beside this one
+    // records the same shape found twice in this version: two claim tests anchored on
+    // the strings that turned out to be wrong. This one anchors on the file that
+    // GitHub and Zenodo read, so a release edits the record and the check follows.
+    //
+    // Anchored to the start of a line, so the `value:` entries nested under
+    // `identifiers:` cannot match — one of them is the concept DOI, which is the wrong
+    // one, and matching it here would let the briefs cite the moving identifier while
+    // this case went green.
+    const versioned = /^doi:\s*(\S+)\s*$/m.exec(citationFile)?.[1];
+    expect(versioned, 'CITATION.cff has no top-level doi:').toBeDefined();
+    expect(versioned, 'the citation file names the concept DOI as its own').not.toBe(
+      '10.5281/zenodo.21887594',
+    );
+
+    const mentions = readerBriefs.split(String(versioned)).length - 1;
     expect(mentions, 'the methods brief and the design-review post').toBe(2);
   });
 
@@ -1311,6 +1328,75 @@ describe('the prose pages name the version to cite', () => {
     // holds it in the source, where the edit is actually made.
     for (const [name, page] of PAGES) {
       expect(footOf(page), name).not.toContain('<script');
+    }
+  });
+
+  /**
+   * Everywhere else that names the citable version, which is more places than a release
+   * remembers.
+   *
+   * The three footers above were held from v0.8; nothing held the rest. Counting them
+   * for the v0.8 release found the version-and-DOI pairing written out in the README
+   * twice, in the process screen's masthead row, in its caveat about what a DOI does not
+   * fix, and in the reader briefs — nine places for a two-value fact, of which four were
+   * checked. A release that updates the citation file and the three footers and stops
+   * leaves five documents citing the previous version, and every one of them is a
+   * document telling a reader which version to cite.
+   *
+   * Held against `CITATION.cff` rather than against each other, on the same grounds as
+   * the footer case above: that file is what GitHub and Zenodo read, so it is the record
+   * and the rest are copies. The check is presence, not phrasing — each of these
+   * introduces the version differently and should keep being free to.
+   */
+  it('names the cited version everywhere a citable version is named', () => {
+    const carriers: ReadonlyArray<readonly [string, string, boolean]> = [
+      // [what, text, must also carry the DOI]
+      ['README.md', readmeFile, true],
+      [
+        'the masthead Version row',
+        PROCESS.mastheadRows.find((r) => r.label === 'Version')?.value ?? '',
+        false,
+      ],
+      ['the caveat about the moving URL', PROCESS.caveats.join(' '), true],
+      ['docs/review-briefs.md', readerBriefs, true],
+    ];
+
+    // Accumulated rather than asserted one at a time, because the failure this exists
+    // for is a release that updated some places and not others — and a run that names
+    // the first stale document sends someone round the loop once per document. One run
+    // should print the whole list.
+    const stale: string[] = [];
+    for (const [name, text, alsoDoi] of carriers) {
+      expect(text, `${name} is empty — the lookup above has gone stale`).not.toBe('');
+      if (!text.includes(`v${cited}`)) stale.push(`${name} does not name v${cited}`);
+      if (alsoDoi && !text.includes(doi)) stale.push(`${name} does not name ${doi}`);
+    }
+    // Joined into one string rather than compared as an array: vitest prints a long
+    // array as `[ …(7) ]`, and a list nobody can read is the same as no list.
+    expect(stale.join(' | '), 'documents left citing a previous version').toBe('');
+  });
+
+  /**
+   * And the badge keeps the concept DOI, which is the one thing here that must not move.
+   *
+   * The two identifiers do different jobs and the repository says so at length in
+   * `CITATION.cff`: the versioned DOI names one release, and the concept DOI resolves to
+   * whatever is newest — which is what the published URL already does, and is the thing
+   * an archived identifier was wanted in order to stop doing. So the badge carries the
+   * concept DOI on purpose, and a release that "updated all the DOIs" would break it by
+   * being thorough.
+   */
+  it('leaves the concept DOI on the badge and keeps it out of every citation line', () => {
+    const concept = [...citationFile.matchAll(/^\s+value:\s*(\S+)/gm)]
+      .map((m) => m[1] ?? '')
+      .find((value) => value !== doi);
+    expect(concept, 'CITATION.cff lists no second identifier').toBeDefined();
+    expect(readmeFile, 'the README badge has lost the concept DOI').toContain(
+      `zenodo.org/badge/DOI/${String(concept)}.svg`,
+    );
+    // Wherever a reader is told which version to cite, it is the versioned one.
+    for (const [name, page] of PAGES) {
+      expect(footOf(page), `${name} cites the concept DOI`).not.toContain(String(concept));
     }
   });
 });

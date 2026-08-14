@@ -105,6 +105,30 @@ This file is the surviving record of them.
   the last scope note that lived only in a docstring was true when written, was falsified by a change
   three files away, and was caught because a human happened to re-read the file.
 
+- **The local gate disagreed with CI, which is how a gate stops being used.** The deictic check lives
+  in `scripts/build-protocol.mjs` and therefore ran inside `npm run build` — which CI runs and
+  `npm run check` did not. So the gate a person runs before pushing went green on a violation that
+  turned CI red after. A check that only the server runs teaches people to trust the push rather than
+  the gate, and this repository already spends a version at a time on the cost of trusting the wrong
+  thing. `npm run check` now ends with `build:protocol`.
+- **Counting what a release has to touch found nine places for a two-value fact, of which four were
+  checked.** The version and its DOI are named in the three prose-page footers — held since v0.7 — and
+  also in the README twice, in the process screen's masthead row, in its caveat about what a DOI does
+  not fix, and in the two reader briefs. A release that updated the citation file and the three
+  footers and stopped would leave five documents telling a reader to cite the previous version, which
+  is a worse failure than saying nothing, because each of those documents exists to answer that exact
+  question. All of them are now held against `CITATION.cff`, and the case accumulates rather than
+  failing on the first one, so a single run prints every stale document instead of sending someone
+  round the loop once per file.
+- The reader-brief DOI check stopped writing the DOI down and started reading it out of
+  `CITATION.cff`. It was a literal, which made it a case a release had to remember to edit — and a
+  test that must be updated to keep passing is a test that stops being evidence at the moment it
+  matters. It also now fails if the citation file names the concept DOI as its own, which is the one
+  substitution that would look right and cite nothing in particular.
+- The README badge is asserted to keep the concept DOI. The two identifiers do different jobs, the
+  repository has said so since v0.7, and nothing checked it: a release that conscientiously updated
+  every DOI it found would break the one that is supposed to move on its own.
+
 **What the enforcement work proved**
 
 This is the strongest evidence this project has produced about its own thesis, and it was produced

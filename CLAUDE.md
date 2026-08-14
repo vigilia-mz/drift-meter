@@ -202,8 +202,13 @@ in any prose added to the site — including microcopy, error messages, and comm
 ## Running and deploying
 
 - **Locally:** `npm install`, then `npm run dev`. `npm run check` is the gate the first CI job runs —
-  typecheck, lint, format, the unit suite, the contrast budget and the licensing budget. `npm run build`
-  produces `dist/`.
+  typecheck, lint, format, the unit suite, the contrast budget, the licensing budget, and the protocol
+  page. `npm run build` produces `dist/`.
+  The last of those is there for one check rather than for the page. `scripts/build-protocol.mjs`
+  asserts that no field the protocol renderer picks up refers to “this screen” deictically, and that
+  assertion used to run only inside `npm run build` — so the local gate went green on a violation and
+  CI went red on it. A gate that disagrees with CI teaches people to trust the push rather than the
+  gate. It regenerates `protocol.html`, which is gitignored and rebuilt by `dev` and `build` anyway.
 - **The browser suite is separate, and slower.** `npm run test:e2e` needs a browser
   (`npx playwright install chromium`, roughly 100 MB, once) and builds the site before it runs, because
   the published site sits under `/drift-meter/` and a suite pointed at the dev server would be testing a
@@ -212,6 +217,17 @@ in any prose added to the site — including microcopy, error messages, and comm
 - **Publishing:** GitHub Actions builds `dist/` and deploys it to GitHub Pages on every push to
   `main`. `https://vigilia-mz.github.io/drift-meter/` is the canonical URL and the only live copy.
   Two live copies of a research artifact is a citation problem; do not create a second one.
+- **Releasing is one edit and a check, in that order.** The versioned DOI is minted by the deposit, so
+  it cannot be written before the deposit exists: merge, verify the live site, tag, let Zenodo mint,
+  and only then edit `CITATION.cff` — `version`, `date-released`, `doi`, and the `identifiers` entry
+  that names the version. Everything else follows from that file. The three prose-page footers, the
+  README, the process screen's masthead row and its caveat, and the reader briefs all name the citable
+  version too; `src/content/invariants.test.ts` holds every one of them against `CITATION.cff` and
+  prints the whole list of stale ones in a single run, so the way to find them is to bump the file and
+  run the suite rather than to keep a list here. The concept DOI stays on the README badge and is
+  asserted to stay there — it resolves to whatever is newest, which is what the published URL already
+  does, and a release that updated every DOI it saw would break it by being thorough. `protocol.html`
+  needs no edit: it reads the citation file at build time.
 - **Actions must be SHA-pinned.** The repository requires it. Dependabot is configured for the
   `github-actions` ecosystem because pinning without automated bumps rots into old actions with known
   vulnerabilities.
