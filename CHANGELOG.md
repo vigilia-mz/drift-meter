@@ -8,6 +8,92 @@ Every release records what changed and why. Retractions are recorded, not delete
 Versions v0.1 through v0.5 were published from a separate repository, which has since been deleted.
 This file is the surviving record of them.
 
+## v0.9 — In progress — The counts are derived, and the release records what it shipped unfinished
+
+**What changed**
+
+- **v0.8.0 is deposited, and its DOI is `10.5281/zenodo.21935816`.** The concept DOI,
+  `10.5281/zenodo.21887594`, now resolves to it. `CITATION.cff` records the versioned one and lists
+  the concept DOI under `identifiers` as what it is, on the same grounds as at v0.7.0: the reason
+  this artifact wanted an archived identifier was to distinguish one version from another, and the
+  concept DOI does what the bare URL already did.
+- **The deposited v0.8.0 archive permanently describes itself as unfinished, and that is recorded
+  rather than quietly corrected.** The release published at 14:28:47Z against a tree whose changelog
+  still read `## v0.8 — In progress`, because the DOI cannot be written before the deposit that mints
+  it and the heading was closed in the follow-up commit. So the citable archive contains a changelog
+  saying the version it archives is unfinished, and footers citing v0.7.0. It cannot be fixed in the
+  archive — only on `main`, for later readers, which is what happened. This is the pattern this
+  repository keeps finding, in its own release procedure: the closing step was known, it was written
+  down, and nothing enforced it. A check that the top heading carries a date before a tag can be cut
+  would have caught it, and does not exist yet.
+- **`scripts/sync-doi.mjs` reads the minted DOI off Zenodo and writes it into the eight documents
+  that name it.** The pairing is one two-value fact stated in nine places, and the only thing joining
+  the fact to the places was a person copying a string. The invariant catches a mismatch, which is
+  the wrong end of the problem: it fails after the transcription, and a release is exactly the moment
+  someone is copying a number they have never typed before. It cannot write a stale DOI — the concept
+  record resolves to whatever is newest, so `metadata.version` is asserted against the version being
+  released before a byte is written, which makes polling early safe rather than dangerous. The record
+  number is derived from the concept DOI in `CITATION.cff` rather than typed, and every substitution
+  declares how many times it must apply, so a rule that silently matched nothing stops the run.
+- The masthead's Version row is deliberately not substituted by that script. It is the one sentence
+  whose meaning changes at a release rather than its values, and opening this entry has already put
+  it back into its in-progress form — the row alternates by design, so a substitution rule for it
+  would be wrong half the time. The script's audit refuses a release while the row still says a
+  version is in progress.
+- **`npm run counts` prints the repository's own counts, derived from source.** A count stated
+  outside this repository drifts from the count inside it, and the record now holds four instances:
+  the measure count corrected twice, five to six to seven; the design-review draft saying six when
+  there are seven; and a CV drafted this week claiming five measures and 314 unit tests. Every one
+  was caught by a person re-reading, which is the definition of unenforced. The script derives the
+  measures, the arms, the predictions, both test counts and the citation pair, prints them as
+  `key: value` lines, and has no fallback anywhere: a source it cannot read prints `unavailable` and
+  exits non-zero, because a counts script that substituted a stale number for one it could not derive
+  would look identical to one that worked.
+- **The test counts come from the runners rather than from a grep, because a grep is wrong.**
+  Counting `it(` gives 318 where vitest runs 390, and counting `test(` gives 44 where Playwright
+  lists 55; the gaps are parameterised cases, which are one line of source and many cases. A static
+  count would have published a confident wrong number in the script written to stop exactly that.
+- **The arms are printed as two numbers, because one would be read as the other.** Section 2 of the
+  protocol is headed “The four arms” and means three attribution arms against the no-estimate control
+  round; `arms.ts` models only the three that carry an attribution. `arms: 4` and
+  `attribution-arms: 3` are both true and neither is sufficient alone.
+- **Three counts written in prose are now held against the arrays they count.** The existing case
+  holds the reader briefs; nothing held the headings a reader actually arrives at. The measures and
+  the arms are held against the protocol's own headings, and the predictions against the landing
+  page, because `predictionsHeading` deliberately carries no number. Adding a measure renumbers
+  nothing and would quietly contradict three sentences.
+- **The landing-page footer no longer offers a live-Claude demonstration.** It said the assistant's
+  contributions are scripted in this shared version for portability and that a live version can be
+  demonstrated on request — an availability offer in the last thing a reader sees, and the only
+  sentence of its kind on any of the four footers. The accounting it might be mistaken for is
+  untouched: the provenance table, its lead-in, and the caveat above it all stand, including the row
+  saying what was drafted and cut. A page arguing about AI-assisted work that will not say which
+  parts of itself were AI-assisted is asking for a trust it has not earned, and that sentence is
+  still on the site.
+- **`protocol.html` links `SOURCES.md`.** The page states the measures and their threats and had no
+  path to the table that grades the claims underneath them. The link sits beside the changelog link
+  in the footer, as its own sentence rather than inside the citation line, because that line is
+  shared verbatim by all four pages and one page's copy of it should not drift.
+- The protocol renderer's test fixture no longer carries a real DOI. It held `0.7.0` and
+  `10.5281/zenodo.21887595` — arbitrary by design, since what the case checks is that the renderer
+  prints the citation it was handed, but a resolvable DOI for a superseded version sitting in the
+  repository reads as a stale citation to anyone grepping for one, and it went quietly out of date at
+  v0.8. It is now `0.0.0-fixture` and `10.5281/zenodo.0000000`, which cannot resolve and cannot age.
+- Corrected: the three prose-page footers, the landing page's two social descriptions and the
+  protocol renderer's byline all said the project was about “the fate of human judgment”. _Fate_
+  carries a determinism the argument does not make — the essays describe a gradual weakening through
+  small, reasonable acts of delegation, which is something that happens by degrees and could go
+  otherwise. All six now say “what becomes of human judgment”, including the renderer, which would
+  otherwise have drifted from the three hand-written pages.
+
+**Why**
+
+The two facts this version mechanises — the version-and-DOI pairing, and the repository's own counts
+— were the last ones maintained by hand-copying, in a repository whose recurring defect is a number
+in prose that nothing checks. Both now have the shape the rest of the checks already have: one
+source, read rather than restated. The release procedure itself is the part that is still unenforced,
+and this entry says so rather than leaving it to be rediscovered.
+
 ## v0.8 — 14 Aug 2026 — The page now says what the papers say
 
 **What changed**

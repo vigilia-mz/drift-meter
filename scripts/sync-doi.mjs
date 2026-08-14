@@ -281,7 +281,7 @@ function mastheadVersionRow(source) {
  * release that has left a document behind hears about it from the script that wrote
  * the others, rather than four commands later.
  */
-function audit(next) {
+function audit(next, wrote) {
   const read = (file) => readFileSync(file, 'utf8');
   const process_ = read('src/content/process.ts');
   const mastheadRow = mastheadVersionRow(process_);
@@ -308,7 +308,13 @@ function audit(next) {
   // The one sentence this script deliberately does not write. It says a version is in
   // progress until a person says it is not, and a release that leaves it saying so has
   // published a masthead contradicting the footer three pages away.
-  if (mastheadRow !== null && /in progress/i.test(mastheadRow)) {
+  //
+  // Checked only when this run actually wrote a release. Between releases the row is
+  // *supposed* to say a version is in progress — opening the next changelog entry puts
+  // it there, and an invariant requires it — so auditing it on a run that found the
+  // pairing already current would fail the repository for being in its correct state,
+  // and a check that cries wolf outside its one moment stops being read at that moment.
+  if (wrote && mastheadRow !== null && /in progress/i.test(mastheadRow)) {
     stale.push(
       'the masthead Version row still says a version is in progress — that sentence ' +
         'changes meaning at a release and is yours to write, in src/content/process.ts',
@@ -338,9 +344,15 @@ console.log(
   `sync-doi: Zenodo record ${next.record} is v${next.version} — ${next.doi} (${next.date})`,
 );
 
+// Whether this run was a release or a no-op, which is what separates "the masthead was
+// left in its pre-release form at a release" from "this repository is mid-cycle."
+let wrote = false;
+
 if (next.doi === now.doi && next.version === now.version) {
   console.log('sync-doi: the citation file already publishes that pairing. Nothing to write.');
+  console.log('sync-doi: not a release run, so the masthead is left to say what it says.');
 } else {
+  wrote = true;
   // Planned in full and checked in full before a byte is written, so that a run that
   // fails on the last file has not left the repository half-released.
   const written = [];
@@ -370,7 +382,7 @@ if (next.doi === now.doi && next.version === now.version) {
   }
 }
 
-const stale = dryRun ? [] : audit(next);
+const stale = dryRun ? [] : audit(next, wrote);
 if (stale.length > 0) {
   // Accumulated rather than thrown one at a time, on the same grounds as the
   // invariant: a run that names the first stale document sends someone round the loop
