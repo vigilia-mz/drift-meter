@@ -137,7 +137,7 @@ export const PROCESS = {
   caveats: [
     'The author is not a methodologist. The design below has been reasoned through carefully and reviewed by nobody, and the single most valuable correction this project has received came from an outside reader noticing a confound the author had not.',
     'The argument and the instrument were built by the same person, in that order. An instrument built to find a pattern by someone who expects the pattern is not neutral about what it counts, and no amount of care inside the code fixes that.',
-    'Parts of this site were drafted with Claude, which is the subject of the argument being made. The provenance table below says which parts, including the ones that were cut for being exactly the kind of thing the argument warns about.',
+    'Parts of this site were drafted with an AI model, which is the subject of the argument being made. The provenance table below says which parts, including the ones that were cut for being exactly the kind of thing the argument warns about.',
     'Every figure in every case is written for the exercise, and the instrument says so before the run and again after it. What that disclosure does not do is verify anything: the figures are still not traced to any source, and the reason they are cleared is that the page no longer presents them as findings. It is the weaker of the two exits, taken deliberately, and it is worth reading as such.',
     'This URL serves whatever version is current, so citing the page still says nothing about which version was read. What fixes that is the archived version rather than the page: v0.8.0 is tagged and deposited, and its own DOI is 10.5281/zenodo.21935816. The concept DOI that the repository’s badge carries is not a substitute — it resolves to whatever the newest version is, which is the same thing this URL does. So the identifier exists and the obligation moves rather than closing: anyone citing a claim from this site should name the version they read, and the changelog records a retraction precisely so that the distinction matters.',
   ],
@@ -185,7 +185,7 @@ export const CHANGELOG_ROWS = [
     version: 'v0.9',
     date: '12 Oct 2026',
     title: 'The counts are derived, and the release records what it shipped unfinished',
-    what: 'v0.8.0 is deposited and its DOI is 10.5281/zenodo.21935816. Two facts that were maintained by hand-copying are now read from their source instead: a script reads the minted DOI off Zenodo and writes it into the eight documents that name it, refusing to write at all unless the record it fetched is the version being released; and npm run counts derives the measures, the arms, the predictions, both test counts and the citation pair, with no fallback for a number it cannot derive. Three counts written in prose are held against the arrays they count. The protocol page links the source table for the first time. The landing-page footer no longer offers a live-Claude demonstration, and the provenance table that says which parts were drafted with Claude is untouched. The AI arm now credits its estimate to an AI assistant rather than naming a product, before any data exist. The version is closed before it is tagged, so its archive does not describe itself as unfinished.',
+    what: 'v0.8.0 is deposited and its DOI is 10.5281/zenodo.21935816. Two facts that were maintained by hand-copying are now read from their source instead: a script reads the minted DOI off Zenodo and writes it into the eight documents that name it, refusing to write at all unless the record it fetched is the version being released; and npm run counts derives the measures, the arms, the predictions, both test counts and the citation pair, with no fallback for a number it cannot derive. Three counts written in prose are held against the arrays they count. The protocol page links the source table for the first time. The landing-page footer no longer offers a live demonstration, and the provenance table that says which parts were drafted with an AI model is untouched. The AI arm now credits its estimate to an AI assistant rather than naming a product, before any data exist, and the rest of the site names no product either. The version is closed before it is tagged, so its archive does not describe itself as unfinished.',
     why: 'The deposited v0.8.0 archive permanently contains a changelog saying the version it archives is unfinished, because the DOI cannot be written before the deposit that mints it and the heading was closed one commit later. That cannot be fixed in the archive, so it is recorded here. It is also this repository’s own pattern found in its own release procedure: the closing step was known, written down, and skipped because nothing enforced it — which is the argument for mechanising the counts in the same version rather than resolving to be more careful.',
   },
   {
@@ -214,7 +214,7 @@ export const CHANGELOG_ROWS = [
     date: '30 Jul 2026',
     title: 'It teaches, it checks, and it says who wrote it',
     what: 'Transfer check added after the debrief. A repair pass feeds failed rubric items back as instructions and re-scores the rewrite. Production provenance published. Prediction P6 registered.',
-    why: 'A teaching instrument that never checks whether it taught is a diagnosis with good manners, and a page built with Claude that will not say which parts is asking for a trust it has not earned.',
+    why: 'A teaching instrument that never checks whether it taught is a diagnosis with good manners, and a page built with an AI model that will not say which parts is asking for a trust it has not earned.',
   },
   {
     version: 'v0.4',
@@ -285,7 +285,7 @@ export const REVIEWER_ROWS = [
 ] as const satisfies readonly ReviewerRow[];
 
 /**
- * What Claude drafted, what it was never handed, what it drafted that was cut,
+ * What the model drafted, what it was never handed, what it drafted that was cut,
  * and the rule that fell out of it.
  *
  * The cut row is the point of the table and stays as written. All three of the
@@ -294,7 +294,7 @@ export const REVIEWER_ROWS = [
  */
 export const PROVENANCE_ROWS = [
   {
-    label: 'Drafted with Claude',
+    label: 'Drafted with an AI model',
     value:
       'The implementation, the tests, and a first pass at most of the screen copy — then rewritten by hand where the register was wrong, which was most places. The four design rules, the debrief branches and this table were all drafted in a session and then argued with.',
     tone: 'kept',

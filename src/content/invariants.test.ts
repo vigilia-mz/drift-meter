@@ -712,7 +712,7 @@ describe('the process screen', () => {
     expect(methods?.noteGloss).toContain('v0.2');
   });
 
-  it('keeps the row saying what Claude drafted that was cut', () => {
+  it('keeps the row saying what the model drafted that was cut', () => {
     // All three were produced fluently on request and all three are the thing this
     // project argues against. Retractions stay in.
     const cut = PROVENANCE_ROWS.find((r) => r.tone === 'cut');
