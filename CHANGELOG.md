@@ -22,6 +22,13 @@ This file is the surviving record of them.
   arm names an AI assistant, no arm names a product, and the other two arms name no AI. The two
   review briefs in `docs/review-briefs.md` quote the old sentence and are left as written, because
   they record what reviewers were shown.
+- **The rest of the site names no product either.** The consent screen’s note about the live
+  feature, the process screen’s provenance table and its lead, two of its changelog rows, and the
+  opening of both essays said “Claude”; they now say “an AI model” or “AI agents”. The essays still
+  name Anthropic, because the experiment they open on is Anthropic’s and the citation needs its
+  source. Two places keep the name on purpose: the pinned model ID on the protocol page, because
+  results are comparable only within a pinned model and the ID is the only way to say which, and the
+  older entries in this file, because they record what each version said.
 - **v0.8.0 is deposited, and its DOI is `10.5281/zenodo.21935816`.** The concept DOI,
   `10.5281/zenodo.21887594`, now resolves to it. `CITATION.cff` records the versioned one and lists
   the concept DOI under `identifiers` as what it is, on the same grounds as at v0.7.0: the reason
