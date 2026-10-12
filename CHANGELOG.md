@@ -8,7 +8,7 @@ Every release records what changed and why. Retractions are recorded, not delete
 Versions v0.1 through v0.5 were published from a separate repository, which has since been deleted.
 This file is the surviving record of them.
 
-## v0.9 — In progress — The counts are derived, and the release records what it shipped unfinished
+## v0.9 — 12 Oct 2026 — The counts are derived, and the release records what it shipped unfinished
 
 **What changed**
 
@@ -36,6 +36,19 @@ This file is the surviving record of them.
   repository keeps finding, in its own release procedure: the closing step was known, it was written
   down, and nothing enforced it. A check that the top heading carries a date before a tag can be cut
   would have caught it, and does not exist yet.
+- **v0.9 is closed before it is tagged, so its own archive does not call it unfinished.** The item
+  above names the check that would have caught the v0.8.0 defect. The suite could not have allowed
+  it: the invariant holding the footers to the changelog required the newest dated heading to be the
+  version `CITATION.cff` cites, and `CITATION.cff` can only name a version once Zenodo has minted it,
+  so at the moment of tagging the only state the suite accepted was a heading reading “In progress”.
+  The invariant now accepts one more state, a version closed and awaiting its deposit, directly above
+  the version still cited and at the top of the file. `scripts/sync-doi.mjs` no longer dates the
+  heading or the process screen’s row after the mint; it refuses to write unless the date they
+  already carry is the publication date Zenodo recorded. The masthead’s Version row is written to
+  stay true on both sides of the deposit. The footers in this archive still cite v0.8.0, because
+  they cite a DOI, and a DOI cannot be written before the deposit that mints it. This makes the
+  closing step possible, not mandatory: a tag can still be cut from an unclosed tree, and nothing
+  here prevents it.
 - **`scripts/sync-doi.mjs` reads the minted DOI off Zenodo and writes it into the eight documents
   that name it.** The pairing is one two-value fact stated in nine places, and the only thing joining
   the fact to the places was a person copying a string. The invariant catches a mismatch, which is
