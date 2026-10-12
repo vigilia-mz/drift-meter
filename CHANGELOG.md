@@ -12,6 +12,16 @@ This file is the surviving record of them.
 
 **What changed**
 
+- **The AI arm no longer names a product.** The supplied estimate was credited to “Claude, an AI
+  assistant”; it is now credited to “an AI assistant”, on the round screen, in the recommendation
+  line and on the landing page. Naming one vendor mixed deference to AI with trust in a brand, and
+  P5 is a claim about AI as a source of authority, not about one company’s product. The change is
+  made before any data exist (n = 0), so no run was collected under the old wording; the six
+  predictions, their falsification conditions and the primary outcome are unchanged, because none
+  of them named the vendor. The invariant that pinned the old wording now pins the new one: the AI
+  arm names an AI assistant, no arm names a product, and the other two arms name no AI. The two
+  review briefs in `docs/review-briefs.md` quote the old sentence and are left as written, because
+  they record what reviewers were shown.
 - **v0.8.0 is deposited, and its DOI is `10.5281/zenodo.21935816`.** The concept DOI,
   `10.5281/zenodo.21887594`, now resolves to it. `CITATION.cff` records the versioned one and lists
   the concept DOI under `identifiers` as what it is, on the same grounds as at v0.7.0: the reason

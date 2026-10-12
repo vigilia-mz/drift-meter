@@ -19,8 +19,8 @@ import type { Arm, ArmKey } from './types.js';
 export const ARMS = {
   ai: {
     key: 'ai',
-    label: 'Claude’s read',
-    who: 'Claude, an AI assistant',
+    label: 'AI assistant’s read',
+    who: 'an AI assistant',
     tag: 'AI-attributed',
   },
   human: {
