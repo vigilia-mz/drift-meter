@@ -1352,15 +1352,28 @@ describe('the prose pages name the version to cite', () => {
   });
 
   it('dates the cited version the way the changelog dates it', () => {
-    const closed = [...changelogFile.matchAll(/^## (v\d+\.\d+) — ([^—]+) — /gm)]
-      .map((m) => ({ version: (m[1] ?? '').trim(), date: (m[2] ?? '').trim() }))
-      .find((h) => !/in progress/i.test(h.date));
-    expect(closed, 'CHANGELOG.md records no closed version').toBeDefined();
-    // The cited version and the newest closed one are the same thing. If they part,
-    // the pages are pointing a citer at a version the record has not closed.
-    expect(`v${cited}`).toContain(closed?.version ?? 'no closed version');
+    const headings = [...changelogFile.matchAll(/^## (v\d+\.\d+) — ([^—]+) — /gm)].map((m) => ({
+      version: (m[1] ?? '').trim(),
+      date: (m[2] ?? '').trim(),
+    }));
+    const closed = headings.filter((h) => !/in progress/i.test(h.date));
+    const at = closed.findIndex((h) => `v${cited}`.startsWith(`${h.version}.`));
+    expect(at, `CHANGELOG.md has no dated heading for v${cited}`).toBeGreaterThanOrEqual(0);
+    // The cited version is the newest closed one, with one exception: a version closed
+    // and awaiting its deposit. `CITATION.cff` can only name a version once Zenodo has
+    // minted it, so a release that dates its heading before the tag (which is what
+    // keeps the archive from calling itself unfinished, as the v0.8.0 deposit does)
+    // passes through a state where the newest dated heading is one ahead of the cited
+    // version. That state is allowed exactly once, and only at the top of the file:
+    // two closed versions ahead of the cited one, or anything opened above the one
+    // awaiting deposit, means the pages are pointing a citer at a version the record
+    // has moved past.
+    expect(at, 'more than one dated version sits above the cited one').toBeLessThanOrEqual(1);
+    if (at === 1) {
+      expect(headings[0], 'the version awaiting deposit is not the top heading').toEqual(closed[0]);
+    }
     for (const [name, page] of PAGES) {
-      expect(footOf(page), name).toContain(closed?.date ?? 'no date');
+      expect(footOf(page), name).toContain(closed[at]?.date ?? 'no date');
     }
   });
 
