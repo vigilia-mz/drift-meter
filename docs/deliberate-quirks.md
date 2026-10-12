@@ -330,7 +330,7 @@ outcome measure and the delivery mechanism for the treatment the outcome is comp
 - Where: `standingAttribution()` in `src/content/arms.ts`; the `.dm-attribution` paragraph in
   `src/screens/Round.tsx`, above the `dm-disclosure` button.
 - Tests: the five in `standing attribution`, in `src/content/invariants.test.ts` — every arm names a
-  source, the three lines differ, Claude appears only in the AI arm, the human arm names a person and
+  source, the three lines differ, only the AI arm names an AI and no arm names a product, the human arm names a person and
   no AI, and the unattributed arm withholds an identity without withholding that there was a source.
 - **What those five do not pin.** They check the sentence, not where it renders: each one calls
   `standingAttribution()` and reads the returned string, and the unit environment is `node`. A
