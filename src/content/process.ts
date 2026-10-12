@@ -45,7 +45,7 @@ export const PROCESS = {
     {
       label: 'Version',
       value:
-        'v0.9, in progress. v0.8.0, released 14 Aug 2026, is the newest closed version and the one to cite; the changelog below records every version and what it changed.',
+        'v0.9.0, closed 12 Oct 2026, is the newest version, and its archived deposit is the one to cite. v0.8.0, released 14 Aug 2026, is the version before it; the changelog below records every version and what it changed.',
     },
     {
       label: 'Status',
@@ -183,9 +183,9 @@ export const PROCESS = {
 export const CHANGELOG_ROWS = [
   {
     version: 'v0.9',
-    date: 'In progress',
+    date: '12 Oct 2026',
     title: 'The counts are derived, and the release records what it shipped unfinished',
-    what: 'v0.8.0 is deposited and its DOI is 10.5281/zenodo.21935816. Two facts that were maintained by hand-copying are now read from their source instead: a script reads the minted DOI off Zenodo and writes it into the eight documents that name it, refusing to write at all unless the record it fetched is the version being released; and npm run counts derives the measures, the arms, the predictions, both test counts and the citation pair, with no fallback for a number it cannot derive. Three counts written in prose are held against the arrays they count. The protocol page links the source table for the first time. The landing-page footer no longer offers a live-Claude demonstration, and the provenance table that says which parts were drafted with Claude is untouched.',
+    what: 'v0.8.0 is deposited and its DOI is 10.5281/zenodo.21935816. Two facts that were maintained by hand-copying are now read from their source instead: a script reads the minted DOI off Zenodo and writes it into the eight documents that name it, refusing to write at all unless the record it fetched is the version being released; and npm run counts derives the measures, the arms, the predictions, both test counts and the citation pair, with no fallback for a number it cannot derive. Three counts written in prose are held against the arrays they count. The protocol page links the source table for the first time. The landing-page footer no longer offers a live-Claude demonstration, and the provenance table that says which parts were drafted with Claude is untouched. The AI arm now credits its estimate to an AI assistant rather than naming a product, before any data exist. The version is closed before it is tagged, so its archive does not describe itself as unfinished.',
     why: 'The deposited v0.8.0 archive permanently contains a changelog saying the version it archives is unfinished, because the DOI cannot be written before the deposit that mints it and the heading was closed one commit later. That cannot be fixed in the archive, so it is recorded here. It is also this repository’s own pattern found in its own release procedure: the closing step was known, written down, and skipped because nothing enforced it — which is the argument for mechanising the counts in the same version rather than resolving to be more careful.',
   },
   {
