@@ -267,13 +267,13 @@ describe('recommendation prefix', () => {
    * recSentencePrefix strips a possessive off the arm's own label with a regex,
    * so the label and the regex are one thing edited in two places. Normalising
    * the labels' apostrophe, or renaming the suffix on either side alone, leaves
-   * the stripping silently inert and the page reading "Claude’s read
+   * the stripping silently inert and the page reading "AI assistant’s read
    * recommends: ". Nothing else in the codebase would notice.
    */
   const ATTRIBUTED = [ARMS.ai, ARMS.human] as const;
 
   it('reads as a sentence in every arm', () => {
-    expect(recSentencePrefix(ARMS.ai)).toBe('Claude recommends: ');
+    expect(recSentencePrefix(ARMS.ai)).toBe('AI assistant recommends: ');
     expect(recSentencePrefix(ARMS.human)).toBe('Programme officer recommends: ');
     expect(recSentencePrefix(ARMS.unlabelled)).toBe('Filed recommendation: ');
   });
@@ -750,10 +750,15 @@ describe('standing attribution', () => {
     expect(new Set(lines).size).toBe(3);
   });
 
-  it('names Claude in the AI arm and nowhere else', () => {
-    expect(standingAttribution(ARMS.ai)).toContain('Claude');
-    expect(standingAttribution(ARMS.human)).not.toContain('Claude');
-    expect(standingAttribution(ARMS.unlabelled)).not.toContain('Claude');
+  it('names an AI assistant in the AI arm, and no product or AI anywhere else', () => {
+    // The AI arm names a kind of source, not a vendor: a brand name would mix
+    // deference to AI with trust in one company, which is not what P5 is about.
+    expect(standingAttribution(ARMS.ai)).toContain('an AI assistant');
+    for (const arm of Object.values(ARMS)) {
+      expect(standingAttribution(arm), arm.key).not.toContain('Claude');
+    }
+    expect(standingAttribution(ARMS.human)).not.toContain('AI');
+    expect(standingAttribution(ARMS.unlabelled)).not.toContain('AI');
   });
 
   it('attributes the human arm to a person, with no AI in the sentence', () => {
