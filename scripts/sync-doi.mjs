@@ -200,7 +200,12 @@ function plan(now, next) {
   const cite = (v) =>
     `Cite the version you read: v${v.version}, ${v.date} &mdash; ` +
     `<a href="https://doi.org/${v.doi}">doi:${v.doi}</a>`;
-  const row = new RegExp(`(version: '${series(next.version)}',\\s*\\n\\s*date: ')In progress(')`);
+  // The heading and the screen's row are closed before the tag, by hand, in the PR
+  // that closes the version, so that the archive Zenodo takes does not call itself
+  // unfinished. These two edits therefore write nothing: they assert that the date
+  // already there is the publication date Zenodo recorded, and stop the run if a
+  // version was tagged unclosed or on a different day from the one its heading names.
+  const row = new RegExp(`(version: '${series(next.version)}',\\s*\\n\\s*date: ')${next.date}(')`);
 
   return [
     {
@@ -218,7 +223,7 @@ function plan(now, next) {
       file: 'CHANGELOG.md',
       edits: [
         {
-          find: `## ${series(next.version)} — In progress — `,
+          find: `## ${series(next.version)} — ${next.date} — `,
           replace: `## ${series(next.version)} — ${next.date} — `,
           need: 1,
         },
@@ -244,7 +249,7 @@ function plan(now, next) {
       file: 'src/content/process.ts',
       edits: [
         // The changelog mirror's own row for this version, which an invariant holds
-        // against the heading closed in CHANGELOG.md above.
+        // against the heading in CHANGELOG.md above. Asserted, not written: see `row`.
         { find: row, replace: `$1${next.date}$2`, need: 1 },
         // The masthead's Version row is deliberately absent from this list. See the
         // header: it is the one sentence whose meaning changes at a release, and the
