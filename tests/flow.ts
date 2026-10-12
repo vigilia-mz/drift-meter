@@ -69,7 +69,7 @@ export const COPY = {
      * sees rather than re-deriving it from the same function under test.
      */
     attribution: {
-      ai: 'Estimate supplied by Claude, an AI assistant.',
+      ai: 'Estimate supplied by an AI assistant.',
       human: 'Estimate supplied by a senior programme officer on the grants team.',
       unlabelled: 'Estimate supplied by an unnamed prior reviewer.',
     },
