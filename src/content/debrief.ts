@@ -213,7 +213,7 @@ export const DEBRIEF = {
    * built without telling anyone anything they have not just been shown.
    */
   closingCases:
-    'One limit applies to all of the above. The cases were written for this exercise: the programmes are generic, and every figure in them is illustrative, the planted error included. What was recorded about how you worked is real. The numbers you worked on were not.',
+    'One limit applies to all of the above. The cases were written for this exercise: the programs are generic, and every figure in them is illustrative, the planted error included. What was recorded about how you worked is real. The numbers you worked on were not.',
   /** One paragraph per branch of `closingKey`. `null` autonomy takes `keptAuthorship`. */
   closing: {
     delegatedModel:

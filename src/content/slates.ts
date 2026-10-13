@@ -110,7 +110,7 @@ export const SLATES = {
         summary:
           'The textbook top pick. At about $2 a net with strong mortality evidence, this is among the cheapest ways to avert a death anywhere. Recommend directing funds here.',
         evidence:
-          'The mortality evidence is genuinely strong. One thing the summary leaves out: the $2 figure is the commodity cost of the net itself. Delivered cost, including distribution, logistics, campaign overhead and wastage, has run closer to $4.50 per net in recent programmes. Usage also decays across a net’s lifespan.',
+          'The mortality evidence is genuinely strong. One thing the summary leaves out: the $2 figure is the commodity cost of the net itself. Delivered cost, including distribution, logistics, campaign overhead and wastage, has run closer to $4.50 per net in recent programs. Usage also decays across a net’s lifespan.',
         disagree:
           'the headline rests on a cost figure that is not the cost of the intervention. Two dollars buys the net; it does not deliver it, hang it, or replace it. Delivered cost has run around double that, which moves this off the top line without touching the mortality evidence at all.',
         changeMind:
@@ -223,9 +223,9 @@ export const SLATES = {
         summary:
           'A cheap, simple, well-evidenced mortality intervention, delivered through existing campaigns at low marginal cost. Among the strongest options on this slate.',
         evidence:
-          'A cheap, simple intervention with a strong evidence base for reducing child mortality. The size of the mortality effect depends heavily on baseline vitamin A deficiency in the population, which varies widely by region, and deficiency has been falling in several of the places these programmes still run.',
+          'A cheap, simple intervention with a strong evidence base for reducing child mortality. The size of the mortality effect depends heavily on baseline vitamin A deficiency in the population, which varies widely by region, and deficiency has been falling in several of the places these programs still run.',
         disagree:
-          'the mortality effect is not a property of the supplement, it is a property of the population’s deficiency rate. Where deficiency has fallen, the same programme buys much less, and the summary quietly assumes the deficiency levels of the trials rather than of the target region.',
+          'the mortality effect is not a property of the supplement, it is a property of the population’s deficiency rate. Where deficiency has fallen, the same program buys much less, and the summary quietly assumes the deficiency levels of the trials rather than of the target region.',
         changeMind:
           'recent serum-retinol or dietary-deficiency data from the specific target districts, rather than a national average carried over from trial-era populations.',
         trap: null,
@@ -275,7 +275,7 @@ export const SLATES = {
         evidence:
           'Links indigenous midwives to referral hospitals through a translation and transport system. The model is promising and locally trusted, but outcome data is uneven and skilled-attendance uptake is the main lever on impact.',
         disagree:
-          '‘locally trusted’ is doing rhetorical work that the outcome data cannot support yet. The mechanism is plausible and the uptake figure is the whole ballgame, and uptake in referral-linkage programmes has a long history of coming in far below the pilot number.',
+          '‘locally trusted’ is doing rhetorical work that the outcome data cannot support yet. The mechanism is plausible and the uptake figure is the whole ballgame, and uptake in referral-linkage programs has a long history of coming in far below the pilot number.',
         changeMind:
           'administrative uptake data from a full year at scale, rather than from the pilot cohort.',
         trap: null,
@@ -322,7 +322,7 @@ export const SLATES = {
         outcome: 'per under-5 death averted',
         rec: 'fund',
         summary:
-          'In-line and dispenser chlorination is cheap to deploy, reaches around 80% of households in programme areas, and a recent meta-analysis revised the child-mortality benefit sharply upward. Strong candidate.',
+          'In-line and dispenser chlorination is cheap to deploy, reaches around 80% of households in program areas, and a recent meta-analysis revised the child-mortality benefit sharply upward. Strong candidate.',
         evidence:
           'In-line and dispenser chlorination is cheap to deploy. The crux is the difference between access and use: installation and access rates run near 80%, but measured consistent use, meaning chlorine actually detectable in stored household water, has run closer to half that in follow-up studies. A recent meta-analysis revised the child-mortality benefit upward, and the result is still debated.',
         disagree:

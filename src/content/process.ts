@@ -384,7 +384,7 @@ export const SOURCE_ROWS = [
     where: 'The transfer check, in its summary and in the first of its four options.',
     grade: 'Illustrative',
     checked: 'Restated 7 Aug 2026',
-    note: 'The seventh case, and the last to get a row. The gap between doses delivered and children completing a three-dose course is a real measurement problem; the programme, the country, the dose count and the unit cost are written for the exercise.',
+    note: 'The seventh case, and the last to get a row. The gap between doses delivered and children completing a three-dose course is a real measurement problem; the program, the country, the dose count and the unit cost are written for the exercise.',
   },
   {
     claim:

@@ -29,8 +29,8 @@ export const ARMS = {
   },
   human: {
     key: 'human',
-    label: 'Programme officer’s read',
-    who: 'a senior programme officer on the grants team',
+    label: 'Program officer’s read',
+    who: 'a senior program officer on the grants team',
     tag: 'Human-attributed',
   },
   unlabelled: {

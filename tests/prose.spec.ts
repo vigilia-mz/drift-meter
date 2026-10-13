@@ -138,11 +138,11 @@ test('the landing page names every measure the protocol screen defines', async (
 });
 
 /**
- * The prose pages spell in American English and the content modules in British.
- *
- * `index.html` has “revision behavior” and “programme” in the same sentence;
- * `essay.html` has “organize”. The instrument's modules are consistently British.
- * This test is not the place to settle that — it is here to catch a measure the
+ * The prose pages lean American and the content modules British, and the two meet
+ * on the landing page, which names “revision behaviour” in the modules' spelling.
+ * One word is settled across both: “program”, since v0.10, in the project's name,
+ * the human arm and the cases alike. This test is not the place to settle the
+ * rest — it is here to catch a measure the
  * front door leaves out, and failing over one letter would make it a spelling
  * checker that occasionally notices a missing measure. So both sides are normalised
  * on the one variant that actually collides, and the divergence is left standing
