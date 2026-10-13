@@ -69,6 +69,7 @@ export function Method({ containerRef, onBack, onProcess }: Props) {
             </tbody>
           </table>
         </div>
+        <p class="dm-note">{METHOD.armsAmendment}</p>
       </section>
 
       <section aria-labelledby="dm-measures-spec">

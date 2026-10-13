@@ -267,13 +267,13 @@ describe('recommendation prefix', () => {
    * recSentencePrefix strips a possessive off the arm's own label with a regex,
    * so the label and the regex are one thing edited in two places. Normalising
    * the labels' apostrophe, or renaming the suffix on either side alone, leaves
-   * the stripping silently inert and the page reading "AI assistant’s read
+   * the stripping silently inert and the page reading "AI model’s read
    * recommends: ". Nothing else in the codebase would notice.
    */
   const ATTRIBUTED = [ARMS.ai, ARMS.human] as const;
 
   it('reads as a sentence in every arm', () => {
-    expect(recSentencePrefix(ARMS.ai)).toBe('AI assistant recommends: ');
+    expect(recSentencePrefix(ARMS.ai)).toBe('AI model recommends: ');
     expect(recSentencePrefix(ARMS.human)).toBe('Programme officer recommends: ');
     expect(recSentencePrefix(ARMS.unlabelled)).toBe('Filed recommendation: ');
   });
@@ -342,6 +342,34 @@ describe('the registered predictions', () => {
     const p2 = PRED_ROWS.find((row) => row.id === 'P2');
     expect(p2?.test).toContain('Amended in v0.10');
     expect(p2?.claim).not.toBe(REGISTERED_P2_CLAIM);
+  });
+
+  it('prints amendment A2 with the AI arm wording it replaced, verbatim', () => {
+    // The arms are the manipulation, so a reworded arm is held to the same
+    // standard as a reworded prediction. These are the v0.9 strings, written out
+    // rather than imported, because arms.ts no longer holds them.
+    const REGISTERED_AI_LABEL = 'AI assistant’s read';
+    const REGISTERED_AI_WHO = 'an AI assistant';
+    expect(METHOD.armsAmendment).toContain(`“${REGISTERED_AI_LABEL}”`);
+    expect(METHOD.armsAmendment).toContain(`“${REGISTERED_AI_WHO}”`);
+    expect(METHOD.armsAmendment).toContain(`“${ARMS.ai.label}”`);
+    expect(METHOD.armsAmendment).toContain(`“${ARMS.ai.who}”`);
+    expect(METHOD.armsAmendment).toContain('n at zero');
+    expect(ARMS.ai.label).not.toBe(REGISTERED_AI_LABEL);
+    expect(ARMS.ai.who).not.toBe(REGISTERED_AI_WHO);
+    // P2 names the arm, so its wording follows the arm's rather than the old one.
+    const p2 = PRED_ROWS.find((row) => row.id === 'P2');
+    expect(p2?.claim).toContain(ARMS.ai.who);
+    expect(p2?.claim).not.toContain(REGISTERED_AI_WHO);
+  });
+
+  it('does not say every other ordering makes P5 a finding about supplied figures', () => {
+    // Only the null result does. A ranking with the human arm on top is still an
+    // effect of authority, and the falsifier's gloss used to say otherwise.
+    const p5 = PRED_ROWS.find((row) => row.id === 'P5');
+    expect(p5?.test).toMatch(/^Any ordering other than that one/);
+    expect(p5?.test).toContain('No difference would make the finding about supplied figures');
+    expect(p5?.test).not.toMatch(/arms — which would make/);
   });
 
   it('gives every prediction a condition that would defeat it', () => {
@@ -777,10 +805,10 @@ describe('standing attribution', () => {
     expect(new Set(lines).size).toBe(3);
   });
 
-  it('names an AI assistant in the AI arm, and no product or AI anywhere else', () => {
+  it('names an AI model in the AI arm, and no product or AI anywhere else', () => {
     // The AI arm names a kind of source, not a vendor: a brand name would mix
     // deference to AI with trust in one company, which is not what P5 is about.
-    expect(standingAttribution(ARMS.ai)).toContain('an AI assistant');
+    expect(standingAttribution(ARMS.ai)).toContain('an AI model');
     for (const arm of Object.values(ARMS)) {
       expect(standingAttribution(arm), arm.key).not.toContain('Claude');
     }
@@ -1068,6 +1096,20 @@ describe('the long essay states its three empirical claims the way their studies
     expect(rowFor('ChatGPT-like interface')?.grade).toBe('Primary');
   });
 
+  it('links each of the three studies to the record its source row pins', () => {
+    // Each href is the primary link in its SOURCES.md row, so the reader lands on the
+    // record the row was checked against rather than on a search for it.
+    for (const href of [
+      'https://doi.org/10.1073/pnas.2422633122',
+      'https://doi.org/10.1016/S2468-1253(25)00133-5',
+      'https://arxiv.org/abs/2507.09089v2',
+      'https://metr.org/blog/2026-02-24-uplift-update/',
+    ]) {
+      expect(atrophyPage, href).toContain(`href="${href}"`);
+      expect(sourcesFile, href).toContain(href.replace('https://arxiv.org/abs/', 'arXiv:'));
+    }
+  });
+
   it('names adenoma detection, keeps the two falls one result, and never says the tool was withdrawn', () => {
     // Three ways to get this claim wrong, and the page had made all three. The study
     // measures adenoma detection; colorectal cancer detection did not significantly
@@ -1081,7 +1123,12 @@ describe('the long essay states its three empirical claims the way their studies
     expect(p).toContain('Budzy');
     expect(p).toContain('28.4%');
     expect(p).toContain('22.4%');
-    expect(p).toContain('six percentage points');
+    // The interval as the paper prints it, signs included. Until v0.10 it read “on a
+    // 95% confidence interval from 10.5 to 1.6”, which drops both signs and runs the
+    // bounds high to low, so the interval could be read as a range of falls rather
+    // than as the bounds on one.
+    expect(p).toContain('fell 6.0 percentage points (95% CI −10.5 to −1.6)');
+    expect(p).not.toContain('from 10.5 to 1.6');
     expect(p).toContain('a fifth');
     expect(p).toContain('one result stated twice');
     expect(p).toContain('Cancer detection did not significantly change');

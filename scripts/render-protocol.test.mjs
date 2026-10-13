@@ -27,6 +27,7 @@ const CONTENT = {
     armsHeading: '2 · Arms',
     armsLead: 'An arms lead.',
     armsColumns: { arm: 'Arm', supplied: 'Supplied', isolates: 'Isolates' },
+    armsAmendment: 'An arms amendment note.',
     measuresHeading: '3 · Measures',
     measuresLead: 'A measures lead.',
     measuresFields: { definition: 'What is counted', formula: 'Formula', threat: 'Threat' },
