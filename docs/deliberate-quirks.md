@@ -36,7 +36,8 @@ panel, and opening both still counts once`, in `src/domain/metrics.test.ts`.
 
 Dragging a slider and returning it to where it started still counts as touched. The behaviour under
 observation is the act of interrogating the number, not the arithmetic distance travelled, so
-`evaluative range` counts flags rather than comparing values against the starting position.
+revision behaviour counts flags rather than comparing values against the starting position. Since
+amendment A1 it does so only in the round with a supplied estimate.
 
 - Where: `touched` in `CaseState`; `moved` in `metrics()`, in `src/domain/metrics.ts`.
 - Test: `touched is a movement flag, not a value comparison`, in `src/domain/metrics.test.ts`. It
@@ -81,15 +82,21 @@ hatched and reads n/a in the round with no estimate`, in `tests/instrument.spec.
 
 ### The behavioural composite excludes framing autonomy
 
-`actual` averages engagement, evaluative range and ambiguity tolerance, and leaves autonomy out
-because it does not exist in the control round. So a run can score 100 on framing autonomy and 0
-overall, which reads like a bug and is the honest answer: the composite has to mean the same thing in
-both rounds to be compared across them. The divisor comes from the array, so adding a measure changes
-it automatically.
+`actual` averages engagement and ambiguity tolerance, and leaves autonomy out because it does not
+exist in the control round. So a run can score 100 on framing autonomy and 0 overall, which reads like
+a bug and is the honest answer: the composite has to mean the same thing in both rounds to be compared
+across them. The divisor comes from the array, so adding a measure changes it automatically.
+
+Revision behaviour was the third term until v0.10. Amendment A1 made it undefined in the control
+round, and it left the composite in both rounds rather than only the one where it is undefined, so
+that the two rounds' composites stay the same quantity. A reader who moved every slider and did
+nothing else now posts a composite of zero in both rounds, which reads like a bug for the same reason
+and is honest for the same reason.
 
 - Where: `composite` in `metrics()`, `src/domain/metrics.ts`.
-- Tests: `excludes framing autonomy, which is undefined in one of the two rounds` and `averages over
-the measures defined in both rounds`, in `src/domain/metrics.test.ts`.
+- Tests: `excludes framing autonomy, which is undefined in one of the two rounds`, `averages over
+the measures defined in both rounds` and `leaves revision out of the composite in both rounds, by
+amendment A1`, in `src/domain/metrics.test.ts`.
 
 ### Accuracy is not in the `actual` composite, and must not be added to it
 
@@ -174,10 +181,12 @@ rather than theoretical.
 The control round starts each slider at the snapped midpoint of its range rather than at the supplied
 value, so a fresh, untouched control round shows numbers that differ from the assisted round's while
 correctly scoring zero movement. The round screen labels them as arbitrary rather than as a
-suggestion, and the protocol screen names the resulting asymmetry as a threat to validity rather than
-hiding it: moving off an arbitrary midpoint is a different act from moving off an authoritative
-number, it inflates evaluative range in the control round, and the screen calls it the largest single
-threat on it — which is the one threat there running in the same direction as the prediction.
+suggestion. Moving off an arbitrary midpoint is a different act from moving off an authoritative
+number, and until v0.10 that inflated revision behaviour in the control round, in the same direction
+as the prediction; the protocol called it the largest single threat there. Amendment A1 (v0.10, n at
+zero) settled it in the measure rather than the start position: revision is now undefined in the
+control round, so the midpoints stay where they are and no longer score as revision. The raw
+`moved` count is still printed for both rounds, and still carries the asymmetry.
 
 `mid()` snaps through `toFixed(6)`, and at a step of 0.0001 its results sit on rounding boundaries.
 Simplifying that would silently move slider start positions, and therefore move the measures.
@@ -275,18 +284,21 @@ not`, in `src/content/invariants.test.ts`, and not by the browser suite — no r
   two panels rendered, because the content cannot produce them; the assertion is that the copy exists
   and is plural, not that the section is well laid out with two of them in it.
 
-### A four-point difference is not a difference, and the two headlines are not symmetric
+### A four-point difference is not a difference, and the headline reads one measure
 
-The debrief's comparisons are strict: a delta of exactly the threshold is not enough. `lookedLess`
-needs only one of engagement or evaluative range to move; `heldGround` needs both. With one person on
-six cases, calling a four-point difference a finding would be the overclaim this project is about,
-and the asymmetry is deliberate — claiming someone held their ground is the stronger claim, so it
-takes more evidence.
+The debrief's comparisons are strict: a delta of exactly the threshold is not enough. With one person
+on six cases, calling a four-point difference a finding would be the overclaim this project is about.
+
+Until v0.10 the two headlines were asymmetric: `lookedLess` needed only one of engagement or
+revision behaviour to move, and `heldGround` needed both. Amendment A1 made revision undefined in the
+control round, so there is no within-reader revision difference left, and the headline now reads
+evidence engagement alone, in both directions. A large revision figure in the assisted round cannot
+move it, and a test says so.
 
 - Where: `headlineFor()`, `HEADLINE_THRESHOLD` and `GAP_THRESHOLD` in `src/domain/reveal.ts`.
-- Tests: `is strict at the threshold, so a four-point difference is not a finding`, `requires both
-measures to move together before crediting held ground`, `names an over-confident gap only past the
-threshold` and `names delegation below the threshold and authorship at or above it`, in
+- Tests: `is strict at the threshold, so a four-point difference is not a finding`, `reads engagement
+alone, since amendment A1 made revision undefined in one round`, `names an over-confident gap only
+past the threshold` and `names delegation below the threshold and authorship at or above it`, in
   `src/domain/reveal.test.ts` — each sitting exactly on its boundary.
 
 ## Assignment and configuration
