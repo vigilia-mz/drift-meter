@@ -2,13 +2,13 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21887594.svg)](https://doi.org/10.5281/zenodo.21887594)
 
-**Evaluating the evaluator under AI assistance.** Experiment 01 of the Agential Drift Research
+**Evaluating the evaluator under AI assistance.** Instrument 01 of the Agential Drift Research
 Program, by Megi Pishtari.
 
 The Drift Meter asks what AI assistance changes in the person responsible for judging the answer:
 their attention, confidence, assumptions, tolerance for ambiguity, and willingness to revise. The
-underlying concept is _agential drift_ — the gradual weakening of evaluative independence through
-small, reasonable acts of delegation.
+underlying concept is _agential drift_ — the incremental transfer of evaluative authority to AI through
+delegations that each look reasonable. What it costs is the judgment that oversight depends on.
 
 **Status: prototype. n = 0.** No data has been collected from anyone. This is an instrument and a
 design argument, not a finding, and every screen that could be mistaken for a result says so.
