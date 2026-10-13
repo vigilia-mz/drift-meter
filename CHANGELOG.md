@@ -124,7 +124,8 @@ This file is the surviving record of them.
   Project Deal is not linked, because its row still has no pinned record to link to.
 - **The landing page's privacy sentence says when it is true.** It said the instrument runs entirely
   in the browser “and nothing is sent or stored”. That holds while the model endpoint is off, which it
-  is in the published build, and stops holding the day it is turned on. It now says so.
+  is in the published build, and stops holding the day it is turned on. It now says so, and says “no
+  responses” rather than “nothing”, because the host still logs page requests as any web server does.
 - **P5's falsifier no longer says every other ordering would make the finding about supplied
   figures.** Only no difference between the arms would. An ordering with the human arm above the AI
   arm, say, is still an effect of authority; it refutes P5 without being a finding about supplied
@@ -141,7 +142,9 @@ This file is the surviving record of them.
   costs a page. A first pass of this change renamed it, and was reverted before merge.
 - **Then the other way, after #91: every use is now “program”**, matching the project's name and the
   essays — the human arm (“Program officer’s read”), the landing page, the cases and the debrief. A
-  spelling change only, with the same words in the arm, so it is not recorded as an amendment.
+  spelling change only, with the same words in the arm, so it is not recorded as an amendment. No data
+  had been collected when the label changed: no published build has had an endpoint, and the
+  instrument stores no responses, so n was zero under both spellings.
 - **The build-size budget is raised from 480 KB to 484 KB, against its own note.** The note in
   `scripts/check-size.mjs` said the next raise should subset the fonts or drop a face instead.
   `main` was at 479.1 KB, and the items above brought it to 481.5 KB. The interval correction was
