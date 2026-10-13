@@ -14,80 +14,155 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="The Drift Meter — Evaluating the Evaluator under AI assistance">
 <meta name="twitter:description" content="An interactive instrument and two essays on agential drift and what becomes of human judgment.">
-<link rel="stylesheet" href="/src/styles/prose.css">
+<link rel="stylesheet" href="/src/styles/landing.css">
 </head>
-<body class="page-index">
-  <main class="wrap">
-    <div class="kicker">Agential Drift Research Program &nbsp;&middot;&nbsp; Instrument 01</div>
-    <h1>The Drift Meter</h1>
-    <p class="spine">Evaluating the evaluator under AI assistance</p>
-
-    <p class="hero">The Drift Meter is an instrument for evaluating the evaluator. It does not ask only whether AI improves an answer. It asks what AI assistance changes in the person responsible for judging the answer: their attention, confidence, assumptions, tolerance for ambiguity, and willingness to revise.</p>
-    <p class="hero">The underlying concept is <span class="term">agential drift</span>: the incremental transfer of evaluative authority to AI through delegations that each look reasonable. What it costs is the judgment that oversight depends on.</p>
-
-    <div class="launch-row">
-      <a class="cta" href="drift-meter.html">Launch the Drift Meter &rarr;</a>
-      <div class="meta">Interactive prototype · no time limit<br>runs entirely in your browser · nothing is sent or stored</div>
-    </div>
-    <p class="note-line">Or read the companion essay: <a class="essaylink" href="essay.html">Evaluating the Evaluator &rarr;</a></p>
-
-    <!-- what it measures -->
-    <section>
-      <div class="eyebrow">What it measures</div>
-      <p class="measure"><strong>Evidence engagement, revision behavior, ambiguity tolerance, framing autonomy and confidence calibration</strong> &mdash; traces of how the same review is done in two conditions, once with an estimate supplied and once with none.</p>
-      <p class="body">Two further measures ask whether the answer was right, so that a run can count against this project&rsquo;s own hypothesis rather than only confirm it. Neither can carry a result yet. Estimate accuracy stays undefined until a supported value is written for each assumption, and inventing those values to complete it would be the failure this project is about. The planted-error catch rate rests on one planted error per slate, which for a single reader is one observation rather than a rate. The protocol keeps both, with their reasons.</p>
-      <p class="body">The supplied estimate is credited, at random, to an AI assistant, to a senior programme officer, or to an unnamed prior reviewer. The number, the reasoning and the recommendation are identical in all three. Only the authority attached to them changes, which is what separates a claim about AI from a claim about handed answers in general. <a class="essaylink" href="protocol.html">The protocol, its measures, and the predictions registered for a future study &rarr;</a></p>
-    </section>
-
-    <!-- why it matters — the essay -->
-    <section>
-      <div class="eyebrow">Why it matters</div>
-      <p class="essay">As AI systems become more capable, the human role often moves upstream: from execution to framing, monitoring, approval, and responsibility. That makes human judgment more important, not less. But it also makes judgment harder to evaluate.</p>
-      <p class="essay">A person may receive a better output while becoming less able to explain, challenge, or independently reconstruct the reasoning behind it. They may feel more confident while their evaluative range narrows. They may approve work without seeing what has changed.</p>
-      <p class="essay">The Drift Meter begins from that tension. It treats oversight as a human capacity, not only a governance process.</p>
-    </section>
-
-    <!-- larger project -->
-    <section>
-      <div class="eyebrow">The larger project</div>
-      <p class="body">At the institutional level, the question becomes one of <strong>evaluator integrity</strong> &mdash; structural, not moral: the intact capacity to frame, question, reject, revise, and take responsibility for AI-assisted work. The goal is not to discourage AI use. It is to help people and institutions adopt AI without quietly outsourcing the capacities they still need most.</p>
-    </section>
-
-    <!-- a note on method -->
-    <section>
-      <div class="eyebrow">A note on method</div>
-      <p class="body">This is a prototype, and it is built to claim only what it can observe. It does not score whether your decisions were right. It has not been run at scale, so it reports no cohort findings &mdash; an earlier version showed an invented cohort dashboard, and I removed it, because a piece about the costs of unearned confidence should not manufacture its own. What remains is a trace of one person&rsquo;s judgment across one sitting, and the questions that trace raises.</p>
-    </section>
-
-    <!-- in this project -->
-    <section>
-      <div class="eyebrow">In this project</div>
-      <div class="index">
-        <a class="idx-item" href="drift-meter.html">
-          <div class="idx-title">The Drift Meter &rarr;</div>
-          <div class="idx-desc">An interactive instrument. Complete the same charity cost-effectiveness review with and without a supplied estimate, and see what changed in the texture of your judgment.</div>
-        </a>
-        <a class="idx-item" href="protocol.html">
-          <div class="idx-title">The protocol &rarr;</div>
-          <div class="idx-desc">The design, the four arms, the seven measures with their formulas and the objection to each, the six registered predictions for the study it is built for, with what would falsify them, and what this build cannot do. The same text as the instrument&rsquo;s method screen, on a page that can be read without running it.</div>
-        </a>
-        <a class="idx-item" href="essay.html">
-          <div class="idx-title">Evaluating the Evaluator &rarr;</div>
-          <div class="idx-desc">A short companion essay on agential drift and what the prototype is built to make visible.</div>
-        </a>
-        <a class="idx-item" href="atrophy.html">
-          <div class="idx-title">The Atrophy of Judgment &rarr;</div>
-          <div class="idx-desc">The full essay on AI assistance, oversight, and the human capacities responsible use depends on.</div>
-        </a>
+<body class="page-landing">
+  <div class="page">
+    <header>
+      <div class="strip">
+        <span>Agential Drift Research Program &nbsp;&middot;&nbsp; Instrument 01</span>
+        <span>Prototype &nbsp;&middot;&nbsp; n = 0 &nbsp;&middot;&nbsp; no data has been collected from anyone</span>
       </div>
-      <p class="series-note">Instrument 01 of the Agential Drift Research Program &mdash; a planned series of instruments and essays on how AI reshapes human judgment.</p>
-    </section>
+      <div class="masthead">
+        <h1>The Drift Meter</h1>
+        <nav aria-label="On this page">
+          <a href="#instrument">the instrument</a>
+          <a href="#argument">the argument</a>
+          <a href="#measures">what it measures</a>
+          <a href="#study">the future study</a>
+          <a href="#record">the record</a>
+          <a href="protocol.html">protocol</a>
+        </nav>
+      </div>
+    </header>
 
-    <div class="foot">
-      Built by Megi Pishtari as part of a larger research and editorial project on AI, oversight, and what becomes of human judgment.<br>
-      <a href="https://github.com/vigilia-mz">github.com/vigilia-mz</a><br>
-      Cite the version you read: v0.9.0, 12 Oct 2026 &mdash; <a href="https://doi.org/10.5281/zenodo.23326480">doi:10.5281/zenodo.23326480</a>. This URL serves whatever version is current; <a href="https://github.com/vigilia-mz/drift-meter/blob/main/CHANGELOG.md">the changelog</a> records every version and what changed.
-    </div>
-  </main>
+    <main>
+      <section class="lead" aria-labelledby="lead-title">
+        <article class="lead-essay">
+          <span class="label">Essay</span>
+          <h2 id="lead-title">The Atrophy of Judgment</h2>
+          <p class="dek">AI may be changing the faculty by which human beings are meant to govern its use: judgment.</p>
+          <span class="byline">Megi Pishtari</span>
+          <p class="opening">That faculty is easiest to appreciate when it fails. A colleague forwards an AI-generated executive summary to a room full of decision-makers without opening the document it claims to represent. The summary is clean, coherent, plausible. What it omits is a qualification buried deep in the original text, the one complication that should have changed the decision. Nobody notices. The summary is good enough.</p>
+          <a class="readmore" href="atrophy.html">Read the essay</a>
+        </article>
+
+        <aside class="instrument" id="instrument" aria-labelledby="instrument-title">
+          <svg aria-hidden="true" focusable="false" viewBox="0 0 448 360" fill="none" stroke="currentColor" stroke-width="1">
+          <path d="M 12 0 C 12 140, 197 200, 197 360" stroke-opacity="0.60"/>
+          <path d="M 36 0 C 36 140, 200 200, 200 360" stroke-opacity="0.57"/>
+          <path d="M 60 0 C 60 140, 203 200, 203 360" stroke-opacity="0.53"/>
+          <path d="M 84 0 C 84 140, 206 200, 206 360" stroke-opacity="0.50"/>
+          <path d="M 108 0 C 108 140, 209 200, 209 360" stroke-opacity="0.47"/>
+          <path d="M 132 0 C 132 140, 212 200, 212 360" stroke-opacity="0.43"/>
+          <path d="M 156 0 C 156 140, 215 200, 215 360" stroke-opacity="0.40"/>
+          <path d="M 180 0 C 180 140, 218 200, 218 360" stroke-opacity="0.37"/>
+          <path d="M 204 0 C 204 140, 221 200, 221 360" stroke-opacity="0.33"/>
+          <path d="M 228 0 C 228 140, 224 200, 224 360" stroke-opacity="0.30"/>
+          <path d="M 252 0 C 252 140, 227 200, 227 360" stroke-opacity="0.33"/>
+          <path d="M 276 0 C 276 140, 230 200, 230 360" stroke-opacity="0.37"/>
+          <path d="M 300 0 C 300 140, 233 200, 233 360" stroke-opacity="0.40"/>
+          <path d="M 324 0 C 324 140, 236 200, 236 360" stroke-opacity="0.43"/>
+          <path d="M 348 0 C 348 140, 239 200, 239 360" stroke-opacity="0.47"/>
+          <path d="M 372 0 C 372 140, 242 200, 242 360" stroke-opacity="0.50"/>
+          <path d="M 396 0 C 396 140, 245 200, 245 360" stroke-opacity="0.53"/>
+          <path d="M 420 0 C 420 140, 248 200, 248 360" stroke-opacity="0.57"/>
+          </svg>
+          <div>
+            <span class="label">Interactive &nbsp;&middot;&nbsp; Instrument 01</span>
+            <h2 id="instrument-title">Do the same review twice, and see what a supplied estimate changed in you.</h2>
+            <p>Three charity cases arrive with an estimate already supplied, and three with nothing filled in. There is no time limit. It runs entirely in your browser, and nothing is sent or stored.</p>
+            <a class="readmore" href="drift-meter.html">Launch the Drift Meter</a>
+          </div>
+        </aside>
+      </section>
+
+      <section class="argument" id="argument" aria-labelledby="argument-title">
+        <span class="label">The argument</span>
+        <h2 id="argument-title"><em>Agential drift</em> is the incremental transfer of evaluative authority to AI through delegations that each look reasonable.</h2>
+        <div class="cols">
+          <p>As AI systems become more capable, the human role often moves upstream: from execution to framing, monitoring, approval, and responsibility. That makes human judgment more important, not less. But it also makes judgment harder to evaluate. What drift costs is the judgment that oversight depends on.</p>
+          <p>A person may receive a better output while becoming less able to explain, challenge, or independently reconstruct the reasoning behind it. They may feel more confident while their evaluative range narrows. The Drift Meter begins from that tension. It treats oversight as a human capacity, not only a governance process.</p>
+        </div>
+        <blockquote class="pull">
+          <p>Reading becomes receiving. Authoring becomes approving.</p>
+          <footer>From <a href="atrophy.html">The Atrophy of Judgment</a></footer>
+        </blockquote>
+      </section>
+
+      <section class="measures" id="measures" aria-labelledby="measures-title">
+        <span class="label">What it measures</span>
+        <div class="grid">
+          <div>
+            <h2 id="measures-title">Five measures that can carry a result</h2>
+            <ol>
+              <li><span class="num">1</span><span><span class="name">Evidence engagement <span class="primary">&middot; primary outcome, fixed in advance</span></span><span class="what">Whether each case was looked at. Opening the supplied read or the evidence panel marks it.</span></span></li>
+              <li><span class="num">2</span><span><span class="name">Revision behaviour</span><span class="what">How many of the supplied assumptions the reader moved. Scored only in the round where something was supplied to revise.</span></span></li>
+              <li><span class="num">3</span><span><span class="name">Ambiguity tolerance</span><span class="what">Uncertainty flagged, and calls to investigate rather than to fund or pass.</span></span></li>
+              <li><span class="num">4</span><span><span class="name">Framing autonomy</span><span class="what">How far the reader departed from the frame they were handed. Undefined where no frame was supplied.</span></span></li>
+              <li><span class="num">5</span><span><span class="name">Confidence calibration</span><span class="what">The reader&rsquo;s own confidence, printed beside what they did. The two are never subtracted.</span></span></li>
+            </ol>
+          </div>
+          <aside class="notyet" aria-labelledby="notyet-title">
+            <h3 id="notyet-title">And two that ask whether the answer was right</h3>
+            <p>They are here so that a run can count against this project&rsquo;s own hypothesis rather than only confirm it. Neither can carry a result yet.</p>
+            <p><strong>Estimate accuracy</strong> stays undefined until a supported value is written for each assumption, and inventing those values to complete it would be the failure this project is about.</p>
+            <p><strong>The planted-error catch rate</strong> rests on one planted error per slate, which for a single reader is one observation rather than a rate.</p>
+            <p>The supplied estimate is credited, at random, to an AI assistant, to a senior programme officer, or to an unnamed prior reviewer. The number, the reasoning and the recommendation are identical in all three. Only the authority attached to them changes.</p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="study" id="study" aria-labelledby="study-title">
+        <span class="label">The future study</span>
+        <div class="inner">
+          <h2 id="study-title">Six predictions, registered before anyone has taken part</h2>
+          <p class="intro">They belong to a study that has not been run, and the Drift Meter is the instrument that study would use. Each was registered with the result that would falsify it, so none can be chosen after the fact.</p>
+          <ol>
+            <li><span class="pid">P1</span><span>Evidence engagement is lower in the round where an estimate is supplied than in the round where none is.</span></li>
+            <li><span class="pid">P2</span><span>Fewer of the supplied assumptions are moved when the estimate is credited to an AI assistant than when it is credited to no one.<span class="amended">Amended before any data existed, as amendment A1. The registered wording is printed in the protocol.</span></span></li>
+            <li><span class="pid">P3</span><span>Self-rated confidence is higher after the assisted round than after the control round, whatever the working shows.</span></li>
+            <li><span class="pid">P4</span><span>The planted error is caught less often when the case arrives with a recommendation already selected than when it does not.</span></li>
+            <li><span class="pid">P6</span><span>Readers who caught the planted error name the right figure on the unseen transfer case more often than readers who missed it.</span></li>
+            <li><span class="pid">P5</span><span>The drop in scrutiny is larger in the AI-attributed arm than in the human-attributed arm, and both are larger than the unattributed arm.</span></li>
+          </ol>
+          <a class="readmore" href="protocol.html#predictions">Each of the six registered predictions, with what would falsify it</a>
+        </div>
+      </section>
+
+      <section class="record" id="record" aria-labelledby="record-title">
+        <span class="label">The record</span>
+        <div class="grid">
+          <div>
+            <h2 id="record-title">Corrections, kept in view</h2>
+            <p class="intro">This is a prototype, and it is built to claim only what it can observe. A project about unearned confidence keeps its own errors on the page. They are recorded, not deleted.</p>
+            <a class="readmore" href="https://github.com/vigilia-mz/drift-meter/blob/main/CHANGELOG.md">The full changelog</a>
+          </div>
+          <dl>
+            <div class="entry"><dt>v0.10</dt><dd>Revision behaviour counted moving a slider off an arbitrary midpoint as revising it, which leaned toward the prediction. Amended with n at zero, and the registered wording is kept.</dd></div>
+            <div class="entry"><dt>v0.10</dt><dd>The landing page drew three pairs of bars for a result no run had produced. They are gone.</dd></div>
+            <div class="entry"><dt>v0.8 &middot; 14 Aug 2026</dt><dd>All three of the long essay&rsquo;s empirical claims misstated their studies. Each was corrected against the paper it cites.</dd></div>
+            <div class="entry"><dt>v0.3 &middot; 30 Jul 2026</dt><dd>A published measure divided by six sliders when there are nine, and a reader found it before the code did. Since the rebuild in v0.6, every denominator is derived and tested.</dd></div>
+            <div class="entry"><dt>v0.2 &middot; Jul 2026</dt><dd>An invented cohort dashboard was removed. n was zero.</dd></div>
+          </dl>
+        </div>
+      </section>
+
+      <section class="also" aria-labelledby="also-title">
+        <h2 id="also-title">Also here</h2>
+        <a href="essay.html"><span class="t">Evaluating the Evaluator</span><span class="d">The short companion essay: AI assistance can improve the surface of an answer while changing the person responsible for judging it.</span></a>
+        <a href="protocol.html"><span class="t">The protocol</span><span class="d">The design, the four arms, the seven measures with the objection to each, and what this build cannot do.</span></a>
+        <a href="https://github.com/vigilia-mz/drift-meter/blob/main/SOURCES.md"><span class="t">The source table</span><span class="d">Every external claim on the site, graded by its source and by when it was checked.</span></a>
+      </section>
+    </main>
+
+    <footer>
+      <div class="foot">
+        Built by Megi Pishtari as part of a larger research and editorial project on AI, oversight, and what becomes of human judgment.<br>
+        <a href="https://github.com/vigilia-mz">github.com/vigilia-mz</a><br>
+        Cite the version you read: v0.9.0, 12 Oct 2026 &mdash; <a href="https://doi.org/10.5281/zenodo.23326480">doi:10.5281/zenodo.23326480</a>. This URL serves whatever version is current; <a href="https://github.com/vigilia-mz/drift-meter/blob/main/CHANGELOG.md">the changelog</a> records every version and what changed.
+      </div>
+    </footer>
+  </div>
 </body>
 </html>

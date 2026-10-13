@@ -1,0 +1,585 @@
+/*
+ * The landing page, index.html, in the editorial layout chosen in v0.10.
+ *
+ * It replaces the single 720px column the page shared with the essays. The essays
+ * and the protocol keep prose.css; this file is the landing page's alone, so a
+ * change here cannot move a line of either essay. Colours are the prose roles from
+ * tokens.css and nothing else: the same paper, the same ink and the same green,
+ * set in a newspaper's grid rather than a letter's column.
+ *
+ * Like the other prose pages, this one ships no JavaScript. The figure in the
+ * instrument panel is inline SVG drawn in currentColor, so it carries no colour
+ * literal of its own.
+ */
+
+@import './fonts.css';
+@import './tokens.css';
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body.page-landing {
+  background: var(--prose-bg);
+  color: var(--prose-ink-index);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.5;
+}
+
+::selection {
+  background: var(--green);
+  color: var(--prose-on-accent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--green);
+  outline-offset: 2px;
+}
+
+a {
+  color: inherit;
+}
+
+a:hover {
+  color: var(--green);
+}
+
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* ---------------------------------------------------------------------------
+ * Masthead
+ * ------------------------------------------------------------------------- */
+
+.strip {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 14px 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--prose-muted);
+}
+
+.masthead {
+  text-align: center;
+  padding: 18px 0 0;
+}
+
+.masthead h1 {
+  margin: 0 0 16px;
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-size: 48px;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+.masthead nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 4px 36px;
+  border-top: 1px solid var(--prose-ink-index);
+  border-bottom: 1px solid var(--prose-ink-index);
+  font-size: 14px;
+}
+
+.masthead nav a {
+  display: inline-block;
+  padding: 12px 0;
+  text-decoration: none;
+}
+
+/* ---------------------------------------------------------------------------
+ * Shared section furniture
+ * ------------------------------------------------------------------------- */
+
+main > section {
+  padding: 64px 0;
+  border-bottom: 1px solid var(--prose-rule);
+}
+
+main > section:last-child {
+  border-bottom: 0;
+}
+
+.label {
+  display: block;
+  font-size: 14px;
+  color: var(--green);
+  margin-bottom: 18px;
+}
+
+.label-mono {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--prose-muted);
+}
+
+h2,
+h3 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  margin: 0;
+}
+
+.readmore {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 0;
+  font-weight: 500;
+  font-size: 16px;
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+}
+
+/* ---------------------------------------------------------------------------
+ * Lead: the essay, and the instrument beside it
+ * ------------------------------------------------------------------------- */
+
+.lead {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 480px);
+  gap: 56px;
+  align-items: stretch;
+}
+
+.lead-essay h2 {
+  font-size: 76px;
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+
+.lead-essay .dek {
+  margin: 22px 0 0;
+  max-width: 34ch;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 25px;
+  line-height: 1.35;
+  color: var(--prose-ink-article);
+}
+
+.lead-essay .byline {
+  display: block;
+  margin-top: 18px;
+  font-size: 15px;
+  color: var(--prose-muted);
+}
+
+.lead-essay .opening {
+  margin: 28px 0 0;
+  max-width: 60ch;
+  font-family: var(--font-serif);
+  font-size: 19px;
+  line-height: 1.6;
+  color: var(--prose-ink-article);
+}
+
+.instrument {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 28px;
+  padding: 32px;
+  background: var(--prose-ink-index);
+  color: var(--prose-bg);
+}
+
+.instrument svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 300px;
+  color: var(--prose-bg);
+}
+
+.instrument .label {
+  color: var(--green-pale);
+  margin-bottom: 10px;
+}
+
+.instrument h2 {
+  font-size: 32px;
+  line-height: 1.15;
+}
+
+.instrument p {
+  margin: 14px 0 0;
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.instrument a:hover {
+  color: var(--green-pale);
+}
+
+/* ---------------------------------------------------------------------------
+ * The argument
+ * ------------------------------------------------------------------------- */
+
+.argument h2 {
+  max-width: 24ch;
+  font-size: 44px;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.argument h2 em {
+  font-style: italic;
+  color: var(--green-deep);
+}
+
+.argument .cols {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 40px;
+  margin-top: 36px;
+  max-width: 920px;
+}
+
+.argument .cols p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--prose-ink-body);
+}
+
+.pull {
+  margin: 44px 0 0;
+  padding: 24px 0 0;
+  border-top: 1px solid var(--prose-ink-index);
+  max-width: 920px;
+}
+
+.pull p {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 34px;
+  line-height: 1.25;
+}
+
+.pull footer {
+  margin-top: 10px;
+  font-size: 14px;
+  color: var(--prose-muted);
+}
+
+/* ---------------------------------------------------------------------------
+ * What it measures
+ * ------------------------------------------------------------------------- */
+
+.measures .grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 380px);
+  gap: 56px;
+}
+
+.measures h2 {
+  font-size: 36px;
+  line-height: 1.15;
+}
+
+.measures ol {
+  list-style: none;
+  margin: 24px 0 0;
+  padding: 0;
+}
+
+.measures li {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr);
+  gap: 12px;
+  padding: 16px 0;
+  border-top: 1px solid var(--prose-rule);
+}
+
+.measures .num {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--prose-muted);
+  padding-top: 4px;
+}
+
+.measures .name {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 22px;
+}
+
+.measures .primary {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--green);
+}
+
+.measures .what {
+  display: block;
+  margin-top: 4px;
+  font-size: 15px;
+  color: var(--prose-ink-body);
+}
+
+.notyet {
+  align-self: start;
+  padding: 24px 0 0;
+  border-top: 2px solid var(--prose-ink-index);
+}
+
+.notyet h3 {
+  font-size: 24px;
+  line-height: 1.25;
+}
+
+.notyet p {
+  margin: 14px 0 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--prose-ink-body);
+}
+
+.notyet strong {
+  color: var(--prose-ink-strong);
+  font-weight: 500;
+}
+
+/* ---------------------------------------------------------------------------
+ * The future study
+ * ------------------------------------------------------------------------- */
+
+.study .inner {
+  max-width: 820px;
+}
+
+.study h2 {
+  font-size: 36px;
+  line-height: 1.15;
+}
+
+.study .intro {
+  margin: 16px 0 0;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--prose-ink-body);
+}
+
+.study ol {
+  list-style: none;
+  margin: 28px 0 0;
+  padding: 0;
+}
+
+.study li {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  gap: 12px;
+  padding: 14px 0;
+  border-top: 1px solid var(--prose-rule);
+  font-family: var(--font-serif);
+  font-size: 19px;
+  line-height: 1.45;
+}
+
+.study .pid {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--green);
+  padding-top: 5px;
+}
+
+.study .amended {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--prose-muted);
+}
+
+/* ---------------------------------------------------------------------------
+ * The record
+ * ------------------------------------------------------------------------- */
+
+.record .grid {
+  display: grid;
+  grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+  gap: 56px;
+}
+
+.record h2 {
+  font-size: 36px;
+  line-height: 1.15;
+}
+
+.record .intro {
+  margin: 14px 0 0;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--prose-ink-body);
+}
+
+.record dl {
+  margin: 0;
+}
+
+.record .entry {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: 16px;
+  padding: 14px 0;
+  border-top: 1px solid var(--prose-rule);
+}
+
+.record dt {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--prose-muted);
+  padding-top: 3px;
+}
+
+.record dd {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--prose-ink-body);
+}
+
+/* ---------------------------------------------------------------------------
+ * Also here
+ * ------------------------------------------------------------------------- */
+
+.also {
+  display: grid;
+  grid-template-columns: 140px repeat(3, minmax(0, 1fr));
+  gap: 32px;
+  align-items: baseline;
+}
+
+.also h2 {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--green);
+}
+
+.also a {
+  display: block;
+  text-decoration: none;
+  padding: 4px 0;
+}
+
+.also .t {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 21px;
+}
+
+.also .d {
+  display: block;
+  margin-top: 4px;
+  font-size: 14px;
+  color: var(--prose-muted);
+}
+
+/* ---------------------------------------------------------------------------
+ * Footer
+ * ------------------------------------------------------------------------- */
+
+.page > footer {
+  padding: 28px 0 48px;
+  border-top: 1px solid var(--prose-ink-index);
+}
+
+.foot {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--prose-muted);
+}
+
+.foot a {
+  color: var(--prose-muted);
+}
+
+.foot a:hover {
+  color: var(--green);
+}
+
+/* ---------------------------------------------------------------------------
+ * Narrow screens: one column, same order
+ * ------------------------------------------------------------------------- */
+
+@media (max-width: 900px) {
+  .lead,
+  .measures .grid,
+  .record .grid,
+  .argument .cols {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .also {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+
+  .lead-essay h2 {
+    font-size: 54px;
+  }
+
+  .argument h2 {
+    font-size: 34px;
+  }
+}
+
+@media (max-width: 560px) {
+  .page {
+    padding: 0 20px;
+  }
+
+  .masthead h1 {
+    font-size: 38px;
+  }
+
+  .masthead nav {
+    gap: 0 20px;
+  }
+
+  main > section {
+    padding: 44px 0;
+  }
+
+  .lead-essay h2 {
+    font-size: 44px;
+  }
+
+  .lead-essay .dek {
+    font-size: 21px;
+  }
+
+  .instrument {
+    padding: 24px;
+  }
+
+  .pull p {
+    font-size: 26px;
+  }
+
+  .record .entry {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 4px;
+  }
+}
