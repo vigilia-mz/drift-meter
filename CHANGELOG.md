@@ -1,6 +1,6 @@
 # The Drift Meter — changelog
 
-Instrument 01 of the Agential Drift Research Programme.
+Instrument 01 of the Agential Drift Research Program.
 Author: Megi Pishtari (github.com/vigilia-mz). Sole author, sole responsibility for every claim.
 
 Every release records what changed and why. Retractions are recorded, not deleted.
@@ -108,8 +108,9 @@ This file is the surviving record of them.
     arm. The figure, the reasoning, the recommendation, the other two arms, the measures and every
     falsification condition are unchanged.
   - _Why._ The rest of the site has said “an AI model” since v0.9, and the AI arm was the one place
-    that did not. “Assistant” also names a role as well as a kind of source, and a role carries some
-    authority of its own, which is the one thing the three arms are meant to vary.
+    that did not. “Assistant” also names a role as well as a kind of source, and a role can carry its
+    own authority, raising or lowering the estimate’s weight, when authority is the one thing the
+    three arms are meant to vary.
   - _Where it is held._ The protocol prints the v0.9 wording beneath the arms table, and a test holds
     that quotation to the registered strings, written out rather than imported, and holds P2 to the
     new wording.
@@ -132,10 +133,12 @@ This file is the surviving record of them.
 - **The protocol no longer says “Until #31”.** An issue number is not something a reader of the
   protocol can follow. The sentence now says earlier versions could not have carried more than one
   planted error per slate.
-- **One spelling of programme.** The site is written in British spelling, and the programme officer
-  and the charity programmes were already spelled that way, so the project's own name is now the
-  Agential Drift Research Programme on every page, in the citation file and in the deposit metadata.
-  Versions up to v0.9 keep the old spelling in this file and in their deposits.
+- **One spelling of programme in the prose, and the project's name left as it is.** The site is
+  written in British spelling, and every common use of the word already followed it: the programme
+  officer, the charity programmes. The Agential Drift Research Program is a proper name, and it stays
+  spelled that way. It is the name on every Zenodo record already deposited, and renaming it would
+  give one project two names across its DOIs, which costs a citation more than a spelling mismatch
+  costs a page. A first pass of this change renamed it, and was reverted before merge.
 
 **Why**
 

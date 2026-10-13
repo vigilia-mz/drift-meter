@@ -114,7 +114,7 @@ export const METHOD = {
    * the strings v0.9 registered.
    */
   armsAmendment:
-    'Amendment A2, 13 Oct 2026, made with n at zero and no data collected. In v0.9 the AI arm’s supplied read was headed “AI assistant’s read” and attributed to “an AI assistant”. It is now headed “AI model’s read” and attributed to “an AI model”, which is how every other page of this site names the source. “Assistant” names a role as well as a kind of source, and a role carries some authority of its own, which is the one thing the three arms are meant to vary. The figure, the reasoning, the recommendation, the other two arms and every falsification condition are unchanged. P2 names the arm, and its wording follows.',
+    'Amendment A2, 13 Oct 2026, made with n at zero and no data collected. In v0.9 the AI arm’s supplied read was headed “AI assistant’s read” and attributed to “an AI assistant”. It is now headed “AI model’s read” and attributed to “an AI model”, which is how every other page of this site names the source. “Assistant” names a role as well as a kind of source, and a role can carry its own authority, raising or lowering the estimate’s weight, when authority is the one thing the three arms are meant to vary. The figure, the reasoning, the recommendation, the other two arms and every falsification condition are unchanged. P2 names the arm, and its wording follows.',
   armsControl: {
     arm: 'No estimate supplied',
     supplied:

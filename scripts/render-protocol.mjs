@@ -273,7 +273,7 @@ export function renderProtocol({
 <body class="page-protocol">
   <main class="wrap">
     <div class="topline">
-      <div class="kicker">Agential Drift Research Programme &nbsp;&middot;&nbsp; Instrument 01</div>
+      <div class="kicker">Agential Drift Research Program &nbsp;&middot;&nbsp; Instrument 01</div>
       <a class="back" href="index.html">&larr; Back</a>
     </div>
 
