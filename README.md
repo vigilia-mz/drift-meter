@@ -17,7 +17,7 @@ design argument, not a finding, and every screen that could be mistaken for a re
 pages, the design system, the case data, the cost model, the derived measures, all thirteen screens,
 the pinned model and the endpoint that calls it. The endpoint ships **switched off** — see below — so
 nothing here can spend anyone's API credit. The rebuild is recorded as v0.6 in
-[`CHANGELOG.md`](CHANGELOG.md); v0.9, dated 12 Oct 2026 and tagged `v0.9.0`, is what has changed
+[`CHANGELOG.md`](CHANGELOG.md); v0.10, dated 13 Oct 2026 and tagged `v0.10.0`, is what has changed
 since.
 
 ## What is here
@@ -85,10 +85,10 @@ box. **Cite the version you read, not the badge.** The badge above is the concep
 resolves to whatever the newest version is — useful for pointing at the project, and no better than
 the bare URL for pointing at a claim.
 
-| What you mean                      | DOI                                                                |
-| ---------------------------------- | ------------------------------------------------------------------ |
-| This version, v0.9.0 (12 Oct 2026) | [10.5281/zenodo.23326480](https://doi.org/10.5281/zenodo.23326480) |
-| The project, all versions          | [10.5281/zenodo.21887594](https://doi.org/10.5281/zenodo.21887594) |
+| What you mean                       | DOI                                                                |
+| ----------------------------------- | ------------------------------------------------------------------ |
+| This version, v0.10.0 (13 Oct 2026) | [10.5281/zenodo.23349670](https://doi.org/10.5281/zenodo.23349670) |
+| The project, all versions           | [10.5281/zenodo.21887594](https://doi.org/10.5281/zenodo.21887594) |
 
 The distinction is the reason this artifact wanted a DOI at all. [`CHANGELOG.md`](CHANGELOG.md)
 records a retraction — an invented cohort dashboard, published in v0.1 and removed in v0.2 — so “the
