@@ -178,7 +178,7 @@ export const CONSENT = {
   ],
   reflectionHeading: 'One optional part',
   reflection:
-    'A later screen can send a short, anonymous summary of your run to Claude and print what it says back, along with the model ID that served it. It is off in this build. You can also turn it off for yourself now, and the rest of the instrument works unchanged.',
+    'A later screen can send a short, anonymous summary of your run to an AI model and print what it says back, along with the model ID that served it. It is off in this build. You can also turn it off for yourself now, and the rest of the instrument works unchanged.',
   /**
    * The second half of #7, on the last screen before the work starts.
    *

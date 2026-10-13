@@ -8,10 +8,27 @@ Every release records what changed and why. Retractions are recorded, not delete
 Versions v0.1 through v0.5 were published from a separate repository, which has since been deleted.
 This file is the surviving record of them.
 
-## v0.9 — In progress — The counts are derived, and the release records what it shipped unfinished
+## v0.9 — 12 Oct 2026 — The counts are derived, and the release records what it shipped unfinished
 
 **What changed**
 
+- **The AI arm no longer names a product.** The supplied estimate was credited to “Claude, an AI
+  assistant”; it is now credited to “an AI assistant”, on the round screen, in the recommendation
+  line and on the landing page. Naming one vendor mixed deference to AI with trust in a brand, and
+  P5 is a claim about AI as a source of authority, not about one company’s product. The change is
+  made before any data exist (n = 0), so no run was collected under the old wording; the six
+  predictions, their falsification conditions and the primary outcome are unchanged, because none
+  of them named the vendor. The invariant that pinned the old wording now pins the new one: the AI
+  arm names an AI assistant, no arm names a product, and the other two arms name no AI. The two
+  review briefs in `docs/review-briefs.md` quote the old sentence and are left as written, because
+  they record what reviewers were shown.
+- **The rest of the site names no product either.** The consent screen’s note about the live
+  feature, the process screen’s provenance table and its lead, two of its changelog rows, and the
+  opening of both essays said “Claude”; they now say “an AI model” or “AI agents”. The essays still
+  name Anthropic, because the experiment they open on is Anthropic’s and the citation needs its
+  source. Two places keep the name on purpose: the pinned model ID on the protocol page, because
+  results are comparable only within a pinned model and the ID is the only way to say which, and the
+  older entries in this file, because they record what each version said.
 - **v0.8.0 is deposited, and its DOI is `10.5281/zenodo.21935816`.** The concept DOI,
   `10.5281/zenodo.21887594`, now resolves to it. `CITATION.cff` records the versioned one and lists
   the concept DOI under `identifiers` as what it is, on the same grounds as at v0.7.0: the reason
@@ -26,6 +43,19 @@ This file is the surviving record of them.
   repository keeps finding, in its own release procedure: the closing step was known, it was written
   down, and nothing enforced it. A check that the top heading carries a date before a tag can be cut
   would have caught it, and does not exist yet.
+- **v0.9 is closed before it is tagged, so its own archive does not call it unfinished.** The item
+  above names the check that would have caught the v0.8.0 defect. The suite could not have allowed
+  it: the invariant holding the footers to the changelog required the newest dated heading to be the
+  version `CITATION.cff` cites, and `CITATION.cff` can only name a version once Zenodo has minted it,
+  so at the moment of tagging the only state the suite accepted was a heading reading “In progress”.
+  The invariant now accepts one more state, a version closed and awaiting its deposit, directly above
+  the version still cited and at the top of the file. `scripts/sync-doi.mjs` no longer dates the
+  heading or the process screen’s row after the mint; it refuses to write unless the date they
+  already carry is the publication date Zenodo recorded. The masthead’s Version row is written to
+  stay true on both sides of the deposit. The footers in this archive still cite v0.8.0, because
+  they cite a DOI, and a DOI cannot be written before the deposit that mints it. This makes the
+  closing step possible, not mandatory: a tag can still be cut from an unclosed tree, and nothing
+  here prevents it.
 - **`scripts/sync-doi.mjs` reads the minted DOI off Zenodo and writes it into the eight documents
   that name it.** The pairing is one two-value fact stated in nine places, and the only thing joining
   the fact to the places was a person copying a string. The invariant catches a mismatch, which is

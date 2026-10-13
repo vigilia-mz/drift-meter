@@ -218,9 +218,12 @@ in any prose added to the site — including microcopy, error messages, and comm
   `main`. `https://vigilia-mz.github.io/drift-meter/` is the canonical URL and the only live copy.
   Two live copies of a research artifact is a citation problem; do not create a second one.
 - **Releasing is one edit and a check, in that order.** The versioned DOI is minted by the deposit, so
-  it cannot be written before the deposit exists: merge, verify the live site, tag, let Zenodo mint,
-  and only then edit `CITATION.cff` — `version`, `date-released`, `doi`, and the `identifiers` entry
-  that names the version. Everything else follows from that file. The three prose-page footers, the
+  it cannot be written before the deposit exists. The date can, and must be, or the archive calls
+  itself unfinished as the v0.8.0 deposit does: close the version in its own PR first (date the
+  changelog heading and the process screen's row, and write the masthead Version row so it stays
+  true on both sides of the deposit), then merge, verify the live site, tag on the day the heading
+  names, let Zenodo mint, and only then edit `CITATION.cff` — `version`, `date-released`, `doi`, and
+  the `identifiers` entry that names the version. Everything else follows from that file. The three prose-page footers, the
   README, the process screen's masthead row and its caveat, and the reader briefs all name the citable
   version too; `src/content/invariants.test.ts` holds every one of them against `CITATION.cff` and
   prints the whole list of stale ones in a single run, so the way to find them is to bump the file and

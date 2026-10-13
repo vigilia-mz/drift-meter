@@ -267,13 +267,13 @@ describe('recommendation prefix', () => {
    * recSentencePrefix strips a possessive off the arm's own label with a regex,
    * so the label and the regex are one thing edited in two places. Normalising
    * the labels' apostrophe, or renaming the suffix on either side alone, leaves
-   * the stripping silently inert and the page reading "Claude’s read
+   * the stripping silently inert and the page reading "AI assistant’s read
    * recommends: ". Nothing else in the codebase would notice.
    */
   const ATTRIBUTED = [ARMS.ai, ARMS.human] as const;
 
   it('reads as a sentence in every arm', () => {
-    expect(recSentencePrefix(ARMS.ai)).toBe('Claude recommends: ');
+    expect(recSentencePrefix(ARMS.ai)).toBe('AI assistant recommends: ');
     expect(recSentencePrefix(ARMS.human)).toBe('Programme officer recommends: ');
     expect(recSentencePrefix(ARMS.unlabelled)).toBe('Filed recommendation: ');
   });
@@ -712,7 +712,7 @@ describe('the process screen', () => {
     expect(methods?.noteGloss).toContain('v0.2');
   });
 
-  it('keeps the row saying what Claude drafted that was cut', () => {
+  it('keeps the row saying what the model drafted that was cut', () => {
     // All three were produced fluently on request and all three are the thing this
     // project argues against. Retractions stay in.
     const cut = PROVENANCE_ROWS.find((r) => r.tone === 'cut');
@@ -750,10 +750,15 @@ describe('standing attribution', () => {
     expect(new Set(lines).size).toBe(3);
   });
 
-  it('names Claude in the AI arm and nowhere else', () => {
-    expect(standingAttribution(ARMS.ai)).toContain('Claude');
-    expect(standingAttribution(ARMS.human)).not.toContain('Claude');
-    expect(standingAttribution(ARMS.unlabelled)).not.toContain('Claude');
+  it('names an AI assistant in the AI arm, and no product or AI anywhere else', () => {
+    // The AI arm names a kind of source, not a vendor: a brand name would mix
+    // deference to AI with trust in one company, which is not what P5 is about.
+    expect(standingAttribution(ARMS.ai)).toContain('an AI assistant');
+    for (const arm of Object.values(ARMS)) {
+      expect(standingAttribution(arm), arm.key).not.toContain('Claude');
+    }
+    expect(standingAttribution(ARMS.human)).not.toContain('AI');
+    expect(standingAttribution(ARMS.unlabelled)).not.toContain('AI');
   });
 
   it('attributes the human arm to a person, with no AI in the sentence', () => {
@@ -1347,15 +1352,28 @@ describe('the prose pages name the version to cite', () => {
   });
 
   it('dates the cited version the way the changelog dates it', () => {
-    const closed = [...changelogFile.matchAll(/^## (v\d+\.\d+) — ([^—]+) — /gm)]
-      .map((m) => ({ version: (m[1] ?? '').trim(), date: (m[2] ?? '').trim() }))
-      .find((h) => !/in progress/i.test(h.date));
-    expect(closed, 'CHANGELOG.md records no closed version').toBeDefined();
-    // The cited version and the newest closed one are the same thing. If they part,
-    // the pages are pointing a citer at a version the record has not closed.
-    expect(`v${cited}`).toContain(closed?.version ?? 'no closed version');
+    const headings = [...changelogFile.matchAll(/^## (v\d+\.\d+) — ([^—]+) — /gm)].map((m) => ({
+      version: (m[1] ?? '').trim(),
+      date: (m[2] ?? '').trim(),
+    }));
+    const closed = headings.filter((h) => !/in progress/i.test(h.date));
+    const at = closed.findIndex((h) => `v${cited}`.startsWith(`${h.version}.`));
+    expect(at, `CHANGELOG.md has no dated heading for v${cited}`).toBeGreaterThanOrEqual(0);
+    // The cited version is the newest closed one, with one exception: a version closed
+    // and awaiting its deposit. `CITATION.cff` can only name a version once Zenodo has
+    // minted it, so a release that dates its heading before the tag (which is what
+    // keeps the archive from calling itself unfinished, as the v0.8.0 deposit does)
+    // passes through a state where the newest dated heading is one ahead of the cited
+    // version. That state is allowed exactly once, and only at the top of the file:
+    // two closed versions ahead of the cited one, or anything opened above the one
+    // awaiting deposit, means the pages are pointing a citer at a version the record
+    // has moved past.
+    expect(at, 'more than one dated version sits above the cited one').toBeLessThanOrEqual(1);
+    if (at === 1) {
+      expect(headings[0], 'the version awaiting deposit is not the top heading').toEqual(closed[0]);
+    }
     for (const [name, page] of PAGES) {
-      expect(footOf(page), name).toContain(closed?.date ?? 'no date');
+      expect(footOf(page), name).toContain(closed[at]?.date ?? 'no date');
     }
   });
 
