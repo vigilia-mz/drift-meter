@@ -434,10 +434,12 @@ its location line now says where the bars were.
 ### PRIMARY — Tasks took 19% longer with AI tools, on a wide interval, and the same developers had forecast and then reported a speedup
 
 - **Where:** `atrophy.html`, the empirical section. Added at the v0.6 pass, FLAGGED until 13 Aug 2026.
-- **Primary link:** Becker J, Rush N, Barnes B, Rein D. “Measuring the Impact of Early-2025 AI on
+- **Primary link:** Becker J, Rush N, Barnes E, Rein D. “Measuring the Impact of Early-2025 AI on
   Experienced Open-Source Developer Productivity.” METR, arXiv:2507.09089v2, 25 Jul 2025 —
   <https://arxiv.org/abs/2507.09089>. Data and replication code:
   <https://github.com/METR/Measuring-Early-2025-AI-on-Exp-OSS-Devs>.
+- **Corrected, 12 Oct 2026:** the third author was given as “Barnes B”. The arXiv page lists
+  Elizabeth Barnes, so the initial is E. No figure or claim in the row depended on it.
 - **Checked:** 13 Aug 2026, by the author, against the paper.
 - **Also re-derived rather than taken on the paper's word.** Running the published `regression.py`
   over the published `data_complete.csv` returns a speedup of 0.188 with a 95% interval of
