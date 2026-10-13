@@ -36,6 +36,17 @@ This file is the surviving record of them.
   neither, so the site carried three definitions while this file said it carried one. Both essays now
   use the settled wording, and the test exists because the claim was never checked against the
   sentence that does the defining.
+- **The landing page is set in an editorial layout.** It was one 720px column shared with the
+  essays. It is now a newspaper's grid: the long essay's opening beside the instrument, the
+  definition of agential drift set as a headline, the five measures that can carry a result beside
+  the two that cannot yet, the six predictions in full, and a short record of the site's own
+  corrections. The colours are the prose palette's existing roles, and nothing new was added to
+  `tokens.css`. The page has its own stylesheet, `src/styles/landing.css`, so the essays and the
+  protocol are untouched, and it still ships no JavaScript. Two passages of the old page are not
+  carried over: the paragraph on evaluator integrity, and the list of the project's pages, which the
+  navigation and the closing links now do. The record on the page summarises five corrections in a
+  sentence each. Nothing checks it against this file, which is said here so that it is not taken for
+  a mirror.
 - **The time estimate is gone.** The landing page said three minutes and the first screen said about
   three minutes. Both now say there is no time limit. Telling a reader the task is short is an
   invitation not to open the evidence, and evidence engagement is the primary outcome; the estimate was
@@ -89,8 +100,9 @@ This file is the surviving record of them.
 
 **Why**
 
-- The first six changes remove a claim the front door could not support, in the same direction as the
-  retraction of the cohort dashboard. None touches a measure's formula, an arm or the primary outcome.
+- The changes above A1 remove a claim the front door could not support, in the same direction as the
+  retraction of the cohort dashboard, or change how the front door reads. None touches a measure's
+  formula, an arm or the primary outcome.
 - A1 does touch a formula and a prediction, and that is why it is written up at this length. A
   measure biased toward its author's prediction is the specific failure this project is about, and the
   only time it can be changed without the change being suspect is before any data exists. n is still
