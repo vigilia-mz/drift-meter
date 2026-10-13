@@ -280,7 +280,7 @@ is the one study claim on the page with no link, because its row has nothing pin
   constructed figure as the six in the slates and tracked by no row at all.
 - **Status:** Illustrative, and constructed for the same purpose as the trap: the gap between doses
   delivered and children completing a three-dose course is a real measurement problem, and the
-  programme, the country, the dose count and the unit cost are written for the exercise.
+  program, the country, the dose count and the unit cost are written for the exercise.
 - **Restated, 7 Aug 2026 (#7).** Covered by the intro and consent disclosure, which says every case
   here is written for this exercise. The debrief's line lands before this screen, so a reader meets
   the transfer case having been told twice.

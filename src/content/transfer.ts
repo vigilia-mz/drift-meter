@@ -31,9 +31,9 @@ export const TRANSFER = {
   org: 'Routine childhood immunisation outreach',
   cause: 'Child mortality · rural Indonesia',
   summary:
-    'The programme reaches remote villages by motorbike on a fixed monthly circuit. In the last campaign year it delivered 41,000 doses at a cost of about $1.90 per dose, which the team reports as $1.90 per child protected. On that figure it is among the cheapest interventions on the shortlist.',
+    'The program reaches remote villages by motorbike on a fixed monthly circuit. In the last campaign year it delivered 41,000 doses at a cost of about $1.90 per dose, which the team reports as $1.90 per child protected. On that figure it is among the cheapest interventions on the shortlist.',
   detail:
-    'The schedule the programme follows requires three doses at set intervals for a child to count as fully immunised. The circuit reaches each village monthly, and the team tracks doses delivered rather than children completing the course.',
+    'The schedule the program follows requires three doses at set intervals for a child to count as fully immunised. The circuit reaches each village monthly, and the team tracks doses delivered rather than children completing the course.',
 
   question: 'Before funding this, which one figure would you check first?',
   options: [
@@ -47,7 +47,7 @@ export const TRANSFER = {
     },
     {
       key: 'scale',
-      label: 'Whether the programme can be scaled beyond the villages on the circuit',
+      label: 'Whether the program can be scaled beyond the villages on the circuit',
     },
     { key: 'none', label: 'Nothing — $1.90 per child protected is already cheap enough to fund' },
   ],
@@ -58,9 +58,9 @@ export const TRANSFER = {
   },
   verdict: {
     caught:
-      'Doses delivered is not children protected, and the gap between them is the whole of the case. Three doses are needed and the circuit is monthly, so every child who misses one is counted three times in the numerator and zero times in the thing the numerator is supposed to measure. The real cost per child protected is the reported figure divided by the completion rate, and the completion rate is the number the programme does not track.',
+      'Doses delivered is not children protected, and the gap between them is the whole of the case. Three doses are needed and the circuit is monthly, so every child who misses one is counted three times in the numerator and zero times in the thing the numerator is supposed to measure. The real cost per child protected is the reported figure divided by the completion rate, and the completion rate is the number the program does not track.',
     missed:
-      'The figure to check first was the completion rate. The programme reports $1.90 per dose as $1.90 per child protected, but three doses are needed and only doses are counted — so the reported cost is right and the label on it is wrong, in exactly the way the case you just saw in the debrief was wrong. The other three questions are all reasonable. None of them is the one that decides the case.',
+      'The figure to check first was the completion rate. The program reports $1.90 per dose as $1.90 per child protected, but three doses are needed and only doses are counted — so the reported cost is right and the label on it is wrong, in exactly the way the case you just saw in the debrief was wrong. The other three questions are all reasonable. None of them is the one that decides the case.',
   },
 
   /**

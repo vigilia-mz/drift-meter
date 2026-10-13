@@ -274,7 +274,7 @@ describe('recommendation prefix', () => {
 
   it('reads as a sentence in every arm', () => {
     expect(recSentencePrefix(ARMS.ai)).toBe('AI model recommends: ');
-    expect(recSentencePrefix(ARMS.human)).toBe('Programme officer recommends: ');
+    expect(recSentencePrefix(ARMS.human)).toBe('Program officer recommends: ');
     expect(recSentencePrefix(ARMS.unlabelled)).toBe('Filed recommendation: ');
   });
 
@@ -818,7 +818,7 @@ describe('standing attribution', () => {
 
   it('attributes the human arm to a person, with no AI in the sentence', () => {
     const line = standingAttribution(ARMS.human);
-    expect(line).toContain('programme officer');
+    expect(line).toContain('program officer');
     expect(line.toLowerCase()).not.toContain(' ai ');
   });
 
@@ -826,7 +826,7 @@ describe('standing attribution', () => {
     const line = standingAttribution(ARMS.unlabelled);
     expect(line).toContain('unnamed');
     expect(line).not.toContain('Claude');
-    expect(line).not.toContain('programme officer');
+    expect(line).not.toContain('program officer');
   });
 });
 
@@ -883,7 +883,7 @@ describe('typography', () => {
 
   it("uses ’ rather than ' everywhere", () => {
     // Flat, not positional. The earlier form matched letter-apostrophe-letter
-    // only, which left a trailing possessive (programmes'), a leading elision
+    // only, which left a trailing possessive (programs'), a leading elision
     // ('tis, '90s), a digit (1990's) and an accented stem (café's) all passing.
     // No content string has a use for U+0027, so the ban is the whole rule.
     for (const [path, text] of fields) {
@@ -1512,7 +1512,7 @@ describe('the prose pages name the version to cite', () => {
 
 describe('what one sitting cannot show', () => {
   /**
-   * #38. The programme is named for a claim about change over repeated
+   * #38. The program is named for a claim about change over repeated
    * delegation, and a run is one sitting — so the name on the masthead reaches
    * further than the instrument under it does. Section 6 of the protocol screen
    * carries that limit. The intro screen did not, and the intro screen is what a

@@ -70,7 +70,7 @@ export const COPY = {
      */
     attribution: {
       ai: 'Estimate supplied by an AI model.',
-      human: 'Estimate supplied by a senior programme officer on the grants team.',
+      human: 'Estimate supplied by a senior program officer on the grants team.',
       unlabelled: 'Estimate supplied by an unnamed prior reviewer.',
     },
   },

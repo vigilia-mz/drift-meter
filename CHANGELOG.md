@@ -139,6 +139,9 @@ This file is the surviving record of them.
   spelled that way. It is the name on every Zenodo record already deposited, and renaming it would
   give one project two names across its DOIs, which costs a citation more than a spelling mismatch
   costs a page. A first pass of this change renamed it, and was reverted before merge.
+- **Then the other way, after #91: every use is now “program”**, matching the project's name and the
+  essays — the human arm (“Program officer’s read”), the landing page, the cases and the debrief. A
+  spelling change only, with the same words in the arm, so it is not recorded as an amendment.
 - **The build-size budget is raised from 480 KB to 484 KB, against its own note.** The note in
   `scripts/check-size.mjs` said the next raise should subset the fonts or drop a face instead.
   `main` was at 479.1 KB, and the items above brought it to 481.5 KB. The interval correction was
