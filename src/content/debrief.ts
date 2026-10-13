@@ -46,6 +46,16 @@ import type { DebriefMeasure } from './types.js';
  */
 const NO_FRAME = 'Undefined without a supplied frame. Reported rather than imputed.';
 const ALWAYS_DEFINED = 'Undefined. Reported rather than imputed.';
+/**
+ * Revision behaviour's caption, since amendment A1 in v0.10.
+ *
+ * Its own line rather than `NO_FRAME`, because the reason is not the same one.
+ * Framing autonomy has no frame to depart from; revision has a value to move, but
+ * the value is an arbitrary midpoint, and moving it is setting a number rather than
+ * revising one.
+ */
+const NOTHING_TO_REVISE =
+  'Undefined where nothing was supplied: moving off an arbitrary midpoint sets a value rather than revising one. Reported rather than imputed.';
 
 export const MEASURES = [
   {
@@ -58,8 +68,8 @@ export const MEASURES = [
   {
     key: 'range',
     label: 'Revision behaviour',
-    what: 'Sliders you moved off the value they started on, as a share of all nine.',
-    undefinedCaption: ALWAYS_DEFINED,
+    what: 'Supplied values you moved, as a share of all nine — undefined where nothing was supplied.',
+    undefinedCaption: NOTHING_TO_REVISE,
   },
   {
     key: 'amb',
@@ -142,9 +152,10 @@ export const DEBRIEF = {
   /**
    * One paragraph per branch of `headlineFor`.
    *
-   * `lookedLess` fires when the control round did more on engagement or on
-   * evaluative range; `heldGround` when the assisted round did more on both;
-   * `twoVersions` otherwise, including when nothing moved. The threshold is
+   * `lookedLess` fires when the control round did more on evidence engagement;
+   * `heldGround` when the assisted round did; `twoVersions` otherwise, including
+   * when nothing moved. Until amendment A1 it also read revision behaviour, which
+   * has no control-round value since. The threshold is
    * strict — a four-point difference is not a difference — so none of these may
    * describe a small gap as a finding.
    */
@@ -176,7 +187,7 @@ export const DEBRIEF = {
    *
    * The difference used to be reported as the measure, and it was the quantity on
    * this screen that most looked like a number and least was one: a five-point
-   * self-report rescaled to 0–100, minus a mean of three unlike process measures
+   * self-report rescaled to 0–100, minus a mean of two unlike process measures (three until amendment A1)
    * carrying equal weights. Both halves are authorial choices, so the difference
    * inherits both and states neither.
    *
@@ -187,8 +198,7 @@ export const DEBRIEF = {
   gapComponentsRowAxis: 'Figure',
   gapComponents: {
     perceived: 'What you said: your confidence rating, as a share of the five-point scale',
-    actual:
-      'What you did: the mean of evidence engagement, revision behaviour and ambiguity tolerance',
+    actual: 'What you did: the mean of evidence engagement and ambiguity tolerance',
   },
   gapComponentsNote:
     'These two are not subtracted here. One is what you said about a round and the other summarises what you did in it, and a difference between them would be a figure in units that do not exist. The paragraph above reads which way they part rather than how far.',

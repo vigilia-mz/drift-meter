@@ -176,8 +176,20 @@ function normalisedDistance(value: number, target: number, spec: AssumptionSpec)
 export interface Metrics {
   /** Cases where a panel was opened, as a share of cases. */
   readonly engagement: Score;
-  /** Sliders moved off their starting value, as a share of all sliders. */
-  readonly range: Score;
+  /**
+   * Sliders moved off their starting value, as a share of all sliders.
+   *
+   * `null` — never 0 — in the control round, since v0.10 and by recorded
+   * amendment (A1 in `CHANGELOG.md`). The control round opens at arbitrary
+   * midpoints, so a reader there has to move a slider to say anything at all, and
+   * moving it is setting a value rather than revising one. Counting both acts as
+   * the same thing inflated this measure in the control round, in the direction of
+   * the registered prediction, and the protocol called that the largest single
+   * threat on it. Revision now exists only where something was supplied to revise,
+   * on framing autonomy's grounds. `moved` is still counted in both rounds: it is a
+   * count the debrief prints, not a measure it compares.
+   */
+  readonly range: Score | null;
   /** Flags plus investigate calls, as a share of the points available. */
   readonly amb: Score;
   /**
@@ -265,7 +277,8 @@ export function metrics(input: {
   const investigate = own.filter((r) => r === 'investigate').length;
 
   const engagement = clamp((opens / caseCount) * PERCENT);
-  const range = clamp((moved / sliders) * PERCENT);
+  // Assisted round only, by amendment A1: see the note on `Metrics.range`.
+  const range: Score | null = condition === 'assisted' ? clamp((moved / sliders) * PERCENT) : null;
   const amb = clamp(((flags + investigate) / (caseCount * AMBIGUITY_POINTS_PER_CASE)) * PERCENT);
 
   let auto: Score | null = null;
@@ -355,7 +368,13 @@ export function metrics(input: {
   //   control round, and it is a normative measure rather than a trace. It is also the
   //   coarsest number here — one observation per reader today — so averaging it in
   //   would let a single coin flip move the composite the gap measure is read against.
-  const composite = [engagement, range, amb];
+  //
+  //   `range` is out since v0.10, by amendment A1, on `auto`'s grounds: it no longer
+  //   exists in the control round. It is out of both rounds rather than only the one
+  //   where it is undefined, because a composite of three terms in one round and two
+  //   in the other would make the two rounds' confidence comparisons different
+  //   quantities while printing them under the same label.
+  const composite = [engagement, amb];
   const actual = clamp(composite.reduce((a, b) => a + b, 0) / composite.length);
 
   return {

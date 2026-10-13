@@ -31,8 +31,9 @@ export function calc(vals: readonly number[]): number {
  * This is where the control round's sliders start. The page labels it as an
  * arbitrary starting point rather than a suggestion, and the protocol screen
  * names the resulting asymmetry as a threat to validity: moving off an arbitrary
- * midpoint is a different act from moving off an authoritative number, and it
- * inflates evaluative range in the control round.
+ * midpoint is a different act from moving off an authoritative number. It inflated
+ * revision behaviour in the control round until amendment A1, in v0.10, made that
+ * measure undefined there; the raw count of sliders moved still carries it.
  */
 export function mid(sp: Pick<AssumptionSpec, 'min' | 'max' | 'step'>): number {
   const HALF = 2;

@@ -13,9 +13,9 @@ ILLUSTRATIVE was added at the v0.6 close of #7, for a figure that is constructed
 says so on the page. It is the second of the two exits FLAGGED offers, and it is not a weaker version
 of a pinned row: a figure taken from a source and a figure built for a task are different objects,
 and the table was previously unable to say which one it held. A row earns it only while the
-disclosure is live, and for all five rows that is now held by `invariants.test.ts`: the four case rows
-through the content modules, and the landing page's specimen readout by reading the page itself, since
-it is hand-written and has no module. It is not CORRECTED — nothing
+disclosure is live, and for all four rows that is now held by `invariants.test.ts`, through the content modules. A fifth,
+the landing page's specimen readout, was retired in v0.10 when the bars came off the page; its record
+is kept below. It is not CORRECTED — nothing
 here was wrong. It was undisclosed, which is a different failure with a different fix.
 
 Every row below that sites a claim on "protocol section N" is sited on two things as of v0.8, and
@@ -119,8 +119,8 @@ the superseded conditions, the account of which pass found what. That is the par
 to argue with the grading needs, and it is the reason the screen links here rather than replacing it.
 
 The protocol screen states the same thing from the other side, in its stimulus provenance section:
-that the case figures are built for the exercise, that five rows here carry the grade saying so — the
-four case figures and the landing page's specimen readout — and
+that the case figures are built for the exercise, that four rows here carry the grade saying so, one per
+case figure (a fifth, for the landing page's specimen readout, was retired in v0.10), and
 that the disclosure the reader met names no case and no slider.
 
 Then #31, which moved the planted error from the slate onto the case. No claim here changed and no
@@ -280,9 +280,14 @@ means somebody opened the paper.
 - **Action before release:** none outstanding. Recorded chiefly so that the next reader of this table
   finds the seventh case in it rather than discovering it the way this pass did.
 
-### ILLUSTRATIVE — Landing page specimen readout: three pairs of bars, at 84 against 43, 71 against 39, and 31 against 72
+**Retired in v0.10 — Landing page specimen readout: three pairs of bars, at 84 against 43, 71 against 39, and 31 against 72.**
+The bars were removed from the landing page on 12 Oct 2026. A page arguing against unearned confidence
+should not open on a drawing of a result it does not have, even one captioned as invented, and a
+caption that has to say so is weaker than not drawing them. The row is no longer graded, because there
+is no longer a claim on the site for it to grade. Its record, as it stood, follows unchanged except that
+its location line now says where the bars were.
 
-- **Where:** `index.html`, the specimen block between the hero and the section on what the instrument
+- **Was at:** `index.html`, the specimen block between the hero and the section on what the instrument
   measures. Six bar widths, written as percentages in the markup.
 - **Status:** Illustrative, and a different kind of thing from the four rows above. Those approximate
   quantities that exist; these approximate nothing. They are a drawing of the readout's shape, put on

@@ -115,7 +115,7 @@ export const METHOD = {
 
   measuresHeading: '3 · The seven measures',
   measuresLead:
-    'Six are reported on a 0–100 scale; the seventh is the signed difference between two of the others and runs from −100 to +100. Four of the six are traces of how the work was done. The other two are not, and they are here so that a run can count against this project’s own hypothesis: estimate accuracy asks whether the reader was right, and the catch rate asks whether they found what was misstated. Three of the seven report as undefined rather than zero in at least one round — framing autonomy and the catch rate in the round where nothing was supplied, because neither a frame nor a misstated figure exists there, and accuracy in every run at present, for the reason in its row. Earlier versions said all of these were traces of how the work was done, and that nothing here was compared to a correct answer — true, and a defect rather than a principle: a design where reduced scrutiny of an estimate that happened to be right is indistinguishable from drift cannot produce a result that counts against its own hypothesis.',
+    'Six are reported on a 0–100 scale; the seventh is the signed difference between two of the others and runs from −100 to +100. Four of the six are traces of how the work was done. The other two are not, and they are here so that a run can count against this project’s own hypothesis: estimate accuracy asks whether the reader was right, and the catch rate asks whether they found what was misstated. Four of the seven report as undefined rather than zero in at least one round — revision behaviour, framing autonomy and the catch rate in the round where nothing was supplied, because no supplied figure, frame or misstated number exists there, and accuracy in every run at present, for the reason in its row. Earlier versions said all of these were traces of how the work was done, and that nothing here was compared to a correct answer — true, and a defect rather than a principle: a design where reduced scrutiny of an estimate that happened to be right is indistinguishable from drift cannot produce a result that counts against its own hypothesis.',
   /**
    * The primary outcome, stated rather than left to be chosen afterwards.
    *
@@ -150,9 +150,20 @@ export const METHOD = {
   measuresNote:
     'The denominators above are derived in code from the slate being scored, never written as literals. A previous version divided the evaluative range by six sliders when there are nine — an arithmetic error in a published figure, found by a reader rather than by the code. Every formula here is cross-checked against the constant the code uses by a test that fails if the two disagree.',
 
-  predictionsHeading: '4 · The registered predictions',
+  /**
+   * The predictions belong to a study, not to this build.
+   *
+   * Until v0.10 this section was headed as the registered predictions, sitting
+   * between the measures and the provenance as though a run tested them. None can
+   * be tested by one reader, so the section now says what it is: the study this
+   * instrument is built for, which has not been run, and what that study is
+   * registered to find. It keeps its number and its `#predictions` anchor, because
+   * the source table, the review briefs and the archived versions all point at
+   * section 4, and a citation into an earlier deposit should still land here.
+   */
+  predictionsHeading: '4 · The future study, and what it is registered to find',
   predictionsLead:
-    'Registered before any data exists, with the condition that would falsify each one. They are registered in this repository and the git history is the only timestamp on them, which is weaker than a registry and is said here rather than left to be assumed.',
+    'The predictions below belong to a study that has not been run. This build is the instrument that study would use, not the study: there is no cohort, no target n and no stopping rule, and no single run tests any of them. They are registered now, before any data exists, with the condition that would falsify each one, so that none can be chosen after the fact. They are registered in this repository and the git history is the only timestamp on them, which is weaker than a registry and is said here rather than left to be assumed.',
   predictionsColumns: { id: 'ID', claim: 'Prediction', test: 'What would falsify it' },
   /**
    * Why P6 is printed before P5.
@@ -163,9 +174,20 @@ export const METHOD = {
    * invariants test so that it cannot be silently tidied into numerical sequence.
    */
   predictionsOrderNote:
-    'P6 is listed before P5 on purpose. P1 to P4 are contrasts inside one reader’s own two rounds, so a single run produces both sides of each. P6 and P5 both need a cohort — one compares readers who caught the planted error against readers who missed it, the other compares the three arms — and P6 sits here because it follows from P4 rather than because it is easier to test.',
+    'P6 is listed before P5 on purpose. P1, P3 and P4 are contrasts inside one reader’s own two rounds, so a single run produces both sides of each. P2 was too, until amendment A1 moved it between the arms. P6 and P5 both need a cohort — one compares readers who caught the planted error against readers who missed it, the other compares the three arms — and P6 sits here because it follows from P4 rather than because it is easier to test.',
+  /**
+   * The amendment, on the page rather than only in the change log.
+   *
+   * A registered prediction that changes after registration and prints only its
+   * new wording is a prediction chosen after the fact with the paperwork removed.
+   * The original P2 is quoted verbatim here, with the date, the reason and the
+   * state of the data, so a reader can judge the change rather than take it on
+   * trust. `invariants.test.ts` asserts the quotation matches what v0.9 registered.
+   */
+  predictionsAmendment:
+    'Amendment A1, 12 Oct 2026, made with n at zero and no data collected. P2 was registered as: “Fewer of the assumptions underneath the estimate are moved when a figure is already in the box,” falsified by “Revision behaviour equal or higher in the assisted round once the difference in starting points is accounted for.” Nothing in the design accounted for that difference, and it ran in the direction of the prediction. A1 made revision behaviour undefined in the round with no estimate, where moving a slider is setting a value rather than revising one, and moved P2 to a contrast between the arms, where every reader starts from the same supplied figure. The claim keeps its direction. What it gives up is the only version of P2 a single run could produce both sides of.',
   predictionsCaveat:
-    'None of these has been tested, and none of them can be by one reader. With n at zero the honest status of every row below is “registered”, and the most likely outcome of a first collection is that the instrument turns out to be measuring something narrower than the claim.',
+    'None of these has been tested, and none of them can be by one reader. Until the study runs, the honest status of every row is “registered”, and the most likely outcome of a first collection is that the instrument turns out to be measuring something narrower than the claim.',
 
   provenanceHeading: '5 · Stimulus and model provenance',
   stimulusLead:
@@ -184,7 +206,7 @@ export const METHOD = {
     {
       label: 'The figures',
       value:
-        'Illustrative, and the instrument says so before the run and again after it. Five rows in the repository’s source table carry the grade that means built for the exercise rather than taken from anywhere: the four case figures, and the specimen readout on the landing page, which is a drawing of a result rather than a result. The disclosure names no case and no slider, because what this measures is whether a reader interrogates the load-bearing figure without being told which one it is.',
+        'Illustrative, and the instrument says so before the run and again after it. Four rows in the repository’s source table carry the grade that means built for the exercise rather than taken from anywhere, one for each case figure. The disclosure names no case and no slider, because what this measures is whether a reader interrogates the load-bearing figure without being told which one it is.',
     },
     {
       label: 'The estimates',
@@ -212,7 +234,7 @@ export const METHOD = {
     'Readers arrive from an essay that states the expected result. That is a demand characteristic sitting directly upstream of the measurement, and the instrument has no version of itself that does not have it.',
     'The primary outcome is a process trace, and a weak one. A reader who opens every panel out of habit scores full marks on evidence engagement without having read anything, and nothing here can tell the two apart — so the measure fixed in advance is the measure that cannot distinguish a reflexive click from a careful one. It was chosen for being the one P1 is about rather than for being the best of the seven. Of the two that are not traces at all, accuracy is undefined in every run today and the catch rate is one observation per reader.',
     'The saturation point, the two autonomy weights and the three debrief thresholds were all chosen by eye. They need calibrating against how experienced evaluators actually work these slates before any of them means anything.',
-    'The control round’s sliders open at an arbitrary midpoint and the assisted round’s open at an authoritative number. Moving off those two starting points is not the same act, and the difference inflates the control round on one measure.',
+    'The control round’s sliders open at an arbitrary midpoint and the assisted round’s open at an authoritative number. Moving off those two starting points is not the same act. Amendment A1 stopped scoring the first as revision, which removes the bias from the measure and leaves the two rounds without a revision comparison between them; the raw count of sliders moved is still printed for both, and it still carries the asymmetry.',
     'One reader, one arm, one slate, one order per run. Every between-subject comparison this design is built to support needs a cohort, and there is not one.',
     'One planted error is authored per slate, so the catch rate — the only measure here with a right answer behind it — is one observation per reader. A single observation is a coin flip, and two of the six registered predictions rest on it. The instrument now records a planted error per case rather than per slate, so more can be authored; until they are, this is the weakest denominator here.',
   ],
@@ -274,10 +296,10 @@ export const MEASURE_SPECS = [
     key: 'range',
     label: 'Revision behaviour',
     definition:
-      'How many of the assumptions underneath the estimates the reader moved. A slider dragged and returned to where it started still counts, because the act being observed is the interrogation rather than the disagreement.',
-    formula: 'sliders moved ÷ 9 sliders × 100',
+      'How many of the supplied assumptions underneath the estimates the reader moved. A slider dragged and returned to where it started still counts, because the act being observed is the interrogation rather than the disagreement. Undefined rather than zero in the round where nothing was supplied: there the sliders open at an arbitrary midpoint, and moving one is setting a value rather than revising one. Until v0.10 the measure was computed in both rounds; amendment A1 changed that, before any data existed, and the change log records both versions.',
+    formula: 'sliders moved ÷ 9 sliders × 100, in the round with a supplied estimate only',
     threat:
-      'The two rounds do not start from the same place. The control round opens at an arbitrary midpoint and the assisted round opens at a supplied figure, so moving a slider is a smaller act in one round than in the other — and the effect inflates this measure in the control round, in the same direction as the prediction. This is the largest single threat listed here.',
+      'The amendment removes a bias and gives up a comparison. In both rounds the measure counted moving a slider, but the two rounds did not start from the same place: off an arbitrary midpoint, moving is how a reader says anything at all, and off a supplied figure it is a decision to disagree. Counting the two as one act inflated the control round, in the same direction as the prediction, and earlier versions called it the largest single threat here. What it costs is the within-reader contrast: this measure now compares readers across the three arms, which needs a cohort, and a single run reports it for one round only. Within that round it still cannot tell a reader who moved a slider to check it from one who moved it by accident.',
   },
   {
     key: 'amb',
@@ -322,10 +344,10 @@ export const MEASURE_SPECS = [
     key: 'gap',
     label: 'Confidence against behaviour',
     definition:
-      'The reader’s own confidence rating for a round, reported beside a composite of what they actually did in it. The two are printed side by side and are not subtracted on the page: one is a five-point self-report rescaled and the other is a mean of three unlike process measures, and their difference would be a quantity in units that do not exist.',
-    formula: 'rating ÷ 5 × 100, printed beside mean(engagement, revision, ambiguity)',
+      'The reader’s own confidence rating for a round, reported beside a composite of what they actually did in it. The two are printed side by side and are not subtracted on the page: one is a five-point self-report rescaled and the other is a mean of two unlike process measures, and their difference would be a quantity in units that do not exist.',
+    formula: 'rating ÷ 5 × 100, printed beside mean(engagement, ambiguity)',
     threat:
-      'The composite is three process measures averaged with equal weights, and those weights are an authorial choice rather than a result. Taking the magnitude off the page does not retire that choice: the sign of the difference still selects which of three paragraphs the debrief prints, so the subtraction has left the screen and not the instrument. What would settle the weights is a pilot showing whether the three load together, which is not yet run.',
+      'The composite is two process measures averaged with equal weights, and those weights are an authorial choice rather than a result. It held three until amendment A1 took revision behaviour out of it, in both rounds, because a composite of three terms in one round and two in the other would print two different quantities under one label. Taking the magnitude off the page does not retire that choice: the sign of the difference still selects which of three paragraphs the debrief prints, so the subtraction has left the screen and not the instrument. What would settle the weights is a pilot showing whether the two load together, which is not yet run.',
   },
 ] as const satisfies readonly MeasureSpec[];
 
@@ -342,11 +364,23 @@ export const PRED_ROWS = [
       'Evidence engagement is lower in the round where an estimate is supplied than in the round where none is.',
     test: 'Engagement equal or higher in the assisted round, across readers.',
   },
+  /**
+   * P2, as amended by A1 on 12 Oct 2026, with n at zero.
+   *
+   * Registered as a within-reader contrast: fewer assumptions moved in the
+   * assisted round than in the control round, “once the difference in starting
+   * points is accounted for”. Nothing in the design accounted for it, and A1 made
+   * revision undefined in the control round, so the registered version could no
+   * longer be computed. The amendment keeps the claim's direction and moves the
+   * contrast to the one place every reader starts from the same supplied figure:
+   * between the arms. The original wording is printed under the table
+   * (`METHOD.predictionsAmendment`) and in the change log, and a test holds both.
+   */
   {
     id: 'P2',
     claim:
-      'Fewer of the assumptions underneath the estimate are moved when a figure is already in the box.',
-    test: 'Revision behaviour equal or higher in the assisted round once the difference in starting points is accounted for.',
+      'Fewer of the supplied assumptions are moved when the estimate is credited to an AI assistant than when it is credited to no one.',
+    test: 'Revision behaviour in the AI-attributed arm equal to or higher than in the unattributed arm, across readers. Amended in v0.10; the registered version is printed below.',
   },
   {
     id: 'P3',

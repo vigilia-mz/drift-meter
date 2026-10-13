@@ -36,16 +36,17 @@ export type HeadlineKey = 'lookedLess' | 'heldGround' | 'twoVersions';
  * means the reader did more when no estimate was supplied.
  */
 export function headlineFor(a: Metrics, u: Metrics): HeadlineKey {
+  // On evidence engagement alone, since v0.10. The headline used to fire on
+  // engagement or on revision behaviour, and to need both before saying the reader
+  // held their ground. Amendment A1 made revision undefined in the control round,
+  // because moving off an arbitrary midpoint is setting a value rather than revising
+  // one, so there is no within-reader revision difference left to compare. What
+  // remains is the primary outcome's own measure, which is the one the headline
+  // should have been read against in any case.
   const dEngagement = u.engagement - a.engagement;
-  const dRange = u.range - a.range;
 
-  if (dEngagement > HEADLINE_THRESHOLD || dRange > HEADLINE_THRESHOLD) {
-    return 'lookedLess';
-  }
-  // Both measures have to move together before claiming they held their ground.
-  if (dEngagement < -HEADLINE_THRESHOLD && dRange < -HEADLINE_THRESHOLD) {
-    return 'heldGround';
-  }
+  if (dEngagement > HEADLINE_THRESHOLD) return 'lookedLess';
+  if (dEngagement < -HEADLINE_THRESHOLD) return 'heldGround';
   return 'twoVersions';
 }
 

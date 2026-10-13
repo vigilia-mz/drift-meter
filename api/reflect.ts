@@ -332,9 +332,10 @@ function reflectPrompt(summary: ReflectSummary): string {
   // for a field to be described in words the sanitiser never saw.
   return [
     'A reader has completed both rounds of the instrument. Their measures follow, as JSON.',
-    'Every figure is 0-100 unless its name says otherwise. `auto` is null in the round with no',
-    'supplied estimate, because departure from a frame that was never supplied is undefined',
-    'rather than zero — do not treat it as a low score.',
+    'Every figure is 0-100 unless its name says otherwise. `auto` and `range` are null in the',
+    'round with no supplied estimate: departure from a frame that was never supplied is',
+    'undefined, and moving off an arbitrary midpoint is setting a value rather than revising',
+    'one. Null means undefined rather than zero — do not treat it as a low score.',
     '',
     JSON.stringify(summary, null, 2),
   ].join('\n');

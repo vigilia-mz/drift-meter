@@ -142,6 +142,7 @@ export function Method({ containerRef, onBack, onProcess }: Props) {
           </table>
         </div>
         <p class="dm-note">{METHOD.predictionsOrderNote}</p>
+        <p class="dm-note">{METHOD.predictionsAmendment}</p>
         <p class="dm-note">{METHOD.predictionsCaveat}</p>
       </section>
 

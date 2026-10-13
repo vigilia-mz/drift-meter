@@ -41,11 +41,11 @@ export const PROCESS = {
       label: 'Author',
       value: 'Megi Pishtari. Sole author, and sole responsibility for every claim on this site.',
     },
-    { label: 'Project', value: 'Experiment 01 of the Agential Drift Research Program.' },
+    { label: 'Project', value: 'Instrument 01 of the Agential Drift Research Program.' },
     {
       label: 'Version',
       value:
-        'v0.9.0, closed 12 Oct 2026, is the newest version, and its archived deposit is the one to cite. v0.8.0, released 14 Aug 2026, is the version before it; the changelog below records every version and what it changed.',
+        'v0.10 is in progress. v0.9.0, closed 12 Oct 2026, is the newest closed version, and its archived deposit is the one to cite. v0.8.0, released 14 Aug 2026, is the version before it; the changelog below records every version and what it changed.',
     },
     {
       label: 'Status',
@@ -181,6 +181,13 @@ export const PROCESS = {
  * it looks like one.
  */
 export const CHANGELOG_ROWS = [
+  {
+    version: 'v0.10',
+    date: 'In progress',
+    title: 'The front door claims only what it can show, and P2 is amended before any data',
+    what: 'The invented specimen bars are gone from the landing page, and the source-table row that graded them is retired with its record kept. The landing page names the five measures that can carry a result first and says plainly why the other two cannot yet. Agential drift is defined the way the long essay now defines it: the incremental transfer of evaluative authority to AI through delegations that each look reasonable, with the weakening of judgment as its cost. The time estimate is gone from the landing page and the first screen. Experiment 01 is renamed Instrument 01, the predictions sit in a section on the study this instrument is built for, and the consent screen has one Begin button in a build with no endpoint. Amendment A1 makes revision behaviour undefined in the round with no estimate and moves P2 to a contrast between the arms; the registered P2 is printed beside the new one.',
+    why: 'A page about unearned confidence opened on a drawing of a result it does not have, and the caption that admitted it was the only thing holding the drawing up. The time estimate set an expectation that worked against evidence engagement, the primary outcome. Two definitions of the central term is one too many for a project whose claim is about precision, and an experiment with n at zero is an instrument. A1 is recorded as an amendment because it changes a measure after the predictions were registered: moving off an arbitrary midpoint was being counted as revision, which biased the measure toward P2, and n is still zero.',
+  },
   {
     version: 'v0.9',
     date: '12 Oct 2026',
@@ -378,14 +385,6 @@ export const SOURCE_ROWS = [
     grade: 'Illustrative',
     checked: 'Restated 7 Aug 2026',
     note: 'The seventh case, and the last to get a row. The gap between doses delivered and children completing a three-dose course is a real measurement problem; the programme, the country, the dose count and the unit cost are written for the exercise.',
-  },
-  {
-    claim:
-      'The landing page’s specimen readout: three pairs of bars showing the shape of a result.',
-    where: 'The landing page, between the opening and the section on what the instrument measures.',
-    grade: 'Illustrative',
-    checked: 'Added 10 Aug 2026',
-    note: 'Invented, and the caption says so in those words: no run produced them, n is zero, nothing has been collected from anyone. Unlike the case figures these approximate nothing — they are a drawing of the readout, for a reader who will not start the instrument. The last claim on the site to get a row, because every earlier pass ran against the instrument and these six numbers are markup in a hand-written page. The caption they rest on is tested by reading the page itself, since it has no content module to read instead.',
   },
   {
     claim:

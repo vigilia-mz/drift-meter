@@ -326,6 +326,24 @@ describe('the registered predictions', () => {
     expect(PRED_ROWS).toHaveLength(6);
   });
 
+  it('prints amendment A1 with the P2 it replaced, verbatim', () => {
+    // A prediction changed after registration that shows only its new wording is a
+    // prediction chosen after the fact. These are the v0.9 strings, written out
+    // rather than imported, because there is nothing left in the code to import
+    // them from — which is the reason they have to be pinned here.
+    const REGISTERED_P2_CLAIM =
+      'Fewer of the assumptions underneath the estimate are moved when a figure is already in the box.';
+    const REGISTERED_P2_TEST =
+      'Revision behaviour equal or higher in the assisted round once the difference in starting points is accounted for.';
+    const claimQuoted = REGISTERED_P2_CLAIM.replace(/\.$/, ',');
+    expect(METHOD.predictionsAmendment).toContain(`“${claimQuoted}”`);
+    expect(METHOD.predictionsAmendment).toContain(`“${REGISTERED_P2_TEST}”`);
+    expect(METHOD.predictionsAmendment).toContain('n at zero');
+    const p2 = PRED_ROWS.find((row) => row.id === 'P2');
+    expect(p2?.test).toContain('Amended in v0.10');
+    expect(p2?.claim).not.toBe(REGISTERED_P2_CLAIM);
+  });
+
   it('gives every prediction a condition that would defeat it', () => {
     // A prediction with no falsification condition is a hope. The page claims
     // these were registered with one each, and this is that claim.
@@ -348,6 +366,15 @@ describe('the protocol screen', () => {
     // wrong part of the page.
     expect(METHOD.designHeading).toMatch(/^1 · /);
     expect(METHOD.provenanceHeading).toMatch(/^5 · /);
+  });
+
+  it('keeps the future study at section 4, where the briefs and earlier deposits point', () => {
+    // v0.10 recast the predictions as belonging to a study not yet run. It kept the
+    // number and the `#predictions` anchor so that the review briefs, and citations
+    // into archived versions, still land on the predictions.
+    expect(METHOD.predictionsHeading).toMatch(/^4 · /);
+    expect(METHOD.predictionsHeading).toContain('future study');
+    expect(METHOD.predictionsLead).toContain('has not been run');
   });
 
   it('does not carry the claim the rebuild withdrew', () => {
@@ -896,47 +923,27 @@ describe('the illustrative disclosure', () => {
   });
 });
 
-describe('the landing page says its specimen bars are invented', () => {
+describe('the landing page draws no result it does not have', () => {
   /**
-   * The specimen readout draws three pairs of bars at fixed widths. They are not a
-   * run and there is no cohort; the caption is the only thing on the page that says
-   * so, and a row in `SOURCES.md` is graded ILLUSTRATIVE on the strength of it.
+   * Until v0.10 the landing page drew three pairs of invented bars, and three cases
+   * here held the caption that said so. The bars are gone, and these hold the
+   * removal: a specimen readout put back without a run behind it would be the same
+   * defect the retracted cohort dashboard was, on the front door.
    *
-   * That grade is defined as holding only while the disclosure is live, so the
-   * disclosure has to be held by something. For the four case figures that is the
-   * disclosure test above, which reads the content modules. `index.html` has no
-   * content module — it is a finished hand-written document — so this reads the page
-   * itself. Without it the row rests on review, which is what the row said until
-   * this test existed.
-   *
-   * The word is asserted rather than the sentence. "Illustrative" is what the
-   * caption said until v0.7, and it is the same word an invented cohort dashboard
-   * could have carried on the page whose own method note explains why that
-   * dashboard was retracted; rule 6 asks for the plainer word, so the plainer word
-   * is what is pinned.
+   * The source-table row that graded the bars is retired rather than deleted, so the
+   * record says what was there and why it went; it carries no grade, because there is
+   * no claim left on the site for it to grade.
    */
-  it('carries the word invented in the specimen caption', () => {
-    const caption = indexPage.match(/<p class="spec-caption">([\s\S]*?)<\/p>/)?.[1];
-    expect(caption, 'the specimen caption is in index.html').toBeDefined();
-    expect(caption).toContain('invented');
+  it('carries no specimen readout or bar widths', () => {
+    expect(indexPage).not.toContain('class="specimen"');
+    expect(indexPage).not.toContain('spec-caption');
+    expect(indexPage).not.toMatch(/class="bar (ink|coral)"/);
   });
 
-  it('says n is zero and that nothing was collected, in the same caption', () => {
-    // The word alone would leave "invented" doing the work of a disclosure while
-    // the reader still had no idea whether a run stands behind the shape.
-    const caption = indexPage.match(/<p class="spec-caption">([\s\S]*?)<\/p>/)?.[1] ?? '';
-    expect(caption).toContain('n is zero');
-    expect(caption).toContain('nothing has been collected');
-  });
-
-  it('keeps a row in SOURCES.md graded ILLUSTRATIVE for those bars', () => {
-    // The other half: the caption without the row is an undisclosed figure as far
-    // as the table is concerned, and the row without the caption is a grade resting
-    // on nothing. Neither may be removed alone.
-    expect(sourcesFile).toContain('### ILLUSTRATIVE — Landing page specimen readout');
-    expect(SOURCE_ROWS.some((r) => r.grade === 'Illustrative' && /specimen/i.test(r.claim))).toBe(
-      true,
-    );
+  it('keeps the retired row on record, ungraded', () => {
+    expect(sourcesFile).toContain('**Retired in v0.10 — Landing page specimen readout');
+    expect(sourcesFile).not.toContain('### ILLUSTRATIVE — Landing page specimen readout');
+    expect(SOURCE_ROWS.some((r) => /specimen/i.test(r.claim))).toBe(false);
   });
 });
 

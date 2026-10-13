@@ -1,12 +1,92 @@
 # The Drift Meter — changelog
 
-Experiment 01 of the Agential Drift Research Program.
+Instrument 01 of the Agential Drift Research Program.
 Author: Megi Pishtari (github.com/vigilia-mz). Sole author, sole responsibility for every claim.
 
 Every release records what changed and why. Retractions are recorded, not deleted.
 
 Versions v0.1 through v0.5 were published from a separate repository, which has since been deleted.
 This file is the surviving record of them.
+
+## v0.10 — In progress — The front door claims only what it can show, and P2 is amended before any data
+
+**What changed**
+
+- **The invented specimen bars are gone from the landing page.** Three pairs of bars, at 84 against
+  43, 71 against 39 and 31 against 72, drew the shape of a result no run had produced. The caption
+  said so, in the word `invented`, and three cases held the caption. All of that is removed rather
+  than defended: a page arguing against unearned confidence should not open on a drawing of a result
+  it does not have, and a caption that has to admit it is weaker than not drawing it. The source-table
+  row that graded the bars is retired with its record kept, so the table says what was there and why
+  it went, and the stimulus-provenance row in the protocol now counts four illustrative rows, one per
+  case figure. Two new cases hold the removal and the retired row.
+- **The landing page leads with the five measures that can carry a result.** Evidence engagement,
+  revision behaviour, ambiguity tolerance, framing autonomy and confidence calibration come first.
+  Estimate accuracy and the planted-error catch rate follow in a paragraph that says why neither can
+  carry a result yet. All seven are still named, which the prose test requires. This change alters no
+  measure's definition; amendment A1, below, alters one.
+- **Agential drift has one definition.** The landing page and the README now define it the way the
+  long essay does: the incremental transfer of evaluative authority to AI through delegations that
+  each look reasonable, with the weakening of judgment as its cost.
+- **The time estimate is gone.** The landing page said three minutes and the first screen said about
+  three minutes. Both now say there is no time limit. Telling a reader the task is short is an
+  invitation not to open the evidence, and evidence engagement is the primary outcome; the estimate was
+  constant across arms, so it confounded no contrast, but it pushed every reader toward the floor of
+  the measure the design turns on.
+- **Experiment 01 is now Instrument 01.** The masthead on every screen, the landing page, the protocol
+  page, the README, the citation file and the deposit metadata called this an experiment. An
+  experiment is something that has been run, and this has n at zero. It is the instrument a study
+  would use, so it is named as one. Versions up to v0.9 keep the old name in this file and in their
+  deposits, which is what they were called.
+- **The predictions sit in a section on the future study.** Section 4 of the protocol was headed as the
+  registered predictions, between the measures and the provenance, as though a run tested them. It
+  is now headed as the study this instrument is built for, says that study has not been run, and keeps
+  the six predictions there. It keeps the number 4 and the `#predictions` anchor, because the source
+  table, the review briefs and the archived versions all point at section 4.
+- **One Begin button on the consent screen.** The screen also offered "Begin, but keep everything
+  local." In the published build there is no endpoint, nothing leaves the page, and both buttons
+  started the same run, so the second asked the reader to choose between two identical things on the
+  screen where they decide whether to trust the page. It now appears only when an endpoint is
+  configured, with the sentence that offers the choice. The browser suite asserts the dark build has
+  one way to start, and walks the whole run through it.
+- **Amendment A1: revision behaviour is undefined in the round with no estimate, and P2 moves between
+  the arms.** Recorded as an amendment rather than a fix, because it changes how a measure is
+  calculated after the predictions were registered. It was made on 12 Oct 2026, with n at zero and no
+  data collected from anyone.
+  - _What was registered._ Revision behaviour was sliders moved ÷ 9 sliders × 100 in both rounds, and
+    P2 read: "Fewer of the assumptions underneath the estimate are moved when a figure is already in the
+    box," falsified by "Revision behaviour equal or higher in the assisted round once the difference in
+    starting points is accounted for."
+  - _What was wrong with it._ The control round opens at arbitrary midpoints and the assisted round at
+    a supplied figure. Off a midpoint, moving a slider is how a reader says anything at all; off a
+    supplied figure, it is a decision to disagree. Counting both as revision inflated the control round,
+    in the direction of P2, and the protocol had called it the largest single threat on the page. P2's
+    falsifier asked for the starting points to be accounted for, and nothing in the design did it.
+  - _What it is now._ Revision behaviour is computed only in the round with a supplied estimate and is
+    `null`, never 0, in the other, on framing autonomy's grounds; the debrief draws it hatched with its
+    own caption. It is out of the confidence composite in both rounds, which is now the mean of evidence
+    engagement and ambiguity tolerance, so the two rounds' composites stay the same quantity. The
+    debrief's headline reads evidence engagement alone, since it read engagement or revision before and
+    there is no longer a within-reader revision difference. P2 now reads: "Fewer of the supplied
+    assumptions are moved when the estimate is credited to an AI assistant than when it is credited to
+    no one," falsified by revision behaviour in the AI-attributed arm equal to or higher than in the
+    unattributed arm, across readers. Every arm starts from the same supplied figure, so the asymmetry
+    does not exist in that contrast.
+  - _What it costs._ P2 was one of the four predictions a single run could produce both sides of. It
+    now needs a cohort, like P5 and P6. The raw count of sliders moved is still printed for both rounds,
+    and it still carries the asymmetry.
+  - _Where it is held._ The protocol prints the registered P2 verbatim beneath the table, and a test
+    holds the quotation to the v0.9 strings. The measure, the composite, the headline and the reflect
+    payload each have cases for the new behaviour.
+
+**Why**
+
+- The first six changes remove a claim the front door could not support, in the same direction as the
+  retraction of the cohort dashboard. None touches a measure's formula, an arm or the primary outcome.
+- A1 does touch a formula and a prediction, and that is why it is written up at this length. A
+  measure biased toward its author's prediction is the specific failure this project is about, and the
+  only time it can be changed without the change being suspect is before any data exists. n is still
+  zero.
 
 ## v0.9 — 12 Oct 2026 — The counts are derived, and the release records what it shipped unfinished
 

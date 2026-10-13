@@ -5,8 +5,8 @@
  * point of it. A test that imports the label it asserts on has checked that a
  * constant equals itself; these strings are published prose, and pinning them
  * means writing them down a second time so that changing one is a two-file diff.
- * `src/content/shell.ts` says as much of the local-only button: "the local-only
- * button's label is asserted by a planned end-to-end test."
+ * `src/content/shell.ts` says as much of the local-only button, whose label is
+ * pinned here so that the privacy spec can assert it is absent from the dark build.
  *
  * There is no deep link to a screen and there is no test hook. `runConfig.ts`
  * takes `?seed=`, `?order=`, `?slate=` and `?arm=` and nothing else, and says why:
@@ -45,7 +45,7 @@ export const COPY = {
   consent: {
     heading: 'Before you begin',
     begin: 'Begin',
-    /** Surviving copy. The privacy branch this suite exercises. */
+    /** Surviving copy. Rendered only when an endpoint is configured; asserted absent here. */
     beginLocal: 'Begin, but keep everything local',
     back: 'Back',
     /** The two promises CLAUDE.md names as the reason the fonts are self-hosted. */
@@ -100,6 +100,10 @@ export const COPY = {
     moved: 'Sliders moved',
     opens: 'Cases opened',
     framingAutonomy: 'Framing autonomy',
+    revisionBehaviour: 'Revision behaviour',
+    /** Since amendment A1: revision has its own reason for being undefined. */
+    revisionUndefinedCaption:
+      'Undefined where nothing was supplied: moving off an arbitrary midpoint sets a value rather than revising one. Reported rather than imputed.',
     legendAssisted: 'With a supplied estimate',
     legendUnassisted: 'No estimate supplied',
     /** Surviving copy. Never a zero — see `PairedBar`. */
@@ -125,8 +129,7 @@ export const COPY = {
      */
     gapHeading: 'Confidence against behaviour',
     gapSaid: 'What you said: your confidence rating, as a share of the five-point scale',
-    gapDid:
-      'What you did: the mean of evidence engagement, revision behaviour and ambiguity tolerance',
+    gapDid: 'What you did: the mean of evidence engagement and ambiguity tolerance',
     gapNote:
       'These two are not subtracted here. One is what you said about a round and the other summarises what you did in it, and a difference between them would be a figure in units that do not exist. The paragraph above reads which way they part rather than how far.',
     /** Accuracy's own reason, which is not framing autonomy's. */
@@ -238,18 +241,13 @@ export async function open(page: Page, pins: Pins): Promise<void> {
 /**
  * Intro → consent → round one.
  *
- * `localOnly` takes the second consent button, which is the branch the privacy
- * spec runs the whole flow under.
+ * Through the one Begin button the published build has. The local-only button
+ * renders only when an endpoint is configured, and the suite runs the dark build.
  */
-export async function begin(
-  page: Page,
-  pins: Pins,
-  options: { readonly localOnly?: boolean } = {},
-): Promise<void> {
+export async function begin(page: Page, pins: Pins): Promise<void> {
   await page.getByRole('button', { name: COPY.intro.begin, exact: true }).click();
   await expect(page.getByRole('heading', { level: 1, name: COPY.consent.heading })).toBeVisible();
-  const label = options.localOnly === true ? COPY.consent.beginLocal : COPY.consent.begin;
-  await page.getByRole('button', { name: label, exact: true }).click();
+  await page.getByRole('button', { name: COPY.consent.begin, exact: true }).click();
   await expect(
     page.getByRole('heading', { level: 1, name: slateHeading(pins.slate) }),
   ).toBeVisible();
@@ -283,13 +281,9 @@ export async function leaveRound(page: Page, rating: number): Promise<void> {
  * chosen. That is the run the trap's `missAccepted` branch describes, and it is
  * the baseline the other specs deviate from one action at a time.
  */
-export async function reachDebrief(
-  page: Page,
-  pins: Pins,
-  options: { readonly localOnly?: boolean } = {},
-): Promise<void> {
+export async function reachDebrief(page: Page, pins: Pins): Promise<void> {
   await open(page, pins);
-  await begin(page, pins, options);
+  await begin(page, pins);
   await leaveRound(page, 4);
   const second: SlateId = pins.slate === 'A' ? 'B' : 'A';
   await expect(page.getByRole('heading', { level: 1, name: slateHeading(second) })).toBeVisible();
@@ -351,7 +345,6 @@ export async function walkWholeFlow(
   page: Page,
   pins: Pins,
   onScreen: (name: string) => void | Promise<void>,
-  options: { readonly localOnly?: boolean } = {},
 ): Promise<void> {
   await open(page, pins);
   await onScreen('intro');
@@ -373,8 +366,7 @@ export async function walkWholeFlow(
   await expect(page.getByRole('heading', { level: 1, name: COPY.consent.heading })).toBeVisible();
   await onScreen('consent');
 
-  const label = options.localOnly === true ? COPY.consent.beginLocal : COPY.consent.begin;
-  await page.getByRole('button', { name: label, exact: true }).click();
+  await page.getByRole('button', { name: COPY.consent.begin, exact: true }).click();
   await expect(
     page.getByRole('heading', { level: 1, name: slateHeading(pins.slate) }),
   ).toBeVisible();

@@ -131,8 +131,7 @@ test('the back link on the consent screen is live across 44 × 44', async ({ pag
   await expect(page.getByRole('heading', { level: 1, name: COPY.consent.heading })).toBeVisible();
 
   await expectLive(page, 'the back link', '.dm-back');
-  await expectLive(page, 'the primary Begin button', '.dm-actions .dm-button');
-  await expectLive(page, 'the local-only Begin button', '.dm-actions .dm-button', 1);
+  await expectLive(page, 'the Begin button', '.dm-actions .dm-button');
 });
 
 test('the confidence scale and the transfer options are live across 44 × 44', async ({ page }) => {

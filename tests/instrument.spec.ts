@@ -311,6 +311,30 @@ test('framing autonomy is hatched and reads n/a in the round with no estimate', 
 });
 
 /**
+ * 7a. Revision behaviour is hatched in the round with no estimate, since amendment A1.
+ *
+ * Off an arbitrary midpoint, moving a slider is setting a value rather than revising
+ * one, and counting it as revision biased the measure toward P2. The bar is hatched
+ * and reads `n/a` there whatever the reader moved, and the caption names its own
+ * reason rather than borrowing framing autonomy's.
+ */
+test('revision behaviour is hatched and reads n/a in the round with no estimate', async ({
+  page,
+}) => {
+  await reachDebrief(page, SLATE_A);
+
+  const measure = page.locator('.dm-measure', { hasText: COPY.debrief.revisionBehaviour });
+  const assisted = measure.locator('.dm-bar-row').nth(0);
+  const unassisted = measure.locator('.dm-bar-row').nth(1);
+
+  await expect(assisted.locator('.dm-bar-undefined')).toHaveCount(0);
+  await expect(unassisted.locator('.dm-bar-undefined')).toHaveCount(1);
+  await expect(unassisted.locator('.dm-bar-value')).toHaveText(COPY.debrief.undefinedBar);
+  await expect(measure).toContainText(COPY.debrief.revisionUndefinedCaption);
+  await expect(unassisted).not.toContainText('0');
+});
+
+/**
  * 7b. The accuracy bar is undefined in both rounds, and says why in its own words.
  *
  * The measure that lets the design lose (#30), shipped with none of its eighteen

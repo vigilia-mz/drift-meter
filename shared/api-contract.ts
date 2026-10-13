@@ -79,14 +79,14 @@ export type ReflectMode = keyof typeof MODE_COST;
 /**
  * One round's measures, as the endpoint is willing to receive them.
  *
- * Every field is a number the debrief already printed. `auto` is nullable
- * because framing autonomy is undefined in the control round — never zero — and
- * flattening that to a number here would hand the model a value the instrument
- * refuses to draw.
+ * Every field is a number the debrief already printed. `auto` and `range` are
+ * nullable because framing autonomy and, since amendment A1 in v0.10, revision
+ * behaviour are undefined in the control round — never zero — and flattening that
+ * to a number here would hand the model a value the instrument refuses to draw.
  */
 export interface ReflectRound {
   readonly engagement: number;
-  readonly range: number;
+  readonly range: number | null;
   readonly amb: number;
   readonly auto: number | null;
   readonly perceived: number;
@@ -280,7 +280,7 @@ function round(value: unknown): ReflectRound {
   const r = record(value);
   return {
     engagement: bounded(r.engagement, 0, PERCENT_MAX, 0),
-    range: bounded(r.range, 0, PERCENT_MAX, 0),
+    range: boundedOrNull(r.range, 0, PERCENT_MAX),
     amb: bounded(r.amb, 0, PERCENT_MAX, 0),
     auto: boundedOrNull(r.auto, 0, PERCENT_MAX),
     perceived: bounded(r.perceived, 0, PERCENT_MAX, 0),

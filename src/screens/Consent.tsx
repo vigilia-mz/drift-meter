@@ -7,11 +7,15 @@
  * both false on every page load. If this copy changes, that rule changes with it.
  *
  * The local-only choice is a real branch rather than a courtesy. It is stored on
- * the run and gates every path to the endpoint.
+ * the run and gates every path to the endpoint — which is why it is offered only
+ * when there is an endpoint to gate. In the dark build there is one Begin button,
+ * and the run it starts reaches nothing; see `CONSENT.reflection` for why the
+ * second button went in v0.10.
  */
 
 import type { RefObject } from 'preact';
 import { CONSENT } from '../content/shell.js';
+import { IS_LIVE_CLAUDE_CONFIGURED } from '../platform/env.js';
 import { ScreenFrame } from '../ui/ScreenFrame.js';
 
 interface Props {
@@ -41,6 +45,7 @@ export function Consent({ containerRef, onBegin, onBack }: Props) {
           {CONSENT.reflectionHeading}
         </h2>
         <p class="dm-body">{CONSENT.reflection}</p>
+        {IS_LIVE_CLAUDE_CONFIGURED ? <p class="dm-body">{CONSENT.reflectionChoice}</p> : null}
       </section>
 
       <section aria-labelledby="dm-constructed">
@@ -60,15 +65,17 @@ export function Consent({ containerRef, onBegin, onBack }: Props) {
         >
           {CONSENT.begin}
         </button>
-        <button
-          type="button"
-          class="dm-button dm-button-ghost"
-          onClick={() => {
-            onBegin(true);
-          }}
-        >
-          {CONSENT.beginLocal}
-        </button>
+        {IS_LIVE_CLAUDE_CONFIGURED ? (
+          <button
+            type="button"
+            class="dm-button dm-button-ghost"
+            onClick={() => {
+              onBegin(true);
+            }}
+          >
+            {CONSENT.beginLocal}
+          </button>
+        ) : null}
       </div>
 
       <button type="button" class="dm-back" onClick={onBack}>
