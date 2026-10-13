@@ -31,36 +31,34 @@ function m(over: Partial<Metrics> = {}): Metrics {
 }
 
 describe('headlineFor', () => {
-  it('says the reader looked less when either measure dropped under assistance', () => {
+  it('says the reader looked less when engagement dropped under assistance', () => {
     expect(headlineFor(m({ engagement: clamp(0) }), m({ engagement: clamp(50) }))).toBe(
       'lookedLess',
     );
-    expect(headlineFor(m({ range: clamp(0) }), m({ range: clamp(50) }))).toBe('lookedLess');
+  });
+
+  it('reads engagement alone, since amendment A1 made revision undefined in one round', () => {
+    // Revision behaviour is null in the control round since v0.10, so there is no
+    // within-reader revision difference to read. A large revision figure in the
+    // assisted round must not move the headline on its own.
+    expect(headlineFor(m({ range: clamp(0) }), m({ range: null }))).toBe('twoVersions');
+    expect(headlineFor(m({ range: clamp(100) }), m({ range: null }))).toBe('twoVersions');
   });
 
   it('is strict at the threshold, so a four-point difference is not a finding', () => {
     // One person, six cases. Calling a delta of exactly four a difference would be
     // the kind of overclaim this project is about.
-    const a = m({ engagement: clamp(50), range: clamp(50) });
-    const atThreshold = m({
-      engagement: clamp(50 + HEADLINE_THRESHOLD),
-      range: clamp(50),
-    });
-    expect(headlineFor(a, atThreshold)).toBe('twoVersions');
-
-    const justOver = m({ engagement: clamp(50 + HEADLINE_THRESHOLD + 1), range: clamp(50) });
-    expect(headlineFor(a, justOver)).toBe('lookedLess');
+    const a = m({ engagement: clamp(50) });
+    expect(headlineFor(a, m({ engagement: clamp(50 + HEADLINE_THRESHOLD) }))).toBe('twoVersions');
+    expect(headlineFor(a, m({ engagement: clamp(50 + HEADLINE_THRESHOLD + 1) }))).toBe(
+      'lookedLess',
+    );
+    expect(headlineFor(a, m({ engagement: clamp(50 - HEADLINE_THRESHOLD) }))).toBe('twoVersions');
   });
 
-  it('requires both measures to move together before crediting held ground', () => {
-    const a = m({ engagement: clamp(60), range: clamp(60) });
-
-    const bothDown = m({ engagement: clamp(50), range: clamp(50) });
-    expect(headlineFor(a, bothDown)).toBe('heldGround');
-
-    // Only one moved: not enough.
-    const oneDown = m({ engagement: clamp(50), range: clamp(58) });
-    expect(headlineFor(a, oneDown)).toBe('twoVersions');
+  it('credits held ground when engagement rose under assistance past the threshold', () => {
+    const a = m({ engagement: clamp(60) });
+    expect(headlineFor(a, m({ engagement: clamp(50) }))).toBe('heldGround');
   });
 
   it('falls back to the neutral headline when nothing moved', () => {

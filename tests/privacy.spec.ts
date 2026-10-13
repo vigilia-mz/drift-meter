@@ -13,10 +13,12 @@
  * both false on every page load. So a font that moved to a CDN would break a
  * promise on a screen nobody edited, and this is where that shows up.
  *
- * The run is taken down the local-only branch, which is the choice the screen
- * offers a reader who does not want even the optional part. It is a real branch —
- * stored on the run and gating every path to the endpoint — rather than a courtesy,
- * and the whole flow is walked under it.
+ * The whole flow is walked under the one Begin button the published build has.
+ * Until v0.10 the screen also offered “Begin, but keep everything local”, and this
+ * spec walked that branch. In the dark build both buttons started the same run, so
+ * the second was a choice that changed nothing; it now renders only when an
+ * endpoint is configured. What this spec holds is the stronger claim: with no
+ * choice made at all, the run reaches nothing.
  */
 import { expect, test } from '@playwright/test';
 import { COPY, SLATE_A, walkWholeFlow } from './flow.js';
@@ -38,14 +40,17 @@ test('the consent screen still makes the promises the rest of the repository res
     'gone when you close the tab',
   );
 
-  // Both buttons, and the exact label of the second one.
+  // One way to start, in the build that is published. The local-only button is
+  // for a build with an endpoint, and offering it here would ask the reader to
+  // choose between two identical runs.
   await expect(page.getByRole('button', { name: COPY.consent.begin, exact: true })).toBeVisible();
   await expect(
     page.getByRole('button', { name: COPY.consent.beginLocal, exact: true }),
-  ).toBeVisible();
+  ).toHaveCount(0);
+  await expect(page.locator('.dm-actions .dm-button')).toHaveCount(1);
 });
 
-test('a local-only run reaches no network and stores nothing', async ({ page, baseURL }) => {
+test('a run reaches no network and stores nothing', async ({ page, baseURL }) => {
   test.slow();
   if (baseURL === undefined) throw new Error('baseURL is set in playwright.config.ts');
   const site = new URL(baseURL).origin;
@@ -67,16 +72,11 @@ test('a local-only run reaches no network and stores nothing', async ({ page, ba
   });
 
   const screens: string[] = [];
-  await walkWholeFlow(
-    page,
-    SLATE_A,
-    (screen) => {
-      screens.push(screen);
-    },
-    { localOnly: true },
-  );
+  await walkWholeFlow(page, SLATE_A, (screen) => {
+    screens.push(screen);
+  });
 
-  // Twelve screens' worth of a run, on the branch that asks for nothing.
+  // Twelve screens' worth of a run, started the only way the published build offers.
   expect(screens.length).toBeGreaterThan(10);
   expect(reflect, 'the run reached the reflection endpoint').toEqual([]);
   expect(offOrigin, 'the run reached another origin').toEqual([]);
