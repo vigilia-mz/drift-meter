@@ -25,9 +25,17 @@ This file is the surviving record of them.
   Estimate accuracy and the planted-error catch rate follow in a paragraph that says why neither can
   carry a result yet. All seven are still named, which the prose test requires. This change alters no
   measure's definition; amendment A1, below, alters one.
-- **Agential drift has one definition.** The landing page and the README now define it the way the
-  long essay does: the incremental transfer of evaluative authority to AI through delegations that
-  each look reasonable, with the weakening of judgment as its cost.
+- **Agential drift has one definition, on every page.** The landing page, the README and both essays
+  now define it as the incremental transfer of evaluative authority to AI through delegations that
+  each look reasonable. A test holds all four to that one string.
+- Corrected, inside this version: the first pass of the item above, merged in #87, said the landing
+  page and the README had taken the long essay's definition. They had not. The long essay defined
+  agential drift as "the gradual weakening of a person's capacity to exercise judgment through
+  habitual reliance on systems that pre-structure thought", and the short essay as "evaluative
+  independence weakening through ordinary acts of delegation". The settled wording appeared in
+  neither, so the site carried three definitions while this file said it carried one. Both essays now
+  use the settled wording, and the test exists because the claim was never checked against the
+  sentence that does the defining.
 - **The time estimate is gone.** The landing page said three minutes and the first screen said about
   three minutes. Both now say there is no time limit. Telling a reader the task is short is an
   invitation not to open the evidence, and evidence engagement is the primary outcome; the estimate was
