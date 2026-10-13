@@ -178,8 +178,8 @@ describe('denominators are derived from the slate, never written as literals', (
             ...st,
             touched: st.touched.map((_, si) => ci * k + si < touchedCount),
           }));
-          const r: number = run(slate, data).range;
-          if (r < previous) return false;
+          const r = run(slate, data).range;
+          if (r === null || r < previous) return false;
           previous = r;
         }
         return true;
@@ -221,9 +221,12 @@ describe('every reported measure is a bounded integer', () => {
           }));
           const m = metrics({ data, slate, condition, confidence });
 
-          for (const key of ['engagement', 'range', 'amb', 'perceived', 'actual'] as const) {
+          for (const key of ['engagement', 'amb', 'perceived', 'actual'] as const) {
             const v: number = m[key];
             if (!Number.isInteger(v) || v < 0 || v > 100) return false;
+          }
+          if (m.range !== null && (!Number.isInteger(m.range) || m.range < 0 || m.range > 100)) {
+            return false;
           }
           if (m.auto !== null && (!Number.isInteger(m.auto) || m.auto < 0 || m.auto > 100)) {
             return false;
@@ -325,8 +328,24 @@ describe('the behavioural composite', () => {
     const slate = SLATES.A;
     const data = blank(slate).map((st) => ({ ...st, read: true }));
     const m = run(slate, data);
-    const COMPOSITE_TERMS = 3;
-    expect(m.actual).toBe(clamp((m.engagement + m.range + m.amb) / COMPOSITE_TERMS));
+    const COMPOSITE_TERMS = 2;
+    expect(m.actual).toBe(clamp((m.engagement + m.amb) / COMPOSITE_TERMS));
+  });
+
+  it('leaves revision out of the composite in both rounds, by amendment A1', () => {
+    // Revision is undefined in the control round since v0.10. It is out of the
+    // assisted round's composite too, or the two rounds' confidence comparisons
+    // would average different numbers of terms under the same label. A reader who
+    // moved every slider and did nothing else posts a composite of zero in both.
+    const slate = SLATES.A;
+    const allMoved = blank(slate).map((st) => ({ ...st, touched: st.touched.map(() => true) }));
+    const assisted = run(slate, allMoved, 'assisted');
+    const control = run(slate, allMoved, 'unassisted');
+    expect(assisted.range).toBe(100);
+    expect(control.range).toBeNull();
+    expect(assisted.actual).toBe(0);
+    expect(control.actual).toBe(0);
+    expect(control.moved).toBe(assisted.moved);
   });
 });
 
@@ -490,7 +509,8 @@ describe('the control round starts at midpoints', () => {
     }));
     const m = run(slate, data, 'unassisted');
     expect(m.moved).toBe(0);
-    expect(m.range).toBe(0);
+    // Undefined rather than 0 since amendment A1: there was nothing to revise.
+    expect(m.range).toBeNull();
     expect(m.auto).toBeNull();
   });
 });
@@ -694,7 +714,7 @@ describe('the catch rate', () => {
     }));
     const m = run(slate, caughtAll);
     expect(m.catchRate).toBe(100);
-    expect(m.actual).toBe(clamp((m.engagement + m.range + m.amb) / 3));
+    expect(m.actual).toBe(clamp((m.engagement + m.amb) / 2));
     expect(m.engagement).toBe(0);
   });
 
