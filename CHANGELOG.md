@@ -8,7 +8,7 @@ Every release records what changed and why. Retractions are recorded, not delete
 Versions v0.1 through v0.5 were published from a separate repository, which has since been deleted.
 This file is the surviving record of them.
 
-## v0.10 — In progress — The front door claims only what it can show, and P2 is amended before any data
+## v0.10 — 13 Oct 2026 — The front door claims only what it can show, and P2 is amended before any data
 
 **What changed**
 
