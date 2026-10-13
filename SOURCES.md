@@ -319,7 +319,7 @@ its location line now says where the bars were.
 
 - **Where:** `atrophy.html`, the empirical section. Added at the v0.6 pass, FLAGGED until 13 Aug 2026,
   PRIMARY AVAILABLE for the few hours between the citation and the reading.
-- **Primary link:** Bastani H, Bastani O, Sungu A, Ge H, Kabakı Ö, Mariman R. “Generative AI without
+- **Primary link:** Bastani H, Bastani O, Sungu A, Ge H, Kabakcı Ö, Mariman R. “Generative AI without
   guardrails can harm learning: Evidence from high school mathematics.” _PNAS_ 2025; 122(26):
   e2422633122. <https://doi.org/10.1073/pnas.2422633122>. Received 3 Nov 2024, accepted 5 May 2025,
   published 25 Jun 2025. CC BY-NC-ND 4.0.
