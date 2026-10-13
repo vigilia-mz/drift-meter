@@ -82,8 +82,19 @@ describe('sanitizeReflect', () => {
       assisted: { ...round, engagement: 'lots', range: Number.NaN, amb: Number.POSITIVE_INFINITY },
     });
     expect(clean.assisted.engagement).toBe(0);
-    expect(clean.assisted.range).toBe(0);
+    // Nullable since amendment A1, so a non-number becomes null rather than zero,
+    // on framing autonomy's rule below.
+    expect(clean.assisted.range).toBeNull();
     expect(clean.assisted.amb).toBe(0);
+  });
+
+  it('keeps revision behaviour nullable, because the control round has none since A1', () => {
+    expect(
+      sanitizeReflect({ ...summary, unassisted: { ...round, range: null } }).unassisted.range,
+    ).toBeNull();
+    expect(sanitizeReflect({ ...summary, assisted: { ...round, range: 500 } }).assisted.range).toBe(
+      100,
+    );
   });
 
   it('keeps framing autonomy nullable, because the control round has no value to send', () => {
