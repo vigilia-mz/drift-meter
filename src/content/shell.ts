@@ -97,7 +97,7 @@ export const SCREENS = {
 } as const satisfies Record<ScreenName, ScreenCopy>;
 
 /** The masthead, on every screen. */
-export const KICKER = 'Agential Drift Research Program · Instrument 01';
+export const KICKER = 'Agential Drift Research Programme · Instrument 01';
 
 /**
  * The intro screen.
