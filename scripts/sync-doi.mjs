@@ -136,7 +136,13 @@ async function poll({ recordId, expected, conceptDoi, waitMs, intervalMs }) {
     try {
       const response = await fetch(`${ZENODO_API}/${recordId}`, {
         redirect: 'follow',
-        headers: { accept: 'application/json' },
+        // Named, because Zenodo began answering Node's default client with a 403 between
+        // the v0.9.0 and v0.10.0 releases, and a refusal here is retried until the wait
+        // runs out, which looks exactly like a deposit that has not landed.
+        headers: {
+          accept: 'application/json',
+          'user-agent': 'drift-meter-sync-doi (+https://github.com/vigilia-mz/drift-meter)',
+        },
       });
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const record = await response.json();
