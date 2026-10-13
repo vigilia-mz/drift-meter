@@ -97,6 +97,53 @@ This file is the surviving record of them.
   - _Where it is held._ The protocol prints the registered P2 verbatim beneath the table, and a test
     holds the quotation to the v0.9 strings. The measure, the composite, the headline and the reflect
     payload each have cases for the new behaviour.
+- **Amendment A2: the AI arm is credited to an AI model.** Recorded as an amendment rather than a
+  copy edit, because the arms are the manipulation and this changes one after the predictions were
+  registered. It was made on 13 Oct 2026, with n at zero and no data collected from anyone.
+  - _What was registered._ In v0.9 the AI arm's supplied read was headed “AI assistant’s read”, the
+    standing line said “Estimate supplied by an AI assistant.”, and the recommendation line began “AI
+    assistant recommends:”.
+  - _What it is now._ “AI model’s read”, “Estimate supplied by an AI model.” and “AI model
+    recommends:”. The landing page's account of the arms and P2's wording follow, since P2 names the
+    arm. The figure, the reasoning, the recommendation, the other two arms, the measures and every
+    falsification condition are unchanged.
+  - _Why._ The rest of the site has said “an AI model” since v0.9, and the AI arm was the one place
+    that did not. “Assistant” also names a role as well as a kind of source, and a role can carry its
+    own authority, raising or lowering the estimate’s weight, when authority is the one thing the
+    three arms are meant to vary.
+  - _Where it is held._ The protocol prints the v0.9 wording beneath the arms table, and a test holds
+    that quotation to the registered strings, written out rather than imported, and holds P2 to the
+    new wording.
+- **The colonoscopy interval in the long essay is printed with its signs.** It read “six percentage
+  points on a 95% confidence interval from 10.5 to 1.6”, which drops both signs and runs the bounds
+  from high to low, so it could be read as a range of falls. It now reads “fell 6.0 percentage points
+  (95% CI −10.5 to −1.6)”, checked on 13 Oct 2026 against Budzyń et al. 2025 through its PubMed
+  record. No figure changed. A test holds the signed form and fails on the old one.
+- **The long essay links the studies it cites.** The PNAS paper, the Lancet Gastroenterology &
+  Hepatology article and METR's two reports each link to the primary link in their source-table rows.
+  Project Deal is not linked, because its row still has no pinned record to link to.
+- **The landing page's privacy sentence says when it is true.** It said the instrument runs entirely
+  in the browser “and nothing is sent or stored”. That holds while the model endpoint is off, which it
+  is in the published build, and stops holding the day it is turned on. It now says so.
+- **P5's falsifier no longer says every other ordering would make the finding about supplied
+  figures.** Only no difference between the arms would. An ordering with the human arm above the AI
+  arm, say, is still an effect of authority; it refutes P5 without being a finding about supplied
+  figures. The falsification condition itself, any ordering but the predicted one, is unchanged, so
+  this is a correction to the note beside it rather than an amendment.
+- **The protocol no longer says “Until #31”.** An issue number is not something a reader of the
+  protocol can follow. The sentence now says earlier versions could not have carried more than one
+  planted error per slate.
+- **One spelling of programme in the prose, and the project's name left as it is.** The site is
+  written in British spelling, and every common use of the word already followed it: the programme
+  officer, the charity programmes. The Agential Drift Research Program is a proper name, and it stays
+  spelled that way. It is the name on every Zenodo record already deposited, and renaming it would
+  give one project two names across its DOIs, which costs a citation more than a spelling mismatch
+  costs a page. A first pass of this change renamed it, and was reverted before merge.
+- **The build-size budget is raised from 480 KB to 484 KB, against its own note.** The note in
+  `scripts/check-size.mjs` said the next raise should subset the fonts or drop a face instead.
+  `main` was at 479.1 KB, and the items above brought it to 481.5 KB. The interval correction was
+  not held back for a decision about typefaces. That decision is still owed, before any further
+  raise.
 
 **Why**
 
@@ -107,6 +154,9 @@ This file is the surviving record of them.
   measure biased toward its author's prediction is the specific failure this project is about, and the
   only time it can be changed without the change being suspect is before any data exists. n is still
   zero.
+- A2 is written up the same way for the same reason, though it is smaller: it rewords a
+  manipulation rather than recomputing a measure, and the only time to do either is before there is
+  data that the change could be fitted to.
 
 ## v0.9 — 12 Oct 2026 — The counts are derived, and the release records what it shipped unfinished
 

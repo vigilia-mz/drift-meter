@@ -187,6 +187,15 @@ Murdoch, and the generalisations about how experienced users behave — are stil
 pass changes is the standard the rest of them will be held to, which is that a row saying `Checked`
 means somebody opened the paper.
 
+Then the endoscopy interval, on 13 Oct 2026, in v0.10. The row had the interval right — −6.0
+percentage points, 95% CI −10.5 to −1.6 — and the page did not: it said “six percentage points on a
+95% confidence interval from 10.5 to 1.6”, which drops both signs and runs the bounds high to low.
+Nothing in that clause is a wrong number, which is why it survived a pass that read the paper. The
+page now prints the interval as the paper does, and it was checked again that day against the
+abstract of the PubMed record. The same pass linked the three studies from the page to the primary
+link in each row, so a reader can go from the sentence to the record without this file. Project Deal
+is the one study claim on the page with no link, because its row has nothing pinned to link to.
+
 ---
 
 ### ILLUSTRATIVE — Bednet commodity cost near $2 against a delivered cost near $4.50
@@ -351,6 +360,7 @@ its location line now says where the bars were.
     nothing supported a claim about belief. The paper devotes a section to it and reports something
     stronger, which is now on the page. Deleting an unverified claim is cheap; deleting a true one
     costs the argument, and both happened in the same hour.
+- **Linked from the page since v0.10**, at the paper's title, to the DOI above.
 - **Action before release:** none outstanding.
 
 ### PRIMARY — Adenoma detection in unassisted colonoscopy fell from 28.4% to 22.4% after the centres adopted AI, while cancer detection did not significantly change
@@ -429,6 +439,15 @@ its location line now says where the bars were.
   projected costs or downstream health benefits, and it discusses neither. Recorded because a source
   read and set aside is a decision, and because the tempting use of it — modelled benefit set against
   measured cost — is an argument this table's author would be constructing rather than citing.
+- **The interval, corrected on the page, 13 Oct 2026 (v0.10).** The page gave the fall as “six
+  percentage points on a 95% confidence interval from 10.5 to 1.6”. The figures are this row's, with
+  both signs dropped and the bounds run from high to low, so the clause could be read as a range of
+  falls rather than the bounds on one. It now reads “fell 6.0 percentage points (95% CI −10.5 to
+  −1.6)”, which is the paper's own statement of the absolute difference. Re-checked that day against
+  the abstract of PubMed record 40816301, which gives −6·0% (95% CI −10·5 to −1·6; p=0·0089) and the
+  same two rates. No figure changed and the grade does not move; `invariants.test.ts` holds the
+  signed form and fails on the unsigned one.
+- **Linked from the page since v0.10**, at “Budzyń and colleagues”, to the DOI above.
 - **Action before release:** none outstanding.
 
 ### PRIMARY — Tasks took 19% longer with AI tools, on a wide interval, and the same developers had forecast and then reported a speedup
@@ -497,6 +516,8 @@ its location line now says where the bars were.
   overestimated AI's effect on their time by 40 percentage points. Convenience sample, roughly 2%
   response rate, and self-report, which is the exact instrument this essay's argument says is
   unreliable. Citing it as a finding would be the failure; it is context.
+- **Linked from the page since v0.10:** the paper's title to the arXiv record above, pinned at v2,
+  and “reported in February 2026” to METR's post on the second experiment.
 - **Action before release:** none outstanding. One standing condition, which is a property of the
   claim rather than a defect in the sentence: this is the only row here that names a season, and it
   will go stale again. The paragraph names the season for that reason.
@@ -643,6 +664,9 @@ its location line now says where the bars were.
   published in 2026”, which is what the write-up supports, and says nothing about when the experiment
   ran, because the row below has still not pinned a source that would settle it.
 - **Primary link:** TODO — pin Anthropic's published account. Do not paraphrase from memory.
+- **Not linked from the page.** v0.10 linked the three studies in the long essay to their records;
+  this claim has no pinned record, so it has no link, and a link to an unread page would lend it the
+  standing the row above it says it has not earned.
 - **Action before release:** pin it. Two pages lean on these figures, this is the one claim on the
   site that has already been got wrong three times, and the row has now corrected a date and a scale
   off an unpinned source, which is the condition that produces exactly these errors.

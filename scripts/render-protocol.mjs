@@ -157,6 +157,7 @@ export function renderProtocol({
         [method.armsColumns.arm, method.armsColumns.supplied, method.armsColumns.isolates],
         armsBody,
       ),
+      paragraph(method.armsAmendment, 'note'),
     ].join('\n'),
   );
 

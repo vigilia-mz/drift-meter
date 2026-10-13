@@ -99,12 +99,22 @@ export const METHOD = {
   suppliedPrefix: 'A figure, a written read and a recommendation, headed ',
   suppliedJoin: ' and attributed to ',
   armsIsolate: {
-    ai: 'The AI-attributed condition itself. On its own it cannot distinguish deference to an assistant from deference to any supplied number, which is what the other two arms are for.',
+    ai: 'The AI-attributed condition itself. On its own it cannot distinguish deference to an AI model from deference to any supplied number, which is what the other two arms are for.',
     human:
       'Authority without AI. If scrutiny drops here too, the effect belongs to supplied figures carrying someone’s name on them, and the AI framing is decoration.',
     unlabelled:
       'Anchoring with no authority attached at all. This is the floor the other two arms have to clear before either earns a claim.',
   } satisfies Record<ArmKey, string>,
+  /**
+   * The amendment to the AI arm's wording, beneath the table it changes.
+   *
+   * The same reasoning as `predictionsAmendment`: the arms are the manipulation,
+   * and a manipulation reworded after the predictions were registered has to show
+   * what it was before, on the page. `invariants.test.ts` holds the quotation to
+   * the strings v0.9 registered.
+   */
+  armsAmendment:
+    'Amendment A2, 13 Oct 2026, made with n at zero and no data collected. In v0.9 the AI arm’s supplied read was headed “AI assistant’s read” and attributed to “an AI assistant”. It is now headed “AI model’s read” and attributed to “an AI model”, which is how every other page of this site names the source. “Assistant” names a role as well as a kind of source, and a role can carry its own authority, raising or lowering the estimate’s weight, when authority is the one thing the three arms are meant to vary. The figure, the reasoning, the recommendation, the other two arms and every falsification condition are unchanged. P2 names the arm, and its wording follows.',
   armsControl: {
     arm: 'No estimate supplied',
     supplied:
@@ -338,7 +348,7 @@ export const MEASURE_SPECS = [
     formula:
       'planted errors whose figure was moved ÷ planted errors on the slate × 100, undefined where the slate carries none',
     threat:
-      'The content authors one planted error per slate, so for a single reader this is one observation on the only thing here with a right answer, and one observation is a coin flip rather than a rate. Until #31 it could not have been more: the slate named a single trapped case, and a second one had nowhere to live. The mechanism now carries any number per slate and the content carries one, which is a limit of the authoring and is why this measure is reported here and not drawn as a bar beside the others — a bar reading 0 or 100 off a single observation would look like a rate. What the debrief shows instead is one paragraph per planted error, saying what was done about that one.',
+      'The content authors one planted error per slate, so for a single reader this is one observation on the only thing here with a right answer, and one observation is a coin flip rather than a rate. Earlier versions could not have carried more: the slate named a single trapped case, and a second one had nowhere to live. The mechanism now carries any number per slate and the content carries one, which is a limit of the authoring and is why this measure is reported here and not drawn as a bar beside the others — a bar reading 0 or 100 off a single observation would look like a rate. What the debrief shows instead is one paragraph per planted error, saying what was done about that one.',
   },
   {
     key: 'gap',
@@ -379,7 +389,7 @@ export const PRED_ROWS = [
   {
     id: 'P2',
     claim:
-      'Fewer of the supplied assumptions are moved when the estimate is credited to an AI assistant than when it is credited to no one.',
+      'Fewer of the supplied assumptions are moved when the estimate is credited to an AI model than when it is credited to no one.',
     test: 'Revision behaviour in the AI-attributed arm equal to or higher than in the unattributed arm, across readers. Amended in v0.10; the registered version is printed below.',
   },
   {
@@ -404,7 +414,7 @@ export const PRED_ROWS = [
     id: 'P5',
     claim:
       'The drop in scrutiny is larger in the AI-attributed arm than in the human-attributed arm, and both are larger than the unattributed arm.',
-    test: 'Any ordering other than that one, including no difference between the three arms — which would make the finding about supplied figures rather than about AI.',
+    test: 'Any ordering other than that one, including no difference between the three arms. No difference would make the finding about supplied figures rather than about AI; another ordering would point somewhere else, and none of them would support this claim.',
   },
 ] as const satisfies readonly PredictionRow[];
 

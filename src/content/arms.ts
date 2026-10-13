@@ -11,6 +11,10 @@
  * The fourth arm is the no-estimate control round, which is within-subject rather
  * than an entry here.
  *
+ * The AI arm said “AI assistant” until amendment A2 in v0.10. The v0.9 strings
+ * are quoted on the protocol page (`METHOD.armsAmendment`) and pinned in
+ * `invariants.test.ts`, because nothing left in this file would show them.
+ *
  * Licensed CC BY 4.0 — this is prose. See REUSE.toml.
  */
 
@@ -19,8 +23,8 @@ import type { Arm, ArmKey } from './types.js';
 export const ARMS = {
   ai: {
     key: 'ai',
-    label: 'AI assistant’s read',
-    who: 'an AI assistant',
+    label: 'AI model’s read',
+    who: 'an AI model',
     tag: 'AI-attributed',
   },
   human: {

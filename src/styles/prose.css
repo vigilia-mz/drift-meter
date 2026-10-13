@@ -481,6 +481,15 @@ body.page-essay .cta {
   font-style: italic;
 }
 
+/* A citation in running prose links to the record it cites. It keeps the colour of
+ * the sentence around it, so the contrast budget already covers it, and the
+ * underline is what marks it. */
+article p a {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
 /* ---------------------------------------------------------------------------
  * The readout specimen on the landing page
  * ------------------------------------------------------------------------- */
