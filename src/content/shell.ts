@@ -6,8 +6,8 @@
  * of the original screen prose survives. What does survive is quoted below at the
  * point of use and marked, because those phrases are load-bearing elsewhere: the
  * consent screen's two privacy promises are the stated reason the fonts are
- * self-hosted (CLAUDE.md), and the local-only button's label is asserted by a
- * planned end-to-end test. Everything else here is newly written to the voice and
+ * self-hosted (CLAUDE.md), and the local-only button's label is asserted by the
+ * end-to-end suite whenever the endpoint is configured. Everything else here is newly written to the voice and
  * should be read as new prose rather than as a port.
  *
  * Licensed CC BY 4.0 — this is prose. See REUSE.toml.
@@ -29,7 +29,7 @@ export const SITE_NAME = 'The Drift Meter';
 export const SCREENS = {
   intro: {
     title: 'Start',
-    announce: 'The Drift Meter. An instrument in two rounds, about three minutes.',
+    announce: 'The Drift Meter. An instrument in two rounds, with no time limit.',
   },
   consent: {
     title: 'Before you begin',
@@ -97,7 +97,7 @@ export const SCREENS = {
 } as const satisfies Record<ScreenName, ScreenCopy>;
 
 /** The masthead, on every screen. */
-export const KICKER = 'Agential Drift Research Program · Experiment 01';
+export const KICKER = 'Agential Drift Research Program · Instrument 01';
 
 /**
  * The intro screen.
@@ -125,7 +125,7 @@ export const INTRO = {
   heading: 'The Drift Meter',
   standfirst: 'Evaluating the evaluator under AI assistance.',
   body: [
-    'You will review the same kind of charity cost-effectiveness case twice: once with an estimate supplied to you, and once with no estimate at all. Three cases each time, about three minutes in total.',
+    'You will review the same kind of charity cost-effectiveness case twice: once with an estimate supplied to you, and once with no estimate at all. Three cases each time, with no time limit.',
     'Nothing here scores whether your decisions were right. What it records is the texture of the work — which numbers you moved, which evidence you opened, where you declined to decide, and how confident you felt afterwards.',
   ],
   constructedLabel: 'About the cases',
@@ -134,7 +134,7 @@ export const INTRO = {
   shortLabel: 'The sixty-second version',
   short: [
     'AI assistance can improve the surface of an answer while changing the person responsible for judging it. The concern is not that people stop deciding. It is that deciding thins into approving.',
-    'This instrument tries to make that visible in one reader, on one short task. It is a trace, not a finding: n is zero, and one person on six cases cannot support a claim about anyone else.',
+    'This instrument tries to make that visible in one reader, in one sitting. It is a trace, not a finding: n is zero, and one person on six cases cannot support a claim about anyone else.',
     'Drift, the thing this programme is named for, is longitudinal: a capacity weakening across repeated delegation. That is the hypothesis, and it is not what a run here observes. What one sitting records is short-run behaviour under two conditions — at most the trace such a weakening would leave on its way through, and equally consistent with there being no weakening at all. Only returning to the same readers over time could tell those apart.',
   ],
   begin: 'Begin',
@@ -177,8 +177,26 @@ export const CONSENT = {
     },
   ],
   reflectionHeading: 'One optional part',
+  /**
+   * The optional part, and the choice about it, are two fields since v0.10.
+   *
+   * The screen used to offer a second Begin button, “Begin, but keep everything
+   * local”, in every build. In the dark build — the committed default, and the
+   * only one published — there is nothing for it to keep local: the endpoint is
+   * empty, nothing leaves the page, and both buttons started the same run. A
+   * choice that changes nothing is a choice the reader is asked to spend attention
+   * on for no reason, on the screen where they are deciding whether to trust the
+   * page. So `reflection` now says the part is off and stops there, and
+   * `reflectionChoice` and `beginLocal` render only when the endpoint is
+   * configured, the same condition the encoded screen already checks before it
+   * offers a control. Turning the endpoint on brings the choice back, and that
+   * commit has to rewrite the rows above anyway, because two of them say nothing
+   * leaves the browser.
+   */
   reflection:
-    'A later screen can send a short, anonymous summary of your run to an AI model and print what it says back, along with the model ID that served it. It is off in this build. You can also turn it off for yourself now, and the rest of the instrument works unchanged.',
+    'A later screen can send a short, anonymous summary of your run to an AI model and print what it says back, along with the model ID that served it. It is off in this build, so nothing is sent and there is nothing to opt out of.',
+  reflectionChoice:
+    'You can turn it off for yourself now, and the rest of the instrument works unchanged.',
   /**
    * The second half of #7, on the last screen before the work starts.
    *

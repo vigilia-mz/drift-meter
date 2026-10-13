@@ -225,6 +225,7 @@ export function renderProtocol({
         predictionsBody,
       ),
       paragraph(method.predictionsOrderNote, 'note'),
+      paragraph(method.predictionsAmendment, 'note'),
       paragraph(method.predictionsCaveat, 'note'),
     ].join('\n'),
   );
@@ -265,13 +266,13 @@ export function renderProtocol({
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <title>${escape(title)} — The Drift Meter — Megi Pishtari</title>
-<meta name="description" content="The Drift Meter&rsquo;s protocol: the design, the four arms, the seven measures with their formulas and stated threats, the six registered predictions with their falsification conditions, and what this build cannot do.">
+<meta name="description" content="The Drift Meter&rsquo;s protocol: the design, the four arms, the seven measures with their formulas and stated threats, the six predictions registered for a future study with their falsification conditions, and what this build cannot do.">
 <link rel="stylesheet" href="/src/styles/prose.css">
 </head>
 <body class="page-protocol">
   <main class="wrap">
     <div class="topline">
-      <div class="kicker">Agential Drift Research Program &nbsp;&middot;&nbsp; Experiment 01</div>
+      <div class="kicker">Agential Drift Research Program &nbsp;&middot;&nbsp; Instrument 01</div>
       <a class="back" href="index.html">&larr; Back</a>
     </div>
 
