@@ -271,7 +271,7 @@ test('the shell announces screen changes and moves focus to the heading', async 
   await expect(live).toHaveAttribute('role', 'status');
   await expect(live).toHaveAttribute('aria-live', 'polite');
   await expect(live).toHaveText(
-    'The Drift Meter. An instrument in two rounds, about three minutes.',
+    'The Drift Meter. An instrument in two rounds, with no time limit.',
   );
 
   // Focus lands on the container, not the first control, so the heading is read

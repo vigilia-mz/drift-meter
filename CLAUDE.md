@@ -4,7 +4,7 @@ Guidance for Claude Code when working in this repository.
 
 ## What this is
 
-The Drift Meter — Experiment 01 of the Agential Drift Research Program. A published research
+The Drift Meter — Instrument 01 of the Agential Drift Research Program. A published research
 artifact: three hand-written essay pages, one interactive instrument, and one serverless endpoint
 that calls Claude. Sole author: Megi Pishtari.
 
