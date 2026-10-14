@@ -48,7 +48,8 @@ npm run dev
 Other scripts: `npm test` (unit suite, including the endpoint's refusal paths), `npm run build`
 (produces `dist/`), `npm run typecheck`, `npm run lint`, `npm run check:size`,
 `npm run check:contrast` (every colour token against the surface it sits on), `npm run check:licensing`
-(every tracked file against `REUSE.toml`, and every licence it names against `LICENSES/`).
+(every tracked file against `REUSE.toml`, and every licence it names against `LICENSES/`),
+`npm run check:release` (no tag for a version the changelog still calls in progress).
 
 `npm run test:e2e` is the browser suite: Playwright drives the built site, sweeps every screen a
 reader can reach with axe, measures the touch targets, and counts what the three essay pages request.

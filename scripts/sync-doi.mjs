@@ -50,10 +50,19 @@
  * to run first: a version or DOI of a different width will pull the README's table
  * out of alignment, and `format:check` is part of the gate.
  *
- *   node scripts/sync-doi.mjs                 # poll, assert, write
- *   node scripts/sync-doi.mjs --dry-run       # say what it would write, write nothing
- *   node scripts/sync-doi.mjs --expect=0.9.0  # a version package.json has not reached
+ * WHICH VERSION IT WAITS FOR. The newest release tag in this checkout, because the tag
+ * is what Zenodo archives. It used to be `package.json`, and that stopped being possible
+ * once a test held `package.json` to `CITATION.cff`: the manifest now names the version
+ * already published, so a run that waited for it would find the previous deposit and
+ * report nothing to write — the wrong answer, looking exactly like the right one. Tags
+ * are only as current as the last fetch, so the changelog is asked as well, and a top
+ * heading closed in a series no local tag has reached stops the run before it polls.
+ *
+ *   node scripts/sync-doi.mjs                  # poll for the newest tag, assert, write
+ *   node scripts/sync-doi.mjs --dry-run        # say what it would write, write nothing
+ *   node scripts/sync-doi.mjs --expect=0.11.0  # a version other than the newest tag here
  */
+import { execFileSync } from 'node:child_process';
 import { readFileSync, writeFileSync } from 'node:fs';
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -225,6 +234,22 @@ function plan(now, next) {
         { find: `closed ${series(now.version)} entry`, replace: `closed ${series(next.version)} entry`, need: 1 }, // prettier-ignore
       ],
     },
+    // The version half of the pairing, with no DOI beside it. Written here because a test
+    // holds both files to `CITATION.cff`, so a release that wrote one and not the others
+    // would leave the gate red on a run that had reported success.
+    {
+      file: 'package.json',
+      edits: [{ find: `\n  "version": "${now.version}",\n`, replace: `\n  "version": "${next.version}",\n`, need: 1 }], // prettier-ignore
+    },
+    {
+      file: 'package-lock.json',
+      // Twice, at the top and for the root package, each under the package's own name so
+      // that no dependency that happens to share the version number can match.
+      edits: [
+        { find: `"name": "drift-meter",\n  "version": "${now.version}",`, replace: `"name": "drift-meter",\n  "version": "${next.version}",`, need: 1 }, // prettier-ignore
+        { find: `"name": "drift-meter",\n      "version": "${now.version}",`, replace: `"name": "drift-meter",\n      "version": "${next.version}",`, need: 1 }, // prettier-ignore
+      ],
+    },
     {
       file: 'CHANGELOG.md',
       edits: [
@@ -316,6 +341,18 @@ function audit(next, wrote) {
     if (alsoDoi && !text.includes(next.doi)) stale.push(`${name} does not name ${next.doi}`);
   }
 
+  // The version half, which the manifest and its lock file carry without a DOI.
+  const manifest = JSON.parse(read('package.json'));
+  const lock = JSON.parse(read('package-lock.json'));
+  const versions = [
+    ['package.json', manifest.version],
+    ['package-lock.json', lock.version],
+    ['the root package in package-lock.json', lock.packages?.['']?.version],
+  ];
+  for (const [name, value] of versions) {
+    if (value !== next.version) stale.push(`${name} names ${String(value)}, not ${next.version}`);
+  }
+
   // The one sentence this script deliberately does not write. It says a version is in
   // progress until a person says it is not, and a release that leaves it saying so has
   // published a masthead contradicting the footer three pages away.
@@ -334,8 +371,53 @@ function audit(next, wrote) {
   return stale;
 }
 
+/**
+ * The version being released: `--expect` if given, and otherwise the newest release tag.
+ * See the header for why it is no longer `package.json`.
+ */
+function expectedVersion() {
+  const given = option('expect', undefined);
+  if (given !== undefined) return given.replace(/^v/, '');
+
+  let listed;
+  try {
+    listed = execFileSync('git', ['tag', '--list', 'v*', '--sort=-v:refname'], {
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'pipe'],
+    });
+  } catch (error) {
+    fail(`could not list the tags — ${error instanceof Error ? error.message : String(error)}`);
+  }
+  const newest = listed
+    .split('\n')
+    .map((tag) => tag.trim())
+    .find((tag) => /^v\d+\.\d+\.\d+$/.test(tag));
+  if (newest === undefined) {
+    fail('this checkout has no release tags. Fetch them (`git fetch --tags`) or pass --expect.');
+  }
+
+  // A closed heading in a series the newest local tag is not in means one of two things.
+  // A heading ahead of the tag is a tag this checkout has not fetched, and polling for the
+  // older one would find it and write nothing. A tag ahead of the heading is a release
+  // with no closed entry, which `scripts/check-release.mjs` also refuses.
+  const top = /^## v(\d+)\.(\d+) — (.+?) — /m.exec(readFileSync('CHANGELOG.md', 'utf8'));
+  const heading = top === null ? null : `v${top[1]}.${top[2]}`;
+  if (heading !== null && !/in progress/i.test(top[3]) && heading !== series(newest.slice(1))) {
+    const [major, minor] = newest.slice(1).split('.').map(Number);
+    const tagAhead = major - Number(top[1]) || minor - Number(top[2]);
+    fail(
+      tagAhead > 0
+        ? `${newest} is tagged and CHANGELOG.md is closed at ${heading}, so the tagged ` +
+            'version has no entry. `npm run check:release` says the same.'
+        : `CHANGELOG.md is closed at ${heading} and the newest tag here is ${newest}. ` +
+            'Fetch the tags (`git fetch --tags`) or pass --expect.',
+    );
+  }
+  return newest.slice(1);
+}
+
 const dryRun = flag('dry-run');
-const expected = option('expect', String(JSON.parse(readFileSync('package.json', 'utf8')).version));
+const expected = expectedVersion();
 const now = readCitation();
 const recordId = /zenodo\.(\d+)$/.exec(now.conceptDoi)?.[1];
 if (recordId === undefined) fail(`concept DOI “${now.conceptDoi}” has no Zenodo record number.`);

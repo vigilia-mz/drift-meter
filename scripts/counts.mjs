@@ -5,19 +5,21 @@
  * WHY THIS EXISTS. A count stated in a document outside this repository drifts from
  * the count inside it, and this project has now logged that four times: the measure
  * count corrected twice, five to six to seven; the public design-review draft saying
- * six measures when there are seven; and a CV drafted this week claiming five measures
- * and 314 unit tests. Every one was caught by a person re-reading, and this
- * repository's standing position is that an invariant depending on human diligence is
- * unenforced. This does not enforce anything — it makes the true numbers cheap enough
- * to read that there is no excuse for writing them from memory.
+ * six measures when there are seven; and a CV drafted the week this script was written,
+ * claiming five measures and 314 unit tests. Every one was caught by a person
+ * re-reading, and this repository's standing position is that an invariant depending on
+ * human diligence is unenforced. This does not enforce anything — it makes the true
+ * numbers cheap enough to read that there is no excuse for writing them from memory.
  *
  * WHY THE TEST COUNTS COME FROM THE RUNNERS AND NOT FROM A GREP. Counting `it(` in the
- * unit suite gives 318 where vitest runs 389, and counting `test(` in the browser suite
- * gives 44 where Playwright lists 55; the gaps are parameterised cases, which are one
- * line of source and many cases. A grep would therefore publish a confident wrong
- * number — the exact defect this script was written to stop — so the runners are asked
- * instead. `vitest --reporter=json` reports what it ran; `playwright --list` collects
- * without running, so the browser count costs no browser.
+ * unit suite, or `test(` in the browser suite, gives fewer cases than either runner
+ * reports, because a parameterised case is one line of source and many cases. A grep
+ * would therefore publish a confident wrong number — the exact defect this script was
+ * written to stop — so the runners are asked instead. This paragraph used to give both
+ * pairs of figures, and they went stale as the suites grew; the gap is the point, and
+ * the figures are what this script prints. `vitest --reporter=json` reports what it
+ * ran; `playwright --list` collects without running, so the browser count costs no
+ * browser.
  *
  * WHAT IT WILL NOT DO. Guess. There is no fallback value anywhere here: if a source
  * cannot be read or a runner cannot be asked, the key prints `unavailable` and the
@@ -41,8 +43,8 @@ let failed = false;
 
 /**
  * Runs one derivation. A thrown error is a missing number, never a substituted one —
- * the key still prints, so a reader sees which of the seven could not be derived
- * rather than a short list that looks complete.
+ * the key still prints, so a reader sees which key could not be derived rather than a
+ * short list that looks complete.
  */
 function derive(key, fn) {
   try {
