@@ -164,6 +164,36 @@ This file is the surviving record of them.
   manipulation rather than recomputing a measure, and the only time to do either is before there is
   data that the change could be fitted to.
 
+**Recorded after release, 14 Oct 2026**
+
+This note was added to `main` after the `v0.10.0` tag, so the archived copy of v0.10.0 does not
+contain it. The archive cannot be changed and `main` can, which is the precedent the v0.9 entry set
+for v0.8.0. Nothing below changes a measure, a prediction or an essay sentence, and v0.10.0 is still
+the version to cite.
+
+- **v0.9.0 is deposited, and its DOI is `10.5281/zenodo.23326480`.** It was written into
+  `CITATION.cff` and the footers on 12 Oct and replaced by the v0.10.0 DOI on 13 Oct, as the release
+  procedure intends, and this entry did not record it, so `main` named the v0.9.0 deposit nowhere.
+  The v0.9 entry recorded the v0.8.0 DOI; this records the v0.9.0 one.
+- **A check now fails a release whose changelog is not closed.** The v0.9 entry said this check did
+  not exist. `scripts/check-release.mjs` reads the top heading of this file. On every tag push,
+  `.github/workflows/release.yml` fails unless the tagged tree's top heading is dated and names the
+  tag's series. In `npm run check` and in CI, a tag for a version this file still calls in progress,
+  or for a version newer than its top entry, fails the gate. Replayed against the four tags, it
+  passes v0.7.0, v0.9.0 and v0.10.0 and fails v0.8.0. Zenodo archives a release when it is
+  published, whatever a job says, so a tag made by publishing the release on GitHub, as v0.9.0 and
+  v0.10.0 were, is archived before the check can matter. A tag pushed first, as v0.7.0 and v0.8.0
+  were, can be held back from release when its job is red. Either way the mistake now shows at the
+  tag, and fails every later pull request and every local `npm run check` until the heading is
+  closed, instead of waiting for a reader to find it.
+- **`package.json` said 0.8.0 through the v0.9.0 and v0.10.0 releases**, and both archives carry
+  that. Nothing checked it. It and its lock file now say 0.10.0, and a test holds them to
+  `CITATION.cff`. `scripts/sync-doi.mjs` took the version to wait for from it, so a bare run would
+  have waited fifteen minutes for v0.8.0 and then failed. It now takes the newest tag, and writes
+  both files with the rest of the pairing.
+- **The landing page's two v0.10 corrections carry their date, 13 Oct 2026**, as every other entry
+  in that list already did. A test holds each entry to the date its changelog heading gives.
+
 ## v0.9 — 12 Oct 2026 — The counts are derived, and the release records what it shipped unfinished
 
 **What changed**

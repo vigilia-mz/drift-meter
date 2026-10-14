@@ -26,6 +26,10 @@ import readerBriefs from '../../docs/review-briefs.md?raw';
 // The README, for one claim the masthead makes about it: that the repository links the
 // author's profile. It did not, for as long as the row has said so.
 import readmeFile from '../../README.md?raw';
+// The package manifest and its lock file, for the version they carry. Both named 0.8.0
+// through the v0.9.0 and v0.10.0 releases, because nothing checked them.
+import packageFile from '../../package.json?raw';
+import packageLockFile from '../../package-lock.json?raw';
 import sourcesFile from '../../SOURCES.md?raw';
 import * as armsModule from './arms.js';
 import * as debriefModule from './debrief.js';
@@ -975,6 +979,56 @@ describe('the landing page draws no result it does not have', () => {
   });
 });
 
+describe('the corrections on the landing page', () => {
+  /**
+   * The front door's record of corrections is a mirror of `CHANGELOG.md`, and it went
+   * out of step the way every mirror here has: the two v0.10 entries carried a version
+   * and no date while every other entry carried both, so the newest corrections were
+   * the only ones a reader could not place. Each entry is held to the date the changelog
+   * heading gives its version, read from the file rather than written here.
+   *
+   * Every `<dt>` in the list is read loosely and then parsed strictly, so an entry whose
+   * markup drifts is reported rather than skipped: `index.html` is formatted by hand, and
+   * a pattern that only matched the shape it was written for would stop checking an
+   * entry the moment someone wrapped a line. An entry for a version still in progress
+   * may go undated, because the changelog has no date to give it yet; once the heading
+   * is closed, the entry has to carry the date it closed on.
+   */
+  const list = /id="record-title"[\s\S]*?<dl>([\s\S]*?)<\/dl>/.exec(indexPage)?.[1] ?? '';
+  const terms = [...list.matchAll(/<dt>([\s\S]*?)<\/dt>/g)].map((m) => (m[1] ?? '').trim());
+
+  it('finds the list and every entry in it', () => {
+    // Guards the two patterns above: if the markup changes and they match nothing, the
+    // case below would pass by checking an empty list.
+    expect(list, 'index.html has no corrections list after #record-title').not.toBe('');
+    expect(terms.length).toBe(list.split('class="entry"').length - 1);
+    expect(terms.length).toBeGreaterThan(0);
+  });
+
+  it('dates every entry the way the changelog dates its version', () => {
+    const stale: string[] = [];
+    for (const term of terms) {
+      const parsed = /^(v\d+\.\d+)(?:\s*&middot;\s*(.+))?$/.exec(term);
+      const version = parsed?.[1];
+      const date = parsed?.[2]?.trim();
+      if (version === undefined) {
+        stale.push(`“${term}” does not read as a version and a date`);
+        continue;
+      }
+      const heading = new RegExp(`^## ${version.replace('.', '\\.')} — ([^—]+) — `, 'm').exec(
+        changelogFile,
+      );
+      const expected = heading?.[1]?.trim();
+      if (expected === undefined) {
+        stale.push(`${version} has no heading in CHANGELOG.md`);
+      } else if (/in progress/i.test(expected) ? date !== undefined : date !== expected) {
+        stale.push(`${version} reads “${date ?? 'no date'}”, and the changelog says ${expected}`);
+      }
+    }
+    expect(stale.join(' | '), 'corrections out of step with the changelog').toBe('');
+  });
+});
+
 describe('the long essay states its three empirical claims the way their studies do', () => {
   /**
    * The empirical section of `atrophy.html`, one case per claim.
@@ -1483,6 +1537,39 @@ describe('the prose pages name the version to cite', () => {
     // Joined into one string rather than compared as an array: vitest prints a long
     // array as `[ …(7) ]`, and a list nobody can read is the same as no list.
     expect(stale.join(' | '), 'documents left citing a previous version').toBe('');
+  });
+
+  /**
+   * And the package manifest, which said 0.8.0 for two releases after 0.8.0.
+   *
+   * It is not a citation line, which is why nothing checked it — but it is the version a
+   * repository reports about itself, `npm` prints it on every script, and
+   * `scripts/sync-doi.mjs` used to take it as the version a release was waiting for, so
+   * a bare run would have waited for a deposit made two releases earlier. Held to `CITATION.cff`
+   * rather than to the newest tag, because the citation file is the record and
+   * `scripts/sync-doi.mjs` now writes all three in the same run. The lock file is held
+   * too: `npm` writes the version into it twice, and a manifest bumped by hand leaves
+   * both behind.
+   *
+   * One consequence, accepted rather than missed: a tagged tree is cut before its DOI
+   * exists, so its citation file still names the version before it, and from v0.11 on
+   * its `package.json` will too. The archive is one version behind in all three places
+   * for the same reason, rather than in two of them by accident.
+   */
+  it('gives the package the version the citation file names', () => {
+    const manifest = JSON.parse(packageFile) as { version?: string };
+    const lock = JSON.parse(packageLockFile) as {
+      version?: string;
+      packages?: Record<string, { version?: string }>;
+    };
+    const stale: string[] = [];
+    const hold = (name: string, value: string | undefined) => {
+      if (value !== cited) stale.push(`${name} names ${value ?? 'no version'}`);
+    };
+    hold('package.json', manifest.version);
+    hold('package-lock.json', lock.version);
+    hold('the root package in package-lock.json', lock.packages?.['']?.version);
+    expect(stale.join(' | '), `CITATION.cff names ${cited}`).toBe('');
   });
 
   /**

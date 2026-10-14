@@ -1,0 +1,39 @@
+name: Release
+
+# Runs on the tag, because the tag is what Zenodo archives. The v0.8.0 deposit is
+# a permanent archive whose changelog calls its own version unfinished: the tag was
+# cut from a tree whose heading had not been closed, and nothing read the tree.
+#
+# Zenodo archives a release when it is published, whatever this job says. A tag
+# pushed on its own first runs this job before there is a release to archive, and a
+# red result is a reason not to publish one. A tag made by publishing the release on
+# GitHub is archived by the same click that starts this job, so then it can only make
+# the mistake visible at once instead of leaving it for a reader to find. What
+# prevents it is the order in CLAUDE.md: close the version, merge, then tag.
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: read
+
+jobs:
+  closed:
+    name: The tagged changelog is closed
+    runs-on: ubuntu-latest
+    steps:
+      # Actions are pinned to full commit SHAs because the repository requires
+      # it. Dependabot keeps them current; see .github/dependabot.yml.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version-file: .nvmrc
+
+      # The script uses only Node's own modules, so there is nothing to install.
+      # The tag name reaches it through the environment rather than being written
+      # into the command, so a tag name cannot become part of a shell line.
+      - name: Top heading is dated and names the tag
+        run: node scripts/check-release.mjs --tag="$TAG"
+        env:
+          TAG: ${{ github.ref_name }}

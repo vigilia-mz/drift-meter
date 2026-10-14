@@ -202,8 +202,8 @@ in any prose added to the site — including microcopy, error messages, and comm
 ## Running and deploying
 
 - **Locally:** `npm install`, then `npm run dev`. `npm run check` is the gate the first CI job runs —
-  typecheck, lint, format, the unit suite, the contrast budget, the licensing budget, and the protocol
-  page. `npm run build` produces `dist/`.
+  typecheck, lint, format, the unit suite, the contrast budget, the licensing budget, the release check,
+  and the protocol page. `npm run build` produces `dist/`.
   The last of those is there for one check rather than for the page. `scripts/build-protocol.mjs`
   asserts that no field the protocol renderer picks up refers to “this screen” deictically, and that
   assertion used to run only inside `npm run build` — so the local gate went green on a violation and
@@ -223,14 +223,24 @@ in any prose added to the site — including microcopy, error messages, and comm
   changelog heading and the process screen's row, and write the masthead Version row so it stays
   true on both sides of the deposit), then merge, verify the live site, tag on the day the heading
   names, let Zenodo mint, and only then edit `CITATION.cff` — `version`, `date-released`, `doi`, and
-  the `identifiers` entry that names the version. Everything else follows from that file. The three prose-page footers, the
-  README, the process screen's masthead row and its caveat, and the reader briefs all name the citable
-  version too; `src/content/invariants.test.ts` holds every one of them against `CITATION.cff` and
+  the `identifiers` entry that names the version. `scripts/sync-doi.mjs` makes that edit from the
+  deposit itself, and writes the version into `package.json` and its lock file in the same run.
+  Everything else follows from that file. The three prose-page footers, the
+  README, the process screen's masthead row and its caveat, the reader briefs and `package.json` all
+  name the citable version too; `src/content/invariants.test.ts` holds every one of them against `CITATION.cff` and
   prints the whole list of stale ones in a single run, so the way to find them is to bump the file and
   run the suite rather than to keep a list here. The concept DOI stays on the README badge and is
   asserted to stay there — it resolves to whatever is newest, which is what the published URL already
   does, and a release that updated every DOI it saw would break it by being thorough. `protocol.html`
   needs no edit: it reads the citation file at build time.
+  `scripts/check-release.mjs` holds the closing step from both ends. On a tag push,
+  `.github/workflows/release.yml` fails unless the tagged tree's top changelog heading is dated and
+  names the tag's series; in `npm run check`, any tag for a version the changelog still calls in
+  progress fails the gate. Zenodo archives a release when it is published, whatever a job says, so a
+  tag made by publishing the release on GitHub is archived before the check can matter; pushing the
+  tag first and publishing the release only once the tag job is green is the one way the check can
+  stop a deposit. Otherwise the order above is still what prevents an unfinished archive. The check
+  makes the mistake loud; it does not make it impossible.
 - **Actions must be SHA-pinned.** The repository requires it. Dependabot is configured for the
   `github-actions` ecosystem because pinning without automated bumps rots into old actions with known
   vulnerabilities.
