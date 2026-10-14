@@ -193,6 +193,10 @@ the version to cite.
   both files with the rest of the pairing.
 - **The landing page's two v0.10 corrections carry their date, 13 Oct 2026**, as every other entry
   in that list already did. A test holds each entry to the date its changelog heading gives.
+- **Corrected: the v0.9 entry says the rest of the site names no product, and that is too broad.**
+  The long essay names ChatGPT and GPT-4, the products the study it reports used, as it did when v0.9
+  was written; v0.9 removed “Claude” from the site's own copy, and its test looks for that name only,
+  and only in the arms.
 
 ## v0.9 — 12 Oct 2026 — The counts are derived, and the release records what it shipped unfinished
 

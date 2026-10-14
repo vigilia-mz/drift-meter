@@ -13,8 +13,9 @@ I am one person and this is not a staffed product. Expect an acknowledgement in 
 
 ## Threat model, stated plainly
 
-This repository operates one public endpoint that calls a paid API on the author's account. Being
-specific about what is and is not at risk seems more useful than a generic policy.
+This repository contains one endpoint that, when switched on, calls a paid API on the author's
+account. It is off in the published build: no endpoint URL is configured, so the site calls nothing.
+Being specific about what is and is not at risk seems more useful than a generic policy.
 
 **What an attacker can take:** Anthropic API credit, up to a limit the author sets in the console.
 That is the whole of it.
