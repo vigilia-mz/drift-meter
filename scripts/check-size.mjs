@@ -114,8 +114,18 @@ const BUDGETS = {
    * is not held behind a decision about typefaces, and the same paragraph applies to
    * it, unpaid. The font decision is still owed, and this is now the second raise
    * made in front of it.
+   *
+   * Raised to 664 KB on 26 Oct 2026 by
+   * `public/Pishtari_HumanOversight_TestableSafeguard.pdf`, a policy brief linked
+   * from the Also here list beside the editing sample, at 110.1 KB. The build goes
+   * from 546.7 KB to 657.1 KB. The argument is the editing sample's: no page requests
+   * it, a reader receives it only by following its link, and `jsGzipBytes` does not
+   * move. It does show that this total is now measuring two different things, the
+   * site a reader waits for and the documents it lends, and a separate line for
+   * files in public/ would let each number mean one thing. That is a decision about
+   * this check rather than about the brief, and it is not made here.
    */
-  totalBytes: 552 * 1024,
+  totalBytes: 664 * 1024,
 };
 
 /**

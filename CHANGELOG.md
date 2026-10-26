@@ -41,6 +41,13 @@ This file is the surviving record of them.
   542.5 KB to 546.7 KB. `scripts/check-size.mjs` gives the reason beside the number. It is the
   second raise made before the font decision that file says is owed, and the decision is still
   owed.
+- **The landing page's Also here list has a policy brief, 26 Oct 2026**: "Making 'Human Oversight' a
+  Testable Safeguard", served from this site as a PDF. It is the author's work and not part of this
+  instrument, and it changes no measure or claim the instrument makes. Before it was posted, its four
+  quotations from Anthropic's August 2026 Risk Report were checked against the report itself (pp. 62,
+  67 and 145); one had dropped a "likely" that the report places in front of the quoted words, and the
+  posted version restores it. The PDF raises the size budget to 664 KB, and `scripts/check-size.mjs`
+  gives the reason beside the number.
 
 **Why**
 
