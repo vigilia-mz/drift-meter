@@ -227,6 +227,7 @@ export function renderProtocol({
       ),
       paragraph(method.predictionsOrderNote, 'note'),
       paragraph(method.predictionsAmendment, 'note'),
+      paragraph(method.predictionsAmendmentA3, 'note'),
       paragraph(method.predictionsCaveat, 'note'),
     ].join('\n'),
   );

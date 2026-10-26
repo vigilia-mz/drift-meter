@@ -178,13 +178,14 @@ export const METHOD = {
   /**
    * Why P6 is printed before P5.
    *
-   * Not a sorting mistake. P1 to P4 are contrasts inside one reader's own two
-   * rounds; P6 and P5 both need a cohort, and P6 sits with the trap prediction it
-   * follows from rather than at the end. The order is asserted by the content
+   * Not a sorting mistake. P1 and P3 are contrasts inside one reader's own two
+   * rounds (P2 left them under A1, and A3 withdrew P4); P6 and P5 both need a
+   * cohort, and P6 sits with the trap prediction it follows from rather than at
+   * the end. The order is asserted by the content
    * invariants test so that it cannot be silently tidied into numerical sequence.
    */
   predictionsOrderNote:
-    'P6 is listed before P5 on purpose. P1, P3 and P4 are contrasts inside one reader’s own two rounds, so a single run produces both sides of each. P2 was too, until amendment A1 moved it between the arms. P6 and P5 both need a cohort — one compares readers who caught the planted error against readers who missed it, the other compares the three arms — and P6 sits here because it follows from P4 rather than because it is easier to test.',
+    'P6 is listed before P5 on purpose. P1 and P3 are contrasts inside one reader’s own two rounds, so a single run produces both sides of each. P2 was too, until amendment A1 moved it between the arms, and P4 was listed as one until amendment A3 found that one of its sides cannot be computed and withdrew it. P6 and P5 both need a cohort — one compares readers who caught the planted error against readers who missed it, the other compares the three arms — and P6 sits here because it follows from the same planted error as the withdrawn P4, rather than because it is easier to test.',
   /**
    * The amendment, on the page rather than only in the change log.
    *
@@ -196,6 +197,16 @@ export const METHOD = {
    */
   predictionsAmendment:
     'Amendment A1, 12 Oct 2026, made with n at zero and no data collected. P2 was registered as: “Fewer of the assumptions underneath the estimate are moved when a figure is already in the box,” falsified by “Revision behaviour equal or higher in the assisted round once the difference in starting points is accounted for.” Nothing in the design accounted for that difference, and it ran in the direction of the prediction. A1 made revision behaviour undefined in the round with no estimate, where moving a slider is setting a value rather than revising one, and moved P2 to a contrast between the arms, where every reader starts from the same supplied figure. The claim keeps its direction. What it gives up is the only version of P2 a single run could produce both sides of.',
+  /**
+   * The withdrawal, on the page rather than only in the change log.
+   *
+   * A3 removes a registered prediction rather than rewording one, which is the
+   * stronger change, so it is held to A1's standard: the registered P4 quoted
+   * verbatim, with the date, the reason and the state of the data.
+   * `invariants.test.ts` asserts the quotation matches what v0.10 registered.
+   */
+  predictionsAmendmentA3:
+    'Amendment A3, 26 Oct 2026, made with n at zero and no data collected. P4 was registered as: “The planted error is caught less often when the case arrives with a recommendation already selected than when it does not,” falsified by “Catch rate equal or higher with the recommendation pre-selected, or no difference once the arm is accounted for.” The design never delivers a planted error without a pre-selected recommendation. The planted error is a misstated supplied figure, so it exists only in the round with an estimate, and all three arms supply the same recommendation with it; the control round shows no recommendation and has nothing misstated, which is why the catch rate is undefined there. P4 was listed as a contrast inside one reader’s two rounds, and one side of that contrast cannot be computed. Accounting for the arm does not supply it either, because the arms vary only who the estimate is credited to. A3 withdraws P4 and registers nothing in its place: testing whether a pre-selected recommendation lowers the catch rate needs a condition this build does not run, and a claim registered now under the old number would be a different prediction. P6 stands, since it compares readers who caught the planted error with readers who missed it.',
   predictionsCaveat:
     'None of these has been tested, and none of them can be by one reader. Until the study runs, the honest status of every row is “registered”, and the most likely outcome of a first collection is that the instrument turns out to be measuring something narrower than the claim.',
 
@@ -246,7 +257,7 @@ export const METHOD = {
     'The saturation point, the two autonomy weights and the three debrief thresholds were all chosen by eye. They need calibrating against how experienced evaluators actually work these slates before any of them means anything.',
     'The control round’s sliders open at an arbitrary midpoint and the assisted round’s open at an authoritative number. Moving off those two starting points is not the same act. Amendment A1 stopped scoring the first as revision, which removes the bias from the measure and leaves the two rounds without a revision comparison between them; the raw count of sliders moved is still printed for both, and it still carries the asymmetry.',
     'One reader, one arm, one slate, one order per run. Every between-subject comparison this design is built to support needs a cohort, and there is not one.',
-    'One planted error is authored per slate, so the catch rate — the only measure here with a right answer behind it — is one observation per reader. A single observation is a coin flip, and two of the six registered predictions rest on it. The instrument now records a planted error per case rather than per slate, so more can be authored; until they are, this is the weakest denominator here.',
+    'One planted error is authored per slate, so the catch rate — the only measure here with a right answer behind it — is one observation per reader. A single observation is a coin flip, and P6 rests on it, as P4 did until amendment A3 withdrew it. The instrument now records a planted error per case rather than per slate, so more can be authored; until they are, this is the weakest denominator here.',
   ],
 
   /**
@@ -402,7 +413,7 @@ export const PRED_ROWS = [
     id: 'P4',
     claim:
       'The planted error is caught less often when the case arrives with a recommendation already selected than when it does not.',
-    test: 'Catch rate equal or higher with the recommendation pre-selected, or no difference once the arm is accounted for.',
+    test: 'Withdrawn in v0.11 by amendment A3, before any data: no condition in the design delivers a planted error without a pre-selected recommendation, so one side of this contrast cannot be computed. The registered falsifier is printed below.',
   },
   {
     id: 'P6',

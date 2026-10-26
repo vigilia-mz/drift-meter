@@ -41,6 +41,7 @@ const CONTENT = {
     predictionsColumns: { id: 'ID', claim: 'Prediction', test: 'What would falsify it' },
     predictionsOrderNote: 'An order note.',
     predictionsAmendment: 'An amendment note.',
+    predictionsAmendmentA3: 'A withdrawal note.',
     predictionsCaveat: 'A caveat.',
     provenanceHeading: '5 · Provenance',
     stimulusLead: 'A stimulus lead.',

@@ -315,8 +315,9 @@ describe('the registered predictions', () => {
    *
    * P6 sits before P5 on the published page and is preserved here. It is not a
    * sorting mistake and must not be quietly corrected into numerical sequence:
-   * P1 to P4 are contrasts inside one reader's own two rounds, and P6 sits with
-   * the trap prediction it follows from rather than at the end. The screen says
+   * P1 and P3 are contrasts inside one reader's own two rounds (P2 left them under
+   * A1, and A3 withdrew P4), and P6 sits with the trap prediction it follows from
+   * rather than at the end. The screen says
    * so; this asserts it.
    */
   const PRINTED_ORDER: readonly PredictionRow['id'][] = ['P1', 'P2', 'P3', 'P4', 'P6', 'P5'];
@@ -346,6 +347,27 @@ describe('the registered predictions', () => {
     const p2 = PRED_ROWS.find((row) => row.id === 'P2');
     expect(p2?.test).toContain('Amended in v0.10');
     expect(p2?.claim).not.toBe(REGISTERED_P2_CLAIM);
+  });
+
+  it('prints amendment A3 with the P4 it withdrew, verbatim', () => {
+    // A3 removes a registered prediction, so it is held to A1's standard: the
+    // v0.10 strings, written out rather than imported, because the row no longer
+    // carries the falsifier.
+    const REGISTERED_P4_CLAIM =
+      'The planted error is caught less often when the case arrives with a recommendation already selected than when it does not.';
+    const REGISTERED_P4_TEST =
+      'Catch rate equal or higher with the recommendation pre-selected, or no difference once the arm is accounted for.';
+    const claimQuoted = REGISTERED_P4_CLAIM.replace(/\.$/, ',');
+    expect(METHOD.predictionsAmendmentA3).toContain(`“${claimQuoted}”`);
+    expect(METHOD.predictionsAmendmentA3).toContain(`“${REGISTERED_P4_TEST}”`);
+    expect(METHOD.predictionsAmendmentA3).toContain('n at zero');
+    const p4 = PRED_ROWS.find((row) => row.id === 'P4');
+    // The claim stays as registered; only the falsifier column says it is withdrawn.
+    expect(p4?.claim).toBe(REGISTERED_P4_CLAIM);
+    expect(p4?.test).toMatch(/^Withdrawn in v0\.11 by amendment A3/);
+    // Nothing on the page may still count P4 among the contrasts a single run produces.
+    expect(METHOD.predictionsOrderNote).not.toMatch(/P1, P3 and P4 are contrasts/);
+    expect(METHOD.predictionsOrderNote).toContain('A3');
   });
 
   it('prints amendment A2 with the AI arm wording it replaced, verbatim', () => {

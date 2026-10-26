@@ -106,8 +106,16 @@ const BUDGETS = {
    * nothing a reader waits for, and `jsGzipBytes` is unchanged. That is the argument
    * already made for the fonts, and it is why the line moved rather than the sample
    * staying off the site. The font decision is still owed.
+   *
+   * Raised to 552 KB on 26 Oct 2026 by amendment A3, which withdraws P4 and prints
+   * the registered prediction with the reason beneath the table, on the protocol
+   * screen and on `protocol.html`. `main` stood at 542.5 KB and the amendment brings
+   * it to 546.7 KB. It is the 484 KB case again: a correction to a registered claim
+   * is not held behind a decision about typefaces, and the same paragraph applies to
+   * it, unpaid. The font decision is still owed, and this is now the second raise
+   * made in front of it.
    */
-  totalBytes: 544 * 1024,
+  totalBytes: 552 * 1024,
 };
 
 /**

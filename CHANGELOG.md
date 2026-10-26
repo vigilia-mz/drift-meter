@@ -8,6 +8,46 @@ Every release records what changed and why. Retractions are recorded, not delete
 Versions v0.1 through v0.5 were published from a separate repository, which has since been deleted.
 This file is the surviving record of them.
 
+## v0.11 — In progress — P4 is withdrawn before any data
+
+**What changed**
+
+- **Amendment A3: P4 is withdrawn.** Recorded as an amendment rather than a fix, because it removes
+  a registered prediction. It was made on 26 Oct 2026, with n at zero and no data collected from
+  anyone.
+  - _What was registered._ P4 read: "The planted error is caught less often when the case arrives
+    with a recommendation already selected than when it does not," falsified by "Catch rate equal or
+    higher with the recommendation pre-selected, or no difference once the arm is accounted for."
+  - _What was wrong with it._ The design never delivers a planted error without a pre-selected
+    recommendation. The planted error is a misstated supplied figure, so it exists only in the round
+    with an estimate, and all three arms supply the same recommendation with it. The control round
+    shows no recommendation and has nothing misstated, which is why the catch rate is undefined
+    there. P4 was listed as a contrast inside one reader's two rounds, and one side of that contrast
+    cannot be computed. The falsifier's appeal to the arm does not supply it either, because the arms
+    vary only who the estimate is credited to. It is the failure A1 corrected in P2, found later.
+  - _What it is now._ P4 keeps its number, its row and its registered claim. Its falsifier column
+    says it is withdrawn, and the registered falsifier is printed beneath the table with the reason.
+    No prediction replaces it: testing whether a pre-selected recommendation lowers the catch rate
+    needs a condition this build does not run, and a claim registered now under the old number would
+    be a different prediction. P6 stands, since it compares readers who caught the planted error with
+    readers who missed it.
+  - _What it costs._ P1 and P3 are now the only predictions a single run produces both sides of.
+    The catch rate is still measured in the round with an estimate, and P6 still sorts readers by it.
+  - _Where it is held._ A test holds the quotation to the v0.10 strings, holds the row's claim to
+    the registered one, and fails if the order note still counts P4 among the within-reader
+    contrasts. The order note, the catch-rate limit and the landing page's list now say the same,
+    and two code comments that had read "P1 to P4" since A1 moved P2 are corrected.
+- **The size budget is raised to 552 KB** by the amendment's own text, which brings the build from
+  542.5 KB to 546.7 KB. `scripts/check-size.mjs` gives the reason beside the number. It is the
+  second raise made before the font decision that file says is owed, and the decision is still
+  owed.
+
+**Why**
+
+- A prediction that cannot be computed cannot be falsified, and the protocol says each prediction
+  was registered with the result that would falsify it. Withdrawing one is the change most open to
+  suspicion, and the only time it is not suspect is before any data exists. n is still zero.
+
 ## v0.10 — 13 Oct 2026 — The front door claims only what it can show, and P2 is amended before any data
 
 **What changed**

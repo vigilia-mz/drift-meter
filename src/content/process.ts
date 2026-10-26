@@ -45,7 +45,7 @@ export const PROCESS = {
     {
       label: 'Version',
       value:
-        'v0.10.0, closed 13 Oct 2026, is the version to cite, by the DOI of its archived deposit. A deposit cannot contain its own DOI, so the number is recorded in CITATION.cff and the page footers after the archive is made. v0.9.0, closed 12 Oct 2026, is the version before it; the changelog below records every version and what it changed.',
+        'v0.11 is in progress. v0.10.0, closed 13 Oct 2026, is the newest closed version and the one to cite, by the DOI of its archived deposit. A deposit cannot contain its own DOI, so the number is recorded in CITATION.cff and the page footers after the archive is made. v0.9.0, closed 12 Oct 2026, is the version before it; the changelog below records every version and what it changed.',
     },
     {
       label: 'Status',
@@ -181,6 +181,13 @@ export const PROCESS = {
  * it looks like one.
  */
 export const CHANGELOG_ROWS = [
+  {
+    version: 'v0.11',
+    date: 'In progress',
+    title: 'P4 is withdrawn before any data',
+    what: 'Amendment A3 withdraws P4, the prediction that a planted error is caught less often when the case arrives with a recommendation already selected. The design never delivers a planted error without one, so one side of the contrast cannot be computed, and the arms do not supply it because they vary only who the estimate is credited to. P4 keeps its number and its registered claim, and its registered falsifier is printed beneath the predictions with the reason. Nothing replaces it, and P6 stands.',
+    why: 'A prediction that cannot be computed cannot be falsified, and the protocol says every prediction was registered with the result that would falsify it. A3 is recorded as an amendment because it changes what was registered, and it is made with n at zero, before any data the change could be fitted to.',
+  },
   {
     version: 'v0.10',
     date: '13 Oct 2026',
