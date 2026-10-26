@@ -197,6 +197,11 @@ the version to cite.
   The long essay names ChatGPT and GPT-4, the products the study it reports used, as it did when v0.9
   was written; v0.9 removed “Claude” from the site's own copy, and its test looks for that name only,
   and only in the arms.
+- **The landing page's Also here list has three more entries, 26 Oct 2026**: an editing sample,
+  served from this site as a PDF, and two other pieces of the author's work, StateDrift and Hard
+  Cases for Handing Judgment Back, which link out. None of them is part of this instrument or
+  changes a measure or a claim it makes. The PDF raised the size budget to 544 KB, and
+  `scripts/check-size.mjs` gives the reason beside the number.
 
 ## v0.9 — 12 Oct 2026 — The counts are derived, and the release records what it shipped unfinished
 

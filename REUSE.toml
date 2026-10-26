@@ -68,6 +68,20 @@ precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Megi Pishtari"
 SPDX-License-Identifier = "CC-BY-4.0"
 
+# --- Prose: other work hosted here --------------------------------------------
+#
+# The editing sample linked from the landing page is the author's, but it is not
+# part of the artifact or a note about it, so it has a block of its own. It is
+# named rather than globbed: a second document in public/ should be a decision,
+# not a match. It quotes a passage of NIST AI 100-1, a US government publication,
+# and says so on its first page; the licence is for what the author wrote around it.
+
+[[annotations]]
+path = ["public/Pishtari_TechnicalStandardLegible_NIST_edit.pdf"]
+precedence = "aggregate"
+SPDX-FileCopyrightText = "2026 Megi Pishtari"
+SPDX-License-Identifier = "CC-BY-4.0"
+
 # --- Code --------------------------------------------------------------------
 #
 # drift-meter.html is here rather than with the essay pages because it mounts the
