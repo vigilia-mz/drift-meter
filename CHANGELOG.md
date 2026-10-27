@@ -48,6 +48,14 @@ This file is the surviving record of them.
   67 and 145); one had dropped a "likely" that the report places in front of the quoted words, and the
   posted version restores it. The PDF raises the size budget to 664 KB, and `scripts/check-size.mjs`
   gives the reason beside the number.
+- **The Also here list has a second policy brief, 26 Oct 2026**: "When Should Institutions Change How
+  They Forecast?", served from this site as a PDF. It is the author's work and not part of this
+  instrument, and it changes no measure or claim the instrument makes. Before it was posted, its
+  quotations, figures and attributions were rechecked against the sources it cites. The posted
+  version narrows several claims to what those sources support, including the wording of LEAP's
+  threshold, which its question gives "as of January 9, 2026" rather than as fixed. A dated
+  postscript reports what has changed since August. The PDF raises the size budget to 906 KB,
+  and `scripts/check-size.mjs` gives the reason beside the number.
 
 **Why**
 
