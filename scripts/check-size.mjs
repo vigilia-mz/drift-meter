@@ -124,8 +124,16 @@ const BUDGETS = {
    * site a reader waits for and the documents it lends, and a separate line for
    * files in public/ would let each number mean one thing. That is a decision about
    * this check rather than about the brief, and it is not made here.
+   *
+   * Raised to 906 KB on 26 Oct 2026 by
+   * `public/Pishtari_WhenShouldInstitutionsChangeHowTheyForecast.pdf`, a second policy
+   * brief in the same list, at 242.2 KB after its two charts were re-encoded losslessly
+   * with indexed colour. The build goes from 657.1 KB to 899.7 KB. The editing sample's
+   * argument applies again, and so does the cost named above: the three documents in
+   * public/ are now 412 KB of the total, so the case for giving them their own line is
+   * stronger than it was. That decision is still not made here.
    */
-  totalBytes: 664 * 1024,
+  totalBytes: 906 * 1024,
 };
 
 /**

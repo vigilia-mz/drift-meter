@@ -70,18 +70,20 @@ SPDX-License-Identifier = "CC-BY-4.0"
 
 # --- Prose: other work hosted here --------------------------------------------
 #
-# The editing sample and the policy brief linked from the landing page are the
-# author's, but neither is part of the artifact or a note about it, so they have a
+# The editing sample and the two policy briefs linked from the landing page are the
+# author's, but none is part of the artifact or a note about it, so they have a
 # block of their own. Each is named rather than globbed: a document in public/ should
-# be a decision, not a match, and the brief was added as one on 26 Oct 2026. The
-# sample quotes a passage of NIST AI 100-1, a US government publication, and the
-# brief quotes Anthropic's published documents; each says so where it quotes, and
-# the licence is for what the author wrote around them.
+# be a decision, not a match, and each brief was added as one on 26 Oct 2026. The
+# sample quotes a passage of NIST AI 100-1, a US government publication; the oversight
+# brief quotes Anthropic's published documents; the forecasting brief quotes FRI,
+# Good Judgment and published papers. Each says so where it quotes, and the licence
+# is for what the author wrote around the quotations.
 
 [[annotations]]
 path = [
   "public/Pishtari_TechnicalStandardLegible_NIST_edit.pdf",
   "public/Pishtari_HumanOversight_TestableSafeguard.pdf",
+  "public/Pishtari_WhenShouldInstitutionsChangeHowTheyForecast.pdf",
 ]
 precedence = "aggregate"
 SPDX-FileCopyrightText = "2026 Megi Pishtari"
