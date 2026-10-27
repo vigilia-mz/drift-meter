@@ -79,7 +79,9 @@ This file is the surviving record of them.
   it. The page titles, bylines and footers, the process screen's masthead, the citation file, the
   Zenodo metadata, the licensing headers and the three PDFs now carry the new name, and
   `CITATION.cff` keeps the earlier one as an alias so that both name one author. The PDFs keep their
-  filenames, which begin `Pishtari_`, so links already given to them still resolve.
+  filenames, which begin `Pishtari_`, so links already given to them still resolve. Re-exported
+  from Word to carry the name, the two briefs come back more than twice their size, which raises
+  the size budget to 1376 KB; `scripts/check-size.mjs` gives the reason beside the number.
 
 **Why**
 

@@ -140,8 +140,17 @@ const BUDGETS = {
    * a posted sample is not held behind a smaller export, and no lossless optimiser was
    * to hand. The documents in public/ are now 496 KB of the total, and the separate
    * line for them is still not decided here.
+   *
+   * Raised to 1376 KB on 26 Oct 2026 by the author's change of name. All three PDFs
+   * were re-exported from Word to carry it, and the two briefs come back larger than
+   * the files they replace: the oversight brief from 110.1 KB to 277.2 KB and the
+   * forecasting brief from 242.2 KB to 456.5 KB. The build goes from 984.9 KB to
+   * 1366.5 KB. No page requests any of them, and
+   * `jsGzipBytes` does not move. The documents in public/ are now 877 KB of the
+   * total, more than everything else together, and this is the raise after which
+   * the separate line for them should be decided rather than deferred again.
    */
-  totalBytes: 992 * 1024,
+  totalBytes: 1376 * 1024,
 };
 
 /**
