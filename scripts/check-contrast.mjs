@@ -119,6 +119,20 @@ const TEXT = [
   { fg: '--green', bg: '--prose-bg', size: 15, where: 'inline links, .standfirst' },
   { fg: '--red', bg: '--prose-bg', size: 13, where: 'flagged sources' },
   { fg: '--blue', bg: '--prose-bg', size: 13, where: 'the control series' },
+
+  // --- The landing page's cards and dark panel: src/styles/landing.css ---
+  // The cards are --prose-card on the paper; the instrument panel and the primary
+  // button are --prose-ink-index with the paper as their text.
+  {
+    fg: '--prose-ink-index',
+    bg: '--prose-card',
+    size: 14,
+    where: '.also .t, nav pills, quiet buttons',
+  },
+  { fg: '--prose-ink-body', bg: '--prose-card', size: 15, where: '.what, .notyet p, .record dd' },
+  { fg: '--green', bg: '--prose-card', size: 13, where: '.primary, .pid, hover on a card' },
+  { fg: '--prose-bg', bg: '--prose-ink-index', size: 15, where: '.instrument, .readmore' },
+  { fg: '--green-pale', bg: '--prose-ink-index', size: 14, where: '.instrument .label' },
 ];
 
 /**
@@ -255,6 +269,7 @@ const SURFACES = [
   '--green',
   '--prose-bg',
   '--prose-card',
+  '--prose-ink-index',
 ];
 
 /**
