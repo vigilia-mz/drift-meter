@@ -3,7 +3,7 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.21887594.svg)](https://doi.org/10.5281/zenodo.21887594)
 
 **Evaluating the evaluator under AI assistance.** Instrument 01 of the Agential Drift Research
-Program, by Megi Pishtari.
+Program, by Megi Zimmermann.
 
 The Drift Meter asks what AI assistance changes in the person responsible for judging the answer:
 their attention, confidence, assumptions, tolerance for ambiguity, and willingness to revise. The

@@ -39,7 +39,7 @@ export const PROCESS = {
   mastheadRows: [
     {
       label: 'Author',
-      value: 'Megi Pishtari. Sole author, and sole responsibility for every claim on this site.',
+      value: 'Megi Zimmermann. Sole author, and sole responsibility for every claim on this site.',
     },
     { label: 'Project', value: 'Instrument 01 of the Agential Drift Research Program.' },
     {

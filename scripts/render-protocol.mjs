@@ -267,7 +267,7 @@ export function renderProtocol({
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<title>${escape(title)} — The Drift Meter — Megi Pishtari</title>
+<title>${escape(title)} — The Drift Meter — Megi Zimmermann</title>
 <meta name="description" content="The Drift Meter&rsquo;s protocol: the design, the four arms, the seven measures with their formulas and stated threats, the six predictions registered for a future study with their falsification conditions, and what this build cannot do.">
 <link rel="stylesheet" href="/src/styles/prose.css">
 </head>
@@ -280,7 +280,7 @@ export function renderProtocol({
 
     <h1>${escape(title)}</h1>
     <p class="standfirst">${escape(method.standfirst)}</p>
-    <p class="byline">Megi Pishtari</p>
+    <p class="byline">Megi Zimmermann</p>
 
     <p class="protocol-note">This page and the instrument&rsquo;s protocol screen are one text, rendered from the same module. The screen sits inside the instrument, needs JavaScript, and has no address of its own; this page is the copy that can be linked to, fetched and archived.</p>
 
@@ -304,7 +304,7 @@ ${limits}
     </div>
 
     <div class="foot">
-      Built by Megi Pishtari as part of a larger research and editorial project on AI, oversight, and what becomes of human judgment.<br>
+      Built by Megi Zimmermann as part of a larger research and editorial project on AI, oversight, and what becomes of human judgment.<br>
       <a href="https://github.com/vigilia-mz">github.com/vigilia-mz</a><br>
       Cite the version you read: v${escape(citation.version)}, ${escape(citation.date)} &mdash; <a href="https://doi.org/${escape(citation.doi)}">doi:${escape(citation.doi)}</a>. This URL serves whatever version is current; <a href="https://github.com/vigilia-mz/drift-meter/blob/main/CHANGELOG.md">the changelog</a> records every version and what changed.<br>
       Where a claim here rests on a source, <a href="https://github.com/vigilia-mz/drift-meter/blob/main/SOURCES.md">the source table</a> grades it and says how far it is pinned.
