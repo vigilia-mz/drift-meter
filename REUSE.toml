@@ -34,7 +34,7 @@
 
 version = 1
 SPDX-PackageName = "The Drift Meter"
-SPDX-PackageSupplier = "Megi Pishtari <https://github.com/vigilia-mz>"
+SPDX-PackageSupplier = "Megi Zimmermann <https://github.com/vigilia-mz>"
 SPDX-PackageDownloadLocation = "https://github.com/vigilia-mz/drift-meter"
 
 # --- Prose: the artifact -----------------------------------------------------
@@ -52,7 +52,7 @@ path = [
   "README.md",
 ]
 precedence = "aggregate"
-SPDX-FileCopyrightText = "2026 Megi Pishtari"
+SPDX-FileCopyrightText = "2026 Megi Zimmermann"
 SPDX-License-Identifier = "CC-BY-4.0"
 
 # --- Prose: notes about the artifact -----------------------------------------
@@ -65,7 +65,7 @@ path = [
   "docs/**",
 ]
 precedence = "aggregate"
-SPDX-FileCopyrightText = "2026 Megi Pishtari"
+SPDX-FileCopyrightText = "2026 Megi Zimmermann"
 SPDX-License-Identifier = "CC-BY-4.0"
 
 # --- Prose: other work hosted here --------------------------------------------
@@ -86,7 +86,7 @@ path = [
   "public/Pishtari_WhenShouldInstitutionsChangeHowTheyForecast.pdf",
 ]
 precedence = "aggregate"
-SPDX-FileCopyrightText = "2026 Megi Pishtari"
+SPDX-FileCopyrightText = "2026 Megi Zimmermann"
 SPDX-License-Identifier = "CC-BY-4.0"
 
 # --- Code --------------------------------------------------------------------
@@ -127,7 +127,7 @@ path = [
   ".prettierignore",
 ]
 precedence = "closest"
-SPDX-FileCopyrightText = "2026 Megi Pishtari"
+SPDX-FileCopyrightText = "2026 Megi Zimmermann"
 SPDX-License-Identifier = "Apache-2.0"
 
 # --- Third-party fonts -------------------------------------------------------

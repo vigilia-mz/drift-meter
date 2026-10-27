@@ -37,8 +37,10 @@ abstract: >-
   anyone, and every case figure is written for the exercise and disclosed as such.
 type: software
 authors:
-  - family-names: Pishtari
+  - family-names: Zimmermann
     given-names: Megi
+    # v0.7.0 to v0.10.0 were deposited under the author's earlier name.
+    alias: Megi Pishtari
     website: https://github.com/vigilia-mz
 repository-code: https://github.com/vigilia-mz/drift-meter
 url: https://vigilia-mz.github.io/drift-meter/

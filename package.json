@@ -4,7 +4,7 @@
   "private": true,
   "description": "The Drift Meter — Instrument 01 of the Agential Drift Research Program",
   "license": "Apache-2.0",
-  "author": "Megi Pishtari",
+  "author": "Megi Zimmermann",
   "homepage": "https://vigilia-mz.github.io/drift-meter/",
   "repository": {
     "type": "git",

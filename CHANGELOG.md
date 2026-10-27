@@ -1,7 +1,7 @@
 # The Drift Meter — changelog
 
 Instrument 01 of the Agential Drift Research Program.
-Author: Megi Pishtari (github.com/vigilia-mz). Sole author, sole responsibility for every claim.
+Author: Megi Zimmermann (github.com/vigilia-mz). Sole author, sole responsibility for every claim.
 
 Every release records what changed and why. Retractions are recorded, not deleted.
 
@@ -74,6 +74,14 @@ This file is the surviving record of them.
   author. The re-export from Word embeds more of the typeface, so the file grows from 59.7 KB to
   143.5 KB and raises the size budget to 992 KB; `scripts/check-size.mjs` gives the reason beside
   the number.
+- **The author's name is now Megi Zimmermann, 26 Oct 2026.** v0.7.0 to v0.10.0 were deposited, and
+  are cited, under the earlier name, Megi Pishtari. Those deposits cannot be changed and still carry
+  it. The page titles, bylines and footers, the process screen's masthead, the citation file, the
+  Zenodo metadata, the licensing headers and the three PDFs now carry the new name, and
+  `CITATION.cff` keeps the earlier one as an alias so that both name one author. The PDFs keep their
+  filenames, which begin `Pishtari_`, so links already given to them still resolve. Re-exported
+  from Word to carry the name, the two briefs come back more than twice their size, which raises
+  the size budget to 1376 KB; `scripts/check-size.mjs` gives the reason beside the number.
 
 **Why**
 
