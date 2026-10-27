@@ -144,6 +144,7 @@ export function Method({ containerRef, onBack, onProcess }: Props) {
         </div>
         <p class="dm-note">{METHOD.predictionsOrderNote}</p>
         <p class="dm-note">{METHOD.predictionsAmendment}</p>
+        <p class="dm-note">{METHOD.predictionsAmendmentA3}</p>
         <p class="dm-note">{METHOD.predictionsCaveat}</p>
       </section>
 
