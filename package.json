@@ -36,7 +36,7 @@
     "counts": "node scripts/counts.mjs"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.116.0",
+    "@anthropic-ai/sdk": "^0.133.0",
     "preact": "^10.29.8"
   },
   "devDependencies": {
