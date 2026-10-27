@@ -56,6 +56,24 @@ This file is the surviving record of them.
   threshold, which its question gives "as of January 9, 2026" rather than as fixed. A dated
   postscript reports what has changed since August. The PDF raises the size budget to 906 KB,
   and `scripts/check-size.mjs` gives the reason beside the number.
+- **The landing page opens with the Also here list, 26 Oct 2026, and is set as cards.** The list
+  sat below the instrument, the argument, the measures, the predictions and the corrections, so a
+  reader who came for the editing sample or a brief passed all of them to reach it. It now comes
+  first, and its first card is the editing sample. Below it the page keeps its words, its colours
+  and its order. What changed is the setting: rounded panels on the paper, the section links as
+  pills, and buttons where there were underlined links. Five text pairings the panels use are added
+  to `scripts/check-contrast.mjs`, and two of them, the paper and the pale green on the dark
+  instrument panel, had been on the page since v0.10 without being in the table.
+- **Corrected: the editing sample's second sentence dropped two of NIST's points, 26 Oct 2026.**
+  The edited version turned “AI systems, for example, may be trained on data that can change over
+  time, sometimes significantly and unexpectedly, affecting system functionality and
+  trustworthiness in ways that are hard to understand” into “An AI system’s behavior can change as
+  data shifts.” That loses that the data in question is the data the system is trained on, and the
+  same sentence kept NIST's difficulty in detecting failures and dropped its difficulty in
+  responding to them. The posted version restores both. A reader of the sample found them, not the
+  author. The re-export from Word embeds more of the typeface, so the file grows from 59.7 KB to
+  143.5 KB and raises the size budget to 992 KB; `scripts/check-size.mjs` gives the reason beside
+  the number.
 
 **Why**
 
